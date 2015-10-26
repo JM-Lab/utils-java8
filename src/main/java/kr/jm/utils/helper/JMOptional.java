@@ -59,4 +59,8 @@ public class JMOptional {
 		of(map).ifPresent(consumer);
 	}
 
+	public static Optional<String> getOptional(String string) {
+		return Optional.ofNullable(string).filter(s -> !JMString.isEmpty(s));
+	}
+
 }

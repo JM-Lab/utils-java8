@@ -5,6 +5,9 @@ import java.util.function.IntPredicate;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
+import java.util.stream.Stream;
+
+import kr.jm.utils.datastructure.JMCollections;
 
 public class JMStream {
 
@@ -39,6 +42,10 @@ public class JMStream {
 	public static <N extends Number> DoubleStream buildDoubleStream(
 			Collection<N> numberCollection) {
 		return numberCollection.stream().mapToDouble(Number::doubleValue);
+	}
+
+	public static <T> Stream<T> getReversedStream(Collection<T> collection) {
+		return JMCollections.getReversed(collection).stream();
 	}
 
 }

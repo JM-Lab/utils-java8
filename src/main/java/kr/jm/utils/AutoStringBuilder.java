@@ -11,8 +11,7 @@ public class AutoStringBuilder {
 		sb = new StringBuilder();
 	}
 
-	public AutoStringBuilder appendIfExists(
-			Object... appendingObjects) {
+	public AutoStringBuilder appendIfExists(Object... appendingObjects) {
 		for (Object object : appendingObjects)
 			if (object != null && !"".equals(object))
 				this.append(object.toString());

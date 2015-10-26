@@ -2,6 +2,7 @@ package kr.jm.utils.exception;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Supplier;
 
 import kr.jm.utils.AutoStringBuilder;
 import kr.jm.utils.helper.JMLog;
@@ -87,6 +88,12 @@ public class JMExceptionManager {
 			Exception e, String method, Object... sources) {
 		logException(log, e, method, sources);
 		return false;
+	}
+
+	public static <T> T handleExceptionAndReturn(Logger log, Exception e,
+			String method, Supplier<T> returnSupplier, Object... sources) {
+		logException(log, e, method, sources);
+		return returnSupplier.get();
 	}
 
 }

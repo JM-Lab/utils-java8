@@ -28,64 +28,64 @@ public class JMTimeUtilTest {
 	}
 
 	@Test
-		public void testChangeFormatAndTimeZone() {
-			System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME1,
-					INDEX_FORMAT, TIME_ZONE_ID));
-			assertTrue("2014.09.26".equals(JMTimeUtil.changeFormatAndTimeZone(
-					TIMESTAME1, INDEX_FORMAT, TIME_ZONE_ID)));
-			System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME2_1,
-					INDEX_FORMAT, TIME_ZONE_ID));
-			assertTrue("2014.09.26".equals(JMTimeUtil.changeFormatAndTimeZone(
-					TIMESTAME2_1, INDEX_FORMAT, TIME_ZONE_ID)));
-			System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME2,
-					INDEX_FORMAT, TIME_ZONE_ID));
-			assertTrue("2014.09.27".equals(JMTimeUtil.changeFormatAndTimeZone(
-					TIMESTAME2, INDEX_FORMAT, TIME_ZONE_ID)));
-			System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME3,
-					INDEX_FORMAT, TIME_ZONE_ID));
-			assertTrue("2014.09.27".equals(JMTimeUtil.changeFormatAndTimeZone(
-					TIMESTAME3, INDEX_FORMAT, TIME_ZONE_ID)));
-			System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME4,
-					INDEX_FORMAT, TIME_ZONE_ID));
-			assertTrue("2014.09.27".equals(JMTimeUtil.changeFormatAndTimeZone(
-					TIMESTAME4, INDEX_FORMAT, TIME_ZONE_ID)));
-			System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME5,
-					INDEX_FORMAT, TIME_ZONE_ID));
-			assertTrue("2014.09.26".equals(JMTimeUtil.changeFormatAndTimeZone(
-					TIMESTAME5, INDEX_FORMAT, TIME_ZONE_ID)));
-	
-			System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME6,
-					INDEX_FORMAT, TIME_ZONE_ID));
-			assertTrue("2014.09.26".equals(JMTimeUtil.changeFormatAndTimeZone(
-					TIMESTAME5, INDEX_FORMAT, TIME_ZONE_ID)));
-	
-			System.out.println(JMTimeUtil.getTime(timestamp,
-					JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE, ASIA_SEOUL));
-			System.out.println(JMTimeUtil.getTime(timestamp,
-					JMTimeUtil.LONG_FORMAT_WITH_TIMEZONE, ASIA_SEOUL));
-			System.out.println(JMTimeUtil.getTime(timestamp,
-					JMTimeUtil.LONG_FORMAT3_WITHOUT_TIMEZONE, ASIA_SEOUL));
-			System.out.println(JMTimeUtil.getTime(timestamp,
-					JMTimeUtil.SHORT_FORMAT_WITH_PLUS_TIMEZONE, ASIA_SEOUL));
-			System.out.println(JMTimeUtil.getTime(timestamp,
-					JMTimeUtil.SHORT_FORMAT_WITH_TIMEZONE, ASIA_SEOUL));
-			System.out.println(JMTimeUtil.getTime(timestamp,
-					JMTimeUtil.SHORT_FORMAT_WITHOUT_TIMEZONE, ASIA_SEOUL));
-	
-			long currentTimeMillis = System.currentTimeMillis();
-			System.out.println(JMTimeUtil.getTime(currentTimeMillis,
-					JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE));
-			String timeAsDefaultUtcFormat = JMTimeUtil
-					.getTimeAsDefaultUtcFormat(currentTimeMillis);
-			System.out.println(timeAsDefaultUtcFormat);
-	
-			assertTrue(JMTimeUtil.changeIsoTimestampToLong(timeAsDefaultUtcFormat) == currentTimeMillis);
-	
-			System.out.println(JMTimeUtil.changeFormatAndTimeZone(
-					timeAsDefaultUtcFormat,
-					JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE, ASIA_SEOUL));
-	
-		}
+	public void testChangeFormatAndTimeZone() {
+		System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME1,
+				INDEX_FORMAT, TIME_ZONE_ID));
+		assertTrue("2014.09.26".equals(JMTimeUtil.changeFormatAndTimeZone(
+				TIMESTAME1, INDEX_FORMAT, TIME_ZONE_ID)));
+		System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME2_1,
+				INDEX_FORMAT, TIME_ZONE_ID));
+		assertTrue("2014.09.26".equals(JMTimeUtil.changeFormatAndTimeZone(
+				TIMESTAME2_1, INDEX_FORMAT, TIME_ZONE_ID)));
+		System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME2,
+				INDEX_FORMAT, TIME_ZONE_ID));
+		assertTrue("2014.09.27".equals(JMTimeUtil.changeFormatAndTimeZone(
+				TIMESTAME2, INDEX_FORMAT, TIME_ZONE_ID)));
+		System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME3,
+				INDEX_FORMAT, TIME_ZONE_ID));
+		assertTrue("2014.09.27".equals(JMTimeUtil.changeFormatAndTimeZone(
+				TIMESTAME3, INDEX_FORMAT, TIME_ZONE_ID)));
+		System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME4,
+				INDEX_FORMAT, TIME_ZONE_ID));
+		assertTrue("2014.09.27".equals(JMTimeUtil.changeFormatAndTimeZone(
+				TIMESTAME4, INDEX_FORMAT, TIME_ZONE_ID)));
+		System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME5,
+				INDEX_FORMAT, TIME_ZONE_ID));
+		assertTrue("2014.09.26".equals(JMTimeUtil.changeFormatAndTimeZone(
+				TIMESTAME5, INDEX_FORMAT, TIME_ZONE_ID)));
+
+		System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME6,
+				INDEX_FORMAT, TIME_ZONE_ID));
+		assertTrue("2014.09.26".equals(JMTimeUtil.changeFormatAndTimeZone(
+				TIMESTAME5, INDEX_FORMAT, TIME_ZONE_ID)));
+
+		System.out.println(JMTimeUtil.getTime(timestamp,
+				JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE, ASIA_SEOUL));
+		System.out.println(JMTimeUtil.getTime(timestamp,
+				JMTimeUtil.LONG_FORMAT_WITH_TIMEZONE, ASIA_SEOUL));
+		System.out.println(JMTimeUtil.getTime(timestamp,
+				JMTimeUtil.LONG_FORMAT3_WITHOUT_TIMEZONE, ASIA_SEOUL));
+		System.out.println(JMTimeUtil.getTime(timestamp,
+				JMTimeUtil.SHORT_FORMAT_WITH_PLUS_TIMEZONE, ASIA_SEOUL));
+		System.out.println(JMTimeUtil.getTime(timestamp,
+				JMTimeUtil.SHORT_FORMAT_WITH_TIMEZONE, ASIA_SEOUL));
+		System.out.println(JMTimeUtil.getTime(timestamp,
+				JMTimeUtil.SHORT_FORMAT_WITHOUT_TIMEZONE, ASIA_SEOUL));
+
+		long currentTimeMillis = System.currentTimeMillis();
+		System.out.println(JMTimeUtil.getTime(currentTimeMillis,
+				JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE));
+		String timeAsDefaultUtcFormat = JMTimeUtil
+				.getTimeAsDefaultUtcFormat(currentTimeMillis);
+		System.out.println(timeAsDefaultUtcFormat);
+
+		assertTrue(JMTimeUtil.changeIsoTimestampToLong(timeAsDefaultUtcFormat) == currentTimeMillis);
+
+		System.out.println(JMTimeUtil.changeFormatAndTimeZone(
+				timeAsDefaultUtcFormat,
+				JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE, ASIA_SEOUL));
+
+	}
 
 	@Test
 	public void testChangeIsoTimestampInUTC() {
@@ -145,7 +145,7 @@ public class JMTimeUtilTest {
 	}
 
 	@Test
-	public void testChangeIsoTimestampToLong() throws Exception {
+	public void testChangeTimestampToLong() throws Exception {
 		String defaultLogDateFormat = "dd/MMM/yyyy:HH:mm:ss";
 		String dateString = "27/Oct/2000:09:27:09";
 		long changeTimestampStringToLong = JMTimeUtil.changeTimestampToLong(
@@ -224,19 +224,69 @@ public class JMTimeUtilTest {
 	}
 
 	@Test
-	public void testChangeISOTimestampWithMillsToWithoutMills() throws Exception {
+	public void testChangeISOTimestampWithMillsToWithoutMills()
+			throws Exception {
 		String isoTimestampString = "2015-04-28T10:30:23.032+0900";
-		System.out.println(JMTimeUtil.changeIsoTimestampToIsoInstant(isoTimestampString));
-		assertEquals("2015-04-28T01:30:23Z", JMTimeUtil.changeIsoTimestampToIsoInstant(isoTimestampString));
-		System.out.println(JMTimeUtil.changeIsoTimestampToIsoLocalDateTime(isoTimestampString));
-		assertEquals("2015-04-28T01:30:23", JMTimeUtil.changeIsoTimestampToIsoLocalDateTime(isoTimestampString));
+		System.out.println(JMTimeUtil
+				.changeIsoTimestampToIsoInstant(isoTimestampString));
+		assertEquals("2015-04-28T01:30:23Z",
+				JMTimeUtil.changeIsoTimestampToIsoInstant(isoTimestampString));
+		System.out.println(JMTimeUtil
+				.changeIsoTimestampToIsoLocalDateTime(isoTimestampString));
+		assertEquals(
+				"2015-04-28T01:30:23",
+				JMTimeUtil
+						.changeIsoTimestampToIsoLocalDateTime(isoTimestampString));
 		isoTimestampString = "2015-04-28T10:30:23.999Z";
-		System.out.println(JMTimeUtil.changeIsoTimestampToIsoInstant(isoTimestampString));
-		assertEquals("2015-04-28T10:30:23Z", JMTimeUtil.changeIsoTimestampToIsoInstant(isoTimestampString));
-		System.out.println(JMTimeUtil.changeIsoTimestampToIsoLocalDateTime(isoTimestampString));
-		assertEquals("2015-04-28T10:30:23", JMTimeUtil.changeIsoTimestampToIsoLocalDateTime(isoTimestampString));
-		
+		System.out.println(JMTimeUtil
+				.changeIsoTimestampToIsoInstant(isoTimestampString));
+		assertEquals("2015-04-28T10:30:23Z",
+				JMTimeUtil.changeIsoTimestampToIsoInstant(isoTimestampString));
+		System.out.println(JMTimeUtil
+				.changeIsoTimestampToIsoLocalDateTime(isoTimestampString));
+		assertEquals(
+				"2015-04-28T10:30:23",
+				JMTimeUtil
+						.changeIsoTimestampToIsoLocalDateTime(isoTimestampString));
+
 	}
 
+	@Test
+	public void testChangeTimestampToNewFormat() {
+		String simpleDateFormat = "yyyyMMddHHmmssSSS";
+		System.out.println(JMTimeUtil.changeTimestampToNewFormat(
+				simpleDateFormat, "20150925133631446",
+				JMTimeUtil.LONG_FORMAT1_WITH_PLUS_TIMEZONE));
+		assertEquals("2015-09-25T13:36:31.4+0900",
+				JMTimeUtil.changeTimestampToNewFormat(simpleDateFormat,
+						"20150925133631446",
+						JMTimeUtil.LONG_FORMAT1_WITH_PLUS_TIMEZONE));
+
+	}
+
+	@Test
+	public void testChangeTimestampToIsoInstant() throws Exception {
+		String simpleDateFormat = "yyyyMMddHHmmssSSS";
+		System.out.println(JMTimeUtil.changeTimestampToIsoInstant(
+				simpleDateFormat, "20150925133631446"));
+		assertEquals("2015-09-25T04:36:31Z",
+				JMTimeUtil.changeTimestampToIsoInstant(simpleDateFormat,
+						"20150925133631446"));
+	}
+
+	@Test
+	public void testChangeIsoTimestampToLong() throws Exception {
+		long timeMillis = JMTimeUtil.changeIsoTimestampToLong(
+				"2015-09-25T04:36:31", ASIA_SEOUL);
+		System.out.println(JMTimeUtil.getTimeAsDefaultUtcFormat(timeMillis));
+		assertEquals("2015-09-24T19:36:31.000Z",
+				JMTimeUtil.getTimeAsDefaultUtcFormat(timeMillis));
+		timeMillis = JMTimeUtil.changeIsoTimestampToLong(
+				"2015-09-25T04:36:31Z", ASIA_SEOUL);
+		System.out.println(JMTimeUtil.getTimeAsDefaultUtcFormat(timeMillis));
+		assertEquals("2015-09-25T04:36:31.000Z",
+				JMTimeUtil.getTimeAsDefaultUtcFormat(timeMillis));
+
+	}
 
 }

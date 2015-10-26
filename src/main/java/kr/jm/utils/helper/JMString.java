@@ -2,7 +2,6 @@ package kr.jm.utils.helper;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -72,10 +71,6 @@ public class JMString {
 
 	public static boolean isEmpty(String string) {
 		return EMPTY.equals(string);
-	}
-
-	public static Optional<String> getOptional(String string) {
-		return Optional.ofNullable(string).filter(s -> !isEmpty(s));
 	}
 
 	public static String joining(String... strings) {

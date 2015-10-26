@@ -39,13 +39,16 @@ public class JMTimeUtil {
 	private static BiFunction<String, String, Supplier<SimpleDateFormat>> newSimpleDateFormatBuilder = (
 			dateFormat, timeZoneId) -> () -> setIfTimeZoneId(
 			new SimpleDateFormat(dateFormat, Locale.US), timeZoneId);
-			
-	public static String changeIsoTimestampToIsoLocalDateTime(String isoTimestamp){
-		return changeFormatAndTimeZone(isoTimestamp, DATETIME_FORMAT_WITHOUT_TIMEZONE, UTC);
+
+	public static String changeIsoTimestampToIsoLocalDateTime(
+			String isoTimestamp) {
+		return changeFormatAndTimeZone(isoTimestamp,
+				DATETIME_FORMAT_WITHOUT_TIMEZONE, UTC);
 	}
-	
-	public static String changeIsoTimestampToIsoInstant(String isoTimestamp){
-		return changeFormatAndTimeZone(isoTimestamp, DATETIME_FORMAT_WITH_Z, UTC);
+
+	public static String changeIsoTimestampToIsoInstant(String isoTimestamp) {
+		return changeFormatAndTimeZone(isoTimestamp, DATETIME_FORMAT_WITH_Z,
+				UTC);
 	}
 
 	public static String getTime(long epochTimestamp) {
@@ -208,6 +211,20 @@ public class JMTimeUtil {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static String changeTimestampToNewFormat(String dateFormat,
+			String timestamp, String newDateFormat) {
+		return getTime(
+				changeTimestampToLong(getSimpleDateFormat(dateFormat),
+						timestamp), newDateFormat);
+	}
+
+	public static String changeTimestampToIsoInstant(String dateFormat,
+			String timestamp) {
+		return getTime(
+				changeTimestampToLong(getSimpleDateFormat(dateFormat),
+						timestamp), DATETIME_FORMAT_WITH_Z, UTC);
 	}
 
 	private static SimpleDateFormat setIfTimeZoneId(

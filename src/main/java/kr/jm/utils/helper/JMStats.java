@@ -186,7 +186,7 @@ public class JMStats {
 	private static double getPercentileValue(int targetPercentile, int size,
 			List<Double> sortedList) {
 		int index = size * adjustTargetPercentile(targetPercentile) / 100;
-		return sortedList.get(index == 0 ? 0 : index - 1);
+		return index == 0 ? 0d : sortedList.get(index - 1);
 	}
 
 	private static List<Double> sortedDoubleList(List<Number> numberList) {

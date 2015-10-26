@@ -16,7 +16,7 @@ import java.util.Properties;
 import kr.jm.utils.exception.JMExceptionManager;
 
 public class JMResources {
-	
+
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
 			.getLogger(JMResources.class);
 

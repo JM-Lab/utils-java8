@@ -1,13 +1,18 @@
 package kr.jm.utils.datastructure;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.StreamSupport;
 
 import kr.jm.utils.helper.JMOptional;
+import kr.jm.utils.helper.JMStream;
 import kr.jm.utils.helper.JMString;
 
 public class JMCollections {
@@ -45,6 +50,11 @@ public class JMCollections {
 		return Arrays.asList(objects);
 	}
 
+	public static <E> List<E> buildList(Iterable<E> iterable) {
+		return StreamSupport.stream(iterable.spliterator(), false).collect(
+				toList());
+	}
+
 	public static List<String> buildListFromCsv(String csvString) {
 		return buildList(JMArrays.buildArrayFromCsv(csvString));
 	}
@@ -59,4 +69,20 @@ public class JMCollections {
 		return buildListWithDelimeter(stringByLine, JMString.lineSeperator);
 	}
 
+	public static <E> List<List<E>> splitIntoSubList(List<E> list,
+			int targetSize) {
+		int listSize = list.size();
+		return JMStream
+				.numberRange(0, listSize, targetSize)
+				.mapToObj(
+						index -> list.subList(index,
+								Math.min(index + targetSize, listSize)))
+				.collect(toList());
+	}
+
+	public static <T> List<T> getReversed(Collection<T> collection) {
+		List<T> reversedList = new ArrayList<>(collection);
+		Collections.reverse(reversedList);
+		return reversedList;
+	}
 }

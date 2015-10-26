@@ -9,7 +9,7 @@ import java.util.List;
 import kr.jm.utils.exception.JMExceptionManager;
 
 public class JMFileIO {
-	
+
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
 			.getLogger(JMFileIO.class);
 
