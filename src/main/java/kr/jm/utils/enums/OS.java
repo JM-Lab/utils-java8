@@ -1,15 +1,26 @@
 package kr.jm.utils.enums;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Optional;
+
+import javax.swing.Icon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.filechooser.FileView;
 
 import kr.jm.utils.AutoStringBuilder;
 import kr.jm.utils.exception.JMExceptionManager;
+import kr.jm.utils.helper.JMLog;
 
 public enum OS {
 
 	WINDOWS, MAC, LINUX;
+
+	private FileView fileView;
+	private FileSystemView fileSystemView;
 
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
 			.getLogger(OS.class);
@@ -49,7 +60,7 @@ public enum OS {
 		return asb.toString();
 	}
 
-	public static OS getOs() {
+	public static OS getOS() {
 		String os = getOsName().toLowerCase();
 		if (os.contains("windows")) {
 			return WINDOWS;
@@ -61,6 +72,15 @@ public enum OS {
 	}
 
 	public boolean open(File file) {
+		try {
+			Desktop.getDesktop().open(file);
+			return true;
+		} catch (Exception e) {
+			return openAlternatively(file);
+		}
+	}
+
+	private boolean openAlternatively(File file) {
 		switch (this) {
 		case WINDOWS:
 			return open("cmd /c ", file);
@@ -74,7 +94,7 @@ public enum OS {
 	private boolean open(String runCmd, File file) {
 		try {
 			String command = runCmd + file.getAbsolutePath();
-			System.out.println("open command : " + command);
+			JMLog.logMethodStartInfo(log, "open", command);
 			Runtime.getRuntime().exec(command);
 			return true;
 		} catch (Exception e) {
@@ -102,4 +122,19 @@ public enum OS {
 		}
 	}
 
+	public Icon getIconInOS(File file) {
+		switch (this) {
+		case MAC:
+			return Optional.ofNullable(fileView).orElseGet(() -> {
+				JFileChooser jFileChooser = new JFileChooser();
+				fileView = jFileChooser.getUI().getFileView(jFileChooser);
+				return fileView;
+			}).getIcon(file);
+		default:
+			return Optional.ofNullable(fileSystemView).orElseGet(() -> {
+				fileSystemView = FileSystemView.getFileSystemView();
+				return fileSystemView;
+			}).getSystemIcon(file);
+		}
+	}
 }

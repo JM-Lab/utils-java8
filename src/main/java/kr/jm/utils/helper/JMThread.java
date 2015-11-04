@@ -35,9 +35,9 @@ public class JMThread {
 		return ((ThreadPoolExecutor) executorService).getPoolSize();
 	}
 
-	public static ExecutorService newThreadPool(int numOfThread) {
-		return numOfThread < 1 ? Executors.newCachedThreadPool() : Executors
-				.newFixedThreadPool(numOfThread);
+	public static ExecutorService newThreadPool(int numOfThreads) {
+		return numOfThreads < 1 ? Executors.newCachedThreadPool() : Executors
+				.newFixedThreadPool(numOfThreads);
 	}
 
 	public static ExecutorService newThreadPoolWithAvailableProcessors() {

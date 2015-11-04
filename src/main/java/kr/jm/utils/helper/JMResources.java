@@ -1,4 +1,4 @@
-package kr.jm.utils.io;
+package kr.jm.utils.helper;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -109,6 +109,29 @@ public class JMResources {
 			String encoding) {
 		return JMIO.readLines(getResourceInputStream(resourceClasspath),
 				encoding);
+	}
+
+	public static String getStringFromClasspathOrFilePath(
+			String resourceInClasspathOrFilePath) {
+		InputStream resourceInputStream = getResourceInputStream(resourceInClasspathOrFilePath);
+		return resourceInputStream != null ? JMIO.toString(resourceInputStream)
+				: JMFile.readString(resourceInClasspathOrFilePath);
+	}
+
+	public static String getStringFromClasspathOrFilePath(
+			String resourceInClasspathOrFilePath, String encoding) {
+		InputStream resourceInputStream = getResourceInputStream(resourceInClasspathOrFilePath);
+		return resourceInputStream != null ? JMIO.toString(resourceInputStream,
+				encoding) : JMFile.readString(resourceInClasspathOrFilePath,
+				encoding);
+	}
+
+	public static List<String> readLinesfromClasspathOrFilePath(
+			String resourceInClasspathOrFilePath) {
+		InputStream resourceInputStream = getResourceInputStream(resourceInClasspathOrFilePath);
+		return resourceInputStream != null ? JMIO
+				.readLines(resourceInputStream) : JMFile
+				.readLines(resourceInClasspathOrFilePath);
 	}
 
 }

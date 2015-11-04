@@ -19,10 +19,12 @@ public class JMString {
 
 	public static final String SPACE = " ";
 
+	public static final String DOT = ".";
+
 	public static final Pattern NUMBER_PATTERN = Pattern
 			.compile("[+-]?\\d*(\\.\\d+)?");
 
-	public static final String lineSeperator = System
+	public static final String lINE_SEPERATOR = System
 			.getProperty("line.separator");
 
 	public static boolean isNumber(String numberString) {
@@ -87,4 +89,23 @@ public class JMString {
 		return stringList.stream().collect(Collectors.joining(delimeter));
 	}
 
+	public static String[] splitFileNameIntoPreSuffix(String fileName) {
+		String[] preSuffix = { fileName, EMPTY };
+		int dotIndex = fileName.lastIndexOf(DOT);
+		if (dotIndex > 0) {
+			preSuffix[0] = fileName.substring(0, dotIndex);
+			preSuffix[1] = fileName.substring(dotIndex);
+		}
+		return preSuffix;
+	}
+
+	public static String getPrefixOfFileName(String fileName) {
+		int dotIndex = fileName.lastIndexOf(DOT);
+		return dotIndex > 0 ? fileName.substring(0, dotIndex) : fileName;
+	}
+
+	public static String getExtention(String fileName) {
+		int dotIndex = fileName.lastIndexOf(DOT);
+		return dotIndex > 0 ? fileName.substring(dotIndex) : EMPTY;
+	}
 }

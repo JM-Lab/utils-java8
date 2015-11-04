@@ -1,12 +1,14 @@
 package kr.jm.utils.exception;
 
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import kr.jm.utils.AutoStringBuilder;
 import kr.jm.utils.helper.JMLog;
-import kr.jm.utils.io.JMResources;
+import kr.jm.utils.helper.JMResources;
 
 import org.slf4j.Logger;
 
@@ -94,6 +96,11 @@ public class JMExceptionManager {
 			String method, Supplier<T> returnSupplier, Object... sources) {
 		logException(log, e, method, sources);
 		return returnSupplier.get();
+	}
+
+	public static <T> Optional<T> handleExceptionAndReturnEmptyOptioal(
+			Logger log, Exception e, String string, Path path) {
+		return Optional.empty();
 	}
 
 }

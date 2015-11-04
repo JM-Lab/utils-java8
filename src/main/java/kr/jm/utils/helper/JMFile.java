@@ -1,96 +1,111 @@
 package kr.jm.utils.helper;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileStore;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import kr.jm.utils.datastructure.JMCollections;
-import kr.jm.utils.enums.OS;
+import kr.jm.utils.exception.JMExceptionManager;
 
 public class JMFile {
 
-	public static final FileSystem FS = FileSystems.getDefault();
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+			.getLogger(JMFile.class);
 
-	public static final Predicate<? super Path> DirectoryFilter = Files::isDirectory;
-	public static final Predicate<? super Path> FileFilter = Files::isRegularFile;
-	public static final Predicate<? super Path> ExecutableFilter = Files::isExecutable;
-	public static final Predicate<? super Path> ReadableFilter = Files::isReadable;
-	public static final Predicate<? super Path> WritableFilter = Files::isWritable;
-	public static final Predicate<? super Path> SymbolicLinkFilter = Files::isSymbolicLink;
-	public static final Predicate<? super Path> HiddenFileFilter = JMFile::isHidden;
-
-	public static Path getRoot() {
-		return Paths.get("/");
+	public static boolean writeString(String inputString, File targetfile) {
+		if (!targetfile.exists()) {
+			try {
+				Files.write(targetfile.toPath(), inputString.getBytes());
+			} catch (IOException e) {
+				return JMExceptionManager.handleExceptionAndReturnFalse(log, e,
+						"writeString", inputString, targetfile);
+			}
+		}
+		return true;
 	}
 
-	public static List<FileStore> getFileStoreList() {
-		return JMCollections.buildList(FS.getFileStores());
-	}
-
-	public static List<Path> getFileStorePathList() {
-		return getFileStoreList()
-				.stream()
-				.map(Object::toString)
-				.map(toString -> toString.substring(0,
-						toString.indexOf(JMString.SPACE))).map(JMFile::getPath)
-				.collect(Collectors.toList());
-	}
-
-	public static boolean isHidden(Path path) {
+	public static String readString(File targetfile) {
 		try {
-			return Files.isHidden(path);
+			return new String(Files.readAllBytes(targetfile.toPath()));
 		} catch (IOException e) {
-			return true;
+			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+					"readString", targetfile);
 		}
 	}
 
-	public static List<Path> getRootDirectories() {
-		List<Path> rootDirectoryList = new ArrayList<Path>();
-		for (Path path : FS.getRootDirectories())
-			rootDirectoryList.add(path);
-		return rootDirectoryList;
-	}
-
-	public static Path getPath(String path) {
-		return FS.getPath(path).toAbsolutePath();
-	}
-
-	public static Path getCurrentPath() {
-		return getPath("");
-	}
-
-	public static Path getUserHome() {
-		return getPath(OS.getUserHomeDir());
-	}
-
-	public static Optional<Stream<Path>> getChildPathStreamAsOpt(Path path) {
+	public static String readString(File targetfile, String encoding) {
 		try {
-			return Optional.of(Files.walk(path, 1).skip(1));
+			return new String(Files.readAllBytes(targetfile.toPath()),
+					Charset.forName(encoding));
 		} catch (IOException e) {
-			return Optional.empty();
+			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+					"readString", targetfile);
 		}
 	}
 
-	public static Optional<Stream<Path>> getChildPathStreamAsOpt(Path path,
-			Predicate<? super Path> filter) {
-		return getChildPathStreamAsOpt(path).map(
-				stream -> stream.filter(filter));
+	public static String readString(String filePath) {
+		return readString(getFile(filePath));
 	}
 
-	public static Optional<Stream<Path>> getChildDirectoryPathStreamAsOpt(
-			Path path) {
-		return getChildPathStreamAsOpt(path).map(
-				stream -> stream.filter(DirectoryFilter));
+	public static String readString(String filePath, String encoding) {
+		return readString(getFile(filePath), encoding);
+	}
+
+	public static List<String> readLines(File targetfile) {
+		try {
+			return Files.readAllLines(targetfile.toPath());
+		} catch (IOException e) {
+			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+					"readLines", targetfile);
+		}
+	}
+
+	public static List<String> readLines(File targetfile, String encoding) {
+		try {
+			return Files.readAllLines(targetfile.toPath(),
+					Charset.forName(encoding));
+		} catch (IOException e) {
+			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+					"readLines", targetfile);
+		}
+	}
+
+	public static List<String> readLines(String filePath) {
+		return readLines(getFile(filePath));
+	}
+
+	public static List<String> readLines(String filePath, String encoding) {
+		return readLines(getFile(filePath), encoding);
+	}
+
+	private static File getFile(String filePath) {
+		return new File(filePath);
+	}
+
+	public static String getExtention(File file) {
+		return JMString.getExtention(file.getName());
+	}
+
+	public static String getPrefix(File file) {
+		return JMString.getPrefixOfFileName(file.getName());
+	}
+
+	public static String[] getPrefixSuffix(File file) {
+		return JMString.splitFileNameIntoPreSuffix(file.getName());
+	}
+
+	public static File createTempFile(File file) {
+		String[] prefixSuffix = getPrefixSuffix(file);
+		try {
+			File tempFile = File.createTempFile(prefixSuffix[0],
+					prefixSuffix[1]);
+			tempFile.deleteOnExit();
+			return tempFile;
+		} catch (Exception e) {
+			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+					"createTempFile", file);
+		}
 	}
 
 }

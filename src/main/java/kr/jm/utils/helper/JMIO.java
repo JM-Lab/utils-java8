@@ -1,4 +1,4 @@
-package kr.jm.utils.io;
+package kr.jm.utils.helper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,31 +17,6 @@ public class JMIO {
 
 	private static final String UTF_8 = "UTF-8";
 	private static final String NEW_LINE = System.getProperty("line.separator");
-
-	public static String getStringFromClasspathOrFilePath(
-			String resourceInClasspathOrFilePath) {
-		InputStream resourceInputStream = JMResources
-				.getResourceInputStream(resourceInClasspathOrFilePath);
-		return resourceInputStream != null ? JMIO.toString(resourceInputStream)
-				: JMFileIO.readString(resourceInClasspathOrFilePath);
-	}
-
-	public static String getStringFromClasspathOrFilePath(
-			String resourceInClasspathOrFilePath, String encoding) {
-		InputStream resourceInputStream = JMResources
-				.getResourceInputStream(resourceInClasspathOrFilePath);
-		return resourceInputStream != null ? JMIO.toString(resourceInputStream,
-				encoding) : JMFileIO.readString(resourceInClasspathOrFilePath,
-				encoding);
-	}
-
-	public static List<String> readLinesfromClasspathOrFilePath(
-			String resourceInClasspathOrFilePath) {
-		InputStream resourceInputStream = JMResources
-				.getResourceInputStream(resourceInClasspathOrFilePath);
-		return resourceInputStream != null ? readLines(resourceInputStream)
-				: JMFileIO.readLines(resourceInClasspathOrFilePath);
-	}
 
 	public static String toString(InputStream inputStream) {
 		return toString(inputStream, UTF_8, new StringBuilder());

@@ -19,7 +19,7 @@ public class JMCollections {
 
 	public static <T, C extends Collection<T>> void ifNotNullOrEmptyConsume(
 			C collection, Consumer<C> consumer) {
-		JMOptional.of(collection).ifPresent(consumer);
+		JMOptional.getOptional(collection).ifPresent(consumer);
 	}
 
 	public static boolean isNotNullOrEmpty(Collection<?> collection) {
@@ -66,7 +66,7 @@ public class JMCollections {
 	}
 
 	public static List<String> buildListByLine(String stringByLine) {
-		return buildListWithDelimeter(stringByLine, JMString.lineSeperator);
+		return buildListWithDelimeter(stringByLine, JMString.lINE_SEPERATOR);
 	}
 
 	public static <E> List<List<E>> splitIntoSubList(List<E> list,
