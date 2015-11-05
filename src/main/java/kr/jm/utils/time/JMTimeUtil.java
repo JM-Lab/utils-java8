@@ -17,7 +17,9 @@ import java.util.regex.Pattern;
 import kr.jm.utils.datastructure.JMMap;
 
 public class JMTimeUtil {
-	private static final String UTC_0000 = "+0000";
+
+	public static final String DefaultTimeZoneId = ZoneId.systemDefault()
+			.getId();
 	public static final String UTC = "UTC";
 	public static final String LONG_FORMAT_WITH_Z = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"; // 2014-03-21T18:31:23.000Z
 	public static final String LONG_FORMAT3_WITH_PLUS_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"; // 2014-03-21T18:31:23.000+0900
@@ -33,6 +35,8 @@ public class JMTimeUtil {
 	public static final String DATETIME_FORMAT_WITH_PLUS_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ssZ"; // 20140321183123+0900
 	public static final String DATETIME_FORMAT_WITH_Z = "yyyy-MM-dd'T'HH:mm:ss'Z'"; // 2014-03-21T18:31:23Z
 	public static final String DATETIME_FORMAT_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss"; // 2014-03-21T18:31:23
+
+	private static final String UTC_0000 = "+0000";
 	private static final Pattern isoTimestampZoneInfoPattern = Pattern
 			.compile("[\\+|\\-][0-9]{4}$");
 	private static Map<String, SimpleDateFormat> simpleDateFormatMap = new HashMap<String, SimpleDateFormat>();
@@ -128,6 +132,12 @@ public class JMTimeUtil {
 			String toBeTimeFormat, String timeZoneId) {
 		return getTime(changeIsoTimestampToLong(isoTimestamp, timeZoneId),
 				toBeTimeFormat, timeZoneId);
+	}
+
+	public static String changeFormatAndTimeZone(String isoTimestamp,
+			String toBeTimeFormat) {
+		return changeFormatAndTimeZone(isoTimestamp, toBeTimeFormat,
+				DefaultTimeZoneId);
 	}
 
 	public static long changeIsoTimestampToLong(String isoTimestamp) {
