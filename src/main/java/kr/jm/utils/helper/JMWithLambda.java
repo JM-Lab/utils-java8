@@ -60,7 +60,7 @@ public class JMWithLambda {
 			biConsumer.accept(target1, target2);
 	}
 
-	public static <T, R> R applyByBoolean(boolean bool, T target,
+	public static <T, R> R appliedByBoolean(boolean bool, T target,
 			Function<T, R> trueFunction, Function<T, R> falseFunction) {
 		return bool ? trueFunction.apply(target) : falseFunction.apply(target);
 	}
