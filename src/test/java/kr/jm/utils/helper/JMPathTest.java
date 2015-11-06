@@ -169,10 +169,9 @@ public class JMPathTest {
 	@Test
 	public void testConsumeSubFilePathsAndGetAppliedList() throws Exception {
 		Path startDirectoryPath = JMPath.getRoot();
-		List<Path> consumedList = JMPath
-				.applySubFilePathsAndGetAppliedList(startDirectoryPath, 3,
-						path -> path.toString().contains(".png"),
-						JMWithLambda::getSelf);
+		List<Path> consumedList = JMPath.applySubFilePathsAndGetAppliedList(
+				startDirectoryPath, 3,
+				path -> path.toString().contains(".png"), JMLambda::getSelf);
 		System.out.println(consumedList);
 	}
 
@@ -180,8 +179,8 @@ public class JMPathTest {
 	public void testConsumeSubFilePathsAndGetAppliedList2() throws Exception {
 		Path startDirectoryPath = JMPath.getUserHome();
 		System.out.println(JMPath.applySubFilePathsAndGetAppliedList(
-				startDirectoryPath, JMPredicate.getTrue(),
-				JMWithLambda::getSelf).size());
+				startDirectoryPath, JMPredicate.getTrue(), JMLambda::getSelf)
+				.size());
 	}
 
 	@Test

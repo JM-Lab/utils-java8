@@ -188,9 +188,8 @@ public class JMPath {
 
 	private static Stream<Path> addAndGetDirectoryStream(List<Path> pathList,
 			Stream<Path> pathStream, Predicate<Path> filter) {
-		return pathStream
-				.peek(path -> JMWithLambda.ifTureConsume(path, filter,
-						pathList::add))
+		return pathStream.peek(
+				path -> JMLambda.ifTureConsume(path, filter, pathList::add))
 				.filter(DirectoryAndNoSymbolicLinkFilter);
 	}
 
@@ -211,7 +210,7 @@ public class JMPath {
 
 	public static void consumePathList(List<Path> pathList,
 			Consumer<Path> consumer, boolean isParallel) {
-		JMWithLambda.getByBoolean(isParallel, () -> pathList.parallelStream(),
+		JMLambda.getByBoolean(isParallel, () -> pathList.parallelStream(),
 				() -> pathList.stream()).forEach(consumer);
 	}
 
@@ -247,7 +246,7 @@ public class JMPath {
 
 	public static <R> List<R> applyPathListAndGetResultList(
 			List<Path> pathList, Function<Path, R> function, boolean isParallel) {
-		return JMWithLambda
+		return JMLambda
 				.getByBoolean(isParallel, () -> pathList.parallelStream(),
 						() -> pathList.stream()).map(function)
 				.collect(toList());

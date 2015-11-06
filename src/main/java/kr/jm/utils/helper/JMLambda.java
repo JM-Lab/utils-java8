@@ -13,7 +13,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class JMWithLambda {
+public class JMLambda {
 
 	public static <T> Map<Boolean, List<T>> partitionBy(
 			Collection<T> collection, Predicate<T> predicate) {
@@ -28,7 +28,7 @@ public class JMWithLambda {
 	public static <T> void consumeByPredicate(Collection<T> collection,
 			Predicate<T> predicate, Consumer<T> trueConsumer,
 			Consumer<T> falseConsumer) {
-		collection.forEach(target -> JMWithLambda.consumeByBoolean(
+		collection.forEach(target -> JMLambda.consumeByBoolean(
 				predicate.test(target), target, trueConsumer, falseConsumer));
 	}
 
@@ -36,7 +36,7 @@ public class JMWithLambda {
 			Collection<T> collection, Predicate<T> predicate,
 			Consumer<T> trueConsumer, Consumer<T> falseConsumer) {
 		collection.parallelStream().forEach(
-				target -> JMWithLambda.consumeByBoolean(predicate.test(target),
+				target -> JMLambda.consumeByBoolean(predicate.test(target),
 						target, trueConsumer, falseConsumer));
 	}
 
