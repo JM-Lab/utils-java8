@@ -29,11 +29,13 @@ Set up pom.xml :
 * **JMCollections**
 * **JMMap**
 * **JMOptional**
+* **JMPath**
+* **JMPredicate**
 * **JMStats**
 * **JMStream**
 * **JMString**
 * **JMThread**
-* **JMWithLambda**
+* **JMLambda**
 * **JMTimeUtil**
 * **etc.**
 
