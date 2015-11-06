@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -157,19 +159,29 @@ public class JMPathTest {
 	}
 
 	@Test
-	public void testWalkSubFilePaths() throws Exception {
-		Path startDirectoryPath = JMPath.getRoot();
-		JMPath.walkSubFilePaths(startDirectoryPath, 3, path -> path.toString()
-				.contains(".png"), JMConsumer.getSOPL());
+	public void testConsumeSubFilePaths() throws Exception {
+		Path startDirectoryPath = JMPath.getUserHome();
+		List<Path> list = Collections.synchronizedList(new ArrayList<>());
+		JMPath.consumeSubFilePaths(startDirectoryPath, path -> path.toString()
+				.contains(".png"), list::add);
 	}
 
 	@Test
-	public void testWalkSubFilePathsAndGetConsumedList() throws Exception {
+	public void testConsumeSubFilePathsAndGetAppliedList() throws Exception {
 		Path startDirectoryPath = JMPath.getRoot();
-		List<Path> consumedList = JMPath.walkSubFilePathsAndGetConsumedList(
-				startDirectoryPath, 3,
-				path -> path.toString().contains(".png"), JMConsumer.getSOPL());
+		List<Path> consumedList = JMPath
+				.applySubFilePathsAndGetAppliedList(startDirectoryPath, 3,
+						path -> path.toString().contains(".png"),
+						JMWithLambda::getSelf);
 		System.out.println(consumedList);
+	}
+
+	@Test
+	public void testConsumeSubFilePathsAndGetAppliedList2() throws Exception {
+		Path startDirectoryPath = JMPath.getUserHome();
+		System.out.println(JMPath.applySubFilePathsAndGetAppliedList(
+				startDirectoryPath, JMPredicate.getTrue(),
+				JMWithLambda::getSelf).size());
 	}
 
 	@Test

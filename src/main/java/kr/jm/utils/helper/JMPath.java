@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -208,67 +209,87 @@ public class JMPath {
 		return path -> drillDown(path, maxDepth - 1, pathList, filter);
 	}
 
-	public static void walkSubFilePaths(Path startDirectoryPath, int maxDepth,
-			Predicate<Path> filter, Consumer<Path> consumer) {
-		if (maxDepth < 1)
-			return;
-		getChildPathStreamAsOpt(startDirectoryPath).ifPresent(
-				pathStream -> pathStream
-						.parallel()
-						.peek(path -> JMWithLambda.ifTureConsume(path,
-								FileFilter.and(filter), consumer))
-						.filter(DirectoryAndNoSymbolicLinkFilter)
-						.sequential()
-						.forEach(
-								path -> walkSubFilePaths(path, maxDepth - 1,
-										filter, consumer)));
+	public static void consumePathList(List<Path> pathList,
+			Consumer<Path> consumer, boolean isParallel) {
+		JMWithLambda.getByBoolean(isParallel, () -> pathList.parallelStream(),
+				() -> pathList.stream()).forEach(consumer);
 	}
 
-	public static void walkSubFilePaths(Path startDirectoryPath,
+	public static void consumePathList(List<Path> pathList,
 			Consumer<Path> consumer) {
-		walkSubFilePaths(startDirectoryPath, Integer.MAX_VALUE,
+		pathList.parallelStream().forEach(consumer);
+	}
+
+	public static void consumeSubFilePaths(Path startDirectoryPath,
+			int maxDepth, Predicate<Path> filter, Consumer<Path> consumer) {
+		consumePathList(
+				getSubFilePathList(startDirectoryPath, maxDepth, filter),
+				consumer);
+	}
+
+	public static void consumeFilePaths(Path startDirectoryPath,
+			Consumer<Path> consumer) {
+		consumeSubFilePaths(startDirectoryPath, Integer.MAX_VALUE,
 				JMPredicate.getTrue(), consumer);
 	}
 
-	public static void walkSubFilePaths(Path startDirectoryPath, int maxDepth,
-			Consumer<Path> consumer) {
-		walkSubFilePaths(startDirectoryPath, maxDepth, JMPredicate.getTrue(),
-				consumer);
+	public static void consumeSubFilePaths(Path startDirectoryPath,
+			int maxDepth, Consumer<Path> consumer) {
+		consumeSubFilePaths(startDirectoryPath, maxDepth,
+				JMPredicate.getTrue(), consumer);
 	}
 
-	public static void walkSubFilePaths(Path startDirectoryPath,
+	public static void consumeSubFilePaths(Path startDirectoryPath,
 			Predicate<Path> filter, Consumer<Path> consumer) {
-		walkSubFilePaths(startDirectoryPath, Integer.MAX_VALUE, filter,
+		consumeSubFilePaths(startDirectoryPath, Integer.MAX_VALUE, filter,
 				consumer);
 	}
 
-	public static List<Path> walkSubFilePathsAndGetConsumedList(
+	public static <R> List<R> applyPathListAndGetResultList(
+			List<Path> pathList, Function<Path, R> function, boolean isParallel) {
+		return JMWithLambda
+				.getByBoolean(isParallel, () -> pathList.parallelStream(),
+						() -> pathList.stream()).map(function)
+				.collect(toList());
+	}
+
+	public static <R> List<R> applyPathListAndGetResultList(
+			List<Path> pathList, Function<Path, R> function) {
+		return pathList.parallelStream().map(function).collect(toList());
+	}
+
+	public static <R> List<R> applySubFilePathsAndGetAppliedList(
 			Path startDirectoryPath, int maxDepth, Predicate<Path> filter,
-			Consumer<Path> consumer) {
-		List<Path> consumedList = Collections
-				.synchronizedList(new ArrayList<>());
-		walkSubFilePaths(startDirectoryPath, maxDepth, filter,
-				consumer.andThen(consumedList::add));
-		return consumedList;
+			Function<Path, R> function, boolean isParallel) {
+		return applyPathListAndGetResultList(
+				getSubFilePathList(startDirectoryPath, maxDepth, filter),
+				function, isParallel);
 	}
 
-	public static List<Path> walkSubFilePathsAndGetConsumedList(
-			Path startDirectoryPath, Consumer<Path> consumer) {
-		return walkSubFilePathsAndGetConsumedList(startDirectoryPath,
-				Integer.MAX_VALUE, JMPredicate.getTrue(), consumer);
+	public static <R> List<R> applySubFilePathsAndGetAppliedList(
+			Path startDirectoryPath, int maxDepth, Predicate<Path> filter,
+			Function<Path, R> function) {
+		return applySubFilePathsAndGetAppliedList(startDirectoryPath, maxDepth,
+				filter, function, true);
 	}
 
-	public static List<Path> walkSubFilePathsAndGetConsumedList(
-			Path startDirectoryPath, int maxDepth, Consumer<Path> consumer) {
-		return walkSubFilePathsAndGetConsumedList(startDirectoryPath, maxDepth,
-				JMPredicate.getTrue(), consumer);
+	public static <R> List<R> applySubFilePathsAndGetAppliedList(
+			Path startDirectoryPath, Function<Path, R> function) {
+		return applySubFilePathsAndGetAppliedList(startDirectoryPath,
+				Integer.MAX_VALUE, JMPredicate.getTrue(), function);
 	}
 
-	public static List<Path> walkSubFilePathsAndGetConsumedList(
+	public static <R> List<R> applySubFilePathsAndGetAppliedList(
+			Path startDirectoryPath, int maxDepth, Function<Path, R> function) {
+		return applySubFilePathsAndGetAppliedList(startDirectoryPath, maxDepth,
+				JMPredicate.getTrue(), function);
+	}
+
+	public static <R> List<R> applySubFilePathsAndGetAppliedList(
 			Path startDirectoryPath, Predicate<Path> filter,
-			Consumer<Path> consumer) {
-		return walkSubFilePathsAndGetConsumedList(startDirectoryPath,
-				Integer.MAX_VALUE, filter, consumer);
+			Function<Path, R> function) {
+		return applySubFilePathsAndGetAppliedList(startDirectoryPath,
+				Integer.MAX_VALUE, filter, function);
 	}
 
 	public static Optional<String> getFilePathExtentionAsOpt(Path path) {
@@ -293,17 +314,18 @@ public class JMPath {
 	public static Optional<Path> createTempFilePathAsOpt(Path path) {
 		String[] prefixSuffix = JMFile.getPrefixSuffix(path.toFile());
 		try {
-			Path tempFilePath = Files.createTempFile(prefixSuffix[0],
-					prefixSuffix[1]);
-			deleteOnExit(tempFilePath);
-			return Optional.of(tempFilePath);
+			return Optional
+					.of(Files.createTempFile(prefixSuffix[0], prefixSuffix[1]))
+					.filter(ExistFilter).map(JMPath::deleteOnExit);
 		} catch (Exception e) {
 			return JMExceptionManager.handleExceptionAndReturnEmptyOptioal(log,
 					e, "createTempFile", path);
 		}
 	}
 
-	public static void deleteOnExit(Path path) {
+	public static Path deleteOnExit(Path path) {
 		path.toFile().deleteOnExit();
+		return path;
 	}
+
 }
