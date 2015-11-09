@@ -301,7 +301,7 @@ public class JMPath {
 
 	private static Optional<String> getPathExtentionAsOpt(Path path,
 			Predicate<Path> filter) {
-		return JMOptional.getOptionalIfTrue(path, filter).map(Path::toString)
+		return JMOptional.getOptionalIfTrue(path, filter).map(JMPath::getLastName)
 				.map(JMString::getExtention)
 				.filter(JMPredicate.getEmpty().negate());
 	}
