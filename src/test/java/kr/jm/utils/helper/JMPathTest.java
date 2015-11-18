@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 import kr.jm.utils.datastructure.JMCollections;
 import kr.jm.utils.enums.OS;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class JMPathTest {
@@ -158,6 +159,7 @@ public class JMPathTest {
 		System.out.println(list.size());
 	}
 
+	@Ignore
 	@Test
 	public void testConsumeSubFilePaths() throws Exception {
 		Path startDirectoryPath = JMPath.getUserHome();

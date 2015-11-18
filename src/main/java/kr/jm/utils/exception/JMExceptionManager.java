@@ -1,16 +1,14 @@
 package kr.jm.utils.exception;
 
-import java.nio.file.Path;
+import kr.jm.utils.AutoStringBuilder;
+import kr.jm.utils.helper.JMLog;
+import kr.jm.utils.helper.JMResources;
+import org.slf4j.Logger;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-
-import kr.jm.utils.AutoStringBuilder;
-import kr.jm.utils.helper.JMLog;
-import kr.jm.utils.helper.JMResources;
-
-import org.slf4j.Logger;
 
 public class JMExceptionManager {
 
@@ -30,7 +28,7 @@ public class JMExceptionManager {
 	private static long errorCount = 0;
 
 	public static void logException(Logger log, Exception e, String methodName,
-			Object... params) {
+									Object... params) {
 		if (params.length > 0)
 			JMLog.logException(log, e, methodName, params);
 		else
@@ -81,25 +79,25 @@ public class JMExceptionManager {
 	}
 
 	public static <T> T handleExceptionAndReturnNull(Logger log, Exception e,
-			String method, Object... sources) {
-		logException(log, e, method, sources);
+													 String method, Object... params) {
+		logException(log, e, method, params);
 		return null;
 	}
 
 	public static boolean handleExceptionAndReturnFalse(Logger log,
-			Exception e, String method, Object... sources) {
-		logException(log, e, method, sources);
+														Exception e, String method, Object... params) {
+		logException(log, e, method, params);
 		return false;
 	}
 
 	public static <T> T handleExceptionAndReturn(Logger log, Exception e,
-			String method, Supplier<T> returnSupplier, Object... sources) {
-		logException(log, e, method, sources);
+												 String method, Supplier<T> returnSupplier, Object... params) {
+		logException(log, e, method, params);
 		return returnSupplier.get();
 	}
 
 	public static <T> Optional<T> handleExceptionAndReturnEmptyOptioal(
-			Logger log, Exception e, String string, Path path) {
+			Logger log, Exception e, String method, Object... params) {
 		return Optional.empty();
 	}
 
