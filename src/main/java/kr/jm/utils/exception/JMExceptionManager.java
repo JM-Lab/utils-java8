@@ -23,7 +23,8 @@ public class JMExceptionManager {
     private static final int maxQueueSize = new Integer(
             JMResources.getSystemProperty(ERROR_HISTORY_SIZE));
 
-    private static List<ErrorMessageHistory> errorMessageHistoryList = new LinkedList<ErrorMessageHistory>();
+    private static List<ErrorMessageHistory> errorMessageHistoryList = new
+            LinkedList<ErrorMessageHistory>();
 
     private static long errorCount = 0;
 
@@ -79,32 +80,39 @@ public class JMExceptionManager {
     }
 
     public static <T> T handleExceptionAndReturnNull(Logger log, Exception e,
-                                                     String method, Object... params) {
+                                                     String method, Object...
+                                                             params) {
         logException(log, e, method, params);
         return null;
     }
 
     public static boolean handleExceptionAndReturnFalse(Logger log,
-                                                        Exception e, String method, Object... params) {
+                                                        Exception e, String
+                                                                method,
+                                                        Object... params) {
         logException(log, e, method, params);
         return false;
     }
 
     public static <T> T handleExceptionAndReturn(Logger log, Exception e,
-                                                 String method, Supplier<T> returnSupplier, Object... params) {
+                                                 String method, Supplier<T>
+                                                         returnSupplier,
+                                                 Object... params) {
         logException(log, e, method, params);
         return returnSupplier.get();
     }
 
-    public static Object handleExceptionAndThrowRuntimeEx(Logger log, Exception e,
-                                               String method, Object... params) {
+    public static <T> T handleExceptionAndThrowRuntimeEx(Logger log,
+                                                         Exception e,
+                                                         String method,
+                                                         Object... params) {
         logException(log, e, method, params);
         throw new RuntimeException(e);
     }
 
     public static <T> Optional<T> handleExceptionAndReturnEmptyOptioal(
             Logger log, Exception e, String method, Object... params) {
-        return Optional.empty();
+        return Optional.<T>empty();
     }
 
 }
