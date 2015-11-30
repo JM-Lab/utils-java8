@@ -8,12 +8,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import javax.swing.Icon;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import javax.swing.Icon;
-
 import kr.jm.utils.datastructure.JMMap;
 import kr.jm.utils.enums.OS;
 import kr.jm.utils.helper.JMOptional;
@@ -21,63 +20,70 @@ import kr.jm.utils.helper.JMPath;
 
 public class JMIconFactory {
 
-	private static final String QUESTION = "?";
+	private OS os;
+	private String unknownFileName;
 	private Map<String, BufferedImage> bufferedImageCache;
 	private Map<String, Image> fxImageCache;
 
 	public JMIconFactory() {
+		this.os = OS.getOS();
+		this.unknownFileName = "?";
 		this.bufferedImageCache = new ConcurrentHashMap<>();
-		this.bufferedImageCache.put(QUESTION,
-				buildBufferedImageOfIconInOS(JMPath.getPath(QUESTION)));
+		BufferedImage unknownBufferedImage = buildBufferedImageOfIconInOS(
+				JMPath.getPath(unknownFileName));
+		this.bufferedImageCache.put(unknownFileName, unknownBufferedImage);
+		if (os.equals(OS.MAC))
+			this.bufferedImageCache.put("/dev",
+					buildBufferedImageOfIconInOS(JMPath.getCurrentPath()));
 		this.fxImageCache = new ConcurrentHashMap<>();
-		this.fxImageCache.put(QUESTION,
-				buildFxImage(bufferedImageCache.get(QUESTION)));
+		this.fxImageCache.put(unknownFileName,
+				buildFxImage(unknownBufferedImage));
 	}
 
-	private Function<? super String, ? extends BufferedImage> getCachedBufferedImageFunction(
+	private Function<String, BufferedImage> getCachedBufferedImageFunction(
 			Path path) {
-		Supplier<BufferedImage> newValueSupplier = () -> buildBufferedImageOfIconInOS(path);
+		Supplier<BufferedImage> newValueSupplier = () -> buildBufferedImageOfIconInOS(
+				path);
 		return key -> JMMap.getOrPutGetNew(bufferedImageCache, key,
 				newValueSupplier);
 	}
 
 	private String buildFileExtentionKey(String extention) {
-		return QUESTION + extention;
+		return unknownFileName + extention;
 	}
 
 	public BufferedImage buildBufferedImageOfIconInOS(Path path) {
-		path = JMOptional.getOptionalIfTrue(path, JMPath.ExistFilter.negate())
+		path = JMOptional.getOptionalIfTrue(path, JMPath.NotExistFilter)
 				.flatMap(JMPath::createTempFilePathAsOpt).orElse(path);
-		Icon iconInOS = OS.getOS().getIconInOS(path.toFile());
-		BufferedImage bufferedImage = new BufferedImage(
-				iconInOS.getIconWidth(), iconInOS.getIconHeight(),
-				BufferedImage.TYPE_INT_ARGB);
+		Icon iconInOS = os.getIcon(path.toFile());
+		BufferedImage bufferedImage = new BufferedImage(iconInOS.getIconWidth(),
+				iconInOS.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
 		iconInOS.paintIcon(null, bufferedImage.getGraphics(), 0, 0);
 		return bufferedImage;
 	}
 
 	public BufferedImage getCachedBufferedImageOfIconInOS(Path path) {
-		return getSpecialPathAsOpt(path).map(
-				getCachedBufferedImageFunction(path)).orElseGet(
-				() -> buildCachedBufferedImageOfFileIconInOS(path));
+		return getSpecialPathAsOpt(path)
+				.map(getCachedBufferedImageFunction(path))
+				.orElseGet(() -> buildCachedBufferedImageOfFileIconInOS(path));
 	}
 
 	private Optional<String> getSpecialPathAsOpt(Path path) {
-		return JMOptional.getOptionalIfTrue(
-				path,
-				JMPath.DirectoryFilter.or(JMPath.SymbolicLinkFilter).or(
-						JMPath.HiddenFilter)).map(Path::toString);
+		return JMOptional
+				.getOptionalIfTrue(path, JMPath.DirectoryFilter
+						.or(JMPath.SymbolicLinkFilter).or(JMPath.HiddenFilter))
+				.map(Path::toString);
 	}
 
 	private BufferedImage buildCachedBufferedImageOfFileIconInOS(Path path) {
-		return getFilePathExtentionKeyAsOpt(path).map(
-				getCachedBufferedImageFunction(path)).orElseGet(
-				() -> bufferedImageCache.get(QUESTION));
+		return getFilePathExtentionKeyAsOpt(path)
+				.map(getCachedBufferedImageFunction(path))
+				.orElseGet(() -> bufferedImageCache.get(unknownFileName));
 	}
 
 	private Optional<String> getFilePathExtentionKeyAsOpt(Path path) {
-		return JMPath.getPathExtentionAsOpt(path).map(
-				this::buildFileExtentionKey);
+		return JMPath.getPathExtentionAsOpt(path)
+				.map(this::buildFileExtentionKey);
 	}
 
 	public Image getFxImageOfIconInOS(Path path) {
@@ -86,14 +92,14 @@ public class JMIconFactory {
 	}
 
 	private Image buildCachedFxImageOfFileIconInOS(Path path) {
-		return getFilePathExtentionKeyAsOpt(path).map(
-				getCachedFxImageFunction(path)).orElseGet(
-				() -> fxImageCache.get(QUESTION));
+		return getFilePathExtentionKeyAsOpt(path)
+				.map(getCachedFxImageFunction(path))
+				.orElseGet(() -> fxImageCache.get(unknownFileName));
 	}
 
-	private Function<? super String, ? extends Image> getCachedFxImageFunction(
-			Path path) {
-		Supplier<Image> newValueSupplier = () -> buildFxImage(getCachedBufferedImageOfIconInOS(path));
+	private Function<String, Image> getCachedFxImageFunction(Path path) {
+		Supplier<Image> newValueSupplier = () -> buildFxImage(
+				getCachedBufferedImageOfIconInOS(path));
 		return key -> JMMap.getOrPutGetNew(fxImageCache, key, newValueSupplier);
 	}
 

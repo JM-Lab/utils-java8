@@ -11,7 +11,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import kr.jm.utils.exception.JMExceptionManager;
 
@@ -63,8 +65,8 @@ public class JMResources {
 	public static Properties getProperties(File propertiesFile) {
 		Properties properties = new Properties();
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(
-					propertiesFile));
+			BufferedReader reader = new BufferedReader(
+					new FileReader(propertiesFile));
 			properties.load(reader);
 			reader.close();
 		} catch (IOException e) {
@@ -74,14 +76,15 @@ public class JMResources {
 		return properties;
 	}
 
-	public static boolean saveProperties(Properties inProperties,
-			File saveFile, String comment) {
+	public static boolean saveProperties(Properties inProperties, File saveFile,
+			String comment) {
 		try {
 			if (!saveFile.exists()) {
 				saveFile.getParentFile().mkdirs();
 				saveFile.createNewFile();
 			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile));
+			BufferedWriter writer = new BufferedWriter(
+					new FileWriter(saveFile));
 			inProperties.store(writer, comment);
 			writer.close();
 			return true;
@@ -113,25 +116,37 @@ public class JMResources {
 
 	public static String getStringFromClasspathOrFilePath(
 			String resourceInClasspathOrFilePath) {
-		InputStream resourceInputStream = getResourceInputStream(resourceInClasspathOrFilePath);
+		InputStream resourceInputStream = getResourceInputStream(
+				resourceInClasspathOrFilePath);
 		return resourceInputStream != null ? JMIO.toString(resourceInputStream)
 				: JMFile.readString(resourceInClasspathOrFilePath);
 	}
 
 	public static String getStringFromClasspathOrFilePath(
 			String resourceInClasspathOrFilePath, String encoding) {
-		InputStream resourceInputStream = getResourceInputStream(resourceInClasspathOrFilePath);
-		return resourceInputStream != null ? JMIO.toString(resourceInputStream,
-				encoding) : JMFile.readString(resourceInClasspathOrFilePath,
-				encoding);
+		InputStream resourceInputStream = getResourceInputStream(
+				resourceInClasspathOrFilePath);
+		return resourceInputStream != null
+				? JMIO.toString(resourceInputStream, encoding)
+				: JMFile.readString(resourceInClasspathOrFilePath, encoding);
 	}
 
 	public static List<String> readLinesfromClasspathOrFilePath(
 			String resourceInClasspathOrFilePath) {
-		InputStream resourceInputStream = getResourceInputStream(resourceInClasspathOrFilePath);
-		return resourceInputStream != null ? JMIO
-				.readLines(resourceInputStream) : JMFile
-				.readLines(resourceInClasspathOrFilePath);
+		InputStream resourceInputStream = getResourceInputStream(
+				resourceInClasspathOrFilePath);
+		return resourceInputStream != null ? JMIO.readLines(resourceInputStream)
+				: JMFile.readLines(resourceInClasspathOrFilePath);
+	}
+
+	public static ResourceBundle getResourceBundle(String baseName) {
+		return ResourceBundle.getBundle(baseName);
+	}
+
+	public static ResourceBundle getResourceBundle(String baseName,
+			Locale targetLocale) {
+		Locale.setDefault(targetLocale);
+		return ResourceBundle.getBundle(baseName);
 	}
 
 }

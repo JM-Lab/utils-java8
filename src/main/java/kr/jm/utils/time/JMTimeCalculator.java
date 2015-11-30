@@ -20,16 +20,16 @@ public class JMTimeCalculator {
 	}
 
 	public static long getCurrentMinusTimestamp(String isoTimestampString) {
-		return getCurrentMinusTimestamp(JMTimeUtil
-				.changeIsoTimestampToLong(isoTimestampString));
+		return getCurrentMinusTimestamp(
+				JMTimeUtil.changeIsoTimestampToLong(isoTimestampString));
 	}
 
 	public static long getTimestampMinusParemeters(long targetTimestamp,
 			int numOfWeeks, int numOfDays, int numOfHours, int numOfMinutes,
 			int numOfSeconds) {
 		long sumOfParemeters = numOfWeeks * aWeek + numOfDays * aDay
-				+ numOfHours * anHour + numOfMinutes * aMinute + numOfSeconds
-				* aSecond;
+				+ numOfHours * anHour + numOfMinutes * aMinute
+				+ numOfSeconds * aSecond;
 		return targetTimestamp - sumOfParemeters;
 	}
 
@@ -54,7 +54,8 @@ public class JMTimeCalculator {
 		return targetTimestamp - numOfHours * anHour;
 	}
 
-	public static long getTimestampMinusDays(long targetTimestamp, int numOfDays) {
+	public static long getTimestampMinusDays(long targetTimestamp,
+			int numOfDays) {
 		return targetTimestamp - numOfDays * aDay;
 	}
 
@@ -73,7 +74,8 @@ public class JMTimeCalculator {
 		return targetTimestamp + numOfHours * anHour;
 	}
 
-	public static long getTimestampPlusDays(long targetTimestamp, int numOfDays) {
+	public static long getTimestampPlusDays(long targetTimestamp,
+			int numOfDays) {
 		return targetTimestamp + numOfDays * aDay;
 	}
 

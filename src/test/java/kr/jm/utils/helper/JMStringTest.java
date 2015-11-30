@@ -2,10 +2,10 @@ package kr.jm.utils.helper;
 
 import java.util.List;
 
-import kr.jm.utils.datastructure.JMCollections;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import kr.jm.utils.datastructure.JMCollections;
 
 public class JMStringTest {
 

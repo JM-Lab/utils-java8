@@ -42,7 +42,7 @@ public class JMTimeUtil {
 	private static Map<String, SimpleDateFormat> simpleDateFormatMap = new HashMap<String, SimpleDateFormat>();
 	private static BiFunction<String, String, Supplier<SimpleDateFormat>> newSimpleDateFormatBuilder = (
 			dateFormat, timeZoneId) -> () -> setIfTimeZoneId(
-			new SimpleDateFormat(dateFormat, Locale.US), timeZoneId);
+					new SimpleDateFormat(dateFormat, Locale.US), timeZoneId);
 
 	public static String changeIsoTimestampToIsoLocalDateTime(
 			String isoTimestamp) {
@@ -53,10 +53,6 @@ public class JMTimeUtil {
 	public static String changeIsoTimestampToIsoInstant(String isoTimestamp) {
 		return changeFormatAndTimeZone(isoTimestamp, DATETIME_FORMAT_WITH_Z,
 				UTC);
-	}
-
-	public static String getTime(long epochTimestamp) {
-		return getTimeAsLongFormatWithTimezone(epochTimestamp);
 	}
 
 	public static String getCurrentTimestampInUtc() {
@@ -76,11 +72,16 @@ public class JMTimeUtil {
 		return getTime(System.currentTimeMillis(), timeFormat, timeZoneId);
 	}
 
+	public static String getTime(long epochTimestamp) {
+		return getTimeAsLongFormatWithPlusTimezone(epochTimestamp);
+	}
+
 	public static String getTimeAsDefaultUtcFormat(long epochTimestamp) {
 		return getTimeInUTC(epochTimestamp, LONG_FORMAT_WITH_Z);
 	}
 
-	public static String getTimeAsLongFormatWithPlusTimezone(long epochTimestamp) {
+	public static String getTimeAsLongFormatWithPlusTimezone(
+			long epochTimestamp) {
 		return getTime(epochTimestamp, LONG_FORMAT3_WITH_PLUS_TIMEZONE);
 	}
 
@@ -88,7 +89,8 @@ public class JMTimeUtil {
 		return getTime(epochTimestamp, LONG_FORMAT_WITH_TIMEZONE);
 	}
 
-	public static String getTimeAsLongFormatWithoutTimezone(long epochTimestamp) {
+	public static String getTimeAsLongFormatWithoutTimezone(
+			long epochTimestamp) {
 		return getTime(epochTimestamp, LONG_FORMAT3_WITHOUT_TIMEZONE);
 	}
 
@@ -101,7 +103,8 @@ public class JMTimeUtil {
 		return getTime(epochTimestamp, SHORT_FORMAT_WITH_TIMEZONE);
 	}
 
-	public static String getTimeAsShortFormatWithoutTimezone(long epochTimestamp) {
+	public static String getTimeAsShortFormatWithoutTimezone(
+			long epochTimestamp) {
 		return getTime(epochTimestamp, SHORT_FORMAT_WITHOUT_TIMEZONE);
 	}
 
@@ -120,12 +123,14 @@ public class JMTimeUtil {
 
 	public static String getTime(long epochTimestamp, String timeFormat,
 			ZoneId zoneId) {
-		return ZonedDateTime.ofInstant(Instant.ofEpochMilli(epochTimestamp),
-				zoneId).format(DateTimeFormatter.ofPattern(timeFormat));
+		return ZonedDateTime
+				.ofInstant(Instant.ofEpochMilli(epochTimestamp), zoneId)
+				.format(DateTimeFormatter.ofPattern(timeFormat));
 	}
 
 	public static String changeIsoTimestampInUTC(String isoTimestamp) {
-		return getTimeAsDefaultUtcFormat(changeIsoTimestampToLong(isoTimestamp));
+		return getTimeAsDefaultUtcFormat(
+				changeIsoTimestampToLong(isoTimestamp));
 	}
 
 	public static String changeFormatAndTimeZone(String isoTimestamp,
@@ -154,14 +159,14 @@ public class JMTimeUtil {
 	private static String changeZTo0000(String isoTimestamp) {
 		int index = isoTimestamp.length() - 1;
 		char lastChar = isoTimestamp.charAt(index);
-		return lastChar == 'Z' || lastChar == 'z' ? isoTimestamp.substring(0,
-				index) + UTC_0000 : isoTimestamp;
+		return lastChar == 'Z' || lastChar == 'z'
+				? isoTimestamp.substring(0, index) + UTC_0000 : isoTimestamp;
 	}
 
 	private static String getTimeFormat(String isoTimestamp) {
 		boolean isContainsDot = isoTimestamp.contains(".");
-		boolean isContainsPlusOrMinus = isoTimestampZoneInfoPattern.matcher(
-				isoTimestamp).find();
+		boolean isContainsPlusOrMinus = isoTimestampZoneInfoPattern
+				.matcher(isoTimestamp).find();
 		int length = isoTimestamp.length();
 		if (isContainsDot && isContainsPlusOrMinus) {
 			if (length == 28)
@@ -182,8 +187,8 @@ public class JMTimeUtil {
 		} else if (!isContainsDot && isContainsPlusOrMinus && length == 24) {
 			return DATETIME_FORMAT_WITH_PLUS_TIMEZONE;
 		}
-		throw new RuntimeException("Don't Support Format ISO Timestamp!!! - "
-				+ isoTimestamp);
+		throw new RuntimeException(
+				"Don't Support Format ISO Timestamp!!! - " + isoTimestamp);
 	}
 
 	private static SimpleDateFormat getSimpleDateFormat(String dateFormat) {
@@ -208,8 +213,10 @@ public class JMTimeUtil {
 				getSimpleDateFormat(dateFormat, timeZoneId), timestamp);
 	}
 
-	public static long changeTimestampToLong(String dateFormat, String timestamp) {
-		return changeTimestampToLong(getSimpleDateFormat(dateFormat), timestamp);
+	public static long changeTimestampToLong(String dateFormat,
+			String timestamp) {
+		return changeTimestampToLong(getSimpleDateFormat(dateFormat),
+				timestamp);
 	}
 
 	public static long changeTimestampToLong(SimpleDateFormat simpleDateFormat,
@@ -225,16 +232,14 @@ public class JMTimeUtil {
 
 	public static String changeTimestampToNewFormat(String dateFormat,
 			String timestamp, String newDateFormat) {
-		return getTime(
-				changeTimestampToLong(getSimpleDateFormat(dateFormat),
-						timestamp), newDateFormat);
+		return getTime(changeTimestampToLong(getSimpleDateFormat(dateFormat),
+				timestamp), newDateFormat);
 	}
 
 	public static String changeTimestampToIsoInstant(String dateFormat,
 			String timestamp) {
-		return getTime(
-				changeTimestampToLong(getSimpleDateFormat(dateFormat),
-						timestamp), DATETIME_FORMAT_WITH_Z, UTC);
+		return getTime(changeTimestampToLong(getSimpleDateFormat(dateFormat),
+				timestamp), DATETIME_FORMAT_WITH_Z, UTC);
 	}
 
 	private static SimpleDateFormat setIfTimeZoneId(
@@ -249,31 +254,24 @@ public class JMTimeUtil {
 	public static long getTimeMillis(int year, int month, int dayOfMonth,
 			int hour, int minute, int second, int mills, String timeZoneId) {
 		return ZonedDateTime
-				.of(year,
-						month,
-						dayOfMonth,
-						hour,
-						minute,
-						second,
+				.of(year, month, dayOfMonth, hour, minute, second,
 						new Long(TimeUnit.MILLISECONDS.toNanos(mills))
-								.intValue(), ZoneId.of(timeZoneId)).toInstant()
-				.toEpochMilli();
+								.intValue(),
+						ZoneId.of(timeZoneId))
+				.toInstant().toEpochMilli();
 	}
 
 	public static long getTimeMillisWithNano(int year, int month,
 			int dayOfMonth, int hour, int minute, int second, int nanoOfSecond,
 			String timeZoneId) {
-		return ZonedDateTime
-				.of(year, month, dayOfMonth, hour, minute, second,
-						nanoOfSecond, ZoneId.of(timeZoneId)).toInstant()
-				.toEpochMilli();
+		return ZonedDateTime.of(year, month, dayOfMonth, hour, minute, second,
+				nanoOfSecond, ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
 	}
 
 	public static long getTimeMillis(int year, int month, int dayOfMonth,
 			int hour, int minute, int second, String timeZoneId) {
-		return ZonedDateTime
-				.of(year, month, dayOfMonth, hour, minute, second, 0,
-						ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
+		return ZonedDateTime.of(year, month, dayOfMonth, hour, minute, second,
+				0, ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
 	}
 
 	public static long getTimeMillis(int year, int month, int dayOfMonth,

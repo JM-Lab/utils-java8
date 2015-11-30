@@ -39,7 +39,8 @@ public class JMStats {
 		return StatsField.valueOfAlias(statsString).calStats(numberStream);
 	}
 
-	public static Number calStats(String statsString, DoubleStream numberStream) {
+	public static Number calStats(String statsString,
+			DoubleStream numberStream) {
 		return StatsField.valueOfAlias(statsString).calStats(numberStream);
 	}
 
@@ -177,8 +178,8 @@ public class JMStats {
 	public static Map<Integer, Number> getPercentileValueMap(
 			List<Integer> targetPercentileList, List<Number> numberList) {
 		List<Double> sortedDoubleList = sortedDoubleList(numberList);
-		return targetPercentileList.stream().collect(
-				toMap(percentile -> percentile,
+		return targetPercentileList.stream()
+				.collect(toMap(percentile -> percentile,
 						percentile -> getPercentileValueWithSorted(percentile,
 								sortedDoubleList)));
 	}
@@ -195,30 +196,48 @@ public class JMStats {
 	}
 
 	private static int adjustTargetPercentile(int targetPercentile) {
-		return targetPercentile < 0 ? 0 : targetPercentile > 100 ? 100
-				: targetPercentile;
+		return targetPercentile < 0 ? 0
+				: targetPercentile > 100 ? 100 : targetPercentile;
 	}
 
 	public static <N extends Number> Number min(List<N> numberList) {
-		return JMCollections.isNullOrEmpty(numberList) ? 0
-				: numberList.get(0) instanceof Integer ? numberList.stream()
-						.mapToInt(Number::intValue).min().orElse(0)
-						: numberList.get(0) instanceof Long ? numberList
-								.stream().mapToLong(Number::longValue).min()
-								.orElse(0) : numberList.stream()
-								.mapToDouble(Number::doubleValue).min()
-								.orElse(0);
+		return JMCollections
+				.isNullOrEmpty(
+						numberList)
+								? 0
+								: numberList.get(0) instanceof Integer
+										? numberList.stream()
+												.mapToInt(Number::intValue)
+												.min().orElse(0)
+										: numberList.get(0) instanceof Long
+												? numberList.stream()
+														.mapToLong(
+																Number::longValue)
+														.min().orElse(0)
+												: numberList.stream()
+														.mapToDouble(
+																Number::doubleValue)
+														.min().orElse(0);
 	}
 
 	public static <N extends Number> Number max(List<N> numberList) {
-		return JMCollections.isNullOrEmpty(numberList) ? 0
-				: numberList.get(0) instanceof Integer ? numberList.stream()
-						.mapToInt(Number::intValue).max().orElse(0)
-						: numberList.get(0) instanceof Long ? numberList
-								.stream().mapToLong(Number::longValue).max()
-								.orElse(0) : numberList.stream()
-								.mapToDouble(Number::doubleValue).max()
-								.orElse(0);
+		return JMCollections
+				.isNullOrEmpty(
+						numberList)
+								? 0
+								: numberList.get(0) instanceof Integer
+										? numberList.stream()
+												.mapToInt(Number::intValue)
+												.max().orElse(0)
+										: numberList.get(0) instanceof Long
+												? numberList.stream()
+														.mapToLong(
+																Number::longValue)
+														.max().orElse(0)
+												: numberList.stream()
+														.mapToDouble(
+																Number::doubleValue)
+														.max().orElse(0);
 	}
 
 	public static Number count(List<?> numberList) {
@@ -227,23 +246,33 @@ public class JMStats {
 
 	public static <N extends Number> Number sum(List<N> numberList) {
 		return JMCollections.isNullOrEmpty(numberList) ? 0
-				: numberList.get(0) instanceof Integer ? numberList.stream()
-						.mapToInt(Number::intValue).sum()
-						: numberList.get(0) instanceof Long ? numberList
-								.stream().mapToLong(Number::longValue).sum()
+				: numberList.get(0) instanceof Integer
+						? numberList.stream().mapToInt(Number::intValue).sum()
+						: numberList.get(0) instanceof Long
+								? numberList.stream()
+										.mapToLong(Number::longValue).sum()
 								: numberList.stream()
 										.mapToDouble(Number::doubleValue).sum();
 	}
 
 	public static <N extends Number> Number average(List<N> numberList) {
-		return JMCollections.isNullOrEmpty(numberList) ? 0
-				: numberList.get(0) instanceof Integer ? numberList.stream()
-						.mapToInt(Number::intValue).average().orElse(0)
-						: numberList.get(0) instanceof Long ? numberList
-								.stream().mapToLong(Number::longValue)
-								.average().orElse(0) : numberList.stream()
-								.mapToDouble(Number::doubleValue).average()
-								.orElse(0);
+		return JMCollections
+				.isNullOrEmpty(
+						numberList)
+								? 0
+								: numberList.get(0) instanceof Integer
+										? numberList.stream()
+												.mapToInt(Number::intValue)
+												.average().orElse(0)
+										: numberList.get(0) instanceof Long
+												? numberList.stream()
+														.mapToLong(
+																Number::longValue)
+														.average().orElse(0)
+												: numberList.stream()
+														.mapToDouble(
+																Number::doubleValue)
+														.average().orElse(0);
 	}
 
 }

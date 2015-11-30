@@ -1,8 +1,8 @@
 package kr.jm.utils;
 
-import kr.jm.utils.time.JMTimeUtil;
-
 import org.junit.Test;
+
+import kr.jm.utils.time.JMTimeUtil;
 
 public class FomatedTimeStringTest {
 

@@ -2,9 +2,9 @@ package kr.jm.utils.helper;
 
 import java.util.Collection;
 
-import kr.jm.utils.AutoStringBuilder;
-
 import org.slf4j.Logger;
+
+import kr.jm.utils.AutoStringBuilder;
 
 public class JMLog {
 
@@ -17,8 +17,8 @@ public class JMLog {
 		log.info(buildMethodLogString(methodName, params));
 	}
 
-	static public void logMethodStartInfoAndDebug(Logger log,
-			String methodName, Object... params) {
+	static public void logMethodStartInfoAndDebug(Logger log, String methodName,
+			Object... params) {
 		int length = params.length;
 		Object[] newParams = new Object[length];
 		boolean hasCollection = false;

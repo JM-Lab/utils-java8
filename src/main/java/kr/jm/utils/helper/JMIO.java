@@ -68,8 +68,8 @@ public class JMIO {
 
 	public static void consumeInputStream(InputStream inputStream,
 			String encoding, Consumer<String> consumer) {
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(
-				inputStream, encoding))) {
+		try (BufferedReader br = new BufferedReader(
+				new InputStreamReader(inputStream, encoding))) {
 			for (String line = br.readLine(); line != null; line = br
 					.readLine())
 				consumer.accept(line);

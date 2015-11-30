@@ -51,8 +51,8 @@ public class JMCollections {
 	}
 
 	public static <E> List<E> buildList(Iterable<E> iterable) {
-		return StreamSupport.stream(iterable.spliterator(), false).collect(
-				toList());
+		return StreamSupport.stream(iterable.spliterator(), false)
+				.collect(toList());
 	}
 
 	public static List<String> buildListFromCsv(String csvString) {
@@ -72,11 +72,9 @@ public class JMCollections {
 	public static <E> List<List<E>> splitIntoSubList(List<E> list,
 			int targetSize) {
 		int listSize = list.size();
-		return JMStream
-				.numberRange(0, listSize, targetSize)
-				.mapToObj(
-						index -> list.subList(index,
-								Math.min(index + targetSize, listSize)))
+		return JMStream.numberRange(0, listSize, targetSize)
+				.mapToObj(index -> list.subList(index,
+						Math.min(index + targetSize, listSize)))
 				.collect(toList());
 	}
 

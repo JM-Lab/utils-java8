@@ -36,13 +36,13 @@ public class JMThread {
 	}
 
 	public static ExecutorService newThreadPool(int numOfThreads) {
-		return numOfThreads < 1 ? Executors.newCachedThreadPool() : Executors
-				.newFixedThreadPool(numOfThreads);
+		return numOfThreads < 1 ? Executors.newCachedThreadPool()
+				: Executors.newFixedThreadPool(numOfThreads);
 	}
 
 	public static ExecutorService newThreadPoolWithAvailableProcessors() {
-		return Executors.newFixedThreadPool(Runtime.getRuntime()
-				.availableProcessors());
+		return Executors
+				.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 	}
 
 	public static void sleep(long millis) {
@@ -53,7 +53,8 @@ public class JMThread {
 		}
 	}
 
-	public static void run(final Runnable runnableWork, final long timeoutInSec) {
+	public static void run(final Runnable runnableWork,
+			final long timeoutInSec) {
 		final ExecutorService threadPool = Executors.newFixedThreadPool(2);
 		afterTimeout(timeoutInSec, threadPool, threadPool.submit(runnableWork));
 	}

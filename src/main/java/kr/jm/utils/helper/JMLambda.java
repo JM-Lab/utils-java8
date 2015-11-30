@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.partitioningBy;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -35,9 +36,10 @@ public class JMLambda {
 	public static <T> void consumeByPredicateInParallel(
 			Collection<T> collection, Predicate<T> predicate,
 			Consumer<T> trueConsumer, Consumer<T> falseConsumer) {
-		collection.parallelStream().forEach(
-				target -> JMLambda.consumeByBoolean(predicate.test(target),
-						target, trueConsumer, falseConsumer));
+		collection.parallelStream()
+				.forEach(target -> JMLambda.consumeByBoolean(
+						predicate.test(target), target, trueConsumer,
+						falseConsumer));
 	}
 
 	public static <T> void consumeByBoolean(boolean bool, T target,
@@ -74,4 +76,7 @@ public class JMLambda {
 		return input;
 	}
 
+	public static <R> R getElseIfNull(R target, Supplier<R> elseSupplier) {
+		return Optional.ofNullable(target).orElseGet(elseSupplier);
+	}
 }

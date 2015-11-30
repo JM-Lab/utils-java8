@@ -16,7 +16,8 @@ public class Destroyer {
 		cleanUp(Arrays.asList(destorys));
 	}
 
-	public static <D extends DestroyInterface> void cleanUp(List<D> destroyList) {
+	public static <D extends DestroyInterface> void cleanUp(
+			List<D> destroyList) {
 		for (DestroyInterface destroy : destroyList) {
 			try {
 				JMThread.sleep(10);

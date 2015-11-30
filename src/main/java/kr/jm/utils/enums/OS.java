@@ -4,6 +4,8 @@ import java.awt.Desktop;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.swing.Icon;
@@ -12,6 +14,7 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileView;
 
 import kr.jm.utils.AutoStringBuilder;
+import kr.jm.utils.datastructure.JMCollections;
 import kr.jm.utils.exception.JMExceptionManager;
 import kr.jm.utils.helper.JMLog;
 
@@ -19,8 +22,8 @@ public enum OS {
 
 	WINDOWS, MAC, LINUX;
 
-	private FileView fileView;
-	private FileSystemView fileSystemView;
+	private static FileView fileView;
+	private static FileSystemView fileSystemView;
 
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
 			.getLogger(OS.class);
@@ -122,19 +125,71 @@ public enum OS {
 		}
 	}
 
-	public Icon getIconInOS(File file) {
+	private static FileSystemView getFileSystemView() {
+		return Optional.ofNullable(fileSystemView).orElseGet(() -> {
+			fileSystemView = FileSystemView.getFileSystemView();
+			return fileSystemView;
+		});
+	}
+
+	private static FileView getFileView() {
+		return Optional.ofNullable(fileView).orElseGet(() -> {
+			JFileChooser jFileChooser = new JFileChooser();
+			fileView = jFileChooser.getUI().getFileView(jFileChooser);
+			return fileView;
+		});
+	}
+
+	public Icon getIcon(File file) {
 		switch (this) {
 		case MAC:
-			return Optional.ofNullable(fileView).orElseGet(() -> {
-				JFileChooser jFileChooser = new JFileChooser();
-				fileView = jFileChooser.getUI().getFileView(jFileChooser);
-				return fileView;
-			}).getIcon(file);
+			return getFileView().getIcon(file);
 		default:
-			return Optional.ofNullable(fileSystemView).orElseGet(() -> {
-				fileSystemView = FileSystemView.getFileSystemView();
-				return fileSystemView;
-			}).getSystemIcon(file);
+			return getFileSystemView().getSystemIcon(file);
 		}
 	}
+
+	public String getFileName(File file) {
+		switch (this) {
+		case MAC:
+			return getFileView().getName(file);
+		default:
+			return getFileSystemView().getSystemDisplayName(file);
+		}
+	}
+
+	public String getFileTypeDescription(File file) {
+		switch (this) {
+		case MAC:
+			return getFileView().getTypeDescription(file);
+		default:
+			return getFileSystemView().getSystemTypeDescription(file);
+		}
+	}
+
+	public List<File> getRootFileList() {
+		switch (this) {
+		case MAC:
+			List<File> fileList = new ArrayList<>();
+			fileList.add(getDefaultDirctoryFile());
+			Optional.ofNullable(new File("/Volumes").listFiles())
+					.map(JMCollections::buildList).ifPresent(fileList::addAll);
+			return fileList;
+		default:
+			return JMCollections.buildList(getFileSystemView().getRoots());
+		}
+	}
+
+	public static String getFileDescription(File file) {
+		return getFileView().getDescription(file);
+	}
+
+	public static File getHomeDirctoryFile() {
+		return getFileSystemView().getHomeDirectory();
+	}
+
+	public static File getDefaultDirctoryFile() {
+		return getFileSystemView().getDefaultDirectory();
+	}
+
 }

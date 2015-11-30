@@ -16,7 +16,7 @@ public class JMOptional {
 
 	public static <T> Optional<T> getOptionalIfTrue(T target,
 			Predicate<T> predicate) {
-		return Optional.ofNullable(target).filter(predicate);
+		return Optional.<T> ofNullable(target).filter(predicate);
 	}
 
 	public static <T, R> Optional<R> getOptionalIfExist(Optional<T> optional,
@@ -48,16 +48,16 @@ public class JMOptional {
 
 	public static <T, C extends Collection<T>> Optional<C> getOptional(
 			C collection) {
-		return Optional.ofNullable(collection).filter(c -> c.size() > 0);
+		return Optional.<C> ofNullable(collection).filter(c -> c.size() > 0);
 	}
 
 	public static <K, V, M extends Map<K, V>> Optional<M> getOptional(M map) {
-		return Optional.ofNullable(map).filter(m -> m.size() > 0);
+		return Optional.<M> ofNullable(map).filter(m -> m.size() > 0);
 	}
 
 	public static <K, V, M extends Map<K, V>> Optional<V> getOptional(M map,
 			K key) {
-		return Optional.ofNullable(map.get(key));
+		return Optional.<V> ofNullable(map.get(key));
 	}
 
 	public static <E, T extends Collection<E>> void ifExist(T collection,

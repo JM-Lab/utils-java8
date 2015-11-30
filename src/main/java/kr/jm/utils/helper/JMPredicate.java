@@ -101,4 +101,12 @@ public class JMPredicate {
 		return string -> string.matches(regex);
 	}
 
+	public static <T> Predicate<T> getNull() {
+		return target -> target == null;
+	}
+
+	public static <T> Predicate<T> getNotNull() {
+		return target -> target != null;
+	}
+
 }

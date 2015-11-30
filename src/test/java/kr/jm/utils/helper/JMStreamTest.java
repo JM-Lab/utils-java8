@@ -19,8 +19,8 @@ public class JMStreamTest {
 	public void testGetReversedStream() throws Exception {
 		Integer[] ints = { 1, 3, 2, 4, 5 };
 		List<Integer> sourceList = Arrays.asList(ints);
-		System.out.println(JMStream.getReversedStream(sourceList).collect(
-				toList()));
+		System.out.println(
+				JMStream.getReversedStream(sourceList).collect(toList()));
 		assertEquals("[5, 4, 2, 3, 1]", JMStream.getReversedStream(sourceList)
 				.collect(toList()).toString());
 		System.out.println(sourceList);
