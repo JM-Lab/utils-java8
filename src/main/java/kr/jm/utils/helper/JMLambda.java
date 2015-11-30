@@ -16,8 +16,8 @@ import java.util.function.Supplier;
 
 public class JMLambda {
 
-	public static <T> Map<Boolean, List<T>> partitionBy(
-			Collection<T> collection, Predicate<T> predicate) {
+	public static <T> Map<Boolean, List<T>>
+			partitionBy(Collection<T> collection, Predicate<T> predicate) {
 		return collection.stream().collect(partitioningBy(predicate));
 	}
 
@@ -50,13 +50,13 @@ public class JMLambda {
 			falseConsumer.accept(target);
 	}
 
-	public static <T> void ifTureConsume(T target, Predicate<T> targetTester,
+	public static <T> void consumeIfTure(T target, Predicate<T> targetTester,
 			Consumer<T> consumer) {
 		if (targetTester.test(target))
 			consumer.accept(target);
 	}
 
-	public static <T, U> void ifTureConsume(T target1, U target2,
+	public static <T, U> void consumeIfTure(T target1, U target2,
 			BiPredicate<T, U> targetTester, BiConsumer<T, U> biConsumer) {
 		if (targetTester.test(target1, target2))
 			biConsumer.accept(target1, target2);
@@ -79,4 +79,15 @@ public class JMLambda {
 	public static <R> R getElseIfNull(R target, Supplier<R> elseSupplier) {
 		return Optional.ofNullable(target).orElseGet(elseSupplier);
 	}
+
+	public static boolean getTrueAfterRunning(Runnable block) {
+		block.run();
+		return true;
+	}
+
+	public static boolean getFalseAfterRunning(Runnable block) {
+		block.run();
+		return false;
+	}
+
 }

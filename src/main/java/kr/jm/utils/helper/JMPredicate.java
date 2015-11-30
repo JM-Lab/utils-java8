@@ -10,11 +10,15 @@ import java.util.function.Predicate;
 public class JMPredicate {
 
 	public static <T> Predicate<T> getTrue() {
-		return b -> TRUE;
+		return target -> TRUE;
 	}
 
 	public static <T> Predicate<T> getFalse() {
-		return b -> FALSE;
+		return target -> FALSE;
+	}
+
+	public static <T> Predicate<T> getBoolean(boolean bool) {
+		return target -> bool;
 	}
 
 	public static Predicate<Number> getGreater(Number target) {

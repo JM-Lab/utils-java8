@@ -183,7 +183,7 @@ public class JMPath {
 	private static Stream<Path> addAndGetDirectoryStream(List<Path> pathList,
 			Stream<Path> pathStream, Predicate<Path> filter) {
 		return pathStream
-				.peek(path -> JMLambda.ifTureConsume(path, filter,
+				.peek(path -> JMLambda.consumeIfTure(path, filter,
 						pathList::add))
 				.filter(DirectoryAndNoSymbolicLinkFilter);
 	}
