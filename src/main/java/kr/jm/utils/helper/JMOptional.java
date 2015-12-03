@@ -31,23 +31,25 @@ public class JMOptional {
 				.map(t2 -> returnBuilderFunction.apply(t1, t2)));
 	}
 
-	public static <T, C extends Collection<T>, R> Optional<R> getOptionalIfExist(
-			C collection, Function<C, R> returnBuilderFunction) {
+	public static <T, C extends Collection<T>, R> Optional<R>
+			getOptionalIfExist(C collection,
+					Function<C, R> returnBuilderFunction) {
 		return getOptional(collection).map(returnBuilderFunction);
 	}
 
-	public static <K, V, M extends Map<K, V>, R> Optional<R> getOptionalIfExist(
-			M map, Function<M, R> returnBuilderFunction) {
+	public static <K, V, M extends Map<K, V>, R> Optional<R>
+			getOptionalIfExist(M map, Function<M, R> returnBuilderFunction) {
 		return getOptional(map).map(returnBuilderFunction);
 	}
 
-	public static <K, V, M extends Map<K, V>, R> Optional<R> getValueAsOptIfExist(
-			Map<K, V> map, K key, Function<V, R> returnBuilderFunction) {
+	public static <K, V, M extends Map<K, V>, R> Optional<R>
+			getValueAsOptIfExist(Map<K, V> map, K key,
+					Function<V, R> returnBuilderFunction) {
 		return getOptional(map, key).map(returnBuilderFunction::apply);
 	}
 
-	public static <T, C extends Collection<T>> Optional<C> getOptional(
-			C collection) {
+	public static <T, C extends Collection<T>> Optional<C>
+			getOptional(C collection) {
 		return Optional.<C> ofNullable(collection).filter(c -> c.size() > 0);
 	}
 

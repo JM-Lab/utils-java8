@@ -29,18 +29,18 @@ public class JMStream {
 				.limit((end - start) / interval + 1).filter(predicate);
 	}
 
-	public static <N extends Number> IntStream buildIntStream(
-			Collection<N> numberCollection) {
+	public static <N extends Number> IntStream
+			buildIntStream(Collection<N> numberCollection) {
 		return numberCollection.stream().mapToInt(Number::intValue);
 	}
 
-	public static <N extends Number> LongStream buildLongStream(
-			Collection<N> numberCollection) {
+	public static <N extends Number> LongStream
+			buildLongStream(Collection<N> numberCollection) {
 		return numberCollection.stream().mapToLong(Number::longValue);
 	}
 
-	public static <N extends Number> DoubleStream buildDoubleStream(
-			Collection<N> numberCollection) {
+	public static <N extends Number> DoubleStream
+			buildDoubleStream(Collection<N> numberCollection) {
 		return numberCollection.stream().mapToDouble(Number::doubleValue);
 	}
 

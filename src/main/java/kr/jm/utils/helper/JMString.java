@@ -21,11 +21,11 @@ public class JMString {
 
 	public static final String DOT = ".";
 
-	public static final Pattern NUMBER_PATTERN = Pattern
-			.compile("[+-]?\\d*(\\.\\d+)?");
+	public static final Pattern NUMBER_PATTERN =
+			Pattern.compile("[+-]?\\d+(\\.\\d+)?");
 
-	public static final String lINE_SEPERATOR = System
-			.getProperty("line.separator");
+	public static final String lINE_SEPERATOR =
+			System.getProperty("line.separator");
 
 	public static boolean isNumber(String numberString) {
 		return NUMBER_PATTERN.matcher(numberString).matches();

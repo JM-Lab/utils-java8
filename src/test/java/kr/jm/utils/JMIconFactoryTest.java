@@ -102,8 +102,8 @@ public class JMIconFactoryTest extends Application {
 							setGraphic(null);
 							setText(null);
 						} else {
-							ImageView imageView = iconFactory
-									.getImageViewOfIconInOS(item);
+							ImageView imageView =
+									iconFactory.getImageViewOfIconInOS(item);
 							setGraphic(imageView);
 							setText(JMPath.getPathNameInOS(item));
 						}
@@ -130,8 +130,8 @@ public class JMIconFactoryTest extends Application {
 							setGraphic(null);
 							setText(null);
 						} else {
-							ImageView imageView = iconFactory
-									.getImageViewOfIconInOS(item);
+							ImageView imageView =
+									iconFactory.getImageViewOfIconInOS(item);
 							setGraphic(imageView);
 							setText(JMPath.getLastName(item));
 						}
@@ -183,8 +183,8 @@ public class JMIconFactoryTest extends Application {
 				setGraphic(null);
 				setText(null);
 			} else {
-				Image fxImage = iconFactory
-						.getFxImageOfIconInOS(JMPath.getPath(item));
+				Image fxImage =
+						iconFactory.getFxImageOfIconInOS(JMPath.getPath(item));
 				ImageView imageView = new ImageView(fxImage);
 				setGraphic(imageView);
 				setText(item);

@@ -75,8 +75,8 @@ public class JMTimeUtilTest {
 		long currentTimeMillis = System.currentTimeMillis();
 		System.out.println(JMTimeUtil.getTime(currentTimeMillis,
 				JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE));
-		String timeAsDefaultUtcFormat = JMTimeUtil
-				.getTimeAsDefaultUtcFormat(currentTimeMillis);
+		String timeAsDefaultUtcFormat =
+				JMTimeUtil.getTimeAsDefaultUtcFormat(currentTimeMillis);
 		System.out.println(timeAsDefaultUtcFormat);
 
 		assertTrue(JMTimeUtil.changeIsoTimestampToLong(
@@ -130,8 +130,8 @@ public class JMTimeUtilTest {
 
 	@Test
 	public void testGetTimeMillis() {
-		long timeMillis = JMTimeUtil.getTimeMillis(2015, 4, 16, 00, 2, 00,
-				"Asia/Seoul");
+		long timeMillis =
+				JMTimeUtil.getTimeMillis(2015, 4, 16, 00, 2, 00, "Asia/Seoul");
 		System.out.println(timeMillis);
 		System.out.println(JMTimeUtil.getTime(timeMillis));
 		System.out.println(JMTimeUtil.getTimeAsDefaultUtcFormat(timeMillis));

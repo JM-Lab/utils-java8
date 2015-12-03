@@ -24,8 +24,8 @@ import kr.jm.utils.exception.JMExceptionManager;
 
 public class JMPath {
 
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
-			.getLogger(JMPath.class);
+	private static final org.slf4j.Logger log =
+			org.slf4j.LoggerFactory.getLogger(JMPath.class);
 
 	private static final OS OS = kr.jm.utils.enums.OS.getOS();
 
@@ -35,12 +35,13 @@ public class JMPath {
 	public static final Predicate<Path> ExecutableFilter = Files::isExecutable;
 	public static final Predicate<Path> ReadableFilter = Files::isReadable;
 	public static final Predicate<Path> WritableFilter = Files::isWritable;
-	public static final Predicate<Path> SymbolicLinkFilter = Files::isSymbolicLink;
+	public static final Predicate<Path> SymbolicLinkFilter =
+			Files::isSymbolicLink;
 	public static final Predicate<Path> HiddenFilter = JMPath::isHidden;
 	public static final Predicate<Path> NotExistFilter = Files::notExists;
 	public static final Predicate<Path> ExistFilter = Files::exists;
-	public static final Predicate<Path> DirectoryAndNoSymbolicLinkFilter = DirectoryFilter
-			.and(SymbolicLinkFilter.negate());
+	public static final Predicate<Path> DirectoryAndNoSymbolicLinkFilter =
+			DirectoryFilter.and(SymbolicLinkFilter.negate());
 
 	public static List<FileStore> getFileStoreList() {
 		return JMCollections.buildList(FS.getFileStores());

@@ -14,8 +14,8 @@ import java.util.function.Supplier;
 
 public class JMThread {
 
-	public static BlockingQueue<Runnable> getThreadQueue(
-			ExecutorService executorService) {
+	public static BlockingQueue<Runnable>
+			getThreadQueue(ExecutorService executorService) {
 		return ((ThreadPoolExecutor) executorService).getQueue();
 	}
 

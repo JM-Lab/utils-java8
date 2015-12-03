@@ -7,8 +7,8 @@ import kr.jm.utils.helper.JMString;
 
 public class JMArrays {
 
-	public static <E> E[] buildArray(
-			@SuppressWarnings("unchecked") E... objects) {
+	public static <E> E[]
+			buildArray(@SuppressWarnings("unchecked") E... objects) {
 		return objects;
 	}
 

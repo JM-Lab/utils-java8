@@ -29,8 +29,8 @@ public class JMIconFactory {
 		this.os = OS.getOS();
 		this.unknownFileName = "?";
 		this.bufferedImageCache = new ConcurrentHashMap<>();
-		BufferedImage unknownBufferedImage = buildBufferedImageOfIconInOS(
-				JMPath.getPath(unknownFileName));
+		BufferedImage unknownBufferedImage =
+				buildBufferedImageOfIconInOS(JMPath.getPath(unknownFileName));
 		this.bufferedImageCache.put(unknownFileName, unknownBufferedImage);
 		if (os.equals(OS.MAC))
 			this.bufferedImageCache.put("/dev",
@@ -40,10 +40,10 @@ public class JMIconFactory {
 				buildFxImage(unknownBufferedImage));
 	}
 
-	private Function<String, BufferedImage> getCachedBufferedImageFunction(
-			Path path) {
-		Supplier<BufferedImage> newValueSupplier = () -> buildBufferedImageOfIconInOS(
-				path);
+	private Function<String, BufferedImage>
+			getCachedBufferedImageFunction(Path path) {
+		Supplier<BufferedImage> newValueSupplier =
+				() -> buildBufferedImageOfIconInOS(path);
 		return key -> JMMap.getOrPutGetNew(bufferedImageCache, key,
 				newValueSupplier);
 	}
@@ -98,8 +98,8 @@ public class JMIconFactory {
 	}
 
 	private Function<String, Image> getCachedFxImageFunction(Path path) {
-		Supplier<Image> newValueSupplier = () -> buildFxImage(
-				getCachedBufferedImageOfIconInOS(path));
+		Supplier<Image> newValueSupplier =
+				() -> buildFxImage(getCachedBufferedImageOfIconInOS(path));
 		return key -> JMMap.getOrPutGetNew(fxImageCache, key, newValueSupplier);
 	}
 

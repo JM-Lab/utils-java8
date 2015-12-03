@@ -19,12 +19,13 @@ public class JMExceptionManager {
 		JMResources.setSystemPropertyIfIsNull(ERROR_HISTORY_SIZE, 500);
 	}
 
-	private static final String LINE_SEPARATOR = System
-			.getProperty("line.separator");
-	private static final int maxQueueSize = new Integer(
-			JMResources.getSystemProperty(ERROR_HISTORY_SIZE));
+	private static final String LINE_SEPARATOR =
+			System.getProperty("line.separator");
+	private static final int maxQueueSize =
+			new Integer(JMResources.getSystemProperty(ERROR_HISTORY_SIZE));
 
-	private static List<ErrorMessageHistory> errorMessageHistoryList = new LinkedList<ErrorMessageHistory>();
+	private static List<ErrorMessageHistory> errorMessageHistoryList =
+			new LinkedList<ErrorMessageHistory>();
 
 	private static long errorCount = 0;
 
@@ -46,8 +47,8 @@ public class JMExceptionManager {
 	}
 
 	private static String getStackTraceString(Throwable throwable) {
-		AutoStringBuilder stackTraceStringBuilder = new AutoStringBuilder(
-				LINE_SEPARATOR);
+		AutoStringBuilder stackTraceStringBuilder =
+				new AutoStringBuilder(LINE_SEPARATOR);
 		stackTraceStringBuilder.append(throwable.toString());
 		for (StackTraceElement stackTraceElement : throwable.getStackTrace())
 			stackTraceStringBuilder.append(stackTraceElement.toString());

@@ -91,7 +91,7 @@ public class JMMap {
 	}
 
 	public static <K, V, NV> Map<K, NV> newFilteredChangedValueMap(
-			Map<K, V> map, Predicate<? super Entry<K, V>> filter,
+			Map<K, V> map, Predicate<Entry<K, V>> filter,
 			Function<V, NV> changingValueFunction) {
 		synchronized (map) {
 			return map.entrySet().stream().filter(filter).collect(toMap(
@@ -153,23 +153,23 @@ public class JMMap {
 		}
 	}
 
-	public static <K extends Comparable<K>, V> Stream<Entry<K, V>> sortedStream(
-			Map<K, V> map) {
+	public static <K extends Comparable<K>, V> Stream<Entry<K, V>>
+			sortedStream(Map<K, V> map) {
 		synchronized (map) {
 			return map.entrySet().stream().sorted(comparing(Entry::getKey));
 		}
 	}
 
-	public static <K, V extends Comparable<V>> Map<K, V> sortByValue(
-			Map<K, V> map) {
+	public static <K, V extends Comparable<V>> Map<K, V>
+			sortByValue(Map<K, V> map) {
 		synchronized (map) {
 			return sortedStreamByValue(map)
 					.collect(toMap(Entry::getKey, Entry::getValue));
 		}
 	}
 
-	public static <K, V extends Comparable<V>> Stream<Entry<K, V>> sortedStreamByValue(
-			Map<K, V> map) {
+	public static <K, V extends Comparable<V>> Stream<Entry<K, V>>
+			sortedStreamByValue(Map<K, V> map) {
 		synchronized (map) {
 			return map.entrySet().stream().sorted(comparing(Entry::getValue));
 		}

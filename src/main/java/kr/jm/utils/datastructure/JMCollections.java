@@ -17,8 +17,8 @@ import kr.jm.utils.helper.JMString;
 
 public class JMCollections {
 
-	public static <T, C extends Collection<T>> void ifNotNullOrEmptyConsume(
-			C collection, Consumer<C> consumer) {
+	public static <T, C extends Collection<T>> void
+			ifNotNullOrEmptyConsume(C collection, Consumer<C> consumer) {
 		JMOptional.getOptional(collection).ifPresent(consumer);
 	}
 
