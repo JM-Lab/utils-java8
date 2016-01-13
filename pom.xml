@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jmlab</groupId>
     <artifactId>jmlab-utils-java8</artifactId>
-    <version>0.1.6</version>
+    <version>0.1.7</version>
     <name>JMLab-Utils-Java8</name>
     <description>Java8 Utility Libraries</description>
     <url>https://github.com/JM-Lab/utils-java8</url>
@@ -44,4 +44,12 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
+    <distributionManagement>
+    	<repository>
+        	<id>bintray-jm-lab-maven</id>
+        	<name>jm-lab-maven</name>
+        	<url>https://api.bintray.com/maven/jm-lab/maven/utils-java8/;publish=1</url>
+    	</repository>
+	</distributionManagement>
 </project>

@@ -10,8 +10,8 @@ import kr.jm.utils.exception.JMExceptionManager;
 
 public class JMFile {
 
-	private static final org.slf4j.Logger log =
-			org.slf4j.LoggerFactory.getLogger(JMFile.class);
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+			.getLogger(JMFile.class);
 
 	public static boolean writeString(String inputString, File targetfile) {
 		if (!targetfile.exists()) {
@@ -98,8 +98,8 @@ public class JMFile {
 	public static File createTempFile(File file) {
 		String[] prefixSuffix = getPrefixSuffix(file);
 		try {
-			File tempFile =
-					File.createTempFile(prefixSuffix[0], prefixSuffix[1]);
+			File tempFile = File.createTempFile(prefixSuffix[0],
+					prefixSuffix[1]);
 			tempFile.deleteOnExit();
 			return tempFile;
 		} catch (Exception e) {

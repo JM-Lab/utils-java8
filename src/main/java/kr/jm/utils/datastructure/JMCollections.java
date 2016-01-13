@@ -17,8 +17,8 @@ import kr.jm.utils.helper.JMString;
 
 public class JMCollections {
 
-	public static <T, C extends Collection<T>> void
-			ifNotNullOrEmptyConsume(C collection, Consumer<C> consumer) {
+	public static <T, C extends Collection<T>> void ifNotNullOrEmptyConsume(
+			C collection, Consumer<C> consumer) {
 		JMOptional.getOptional(collection).ifPresent(consumer);
 	}
 
@@ -45,7 +45,7 @@ public class JMCollections {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SafeVarargs
 	public static <E> List<E> buildList(E... objects) {
 		return Arrays.asList(objects);
 	}

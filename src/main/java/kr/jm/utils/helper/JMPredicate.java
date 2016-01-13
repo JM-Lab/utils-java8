@@ -5,6 +5,7 @@ import static java.lang.Boolean.TRUE;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class JMPredicate {
@@ -111,6 +112,15 @@ public class JMPredicate {
 
 	public static <T> Predicate<T> getNotNull() {
 		return target -> target != null;
+	}
+
+	public static <T> Predicate<T> peekToRun(Runnable block) {
+		block.run();
+		return getTrue();
+	}
+
+	public static <T> Predicate<T> peek(Consumer<T> consumer) {
+		return t -> JMLambda.getTrueAfterRunning(() -> consumer.accept(t));
 	}
 
 }

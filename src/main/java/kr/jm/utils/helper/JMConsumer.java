@@ -12,4 +12,8 @@ public class JMConsumer {
 		return System.out::print;
 	}
 
+	public static <T> Consumer<T> getRunnable(Runnable runnable) {
+		return t -> runnable.run();
+	}
+
 }

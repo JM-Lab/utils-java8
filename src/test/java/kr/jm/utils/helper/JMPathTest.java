@@ -115,8 +115,8 @@ public class JMPathTest {
 		System.out.println(JMPath.getRootDirectoryStream());
 		List<String> rootChildPaths = JMPath.getRootDirectoryStream()
 				.flatMap(path -> JMPath.getChildrenPathStream(path)
-						.filter(JMPath.DirectoryAndNoSymbolicLinkFilter
-								.or(JMPath.FileFilter)))
+						.filter(JMPath.DirectoryAndNotSymbolicLinkFilter
+								.or(JMPath.RegularFileFilter)))
 				.map(Path::toAbsolutePath).map(Path::toString)
 				.collect(toList());
 		System.out.println(rootChildPaths);
@@ -125,10 +125,8 @@ public class JMPathTest {
 				.map(Path::toAbsolutePath).map(Path::toString)
 				.collect(toList());
 		System.out.println(rootChildFilePaths);
-		List<String> rootchildDirPaths =
-				JMPath.getRootDirectoryStream()
-						.flatMap(path -> JMPath
-								.getChildDirectoryPathStream(path))
+		List<String> rootchildDirPaths = JMPath.getRootDirectoryStream()
+				.flatMap(path -> JMPath.getChildDirectoryPathStream(path))
 				.map(Path::toAbsolutePath).map(Path::toString)
 				.collect(toList());
 
@@ -170,7 +168,7 @@ public class JMPathTest {
 		Path startDirectoryPath = getRoot();
 		List<Path> consumedList = JMPath.applySubFilePathsAndGetAppliedList(
 				startDirectoryPath, 3, path -> path.toString().contains(".png"),
-				JMLambda::getSelf);
+				JMLambda.changeInto(startDirectoryPath));
 		System.out.println(consumedList);
 	}
 
@@ -180,14 +178,14 @@ public class JMPathTest {
 		System.out
 				.println(JMPath
 						.applySubFilePathsAndGetAppliedList(startDirectoryPath,
-								JMPredicate.getTrue(), JMLambda::getSelf)
+								JMPredicate.getTrue(), JMLambda::changeInto)
 						.size());
 	}
 
 	@Test
 	public void testGetPathExtentionAsOpt() throws Exception {
-		Path path =
-				JMPath.getPath("/09A0F357-E206-444C-83CA-0475947F8718/Data/7/3"
+		Path path = JMPath
+				.getPath("/09A0F357-E206-444C-83CA-0475947F8718/Data/7/3"
 						+ "/Attachments/37857/2/Mail 첨부 파일.png");
 		System.out.println(JMPath.getPathExtentionAsOpt(path));
 		assertEquals(".png", JMPath.getPathExtentionAsOpt(path).get());

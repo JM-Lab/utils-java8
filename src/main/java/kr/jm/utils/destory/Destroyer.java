@@ -8,16 +8,16 @@ import kr.jm.utils.helper.JMThread;
 
 public class Destroyer {
 
-	private static final org.slf4j.Logger log =
-			org.slf4j.LoggerFactory.getLogger(Destroyer.class);
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+			.getLogger(Destroyer.class);
 
-	public static <D extends DestroyInterface> void
-			cleanUp(@SuppressWarnings("unchecked") D... destorys) {
+	public static <D extends DestroyInterface> void cleanUp(
+			@SuppressWarnings("unchecked") D... destorys) {
 		cleanUp(Arrays.asList(destorys));
 	}
 
-	public static <D extends DestroyInterface> void
-			cleanUp(List<D> destroyList) {
+	public static <D extends DestroyInterface> void cleanUp(
+			List<D> destroyList) {
 		for (DestroyInterface destroy : destroyList) {
 			try {
 				JMThread.sleep(10);

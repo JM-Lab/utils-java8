@@ -25,11 +25,11 @@ public enum OS {
 	private static FileView fileView;
 	private static FileSystemView fileSystemView;
 
-	private static final org.slf4j.Logger log =
-			org.slf4j.LoggerFactory.getLogger(OS.class);
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+			.getLogger(OS.class);
 
-	private static final String fileSeparator =
-			System.getProperty("file.separator");
+	private static final String fileSeparator = System
+			.getProperty("file.separator");
 
 	public static String getFileSeparator() {
 		return fileSeparator;

@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -24,24 +25,64 @@ import kr.jm.utils.exception.JMExceptionManager;
 
 public class JMPath {
 
-	private static final org.slf4j.Logger log =
-			org.slf4j.LoggerFactory.getLogger(JMPath.class);
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+			.getLogger(JMPath.class);
 
-	private static final OS OS = kr.jm.utils.enums.OS.getOS();
+	private static final OS os = OS.getOS();
 
 	public static final FileSystem FS = FileSystems.getDefault();
 	public static final Predicate<Path> DirectoryFilter = Files::isDirectory;
-	public static final Predicate<Path> FileFilter = Files::isRegularFile;
+	public static final Predicate<Path> RegularFileFilter = Files::isRegularFile;
 	public static final Predicate<Path> ExecutableFilter = Files::isExecutable;
 	public static final Predicate<Path> ReadableFilter = Files::isReadable;
 	public static final Predicate<Path> WritableFilter = Files::isWritable;
-	public static final Predicate<Path> SymbolicLinkFilter =
-			Files::isSymbolicLink;
+	public static final Predicate<Path> SymbolicLinkFilter = Files::isSymbolicLink;
 	public static final Predicate<Path> HiddenFilter = JMPath::isHidden;
 	public static final Predicate<Path> NotExistFilter = Files::notExists;
 	public static final Predicate<Path> ExistFilter = Files::exists;
-	public static final Predicate<Path> DirectoryAndNoSymbolicLinkFilter =
-			DirectoryFilter.and(SymbolicLinkFilter.negate());
+	public static final Predicate<Path> DirectoryAndNotSymbolicLinkFilter = DirectoryFilter
+			.and(SymbolicLinkFilter.negate());
+
+	public static final Comparator<Path> directoryFirstComparator = (p1,
+			p2) -> isDirectory(p1) && !isDirectory(p2) ? -1
+					: !isDirectory(p1) && isDirectory(p2) ? 1
+							: p1.compareTo(p2);
+
+	public static boolean isDirectory(Path path) {
+		return DirectoryFilter.test(path);
+	}
+
+	public static boolean isRegularFile(Path path) {
+		return RegularFileFilter.test(path);
+	}
+
+	public static boolean isExecutable(Path path) {
+		return ExecutableFilter.test(path);
+	}
+
+	public static boolean isReadable(Path path) {
+		return ReadableFilter.test(path);
+	}
+
+	public static boolean isWritable(Path path) {
+		return WritableFilter.test(path);
+	}
+
+	public static boolean isSymbolicLink(Path path) {
+		return SymbolicLinkFilter.test(path);
+	}
+
+	public static boolean notExists(Path path) {
+		return NotExistFilter.test(path);
+	}
+
+	public static boolean exists(Path path) {
+		return ExistFilter.test(path);
+	}
+
+	public static boolean isDirectoryAndNotSymbolicLink(Path path) {
+		return DirectoryAndNotSymbolicLinkFilter.test(path);
+	}
 
 	public static List<FileStore> getFileStoreList() {
 		return JMCollections.buildList(FS.getFileStores());
@@ -62,8 +103,12 @@ public class JMPath {
 		}
 	}
 
+	public static Path getParent(Path path) {
+		return Optional.ofNullable(path.getParent()).orElse(path.getRoot());
+	}
+
 	public static Stream<Path> getRootPathStream() {
-		return OS.getRootFileList().stream().map(File::toPath);
+		return os.getRootFileList().stream().map(File::toPath);
 	}
 
 	public static Stream<Path> getRootDirectoryStream() {
@@ -95,65 +140,67 @@ public class JMPath {
 
 	public static Stream<Path> getChildDirectoryPathStream(Path path) {
 		return getChildrenPathStream(path)
-				.filter(DirectoryAndNoSymbolicLinkFilter);
+				.filter(DirectoryAndNotSymbolicLinkFilter);
 	}
 
 	public static Stream<Path> getChildDirectoryPathStream(Path path,
 			Predicate<Path> filter) {
 		return getChildrenPathStream(path)
-				.filter(DirectoryAndNoSymbolicLinkFilter.and(filter));
+				.filter(DirectoryAndNotSymbolicLinkFilter.and(filter));
 	}
 
 	public static Stream<Path> getChildFilePathStream(Path path) {
-		return getChildrenPathStream(path).filter(FileFilter);
+		return getChildrenPathStream(path).filter(RegularFileFilter);
 	}
 
 	public static Stream<Path> getChildFilePathStream(Path path,
 			Predicate<Path> filter) {
-		return getChildrenPathStream(path).filter(FileFilter.and(filter));
+		return getChildrenPathStream(path)
+				.filter(RegularFileFilter.and(filter));
 	}
 
 	public static List<Path> getSubDirectoryPathList(Path startDirectoryPath) {
 		return getSubPathList(startDirectoryPath,
-				DirectoryAndNoSymbolicLinkFilter);
+				DirectoryAndNotSymbolicLinkFilter);
 	}
 
 	public static List<Path> getSubDirectoryPathList(Path startDirectoryPath,
 			int maxDepth) {
 		return getSubPathList(startDirectoryPath, maxDepth,
-				DirectoryAndNoSymbolicLinkFilter);
+				DirectoryAndNotSymbolicLinkFilter);
 	}
 
 	public static List<Path> getSubDirectoryPathList(Path startDirectoryPath,
 			Predicate<Path> filter) {
 		return getSubPathList(startDirectoryPath, Integer.MAX_VALUE,
-				DirectoryAndNoSymbolicLinkFilter.and(filter));
+				DirectoryAndNotSymbolicLinkFilter.and(filter));
 	}
 
 	public static List<Path> getSubDirectoryPathList(Path startDirectoryPath,
 			int maxDepth, Predicate<Path> filter) {
 		return getSubPathList(startDirectoryPath, maxDepth,
-				DirectoryAndNoSymbolicLinkFilter.and(filter));
+				DirectoryAndNotSymbolicLinkFilter.and(filter));
 	}
 
 	public static List<Path> getSubFilePathList(Path startDirectoryPath) {
-		return getSubPathList(startDirectoryPath, FileFilter);
+		return getSubPathList(startDirectoryPath, RegularFileFilter);
 	}
 
 	public static List<Path> getSubFilePathList(Path startDirectoryPath,
 			int maxDepth) {
-		return getSubPathList(startDirectoryPath, maxDepth, FileFilter);
+		return getSubPathList(startDirectoryPath, maxDepth, RegularFileFilter);
 	}
 
 	public static List<Path> getSubFilePathList(Path startDirectoryPath,
 			Predicate<Path> filter) {
-		return getSubPathList(startDirectoryPath, FileFilter.and(filter));
+		return getSubPathList(startDirectoryPath,
+				RegularFileFilter.and(filter));
 	}
 
 	public static List<Path> getSubFilePathList(Path startDirectoryPath,
 			int maxDepth, Predicate<Path> filter) {
 		return getSubPathList(startDirectoryPath, maxDepth,
-				FileFilter.and(filter));
+				RegularFileFilter.and(filter));
 	}
 
 	public static List<Path> getSubPathList(Path startDirectoryPath) {
@@ -184,9 +231,9 @@ public class JMPath {
 	private static Stream<Path> addAndGetDirectoryStream(List<Path> pathList,
 			Stream<Path> pathStream, Predicate<Path> filter) {
 		return pathStream
-				.peek(path -> JMLambda.consumeIfTure(path, filter,
+				.peek(path -> JMLambda.consumeIfTrue(path, filter,
 						pathList::add))
-				.filter(DirectoryAndNoSymbolicLinkFilter);
+				.filter(DirectoryAndNotSymbolicLinkFilter);
 	}
 
 	private static void drillDown(Path directoryPath, int maxDepth,
@@ -287,7 +334,7 @@ public class JMPath {
 	}
 
 	public static Optional<String> getFilePathExtentionAsOpt(Path path) {
-		return getPathExtentionAsOpt(path, FileFilter);
+		return getPathExtentionAsOpt(path, RegularFileFilter);
 	}
 
 	public static Optional<String> getPathExtentionAsOpt(Path path) {
@@ -323,7 +370,19 @@ public class JMPath {
 	}
 
 	public static String getPathNameInOS(Path path) {
-		return OS.getFileName(path.toFile());
+		return os.getFileName(path.toFile());
+	}
+
+	public static long getLastModified(Path path) {
+		return path.toFile().lastModified();
+	}
+
+	public static String getPathTypeDescription(Path path) {
+		return os.getFileTypeDescription(path.toFile());
+	}
+
+	public static long getSize(Path path) {
+		return path.toFile().length();
 	}
 
 }
