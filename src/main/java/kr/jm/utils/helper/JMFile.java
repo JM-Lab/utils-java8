@@ -1,3 +1,4 @@
+
 package kr.jm.utils.helper;
 
 import java.io.File;
@@ -8,73 +9,149 @@ import java.util.List;
 
 import kr.jm.utils.exception.JMExceptionManager;
 
+/**
+ * The Class JMFile.
+ */
 public class JMFile {
 
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
 			.getLogger(JMFile.class);
 
-	public static boolean writeString(String inputString, File targetfile) {
-		if (!targetfile.exists()) {
+	/**
+	 * Write string.
+	 *
+	 * @param inputString
+	 *            the input string
+	 * @param targetFile
+	 *            the target file
+	 * @return true, if successful
+	 */
+	public static boolean writeString(String inputString, File targetFile) {
+		if (!targetFile.exists()) {
 			try {
-				Files.write(targetfile.toPath(), inputString.getBytes());
+				Files.write(targetFile.toPath(), inputString.getBytes());
 			} catch (IOException e) {
 				return JMExceptionManager.handleExceptionAndReturnFalse(log, e,
-						"writeString", inputString, targetfile);
+						"writeString", inputString, targetFile);
 			}
 		}
 		return true;
 	}
 
-	public static String readString(File targetfile) {
+	/**
+	 * Read string.
+	 *
+	 * @param targetFile
+	 *            the target file
+	 * @return the string
+	 */
+	public static String readString(File targetFile) {
 		try {
-			return new String(Files.readAllBytes(targetfile.toPath()));
+			return new String(Files.readAllBytes(targetFile.toPath()));
 		} catch (IOException e) {
 			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-					"readString", targetfile);
+					"readString", targetFile);
 		}
 	}
 
-	public static String readString(File targetfile, String encoding) {
+	/**
+	 * Read string.
+	 *
+	 * @param targetFile
+	 *            the target file
+	 * @param encoding
+	 *            the encoding
+	 * @return the string
+	 */
+	public static String readString(File targetFile, String encoding) {
 		try {
-			return new String(Files.readAllBytes(targetfile.toPath()),
+			return new String(Files.readAllBytes(targetFile.toPath()),
 					Charset.forName(encoding));
 		} catch (IOException e) {
 			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-					"readString", targetfile);
+					"readString", targetFile);
 		}
 	}
 
+	/**
+	 * Read string.
+	 *
+	 * @param filePath
+	 *            the file path
+	 * @return the string
+	 */
 	public static String readString(String filePath) {
 		return readString(getFile(filePath));
 	}
 
+	/**
+	 * Read string.
+	 *
+	 * @param filePath
+	 *            the file path
+	 * @param encoding
+	 *            the encoding
+	 * @return the string
+	 */
 	public static String readString(String filePath, String encoding) {
 		return readString(getFile(filePath), encoding);
 	}
 
-	public static List<String> readLines(File targetfile) {
+	/**
+	 * Read lines.
+	 *
+	 * @param targetFile
+	 *            the target file
+	 * @return the list
+	 */
+	public static List<String> readLines(File targetFile) {
 		try {
-			return Files.readAllLines(targetfile.toPath());
+			return Files.readAllLines(targetFile.toPath());
 		} catch (IOException e) {
 			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-					"readLines", targetfile);
+					"readLines", targetFile);
 		}
 	}
 
-	public static List<String> readLines(File targetfile, String encoding) {
+	/**
+	 * Read lines.
+	 *
+	 * @param targetFile
+	 *            the target file
+	 * @param encoding
+	 *            the encoding
+	 * @return the list
+	 */
+	public static List<String> readLines(File targetFile, String encoding) {
 		try {
-			return Files.readAllLines(targetfile.toPath(),
+			return Files.readAllLines(targetFile.toPath(),
 					Charset.forName(encoding));
 		} catch (IOException e) {
 			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-					"readLines", targetfile);
+					"readLines", targetFile);
 		}
 	}
 
+	/**
+	 * Read lines.
+	 *
+	 * @param filePath
+	 *            the file path
+	 * @return the list
+	 */
 	public static List<String> readLines(String filePath) {
 		return readLines(getFile(filePath));
 	}
 
+	/**
+	 * Read lines.
+	 *
+	 * @param filePath
+	 *            the file path
+	 * @param encoding
+	 *            the encoding
+	 * @return the list
+	 */
 	public static List<String> readLines(String filePath, String encoding) {
 		return readLines(getFile(filePath), encoding);
 	}
@@ -83,18 +160,46 @@ public class JMFile {
 		return new File(filePath);
 	}
 
-	public static String getExtention(File file) {
-		return JMString.getExtention(file.getName());
+	/**
+	 * Gets the extension.
+	 *
+	 * @param file
+	 *            the file
+	 * @return the extension
+	 */
+	public static String getExtension(File file) {
+		return JMString.getExtension(file.getName());
 	}
 
+	/**
+	 * Gets the prefix.
+	 *
+	 * @param file
+	 *            the file
+	 * @return the prefix
+	 */
 	public static String getPrefix(File file) {
 		return JMString.getPrefixOfFileName(file.getName());
 	}
 
+	/**
+	 * Gets the prefix suffix.
+	 *
+	 * @param file
+	 *            the file
+	 * @return the prefix suffix
+	 */
 	public static String[] getPrefixSuffix(File file) {
 		return JMString.splitFileNameIntoPreSuffix(file.getName());
 	}
 
+	/**
+	 * Creates the temp file.
+	 *
+	 * @param file
+	 *            the file
+	 * @return the file
+	 */
 	public static File createTempFile(File file) {
 		String[] prefixSuffix = getPrefixSuffix(file);
 		try {

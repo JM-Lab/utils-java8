@@ -1,3 +1,4 @@
+
 package kr.jm.utils.exception;
 
 import static org.junit.Assert.assertEquals;
@@ -8,15 +9,30 @@ import org.junit.Test;
 import kr.jm.utils.helper.JMStream;
 import kr.jm.utils.helper.JMThread;
 
+/**
+ * The Class JMExceptionManagerTest.
+ */
 public class JMExceptionManagerTest {
 
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
 			.getLogger(JMExceptionManagerTest.class);
 
+	/**
+	 * Sets the up.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 	}
 
+	/**
+	 * Test log exception.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testLogException() throws Exception {
 

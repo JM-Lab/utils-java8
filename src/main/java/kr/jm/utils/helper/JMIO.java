@@ -1,3 +1,4 @@
+
 package kr.jm.utils.helper;
 
 import java.io.BufferedReader;
@@ -10,6 +11,9 @@ import java.util.function.Consumer;
 
 import kr.jm.utils.exception.JMExceptionManager;
 
+/**
+ * The Class JMIO.
+ */
 public class JMIO {
 
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
@@ -18,10 +22,26 @@ public class JMIO {
 	private static final String UTF_8 = "UTF-8";
 	private static final String NEW_LINE = System.getProperty("line.separator");
 
+	/**
+	 * To string.
+	 *
+	 * @param inputStream
+	 *            the input stream
+	 * @return the string
+	 */
 	public static String toString(InputStream inputStream) {
 		return toString(inputStream, UTF_8, new StringBuilder());
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @param inputStream
+	 *            the input stream
+	 * @param encoding
+	 *            the encoding
+	 * @return the string
+	 */
 	public static String toString(InputStream inputStream, String encoding) {
 		return toString(inputStream, encoding, new StringBuilder());
 	}
@@ -44,11 +64,27 @@ public class JMIO {
 		stringBuilder.append(NEW_LINE);
 	}
 
+	/**
+	 * Read lines.
+	 *
+	 * @param inputStream
+	 *            the input stream
+	 * @param encoding
+	 *            the encoding
+	 * @return the list
+	 */
 	public static List<String> readLines(InputStream inputStream,
 			String encoding) {
 		return readLines(inputStream, encoding, new ArrayList<String>());
 	}
 
+	/**
+	 * Read lines.
+	 *
+	 * @param inputStream
+	 *            the input stream
+	 * @return the list
+	 */
 	public static List<String> readLines(InputStream inputStream) {
 		return readLines(inputStream, UTF_8, new ArrayList<String>());
 	}
@@ -66,6 +102,16 @@ public class JMIO {
 
 	}
 
+	/**
+	 * Consume input stream.
+	 *
+	 * @param inputStream
+	 *            the input stream
+	 * @param encoding
+	 *            the encoding
+	 * @param consumer
+	 *            the consumer
+	 */
 	public static void consumeInputStream(InputStream inputStream,
 			String encoding, Consumer<String> consumer) {
 		try (BufferedReader br = new BufferedReader(

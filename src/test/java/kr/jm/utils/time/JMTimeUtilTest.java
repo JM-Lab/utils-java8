@@ -1,3 +1,4 @@
+
 package kr.jm.utils.time;
 
 import static org.junit.Assert.assertEquals;
@@ -8,6 +9,9 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class JMTimeUtilTest.
+ */
 public class JMTimeUtilTest {
 
 	private static final String ASIA_SEOUL = "Asia/Seoul";
@@ -23,10 +27,19 @@ public class JMTimeUtilTest {
 
 	private final long timestamp = 1395394283524l;
 
+	/**
+	 * Sets the up.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 	}
 
+	/**
+	 * Test change format and time zone.
+	 */
 	@Test
 	public void testChangeFormatAndTimeZone() {
 		System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME1,
@@ -88,6 +101,9 @@ public class JMTimeUtilTest {
 
 	}
 
+	/**
+	 * Test change iso timestamp in utc.
+	 */
 	@Test
 	public void testChangeIsoTimestampInUTC() {
 		String isoTimestampString = "2015-04-28T10:30:23.000+0900";
@@ -128,6 +144,9 @@ public class JMTimeUtilTest {
 
 	}
 
+	/**
+	 * Test get time millis.
+	 */
 	@Test
 	public void testGetTimeMillis() {
 		long timeMillis = JMTimeUtil.getTimeMillis(2015, 4, 16, 00, 2, 00,
@@ -145,81 +164,93 @@ public class JMTimeUtilTest {
 
 	}
 
+	/**
+	 * Test change timestamp to long.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testChangeTimestampToLong() throws Exception {
 		String defaultLogDateFormat = "dd/MMM/yyyy:HH:mm:ss";
 		String dateString = "27/Oct/2000:09:27:09";
-		long changeTimestampStringToLong = JMTimeUtil
+		long changeIsoTimestampToLong = JMTimeUtil
 				.changeTimestampToLong(defaultLogDateFormat, dateString, "UTC");
-		System.out.println(changeTimestampStringToLong);
+		System.out.println(changeIsoTimestampToLong);
 		System.out.println(JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 
 		defaultLogDateFormat = "dd/MM월/yyyy:HH:mm:ss";
 		String timezoneId = "GMT+2";
 		dateString = "27/8월/2000:09:27:09";
 
-		changeTimestampStringToLong = JMTimeUtil.changeTimestampToLong(
+		changeIsoTimestampToLong = JMTimeUtil.changeTimestampToLong(
 				defaultLogDateFormat, dateString, timezoneId);
-		System.out.println(changeTimestampStringToLong);
+		System.out.println(changeIsoTimestampToLong);
 		System.out.println(JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 
-		changeTimestampStringToLong = JMTimeUtil
+		changeIsoTimestampToLong = JMTimeUtil
 				.changeTimestampToLong(defaultLogDateFormat, dateString, "UTC");
-		System.out.println(changeTimestampStringToLong);
+		System.out.println(changeIsoTimestampToLong);
 		System.out.println(JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 
 		// zoneId null 이면 시스템 기본 timezoneId를 사용!!!
-		changeTimestampStringToLong = JMTimeUtil
+		changeIsoTimestampToLong = JMTimeUtil
 				.changeTimestampToLong(defaultLogDateFormat, dateString, null);
-		System.out.println(changeTimestampStringToLong);
+		System.out.println(changeIsoTimestampToLong);
 		System.out.println(JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 
 		defaultLogDateFormat = "dd/MM월/yyyy:HH:mm:ss Z";
 		dateString = "27/8월/2000:09:27:09 -0400";
 
-		changeTimestampStringToLong = JMTimeUtil
+		changeIsoTimestampToLong = JMTimeUtil
 				.changeTimestampToLong(defaultLogDateFormat, dateString, "UTC");
-		System.out.println(changeTimestampStringToLong);
+		System.out.println(changeIsoTimestampToLong);
 		System.out.println(JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 		assertEquals("2000-08-27T13:27:09.000Z", JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 
 		// format에 zone 정보가 있으면 zoneId를 셋팅해도 먹지 않음!!!
-		changeTimestampStringToLong = JMTimeUtil.changeTimestampToLong(
+		changeIsoTimestampToLong = JMTimeUtil.changeTimestampToLong(
 				defaultLogDateFormat, dateString, timezoneId);
-		System.out.println(changeTimestampStringToLong);
+		System.out.println(changeIsoTimestampToLong);
 		System.out.println(JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 		assertEquals("2000-08-27T13:27:09.000Z", JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 
 		defaultLogDateFormat = "dd/MM월/yyyy:HH:mm:ss";
 		dateString = "27/8월/2000:09:27:09";
 
 		// zone 정보가 없을때 시스템 기본 값으로 적용 됨!!! 한국 +0900 이라 00시가
-		changeTimestampStringToLong = JMTimeUtil
+		changeIsoTimestampToLong = JMTimeUtil
 				.changeTimestampToLong(defaultLogDateFormat, dateString);
-		System.out.println(changeTimestampStringToLong);
+		System.out.println(changeIsoTimestampToLong);
 		System.out.println(JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 		assertEquals("2000-08-27T00:27:09.000Z", JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 
-		changeTimestampStringToLong = JMTimeUtil.changeTimestampToLong(
+		changeIsoTimestampToLong = JMTimeUtil.changeTimestampToLong(
 				defaultLogDateFormat, dateString, timezoneId);
-		System.out.println(changeTimestampStringToLong);
+		System.out.println(changeIsoTimestampToLong);
 		System.out.println(JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 		assertEquals("2000-08-27T07:27:09.000Z", JMTimeUtil
-				.getTimeAsDefaultUtcFormat(changeTimestampStringToLong));
+				.getTimeAsDefaultUtcFormat(changeIsoTimestampToLong));
 
 	}
 
+	/**
+	 * Test change iso timestamp with mills to without mills.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testChangeISOTimestampWithMillsToWithoutMills()
 			throws Exception {
@@ -244,6 +275,9 @@ public class JMTimeUtilTest {
 
 	}
 
+	/**
+	 * Test change timestamp to new format.
+	 */
 	@Test
 	public void testChangeTimestampToNewFormat() {
 		String simpleDateFormat = "yyyyMMddHHmmssSSS";
@@ -257,6 +291,12 @@ public class JMTimeUtilTest {
 
 	}
 
+	/**
+	 * Test change timestamp to iso instant.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testChangeTimestampToIsoInstant() throws Exception {
 		String simpleDateFormat = "yyyyMMddHHmmssSSS";
@@ -267,6 +307,12 @@ public class JMTimeUtilTest {
 						"20150925133631446"));
 	}
 
+	/**
+	 * Test change iso timestamp to long.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testChangeIsoTimestampToLong() throws Exception {
 		long timeMillis = JMTimeUtil

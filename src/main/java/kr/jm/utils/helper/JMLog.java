@@ -1,3 +1,4 @@
+
 package kr.jm.utils.helper;
 
 import java.util.Collection;
@@ -6,18 +7,49 @@ import org.slf4j.Logger;
 
 import kr.jm.utils.AutoStringBuilder;
 
+/**
+ * The Class JMLog.
+ */
 public class JMLog {
 
-	static public void logMethodStartInfo(Logger log, String methodName) {
+	/**
+	 * Log method start info.
+	 *
+	 * @param log
+	 *            the log
+	 * @param methodName
+	 *            the method name
+	 */
+	static public void infoBeforeStart(Logger log, String methodName) {
 		log.info(buildMethodLogString(methodName));
 	}
 
-	static public void logMethodStartInfo(Logger log, String methodName,
+	/**
+	 * Log method start info.
+	 *
+	 * @param log
+	 *            the log
+	 * @param methodName
+	 *            the method name
+	 * @param params
+	 *            the params
+	 */
+	static public void infoBeforeStart(Logger log, String methodName,
 			Object... params) {
 		log.info(buildMethodLogString(methodName, params));
 	}
 
-	static public void logMethodStartInfoAndDebug(Logger log, String methodName,
+	/**
+	 * Log method start info and debug.
+	 *
+	 * @param log
+	 *            the log
+	 * @param methodName
+	 *            the method name
+	 * @param params
+	 *            the params
+	 */
+	static public void infoAndDebugBeforeStart(Logger log, String methodName,
 			Object... params) {
 		int length = params.length;
 		Object[] newParams = new Object[length];
@@ -34,14 +66,36 @@ public class JMLog {
 		log.debug(buildMethodLogString(methodName, params));
 	}
 
-	static public void logException(Logger log, Exception exeption,
+	/**
+	 * Log exception.
+	 *
+	 * @param log
+	 *            the log
+	 * @param exception
+	 *            the exception
+	 * @param methodName
+	 *            the method name
+	 */
+	static public void errorForException(Logger log, Exception exception,
 			String methodName) {
-		log.error(buildMethodLogString(methodName), exeption);
+		log.error(buildMethodLogString(methodName), exception);
 	}
 
-	static public void logException(Logger log, Exception exeption,
+	/**
+	 * Log exception.
+	 *
+	 * @param log
+	 *            the log
+	 * @param exception
+	 *            the exception
+	 * @param methodName
+	 *            the method name
+	 * @param params
+	 *            the params
+	 */
+	static public void errorForException(Logger log, Exception exception,
 			String methodName, Object... params) {
-		log.error(buildMethodLogString(methodName, params), exeption);
+		log.error(buildMethodLogString(methodName, params), exception);
 	}
 
 	private static String buildMethodLogString(String methodName) {
@@ -63,21 +117,57 @@ public class JMLog {
 		return finalLogString;
 	}
 
-	public static void logMethodStartDebug(Logger log, String methodName,
+	/**
+	 * Log method start debug.
+	 *
+	 * @param log
+	 *            the log
+	 * @param methodName
+	 *            the method name
+	 * @param params
+	 *            the params
+	 */
+	public static void debugBeforeStart(Logger log, String methodName,
 			Object... params) {
 		log.debug(buildMethodLogString(methodName, params));
 	}
 
-	public static void logMethodStartDebug(Logger log, String methodName) {
+	/**
+	 * Log method start debug.
+	 *
+	 * @param log
+	 *            the log
+	 * @param methodName
+	 *            the method name
+	 */
+	public static void debugBeforeStart(Logger log, String methodName) {
 		log.debug(buildMethodLogString(methodName));
 	}
 
-	public static void logMethodStartWarn(Logger log, String methodName,
+	/**
+	 * Log method start warn.
+	 *
+	 * @param log
+	 *            the log
+	 * @param methodName
+	 *            the method name
+	 * @param params
+	 *            the params
+	 */
+	public static void warnBeforeStart(Logger log, String methodName,
 			Object... params) {
 		log.warn(buildMethodLogString(methodName, params));
 	}
 
-	public static void logMethodStartWarn(Logger log, String methodName) {
+	/**
+	 * Warn before start.
+	 *
+	 * @param log
+	 *            the log
+	 * @param methodName
+	 *            the method name
+	 */
+	public static void warnBeforeStart(Logger log, String methodName) {
 		log.warn(buildMethodLogString(methodName));
 	}
 

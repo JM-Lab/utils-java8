@@ -1,13 +1,20 @@
+
 package kr.jm.utils;
 
 import org.junit.Test;
 
 import kr.jm.utils.time.JMTimeUtil;
 
+/**
+ * The Class FomatedTimeStringTest.
+ */
 public class FomatedTimeStringTest {
 
 	private final long timestamp = 1395394283524l;
 
+	/**
+	 * Test fomated time string.
+	 */
 	@Test
 	public void testFomatedTimeString() {
 

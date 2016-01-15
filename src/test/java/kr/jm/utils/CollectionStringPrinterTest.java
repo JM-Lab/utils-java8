@@ -1,3 +1,4 @@
+
 package kr.jm.utils;
 
 import java.util.ArrayList;
@@ -7,8 +8,14 @@ import java.util.Map;
 
 import org.junit.Test;
 
+/**
+ * The Class CollectionStringPrinterTest.
+ */
 public class CollectionStringPrinterTest {
 
+	/**
+	 * Test collection to json string.
+	 */
 	@Test
 	public void testCollectionToJSONString() {
 

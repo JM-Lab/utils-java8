@@ -1,3 +1,4 @@
+
 package kr.jm.utils;
 
 import java.awt.image.BufferedImage;
@@ -15,12 +16,18 @@ import kr.jm.utils.enums.OS;
 import kr.jm.utils.helper.JMOptional;
 import kr.jm.utils.helper.JMPath;
 
+/**
+ * A factory for creating JMIcon objects.
+ */
 public class JMIconFactory {
 
 	private OS os;
 	private String unknownFileName;
 	private Map<String, BufferedImage> bufferedImageCache;
 
+	/**
+	 * Instantiates a new JM icon factory.
+	 */
 	public JMIconFactory() {
 		this.os = OS.getOS();
 		this.unknownFileName = "?";
@@ -41,12 +48,20 @@ public class JMIconFactory {
 				newValueSupplier);
 	}
 
-	private String buildFileExtentionKey(String extention) {
-		return unknownFileName + extention;
+	private String buildFileExtensionKey(String extension) {
+		return unknownFileName + extension;
 	}
 
+	/**
+	 * Builds the buffered image of icon in os.
+	 *
+	 * @param path
+	 *            the path
+	 * @return the buffered image
+	 */
 	public BufferedImage buildBufferedImageOfIconInOS(Path path) {
-		path = JMOptional.getOptionalIfTrue(path, JMPath.NotExistFilter)
+		path = JMOptional
+				.getNullableAndFilteredOptional(path, JMPath.NotExistFilter)
 				.flatMap(JMPath::createTempFilePathAsOpt).orElse(path);
 		Icon iconInOS = os.getIcon(path.toFile());
 		BufferedImage bufferedImage = new BufferedImage(iconInOS.getIconWidth(),
@@ -55,6 +70,13 @@ public class JMIconFactory {
 		return bufferedImage;
 	}
 
+	/**
+	 * Gets the cached buffered image of icon in os.
+	 *
+	 * @param path
+	 *            the path
+	 * @return the cached buffered image of icon in os
+	 */
 	public BufferedImage getCachedBufferedImageOfIconInOS(Path path) {
 		return getSpecialPathAsOpt(path)
 				.map(getCachedBufferedImageFunction(path))
@@ -63,20 +85,20 @@ public class JMIconFactory {
 
 	private Optional<String> getSpecialPathAsOpt(Path path) {
 		return JMOptional
-				.getOptionalIfTrue(path, JMPath.DirectoryFilter
+				.getNullableAndFilteredOptional(path, JMPath.DirectoryFilter
 						.or(JMPath.SymbolicLinkFilter).or(JMPath.HiddenFilter))
 				.map(Path::toString);
 	}
 
 	private BufferedImage buildCachedBufferedImageOfFileIconInOS(Path path) {
-		return getFilePathExtentionKeyAsOpt(path)
+		return getFilePathExtensionKeyAsOpt(path)
 				.map(getCachedBufferedImageFunction(path))
 				.orElseGet(() -> bufferedImageCache.get(unknownFileName));
 	}
 
-	private Optional<String> getFilePathExtentionKeyAsOpt(Path path) {
-		return JMPath.getPathExtentionAsOpt(path)
-				.map(this::buildFileExtentionKey);
+	private Optional<String> getFilePathExtensionKeyAsOpt(Path path) {
+		return JMPath.getPathExtensionAsOpt(path)
+				.map(this::buildFileExtensionKey);
 	}
 
 }

@@ -1,3 +1,4 @@
+
 package kr.jm.utils.helper;
 
 import static java.util.stream.Collectors.toList;
@@ -14,39 +15,106 @@ import java.util.stream.LongStream;
 
 import kr.jm.utils.datastructure.JMCollections;
 
+/**
+ * The Class JMStats. Calculate statistics
+ */
 public class JMStats {
 
+	/**
+	 * Cal stats.
+	 *
+	 * @param statsString
+	 *            the stats string
+	 * @param summaryStatistics
+	 *            the summary statistics
+	 * @return the number
+	 */
 	public static Number calStats(String statsString,
 			IntSummaryStatistics summaryStatistics) {
 		return StatsField.valueOfAlias(statsString).calStats(summaryStatistics);
 	}
 
+	/**
+	 * Cal stats.
+	 *
+	 * @param statsString
+	 *            the stats string
+	 * @param summaryStatistics
+	 *            the summary statistics
+	 * @return the number
+	 */
 	public static Number calStats(String statsString,
 			LongSummaryStatistics summaryStatistics) {
 		return StatsField.valueOfAlias(statsString).calStats(summaryStatistics);
 	}
 
+	/**
+	 * Cal stats.
+	 *
+	 * @param statsString
+	 *            the stats string
+	 * @param summaryStatistics
+	 *            the summary statistics
+	 * @return the number
+	 */
 	public static Number calStats(String statsString,
 			DoubleSummaryStatistics summaryStatistics) {
 		return StatsField.valueOfAlias(statsString).calStats(summaryStatistics);
 	}
 
+	/**
+	 * Cal stats.
+	 *
+	 * @param statsString
+	 *            the stats string
+	 * @param numberStream
+	 *            the number stream
+	 * @return the number
+	 */
 	public static Number calStats(String statsString, IntStream numberStream) {
 		return StatsField.valueOfAlias(statsString).calStats(numberStream);
 	}
 
+	/**
+	 * Cal stats.
+	 *
+	 * @param statsString
+	 *            the stats string
+	 * @param numberStream
+	 *            the number stream
+	 * @return the number
+	 */
 	public static Number calStats(String statsString, LongStream numberStream) {
 		return StatsField.valueOfAlias(statsString).calStats(numberStream);
 	}
 
+	/**
+	 * Cal stats.
+	 *
+	 * @param statsString
+	 *            the stats string
+	 * @param numberStream
+	 *            the number stream
+	 * @return the number
+	 */
 	public static Number calStats(String statsString,
 			DoubleStream numberStream) {
 		return StatsField.valueOfAlias(statsString).calStats(numberStream);
 	}
 
+	/**
+	 * The Enum StatsField.
+	 */
 	public enum StatsField {
 		sum, min, max, avg, count;
 
+		/**
+		 * Value of alias.
+		 *
+		 * @param alias
+		 *            the alias
+		 * @return the stats field
+		 */
 		public static StatsField valueOfAlias(String alias) {
 			switch (alias.toLowerCase()) {
 			case "minimum":
@@ -60,6 +128,13 @@ public class JMStats {
 			}
 		}
 
+		/**
+		 * Cal stats.
+		 *
+		 * @param intStream
+		 *            the int stream
+		 * @return the number
+		 */
 		public Number calStats(IntStream intStream) {
 			switch (this) {
 			case sum:
@@ -77,6 +152,13 @@ public class JMStats {
 			}
 		}
 
+		/**
+		 * Cal stats.
+		 *
+		 * @param longStream
+		 *            the long stream
+		 * @return the number
+		 */
 		public Number calStats(LongStream longStream) {
 			switch (this) {
 			case sum:
@@ -94,6 +176,13 @@ public class JMStats {
 			}
 		}
 
+		/**
+		 * Cal stats.
+		 *
+		 * @param doubleStream
+		 *            the double stream
+		 * @return the number
+		 */
 		public Number calStats(DoubleStream doubleStream) {
 			switch (this) {
 			case sum:
@@ -111,6 +200,13 @@ public class JMStats {
 			}
 		}
 
+		/**
+		 * Cal stats.
+		 *
+		 * @param summaryStatistics
+		 *            the summary statistics
+		 * @return the number
+		 */
 		public Number calStats(IntSummaryStatistics summaryStatistics) {
 			switch (this) {
 			case sum:
@@ -128,6 +224,13 @@ public class JMStats {
 			}
 		}
 
+		/**
+		 * Cal stats.
+		 *
+		 * @param summaryStatistics
+		 *            the summary statistics
+		 * @return the number
+		 */
 		public Number calStats(LongSummaryStatistics summaryStatistics) {
 			switch (this) {
 			case sum:
@@ -145,6 +248,13 @@ public class JMStats {
 			}
 		}
 
+		/**
+		 * Cal stats.
+		 *
+		 * @param summaryStatistics
+		 *            the summary statistics
+		 * @return the number
+		 */
 		public Number calStats(DoubleSummaryStatistics summaryStatistics) {
 			switch (this) {
 			case sum:
@@ -163,6 +273,15 @@ public class JMStats {
 		}
 	}
 
+	/**
+	 * Gets the percentile value.
+	 *
+	 * @param targetPercentile
+	 *            the target percentile
+	 * @param unorderedNumberList
+	 *            the unordered number list
+	 * @return the percentile value
+	 */
 	public static Number getPercentileValue(int targetPercentile,
 			List<Number> unorderedNumberList) {
 		return getPercentileValueWithSorted(targetPercentile,
@@ -175,6 +294,15 @@ public class JMStats {
 				sortedNumberList);
 	}
 
+	/**
+	 * Gets the percentile value map.
+	 *
+	 * @param targetPercentileList
+	 *            the target percentile list
+	 * @param numberList
+	 *            the number list
+	 * @return the percentile value map
+	 */
 	public static Map<Integer, Number> getPercentileValueMap(
 			List<Integer> targetPercentileList, List<Number> numberList) {
 		List<Double> sortedDoubleList = sortedDoubleList(numberList);
@@ -200,6 +328,15 @@ public class JMStats {
 				: targetPercentile > 100 ? 100 : targetPercentile;
 	}
 
+	/**
+	 * Min.
+	 *
+	 * @param <N>
+	 *            the number type
+	 * @param numberList
+	 *            the number list
+	 * @return the number
+	 */
 	public static <N extends Number> Number min(List<N> numberList) {
 		return JMCollections
 				.isNullOrEmpty(
@@ -220,6 +357,15 @@ public class JMStats {
 														.min().orElse(0);
 	}
 
+	/**
+	 * Max.
+	 *
+	 * @param <N>
+	 *            the number type
+	 * @param numberList
+	 *            the number list
+	 * @return the number
+	 */
 	public static <N extends Number> Number max(List<N> numberList) {
 		return JMCollections
 				.isNullOrEmpty(
@@ -240,10 +386,26 @@ public class JMStats {
 														.max().orElse(0);
 	}
 
+	/**
+	 * Count.
+	 *
+	 * @param numberList
+	 *            the number list
+	 * @return the number
+	 */
 	public static Number count(List<?> numberList) {
 		return numberList.size();
 	}
 
+	/**
+	 * Sum.
+	 *
+	 * @param <N>
+	 *            the number type
+	 * @param numberList
+	 *            the number list
+	 * @return the number
+	 */
 	public static <N extends Number> Number sum(List<N> numberList) {
 		return JMCollections.isNullOrEmpty(numberList) ? 0
 				: numberList.get(0) instanceof Integer
@@ -255,6 +417,15 @@ public class JMStats {
 										.mapToDouble(Number::doubleValue).sum();
 	}
 
+	/**
+	 * Average.
+	 *
+	 * @param <N>
+	 *            the number type
+	 * @param numberList
+	 *            the number list
+	 * @return the number
+	 */
 	public static <N extends Number> Number average(List<N> numberList) {
 		return JMCollections
 				.isNullOrEmpty(

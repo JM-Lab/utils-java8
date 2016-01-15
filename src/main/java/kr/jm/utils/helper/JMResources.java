@@ -1,3 +1,4 @@
+
 package kr.jm.utils.helper;
 
 import java.io.BufferedReader;
@@ -17,24 +18,56 @@ import java.util.ResourceBundle;
 
 import kr.jm.utils.exception.JMExceptionManager;
 
+/**
+ * The Class JMResources.
+ */
 public class JMResources {
 
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
 			.getLogger(JMResources.class);
 
+	/**
+	 * Sets the system property if is null.
+	 *
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 */
 	public static void setSystemPropertyIfIsNull(String key, Object value) {
 		if (!System.getProperties().containsKey(key))
 			System.setProperty(key, value.toString());
 	}
 
+	/**
+	 * Gets the system property.
+	 *
+	 * @param key
+	 *            the key
+	 * @return the system property
+	 */
 	public static String getSystemProperty(String key) {
 		return System.getProperty(key);
 	}
 
+	/**
+	 * Gets the resource URL.
+	 *
+	 * @param pathInClassPath
+	 *            the path in class path
+	 * @return the resource URL
+	 */
 	public static URL getResourceURL(String pathInClassPath) {
 		return ClassLoader.getSystemResource(pathInClassPath);
 	}
 
+	/**
+	 * Gets the resource URI.
+	 *
+	 * @param pathInClassPath
+	 *            the path in class path
+	 * @return the resource URI
+	 */
 	public static URI getResourceURI(String pathInClassPath) {
 		try {
 			return getResourceURL(pathInClassPath).toURI();
@@ -45,10 +78,24 @@ public class JMResources {
 		}
 	}
 
+	/**
+	 * Gets the resource input stream.
+	 *
+	 * @param pathInClassPath
+	 *            the path in class path
+	 * @return the resource input stream
+	 */
 	public static InputStream getResourceInputStream(String pathInClassPath) {
 		return ClassLoader.getSystemResourceAsStream(pathInClassPath);
 	}
 
+	/**
+	 * Gets the properties.
+	 *
+	 * @param pathInClassPath
+	 *            the path in class path
+	 * @return the properties
+	 */
 	public static Properties getProperties(String pathInClassPath) {
 		Properties properties = new Properties();
 		InputStream is = getResourceInputStream(pathInClassPath);
@@ -62,6 +109,13 @@ public class JMResources {
 		return properties;
 	}
 
+	/**
+	 * Gets the properties.
+	 *
+	 * @param propertiesFile
+	 *            the properties file
+	 * @return the properties
+	 */
 	public static Properties getProperties(File propertiesFile) {
 		Properties properties = new Properties();
 		try {
@@ -76,6 +130,17 @@ public class JMResources {
 		return properties;
 	}
 
+	/**
+	 * Save properties.
+	 *
+	 * @param inProperties
+	 *            the in properties
+	 * @param saveFile
+	 *            the save file
+	 * @param comment
+	 *            the comment
+	 * @return true, if successful
+	 */
 	public static boolean saveProperties(Properties inProperties, File saveFile,
 			String comment) {
 		try {
@@ -95,25 +160,64 @@ public class JMResources {
 
 	}
 
+	/**
+	 * Read string.
+	 *
+	 * @param resourceClasspath
+	 *            the resource classpath
+	 * @return the string
+	 */
 	public static String readString(String resourceClasspath) {
 		return JMIO.toString(getResourceInputStream(resourceClasspath));
 	}
 
+	/**
+	 * Read string.
+	 *
+	 * @param resourceClasspath
+	 *            the resource classpath
+	 * @param encoding
+	 *            the encoding
+	 * @return the string
+	 */
 	public static String readString(String resourceClasspath, String encoding) {
 		return JMIO.toString(getResourceInputStream(resourceClasspath),
 				encoding);
 	}
 
+	/**
+	 * Read lines.
+	 *
+	 * @param resourceClasspath
+	 *            the resource classpath
+	 * @return the list
+	 */
 	public static List<String> readLines(String resourceClasspath) {
 		return JMIO.readLines(getResourceInputStream(resourceClasspath));
 	}
 
+	/**
+	 * Read lines.
+	 *
+	 * @param resourceClasspath
+	 *            the resource classpath
+	 * @param encoding
+	 *            the encoding
+	 * @return the list
+	 */
 	public static List<String> readLines(String resourceClasspath,
 			String encoding) {
 		return JMIO.readLines(getResourceInputStream(resourceClasspath),
 				encoding);
 	}
 
+	/**
+	 * Gets the string from classpath or file path.
+	 *
+	 * @param resourceInClasspathOrFilePath
+	 *            the resource in classpath or file path
+	 * @return the string from classpath or file path
+	 */
 	public static String getStringFromClasspathOrFilePath(
 			String resourceInClasspathOrFilePath) {
 		InputStream resourceInputStream = getResourceInputStream(
@@ -122,6 +226,15 @@ public class JMResources {
 				: JMFile.readString(resourceInClasspathOrFilePath);
 	}
 
+	/**
+	 * Gets the string from classpath or file path.
+	 *
+	 * @param resourceInClasspathOrFilePath
+	 *            the resource in classpath or file path
+	 * @param encoding
+	 *            the encoding
+	 * @return the string from classpath or file path
+	 */
 	public static String getStringFromClasspathOrFilePath(
 			String resourceInClasspathOrFilePath, String encoding) {
 		InputStream resourceInputStream = getResourceInputStream(
@@ -131,7 +244,14 @@ public class JMResources {
 				: JMFile.readString(resourceInClasspathOrFilePath, encoding);
 	}
 
-	public static List<String> readLinesfromClasspathOrFilePath(
+	/**
+	 * Read lines from classpath or file path.
+	 *
+	 * @param resourceInClasspathOrFilePath
+	 *            the resource in classpath or file path
+	 * @return the list
+	 */
+	public static List<String> readLinesFromClasspathOrFilePath(
 			String resourceInClasspathOrFilePath) {
 		InputStream resourceInputStream = getResourceInputStream(
 				resourceInClasspathOrFilePath);
@@ -139,10 +259,26 @@ public class JMResources {
 				: JMFile.readLines(resourceInClasspathOrFilePath);
 	}
 
+	/**
+	 * Gets the resource bundle.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @return the resource bundle
+	 */
 	public static ResourceBundle getResourceBundle(String baseName) {
 		return ResourceBundle.getBundle(baseName);
 	}
 
+	/**
+	 * Gets the resource bundle.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param targetLocale
+	 *            the target locale
+	 * @return the resource bundle
+	 */
 	public static ResourceBundle getResourceBundle(String baseName,
 			Locale targetLocale) {
 		Locale.setDefault(targetLocale);

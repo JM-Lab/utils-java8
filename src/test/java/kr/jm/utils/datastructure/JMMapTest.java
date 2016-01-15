@@ -1,3 +1,4 @@
+
 package kr.jm.utils.datastructure;
 
 import static org.junit.Assert.assertEquals;
@@ -10,12 +11,24 @@ import org.junit.Test;
 
 import kr.jm.utils.helper.JMStream;
 
+/**
+ * The Class JMMapTest.
+ */
 public class JMMapTest {
 
+	/**
+	 * Sets the up.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 	}
 
+	/**
+	 * Test.
+	 */
 	@Test
 	public void test() {
 		Map<String, String> map = new HashMap<>();
@@ -29,6 +42,12 @@ public class JMMapTest {
 		assertEquals("ccc", map.get(key));
 	}
 
+	/**
+	 * Test sorted stream by value.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testSortedStreamByValue() throws Exception {
 		Map<Integer, Integer> map = new HashMap<>();

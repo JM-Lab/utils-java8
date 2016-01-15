@@ -1,11 +1,21 @@
+
 package kr.jm.utils.enums;
 
 import java.text.DecimalFormat;
 
 import org.junit.Test;
 
+/**
+ * The Class SimpleSIUnitTest.
+ */
 public class SimpleSIUnitTest {
 
+	/**
+	 * Test convert to string to string with si unit.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testConvertToStringToStringWithSIUnit() throws Exception {
 		DecimalFormat df = new DecimalFormat("#.#");

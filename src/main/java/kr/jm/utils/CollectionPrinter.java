@@ -1,11 +1,22 @@
+
 package kr.jm.utils;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * The Class CollectionPrinter.
+ */
 public class CollectionPrinter {
 
+	/**
+	 * List to json string.
+	 *
+	 * @param list
+	 *            the list
+	 * @return the string
+	 */
 	static public String listToJSONString(List<?> list) {
 		if (list == null || list.size() == 0) {
 			return "[]";
@@ -33,6 +44,13 @@ public class CollectionPrinter {
 		return sb;
 	}
 
+	/**
+	 * Map to json string.
+	 *
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	public static String mapToJSONString(Map<?, ?> map) {
 		if (map == null || map.size() == 0) {
 			return "{}";

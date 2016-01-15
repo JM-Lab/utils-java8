@@ -1,3 +1,4 @@
+
 package kr.jm.utils.helper;
 
 import static java.util.stream.Collectors.toList;
@@ -9,12 +10,27 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class JMStreamTest.
+ */
 public class JMStreamTest {
 
+	/**
+	 * Sets the up.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 	}
 
+	/**
+	 * Test get reversed stream.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetReversedStream() throws Exception {
 		Integer[] ints = { 1, 3, 2, 4, 5 };

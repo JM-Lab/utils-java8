@@ -1,5 +1,9 @@
+
 package kr.jm.utils.enums;
 
+/**
+ * The Enum Seconds.
+ */
 public enum Seconds {
 
 	SECOND(1), MINUTE(SECOND.getValue() * 60), HOUR(
@@ -12,6 +16,11 @@ public enum Seconds {
 		this.seconds = seconds;
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public int getValue() {
 		return seconds;
 	}

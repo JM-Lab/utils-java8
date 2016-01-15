@@ -1,5 +1,9 @@
+
 package kr.jm.utils.enums;
 
+/**
+ * The Enum Period.
+ */
 public enum Period {
 	WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY;
 
@@ -20,10 +24,20 @@ public enum Period {
 		}
 	}
 
+	/**
+	 * Gets the period milliseconds.
+	 *
+	 * @return the period milliseconds
+	 */
 	public long getPeriodMilliseconds() {
 		return this.getDateType().getMilliseconds();
 	}
 
+	/**
+	 * Gets the period seconds.
+	 *
+	 * @return the period seconds
+	 */
 	public int getPeriodSeconds() {
 		return this.getDateType().getSeconds();
 	}

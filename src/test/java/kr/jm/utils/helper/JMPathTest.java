@@ -1,3 +1,4 @@
+
 package kr.jm.utils.helper;
 
 import static java.util.stream.Collectors.toList;
@@ -18,8 +19,17 @@ import org.junit.Test;
 import kr.jm.utils.datastructure.JMCollections;
 import kr.jm.utils.enums.OS;
 
+/**
+ * The Class JMPathTest.
+ */
 public class JMPathTest {
 
+	/**
+	 * Test get root paths.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetRootPaths() throws Exception {
 		System.out.println(JMPath.getRootPathStream());
@@ -30,6 +40,12 @@ public class JMPathTest {
 		return JMPath.getPath("/");
 	}
 
+	/**
+	 * Test get path.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetPath() throws Exception {
 		System.out.println(JMPath
@@ -39,16 +55,34 @@ public class JMPathTest {
 		System.out.println(JMPath.getPath(OS.getUserHomeDir()));
 	}
 
+	/**
+	 * Test get current path.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetCurrentPath() throws Exception {
 		System.out.println(JMPath.getCurrentPath());
 	}
 
+	/**
+	 * Test get user home.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetUserHome() throws Exception {
 		System.out.println(JMPath.getUserHome());
 	}
 
+	/**
+	 * Test get root directories.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetRootDirectories() throws Exception {
 		JMPath.getRootPathStream()
@@ -56,6 +90,12 @@ public class JMPathTest {
 						.forEach(p -> System.out.println(p)));
 	}
 
+	/**
+	 * Test get file store list.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetFileStoreList() throws Exception {
 		System.out.println(JMPath.getFileStoreList());
@@ -74,6 +114,12 @@ public class JMPathTest {
 		JMPath.getFileStorePathList().forEach(System.out::println);
 	}
 
+	/**
+	 * Test get file store path list.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetFileStorePathList() throws Exception {
 		System.out.println(JMPath.getFileStorePathList());
@@ -82,6 +128,12 @@ public class JMPathTest {
 				.forEach(System.out::println);
 	}
 
+	/**
+	 * Test get child file path stream as opt path.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetChildFilePathStreamAsOptPath() throws Exception {
 		System.out.println(JMPath.getRootDirectoryStream());
@@ -96,6 +148,12 @@ public class JMPathTest {
 						.forEach(p -> System.out.print(p + " ")));
 	}
 
+	/**
+	 * Test get child directory path stream as opt.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetChildDirectoryPathStreamAsOpt() throws Exception {
 		System.out.println(JMPath.getRootDirectoryStream());
@@ -110,6 +168,12 @@ public class JMPathTest {
 						.forEach(p -> System.out.print(p + " ")));
 	}
 
+	/**
+	 * Test get children path stream as opt path.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetChildrenPathStreamAsOptPath() throws Exception {
 		System.out.println(JMPath.getRootDirectoryStream());
@@ -141,6 +205,12 @@ public class JMPathTest {
 
 	}
 
+	/**
+	 * Test get sub paths stream as opt path.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetSubPathsStreamAsOptPath() throws Exception {
 		Path startDirectoryPath = getRoot();
@@ -154,6 +224,12 @@ public class JMPathTest {
 		System.out.println(list.size());
 	}
 
+	/**
+	 * Test consume sub file paths.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Ignore
 	@Test
 	public void testConsumeSubFilePaths() throws Exception {
@@ -163,6 +239,12 @@ public class JMPathTest {
 				path -> path.toString().contains(".png"), list::add);
 	}
 
+	/**
+	 * Test consume sub file paths and get applied list.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testConsumeSubFilePathsAndGetAppliedList() throws Exception {
 		Path startDirectoryPath = getRoot();
@@ -172,6 +254,12 @@ public class JMPathTest {
 		System.out.println(consumedList);
 	}
 
+	/**
+	 * Test consume sub file paths and get applied list2.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testConsumeSubFilePathsAndGetAppliedList2() throws Exception {
 		Path startDirectoryPath = JMPath.getUserHome();
@@ -182,33 +270,45 @@ public class JMPathTest {
 						.size());
 	}
 
+	/**
+	 * Test get path extension as opt.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
-	public void testGetPathExtentionAsOpt() throws Exception {
+	public void testGetPathExtensionAsOpt() throws Exception {
 		Path path = JMPath
 				.getPath("/09A0F357-E206-444C-83CA-0475947F8718/Data/7/3"
 						+ "/Attachments/37857/2/Mail 첨부 파일.png");
-		System.out.println(JMPath.getPathExtentionAsOpt(path));
-		assertEquals(".png", JMPath.getPathExtentionAsOpt(path).get());
+		System.out.println(JMPath.getPathExtensionAsOpt(path));
+		assertEquals(".png", JMPath.getPathExtensionAsOpt(path).get());
 
 		path = JMPath.getPath("Data/7/3/Attachments/37857/2/Mail 첨부 파일");
-		System.out.println(JMPath.getPathExtentionAsOpt(path));
-		assertEquals(Optional.empty(), JMPath.getFilePathExtentionAsOpt(path));
+		System.out.println(JMPath.getPathExtensionAsOpt(path));
+		assertEquals(Optional.empty(), JMPath.getFilePathExtensionAsOpt(path));
 
 		JMPath.getPath(
 				"/09A0F357-E206-444C-83CA-0475947F8718/Data/7/3/Attachments/37857/2/");
-		System.out.println(JMPath.getPathExtentionAsOpt(path));
-		assertEquals(Optional.empty(), JMPath.getFilePathExtentionAsOpt(path));
+		System.out.println(JMPath.getPathExtensionAsOpt(path));
+		assertEquals(Optional.empty(), JMPath.getFilePathExtensionAsOpt(path));
 
 		path = JMPath.getPath("Mail 첨부 파일");
-		System.out.println(JMPath.getPathExtentionAsOpt(path));
-		assertEquals(Optional.empty(), JMPath.getFilePathExtentionAsOpt(path));
+		System.out.println(JMPath.getPathExtensionAsOpt(path));
+		assertEquals(Optional.empty(), JMPath.getFilePathExtensionAsOpt(path));
 
 		path = JMPath.getPath("Mail. 첨.부 파일.png");
-		System.out.println(JMPath.getPathExtentionAsOpt(path));
-		assertEquals(".png", JMPath.getPathExtentionAsOpt(path).get());
+		System.out.println(JMPath.getPathExtensionAsOpt(path));
+		assertEquals(".png", JMPath.getPathExtensionAsOpt(path).get());
 
 	}
 
+	/**
+	 * Test get last name.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetLastName() throws Exception {
 		Path path = JMPath.getPath(
@@ -216,6 +316,12 @@ public class JMPathTest {
 		assertEquals("Mail 첨부 파일.png", JMPath.getLastName(path));
 	}
 
+	/**
+	 * Test path info.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testPathInfo() throws Exception {
 		Path path = JMPath.getPath("/dev");
