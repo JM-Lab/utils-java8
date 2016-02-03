@@ -1,6 +1,9 @@
 
 package kr.jm.utils.helper;
 
+import static kr.jm.utils.helper.JMPredicate.getBoolean;
+import static kr.jm.utils.helper.JMPredicate.getEmpty;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -23,8 +26,7 @@ public class JMOptional {
 	 * @return the optional
 	 */
 	public static Optional<String> getOptional(String string) {
-		return Optional.ofNullable(string)
-				.filter(JMPredicate.getEmpty().negate());
+		return Optional.ofNullable(string).filter(getEmpty().negate());
 	}
 
 	/**
@@ -164,7 +166,8 @@ public class JMOptional {
 	 */
 	public static <T, C extends Collection<T>> Optional<C> getOptional(
 			C collection) {
-		return Optional.<C> ofNullable(collection).filter(c -> c.size() > 0);
+		return Optional.<C> ofNullable(collection)
+				.filter(getBoolean(collection.size() > 0));
 	}
 
 	/**

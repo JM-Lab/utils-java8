@@ -101,7 +101,7 @@ public class JMPredicate {
 	 * @return the greater size
 	 */
 	public static Predicate<Collection<?>> getGreaterSize(int target) {
-		return collection -> getGreater(target).test(collection.size());
+		return collection -> collection.size() > target;
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class JMPredicate {
 	 * @return the greater map size
 	 */
 	public static Predicate<Map<?, ?>> getGreaterMapSize(int target) {
-		return map -> getGreater(target).test(map.size());
+		return map -> map.size() > target;
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class JMPredicate {
 	 * @return the greater length
 	 */
 	public static Predicate<Object[]> getGreaterLength(int target) {
-		return array -> getGreater(target).test(array.length);
+		return array -> array.length > target;
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class JMPredicate {
 	 * @return the greater or equal size
 	 */
 	public static Predicate<Collection<?>> getGreaterOrEqualSize(int target) {
-		return collection -> getGreaterOrEqual(target).test(collection.size());
+		return collection -> collection.size() >= target;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class JMPredicate {
 	 * @return the greater map or equal size
 	 */
 	public static Predicate<Map<?, ?>> getGreaterMapOrEqualSize(int target) {
-		return map -> getGreaterOrEqual(target).test(map.size());
+		return map -> map.size() > target;
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class JMPredicate {
 	 * @return the greater or equal length
 	 */
 	public static Predicate<Object[]> getGreaterOrEqualLength(int target) {
-		return array -> getGreaterOrEqual(target).test(array.length);
+		return array -> array.length >= target;
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class JMPredicate {
 	 * @return the less size
 	 */
 	public static Predicate<Collection<?>> getLessSize(int target) {
-		return collection -> getLess(target).test(collection.size());
+		return collection -> collection.size() < target;
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class JMPredicate {
 	 * @return the less map size
 	 */
 	public static Predicate<Map<?, ?>> getLessMapSize(int target) {
-		return map -> getLess(target).test(map.size());
+		return map -> map.size() < target;
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class JMPredicate {
 	 * @return the less length
 	 */
 	public static Predicate<Object[]> getLessLength(int target) {
-		return array -> getLess(target).test(array.length);
+		return array -> array.length < target;
 	}
 
 	/**
@@ -200,7 +200,7 @@ public class JMPredicate {
 	 * @return the less or equal size
 	 */
 	public static Predicate<Collection<?>> getLessOrEqualSize(int target) {
-		return collection -> getLessOrEqual(target).test(collection.size());
+		return collection -> collection.size() <= target;
 	}
 
 	/**
@@ -211,7 +211,7 @@ public class JMPredicate {
 	 * @return the less map or equal size
 	 */
 	public static Predicate<Map<?, ?>> getLessMapOrEqualSize(int target) {
-		return map -> getLessOrEqual(target).test(map.size());
+		return map -> map.size() <= target;
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class JMPredicate {
 	 * @return the less or equal length
 	 */
 	public static Predicate<Object[]> getLessOrEqualLength(int target) {
-		return array -> getLessOrEqual(target).test(array.length);
+		return array -> array.length <= target;
 	}
 
 	/**
