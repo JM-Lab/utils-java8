@@ -33,12 +33,12 @@ public class JMString {
 	public static final String DOT = ".";
 
 	/** The Constant NUMBER_PATTERN. */
-	public static final Pattern NUMBER_PATTERN = Pattern
-			.compile("[+-]?\\d+(\\.\\d+)?");
+	public static final Pattern NUMBER_PATTERN =
+			Pattern.compile("[+-]?\\d+(\\.\\d+)?");
 
 	/** The Constant LINE_SEPERATOR. */
-	public static final String LINE_SEPERATOR = System
-			.getProperty("line.separator");
+	public static final String LINE_SEPERATOR =
+			System.getProperty("line.separator");
 
 	/**
 	 * Checks if is number.
@@ -107,13 +107,13 @@ public class JMString {
 	}
 
 	/**
-	 * Joining with underbar.
+	 * Joining with underscore.
 	 *
 	 * @param strings
 	 *            the strings
 	 * @return the string
 	 */
-	public static String joiningWithUnderbar(String... strings) {
+	public static String joiningWithUnderscore(String... strings) {
 		return joiningWithDelimeter(UNDERSCORE, strings);
 	}
 

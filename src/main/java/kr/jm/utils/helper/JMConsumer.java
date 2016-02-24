@@ -43,4 +43,17 @@ public class JMConsumer {
 		return t -> runnable.run();
 	}
 
+	/**
+	 * Gets the consumer.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param returnConsumer
+	 *            the consumer
+	 * @return the consumer
+	 */
+	public static <T> Consumer<T> getConsumer(Consumer<T> returnConsumer) {
+		return returnConsumer;
+	}
+
 }
