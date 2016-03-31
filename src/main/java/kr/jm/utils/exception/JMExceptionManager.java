@@ -23,12 +23,13 @@ public class JMExceptionManager {
 		JMResources.setSystemPropertyIfIsNull(ERROR_HISTORY_SIZE, 500);
 	}
 
-	private static final String LINE_SEPARATOR = System
-			.getProperty("line.separator");
-	private static final int maxQueueSize = new Integer(
-			JMResources.getSystemProperty(ERROR_HISTORY_SIZE));
+	private static final String LINE_SEPARATOR =
+			System.getProperty("line.separator");
+	private static final int maxQueueSize =
+			new Integer(JMResources.getSystemProperty(ERROR_HISTORY_SIZE));
 
-	private static List<ErrorMessageHistory> errorMessageHistoryList = new LinkedList<ErrorMessageHistory>();
+	private static List<ErrorMessageHistory> errorMessageHistoryList =
+			new LinkedList<ErrorMessageHistory>();
 
 	private static long errorCount = 0;
 
@@ -37,35 +38,36 @@ public class JMExceptionManager {
 	 *
 	 * @param log
 	 *            the log
-	 * @param e
-	 *            the e
+	 * @param throwable
+	 *            the throwable
 	 * @param methodName
 	 *            the method name
 	 * @param params
 	 *            the params
 	 */
-	public static void logException(Logger log, Exception e, String methodName,
-			Object... params) {
+	public static void logException(Logger log, Throwable throwable,
+			String methodName, Object... params) {
 		if (params.length > 0)
-			JMLog.errorForException(log, e, methodName, params);
+			JMLog.errorForException(log, throwable, methodName, params);
 		else
-			JMLog.errorForException(log, e, methodName);
+			JMLog.errorForException(log, throwable, methodName);
 		increaseErrorCount();
-		recordErrorMessageHistory(e);
+		recordErrorMessageHistory(throwable);
 	}
 
-	private static void recordErrorMessageHistory(Exception e) {
+	private static void recordErrorMessageHistory(Throwable throwable) {
 		synchronized (errorMessageHistoryList) {
-			errorMessageHistoryList.add(new ErrorMessageHistory(
-					System.currentTimeMillis(), getStackTraceString(e)));
+			errorMessageHistoryList
+					.add(new ErrorMessageHistory(System.currentTimeMillis(),
+							getStackTraceString(throwable)));
 			if (errorMessageHistoryList.size() > maxQueueSize)
 				errorMessageHistoryList.remove(0);
 		}
 	}
 
 	private static String getStackTraceString(Throwable throwable) {
-		AutoStringBuilder stackTraceStringBuilder = new AutoStringBuilder(
-				LINE_SEPARATOR);
+		AutoStringBuilder stackTraceStringBuilder =
+				new AutoStringBuilder(LINE_SEPARATOR);
 		stackTraceStringBuilder.append(throwable.toString());
 		for (StackTraceElement stackTraceElement : throwable.getStackTrace())
 			stackTraceStringBuilder.append(stackTraceElement.toString());
@@ -126,17 +128,17 @@ public class JMExceptionManager {
 	 *            the generic type
 	 * @param log
 	 *            the log
-	 * @param e
-	 *            the e
+	 * @param throwable
+	 *            the throwable
 	 * @param method
 	 *            the method
 	 * @param params
 	 *            the params
 	 * @return the t
 	 */
-	public static <T> T handleExceptionAndReturnNull(Logger log, Exception e,
-			String method, Object... params) {
-		logException(log, e, method, params);
+	public static <T> T handleExceptionAndReturnNull(Logger log,
+			Throwable throwable, String method, Object... params) {
+		logException(log, throwable, method, params);
 		return null;
 	}
 
@@ -145,17 +147,17 @@ public class JMExceptionManager {
 	 *
 	 * @param log
 	 *            the log
-	 * @param e
-	 *            the e
+	 * @param throwable
+	 *            the throwable
 	 * @param method
 	 *            the method
 	 * @param params
 	 *            the params
 	 * @return true, if successful
 	 */
-	public static boolean handleExceptionAndReturnFalse(Logger log, Exception e,
-			String method, Object... params) {
-		logException(log, e, method, params);
+	public static boolean handleExceptionAndReturnFalse(Logger log,
+			Throwable throwable, String method, Object... params) {
+		logException(log, throwable, method, params);
 		return false;
 	}
 
@@ -166,8 +168,8 @@ public class JMExceptionManager {
 	 *            the generic type
 	 * @param log
 	 *            the log
-	 * @param e
-	 *            the e
+	 * @param throwable
+	 *            the throwable
 	 * @param method
 	 *            the method
 	 * @param returnSupplier
@@ -176,9 +178,10 @@ public class JMExceptionManager {
 	 *            the params
 	 * @return the t
 	 */
-	public static <T> T handleExceptionAndReturn(Logger log, Exception e,
-			String method, Supplier<T> returnSupplier, Object... params) {
-		logException(log, e, method, params);
+	public static <T> T handleExceptionAndReturn(Logger log,
+			Throwable throwable, String method, Supplier<T> returnSupplier,
+			Object... params) {
+		logException(log, throwable, method, params);
 		return returnSupplier.get();
 	}
 
@@ -189,8 +192,8 @@ public class JMExceptionManager {
 	 *            the generic type
 	 * @param log
 	 *            the log
-	 * @param e
-	 *            the e
+	 * @param throwable
+	 *            the throwable
 	 * @param method
 	 *            the method
 	 * @param params
@@ -198,9 +201,28 @@ public class JMExceptionManager {
 	 * @return the t
 	 */
 	public static <T> T handleExceptionAndThrowRuntimeEx(Logger log,
-			Exception e, String method, Object... params) {
-		logException(log, e, method, params);
-		throw new RuntimeException(e);
+			Throwable throwable, String method, Object... params) {
+		logException(log, throwable, method, params);
+		throw new RuntimeException(throwable);
+	}
+
+	/**
+	 * Handle exception and return runtime ex.
+	 *
+	 * @param log
+	 *            the log
+	 * @param throwable
+	 *            the throwable
+	 * @param method
+	 *            the method
+	 * @param params
+	 *            the params
+	 * @return the runtime exception
+	 */
+	public static RuntimeException handleExceptionAndReturnRuntimeEx(Logger log,
+			Throwable throwable, String method, Object... params) {
+		logException(log, throwable, method, params);
+		return new RuntimeException(throwable);
 	}
 
 	/**
@@ -210,16 +232,16 @@ public class JMExceptionManager {
 	 *            the generic type
 	 * @param log
 	 *            the log
-	 * @param e
-	 *            the e
+	 * @param throwable
+	 *            the throwable
 	 * @param method
 	 *            the method
 	 * @param params
 	 *            the params
 	 * @return the optional
 	 */
-	public static <T> Optional<T> handleExceptionAndReturnEmptyOptioal(
-			Logger log, Exception e, String method, Object... params) {
+	public static <T> Optional<T> handleExceptionAndReturnEmptyOptional(
+			Logger log, Throwable throwable, String method, Object... params) {
 		return Optional.<T> empty();
 	}
 

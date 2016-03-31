@@ -14,8 +14,8 @@ import kr.jm.utils.helper.JMThread;
  */
 public class JMExceptionManagerTest {
 
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
-			.getLogger(JMExceptionManagerTest.class);
+	private static final org.slf4j.Logger log =
+			org.slf4j.LoggerFactory.getLogger(JMExceptionManagerTest.class);
 
 	/**
 	 * Sets the up.
@@ -36,8 +36,8 @@ public class JMExceptionManagerTest {
 	@Test
 	public final void testLogException() throws Exception {
 
-		long count = JMStream.numberRangeClosed(1, 503, 1).parallel()
-				.peek(i -> {
+		long count =
+				JMStream.numberRangeClosed(1, 503, 1).parallel().peek(i -> {
 					try {
 						JMExceptionManager.logException(log,
 								new RuntimeException("Exception - " + i),

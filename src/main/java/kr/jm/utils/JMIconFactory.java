@@ -32,18 +32,18 @@ public class JMIconFactory {
 		this.os = OS.getOS();
 		this.unknownFileName = "?";
 		this.bufferedImageCache = new ConcurrentHashMap<>();
-		BufferedImage unknownBufferedImage = buildBufferedImageOfIconInOS(
-				JMPath.getPath(unknownFileName));
+		BufferedImage unknownBufferedImage =
+				buildBufferedImageOfIconInOS(JMPath.getPath(unknownFileName));
 		this.bufferedImageCache.put(unknownFileName, unknownBufferedImage);
 		if (os.equals(OS.MAC))
 			this.bufferedImageCache.put("/dev",
 					buildBufferedImageOfIconInOS(JMPath.getCurrentPath()));
 	}
 
-	private Function<String, BufferedImage> getCachedBufferedImageFunction(
-			Path path) {
-		Supplier<BufferedImage> newValueSupplier = () -> buildBufferedImageOfIconInOS(
-				path);
+	private Function<String, BufferedImage>
+			getCachedBufferedImageFunction(Path path) {
+		Supplier<BufferedImage> newValueSupplier =
+				() -> buildBufferedImageOfIconInOS(path);
 		return key -> JMMap.getOrPutGetNew(bufferedImageCache, key,
 				newValueSupplier);
 	}

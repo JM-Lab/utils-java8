@@ -11,7 +11,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * The Class JMLimitedQueue.
  *
- * @param <E> the element type
+ * @param <E>
+ *            the element type
  */
 public class JMLimitedQueue<E> implements Collection<E> {
 
@@ -21,7 +22,8 @@ public class JMLimitedQueue<E> implements Collection<E> {
 	/**
 	 * Instantiates a new JM limited queue.
 	 *
-	 * @param capacity the capacity
+	 * @param capacity
+	 *            the capacity
 	 */
 	public JMLimitedQueue(int capacity) {
 		this.capacity = capacity;
@@ -46,7 +48,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return Optional.ofNullable(linkedBlockingQueue.peek());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#add(java.lang.Object)
 	 */
 	@Override
@@ -59,7 +63,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#size()
 	 */
 	@Override
@@ -67,7 +73,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.size();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#isEmpty()
 	 */
 	@Override
@@ -75,7 +83,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.isEmpty();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#contains(java.lang.Object)
 	 */
 	@Override
@@ -83,7 +93,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.contains(o);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#iterator()
 	 */
 	@Override
@@ -91,7 +103,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.iterator();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#toArray()
 	 */
 	@Override
@@ -99,7 +113,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.toArray();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#toArray(java.lang.Object[])
 	 */
 	@Override
@@ -107,7 +123,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.toArray(a);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#remove(java.lang.Object)
 	 */
 	@Override
@@ -115,7 +133,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.remove(o);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#containsAll(java.util.Collection)
 	 */
 	@Override
@@ -123,7 +143,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.containsAll(c);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#addAll(java.util.Collection)
 	 */
 	@Override
@@ -131,7 +153,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.addAll(c);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#removeAll(java.util.Collection)
 	 */
 	@Override
@@ -139,7 +163,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.removeAll(c);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#retainAll(java.util.Collection)
 	 */
 	@Override
@@ -147,7 +173,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.retainAll(c);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Collection#clear()
 	 */
 	@Override
@@ -155,7 +183,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		linkedBlockingQueue.clear();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -163,7 +193,9 @@ public class JMLimitedQueue<E> implements Collection<E> {
 		return linkedBlockingQueue.equals(o);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override

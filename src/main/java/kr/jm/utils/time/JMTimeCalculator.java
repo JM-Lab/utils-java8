@@ -71,9 +71,9 @@ public class JMTimeCalculator {
 	public static long getTimestampMinusParemeters(long targetTimestamp,
 			int numOfWeeks, int numOfDays, int numOfHours, int numOfMinutes,
 			int numOfSeconds) {
-		long sumOfParemeters = numOfWeeks * aWeek + numOfDays * aDay
-				+ numOfHours * anHour + numOfMinutes * aMinute
-				+ numOfSeconds * aSecond;
+		long sumOfParemeters =
+				numOfWeeks * aWeek + numOfDays * aDay + numOfHours * anHour
+						+ numOfMinutes * aMinute + numOfSeconds * aSecond;
 		return targetTimestamp - sumOfParemeters;
 	}
 

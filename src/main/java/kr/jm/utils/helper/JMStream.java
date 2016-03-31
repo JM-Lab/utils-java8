@@ -64,8 +64,8 @@ public class JMStream {
 	 *            the number collection
 	 * @return the int stream
 	 */
-	public static <N extends Number> IntStream buildIntStream(
-			Collection<N> numberCollection) {
+	public static <N extends Number> IntStream
+			buildIntStream(Collection<N> numberCollection) {
 		return numberCollection.stream().mapToInt(Number::intValue);
 	}
 
@@ -78,8 +78,8 @@ public class JMStream {
 	 *            the number collection
 	 * @return the long stream
 	 */
-	public static <N extends Number> LongStream buildLongStream(
-			Collection<N> numberCollection) {
+	public static <N extends Number> LongStream
+			buildLongStream(Collection<N> numberCollection) {
 		return numberCollection.stream().mapToLong(Number::longValue);
 	}
 
@@ -92,8 +92,8 @@ public class JMStream {
 	 *            the number collection
 	 * @return the double stream
 	 */
-	public static <N extends Number> DoubleStream buildDoubleStream(
-			Collection<N> numberCollection) {
+	public static <N extends Number> DoubleStream
+			buildDoubleStream(Collection<N> numberCollection) {
 		return numberCollection.stream().mapToDouble(Number::doubleValue);
 	}
 

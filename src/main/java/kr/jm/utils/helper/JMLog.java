@@ -71,14 +71,14 @@ public class JMLog {
 	 *
 	 * @param log
 	 *            the log
-	 * @param exception
+	 * @param throwable
 	 *            the exception
 	 * @param methodName
 	 *            the method name
 	 */
-	static public void errorForException(Logger log, Exception exception,
+	static public void errorForException(Logger log, Throwable throwable,
 			String methodName) {
-		log.error(buildMethodLogString(methodName), exception);
+		log.error(buildMethodLogString(methodName), throwable);
 	}
 
 	/**
@@ -86,16 +86,16 @@ public class JMLog {
 	 *
 	 * @param log
 	 *            the log
-	 * @param exception
+	 * @param throwable
 	 *            the exception
 	 * @param methodName
 	 *            the method name
 	 * @param params
 	 *            the params
 	 */
-	static public void errorForException(Logger log, Exception exception,
+	static public void errorForException(Logger log, Throwable throwable,
 			String methodName, Object... params) {
-		log.error(buildMethodLogString(methodName, params), exception);
+		log.error(buildMethodLogString(methodName, params), throwable);
 	}
 
 	private static String buildMethodLogString(String methodName) {

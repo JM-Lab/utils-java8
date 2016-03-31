@@ -23,8 +23,8 @@ import kr.jm.utils.exception.JMExceptionManager;
  */
 public class JMResources {
 
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
-			.getLogger(JMResources.class);
+	private static final org.slf4j.Logger log =
+			org.slf4j.LoggerFactory.getLogger(JMResources.class);
 
 	/**
 	 * Sets the system property if is null.
@@ -119,8 +119,8 @@ public class JMResources {
 	public static Properties getProperties(File propertiesFile) {
 		Properties properties = new Properties();
 		try {
-			BufferedReader reader = new BufferedReader(
-					new FileReader(propertiesFile));
+			BufferedReader reader =
+					new BufferedReader(new FileReader(propertiesFile));
 			properties.load(reader);
 			reader.close();
 		} catch (IOException e) {
@@ -148,8 +148,8 @@ public class JMResources {
 				saveFile.getParentFile().mkdirs();
 				saveFile.createNewFile();
 			}
-			BufferedWriter writer = new BufferedWriter(
-					new FileWriter(saveFile));
+			BufferedWriter writer =
+					new BufferedWriter(new FileWriter(saveFile));
 			inProperties.store(writer, comment);
 			writer.close();
 			return true;
@@ -220,8 +220,8 @@ public class JMResources {
 	 */
 	public static String getStringFromClasspathOrFilePath(
 			String resourceInClasspathOrFilePath) {
-		InputStream resourceInputStream = getResourceInputStream(
-				resourceInClasspathOrFilePath);
+		InputStream resourceInputStream =
+				getResourceInputStream(resourceInClasspathOrFilePath);
 		return resourceInputStream != null ? JMIO.toString(resourceInputStream)
 				: JMFile.readString(resourceInClasspathOrFilePath);
 	}
@@ -237,8 +237,8 @@ public class JMResources {
 	 */
 	public static String getStringFromClasspathOrFilePath(
 			String resourceInClasspathOrFilePath, String encoding) {
-		InputStream resourceInputStream = getResourceInputStream(
-				resourceInClasspathOrFilePath);
+		InputStream resourceInputStream =
+				getResourceInputStream(resourceInClasspathOrFilePath);
 		return resourceInputStream != null
 				? JMIO.toString(resourceInputStream, encoding)
 				: JMFile.readString(resourceInClasspathOrFilePath, encoding);
@@ -253,8 +253,8 @@ public class JMResources {
 	 */
 	public static List<String> readLinesFromClasspathOrFilePath(
 			String resourceInClasspathOrFilePath) {
-		InputStream resourceInputStream = getResourceInputStream(
-				resourceInClasspathOrFilePath);
+		InputStream resourceInputStream =
+				getResourceInputStream(resourceInClasspathOrFilePath);
 		return resourceInputStream != null ? JMIO.readLines(resourceInputStream)
 				: JMFile.readLines(resourceInClasspathOrFilePath);
 	}

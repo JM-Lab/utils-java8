@@ -32,8 +32,8 @@ public class JMLambda {
 	 *            the predicate
 	 * @return the map
 	 */
-	public static <T> Map<Boolean, List<T>> partitionBy(
-			Collection<T> collection, Predicate<T> predicate) {
+	public static <T> Map<Boolean, List<T>>
+			partitionBy(Collection<T> collection, Predicate<T> predicate) {
 		return collection.stream().collect(partitioningBy(predicate));
 	}
 

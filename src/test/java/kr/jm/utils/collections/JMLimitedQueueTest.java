@@ -21,7 +21,8 @@ public class JMLimitedQueueTest {
 	/**
 	 * Creates the jm limited stack.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Before
 	public void createJMLimitedStack() throws Exception {
@@ -31,7 +32,8 @@ public class JMLimitedQueueTest {
 	/**
 	 * Test.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void test() throws Exception {

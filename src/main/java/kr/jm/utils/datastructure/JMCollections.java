@@ -33,8 +33,8 @@ public class JMCollections {
 	 * @param consumer
 	 *            the consumer
 	 */
-	public static <T, C extends Collection<T>> void ifNotNullOrEmptyConsume(
-			C collection, Consumer<C> consumer) {
+	public static <T, C extends Collection<T>> void
+			ifNotNullOrEmptyConsume(C collection, Consumer<C> consumer) {
 		JMOptional.getOptional(collection).ifPresent(consumer);
 	}
 

@@ -2,7 +2,7 @@
 package kr.jm.utils.helper;
 
 import static kr.jm.utils.helper.JMPredicate.getBoolean;
-import static kr.jm.utils.helper.JMPredicate.getEmpty;
+import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
 
 import java.util.Collection;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class JMOptional {
 	 * @return the optional
 	 */
 	public static Optional<String> getOptional(String string) {
-		return Optional.ofNullable(string).filter(getEmpty().negate());
+		return Optional.ofNullable(string).filter(getIsEmpty().negate());
 	}
 
 	/**
@@ -102,8 +102,9 @@ public class JMOptional {
 	 *            the return builder function
 	 * @return the optional if exist
 	 */
-	public static <T, C extends Collection<T>, R> Optional<R> getOptionalIfExist(
-			C collection, Function<C, R> returnBuilderFunction) {
+	public static <T, C extends Collection<T>, R> Optional<R>
+			getOptionalIfExist(C collection,
+					Function<C, R> returnBuilderFunction) {
 		return getOptional(collection).map(returnBuilderFunction);
 	}
 
@@ -124,8 +125,8 @@ public class JMOptional {
 	 *            the return builder function
 	 * @return the optional if exist
 	 */
-	public static <K, V, M extends Map<K, V>, R> Optional<R> getOptionalIfExist(
-			M map, Function<M, R> returnBuilderFunction) {
+	public static <K, V, M extends Map<K, V>, R> Optional<R>
+			getOptionalIfExist(M map, Function<M, R> returnBuilderFunction) {
 		return getOptional(map).map(returnBuilderFunction);
 	}
 
@@ -148,8 +149,9 @@ public class JMOptional {
 	 *            the return builder function
 	 * @return the value as opt if exist
 	 */
-	public static <K, V, M extends Map<K, V>, R> Optional<R> getValueAsOptIfExist(
-			Map<K, V> map, K key, Function<V, R> returnBuilderFunction) {
+	public static <K, V, M extends Map<K, V>, R> Optional<R>
+			getValueAsOptIfExist(Map<K, V> map, K key,
+					Function<V, R> returnBuilderFunction) {
 		return getOptional(map, key).map(returnBuilderFunction::apply);
 	}
 
@@ -164,8 +166,8 @@ public class JMOptional {
 	 *            the collection
 	 * @return the optional
 	 */
-	public static <T, C extends Collection<T>> Optional<C> getOptional(
-			C collection) {
+	public static <T, C extends Collection<T>> Optional<C>
+			getOptional(C collection) {
 		return Optional.<C> ofNullable(collection)
 				.filter(getBoolean(collection.size() > 0));
 	}

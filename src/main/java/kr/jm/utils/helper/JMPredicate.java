@@ -241,7 +241,7 @@ public class JMPredicate {
 	 *
 	 * @return the empty
 	 */
-	public static Predicate<String> getEmpty() {
+	public static Predicate<String> getIsEmpty() {
 		return string -> string.isEmpty();
 	}
 
@@ -252,7 +252,7 @@ public class JMPredicate {
 	 *            the suffix
 	 * @return the end with
 	 */
-	public static Predicate<String> getEndWith(String suffix) {
+	public static Predicate<String> getEndsWith(String suffix) {
 		return string -> string.endsWith(suffix);
 	}
 
@@ -263,7 +263,7 @@ public class JMPredicate {
 	 *            the prefix
 	 * @return the start with
 	 */
-	public static Predicate<String> getStartWith(String prefix) {
+	public static Predicate<String> getStartsWith(String prefix) {
 		return string -> string.startsWith(prefix);
 	}
 
@@ -285,7 +285,7 @@ public class JMPredicate {
 	 *            the generic type
 	 * @return the null
 	 */
-	public static <T> Predicate<T> getNull() {
+	public static <T> Predicate<T> getIsNull() {
 		return target -> target == null;
 	}
 
@@ -296,7 +296,7 @@ public class JMPredicate {
 	 *            the generic type
 	 * @return the not null
 	 */
-	public static <T> Predicate<T> getNotNull() {
+	public static <T> Predicate<T> getIsNotNull() {
 		return target -> target != null;
 	}
 

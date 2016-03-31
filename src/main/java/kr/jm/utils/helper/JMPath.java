@@ -2,6 +2,7 @@
 package kr.jm.utils.helper;
 
 import static java.util.stream.Collectors.toList;
+import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,8 +30,8 @@ import kr.jm.utils.exception.JMExceptionManager;
  */
 public class JMPath {
 
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
-			.getLogger(JMPath.class);
+	private static final org.slf4j.Logger log =
+			org.slf4j.LoggerFactory.getLogger(JMPath.class);
 
 	private static final OS os = OS.getOS();
 
@@ -41,7 +42,8 @@ public class JMPath {
 	public static final Predicate<Path> DirectoryFilter = Files::isDirectory;
 
 	/** The Constant RegularFileFilter. */
-	public static final Predicate<Path> RegularFileFilter = Files::isRegularFile;
+	public static final Predicate<Path> RegularFileFilter =
+			Files::isRegularFile;
 
 	/** The Constant ExecutableFilter. */
 	public static final Predicate<Path> ExecutableFilter = Files::isExecutable;
@@ -53,7 +55,8 @@ public class JMPath {
 	public static final Predicate<Path> WritableFilter = Files::isWritable;
 
 	/** The Constant SymbolicLinkFilter. */
-	public static final Predicate<Path> SymbolicLinkFilter = Files::isSymbolicLink;
+	public static final Predicate<Path> SymbolicLinkFilter =
+			Files::isSymbolicLink;
 
 	/** The Constant HiddenFilter. */
 	public static final Predicate<Path> HiddenFilter = JMPath::isHidden;
@@ -65,12 +68,12 @@ public class JMPath {
 	public static final Predicate<Path> ExistFilter = Files::exists;
 
 	/** The Constant DirectoryAndNotSymbolicLinkFilter. */
-	public static final Predicate<Path> DirectoryAndNotSymbolicLinkFilter = DirectoryFilter
-			.and(SymbolicLinkFilter.negate());
+	public static final Predicate<Path> DirectoryAndNotSymbolicLinkFilter =
+			DirectoryFilter.and(SymbolicLinkFilter.negate());
 
 	/** The Constant directoryFirstComparator. */
-	public static final Comparator<Path> directoryFirstComparator = (p1,
-			p2) -> isDirectory(p1) && !isDirectory(p2) ? -1
+	public static final Comparator<Path> directoryFirstComparator =
+			(p1, p2) -> isDirectory(p1) && !isDirectory(p2) ? -1
 					: !isDirectory(p1) && isDirectory(p2) ? 1
 							: p1.compareTo(p2);
 
@@ -806,7 +809,7 @@ public class JMPath {
 			Predicate<Path> filter) {
 		return JMOptional.getNullableAndFilteredOptional(path, filter)
 				.map(JMPath::getLastName).map(JMString::getExtension)
-				.filter(JMPredicate.getEmpty().negate());
+				.filter(getIsEmpty().negate());
 	}
 
 	/**
@@ -823,7 +826,7 @@ public class JMPath {
 					.of(Files.createTempFile(prefixSuffix[0], prefixSuffix[1]))
 					.filter(ExistFilter).map(JMPath::deleteOnExit);
 		} catch (Exception e) {
-			return JMExceptionManager.handleExceptionAndReturnEmptyOptioal(log,
+			return JMExceptionManager.handleExceptionAndReturnEmptyOptional(log,
 					e, "createTempFile", path);
 		}
 	}

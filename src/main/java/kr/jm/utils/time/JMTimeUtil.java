@@ -23,8 +23,8 @@ import kr.jm.utils.datastructure.JMMap;
 public class JMTimeUtil {
 
 	/** The Constant DefaultTimeZoneId. */
-	public static final String DefaultTimeZoneId = ZoneId.systemDefault()
-			.getId();
+	public static final String DefaultTimeZoneId =
+			ZoneId.systemDefault().getId();
 
 	/** The Constant UTC. */
 	public static final String UTC = "UTC";
@@ -32,61 +32,76 @@ public class JMTimeUtil {
 	/**
 	 * The Constant LONG_FORMAT_WITH_Z. yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
 	 */
-	public static final String LONG_FORMAT_WITH_Z = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"; // 2014-03-21T18:31:23.000Z
+	public static final String LONG_FORMAT_WITH_Z =
+			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"; // 2014-03-21T18:31:23.000Z
 
 	/**
 	 * The Constant LONG_FORMAT3_WITH_PLUS_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SSSZ
 	 */
-	public static final String LONG_FORMAT3_WITH_PLUS_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"; // 2014-03-21T18:31:23.000+0900
+	public static final String LONG_FORMAT3_WITH_PLUS_TIMEZONE =
+			"yyyy-MM-dd'T'HH:mm:ss.SSSZ"; // 2014-03-21T18:31:23.000+0900
 
 	/**
 	 * The Constant LONG_FORMAT2_WITH_PLUS_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SSZ
 	 */
-	public static final String LONG_FORMAT2_WITH_PLUS_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.SSZ"; // 2014-03-21T18:31:23.00+0900
+	public static final String LONG_FORMAT2_WITH_PLUS_TIMEZONE =
+			"yyyy-MM-dd'T'HH:mm:ss.SSZ"; // 2014-03-21T18:31:23.00+0900
 
 	/**
 	 * The Constant LONG_FORMAT1_WITH_PLUS_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SZ
 	 */
-	public static final String LONG_FORMAT1_WITH_PLUS_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.SZ"; // 2014-03-21T18:31:23.0+0900
+	public static final String LONG_FORMAT1_WITH_PLUS_TIMEZONE =
+			"yyyy-MM-dd'T'HH:mm:ss.SZ"; // 2014-03-21T18:31:23.0+0900
 
 	/** The Constant LONG_FORMAT_WITH_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SSSz */
-	public static final String LONG_FORMAT_WITH_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.SSSz"; // 2014-03-21T18:31:23.000KST
+	public static final String LONG_FORMAT_WITH_TIMEZONE =
+			"yyyy-MM-dd'T'HH:mm:ss.SSSz"; // 2014-03-21T18:31:23.000KST
 
 	/** The Constant LONG_FORMAT3_WITHOUT_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SSS */
-	public static final String LONG_FORMAT3_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.SSS"; // 2014-03-21T18:31:23.000
+	public static final String LONG_FORMAT3_WITHOUT_TIMEZONE =
+			"yyyy-MM-dd'T'HH:mm:ss.SSS"; // 2014-03-21T18:31:23.000
 
 	/** The Constant LONG_FORMAT2_WITHOUT_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SS */
-	public static final String LONG_FORMAT2_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.SS"; // 2014-03-21T18:31:23.00
+	public static final String LONG_FORMAT2_WITHOUT_TIMEZONE =
+			"yyyy-MM-dd'T'HH:mm:ss.SS"; // 2014-03-21T18:31:23.00
 
 	/** The Constant LONG_FORMAT1_WITHOUT_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.S */
-	public static final String LONG_FORMAT1_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.S"; // 2014-03-21T18:31:23.0
+	public static final String LONG_FORMAT1_WITHOUT_TIMEZONE =
+			"yyyy-MM-dd'T'HH:mm:ss.S"; // 2014-03-21T18:31:23.0
 
 	/** The Constant SHORT_FORMAT_WITH_PLUS_TIMEZONE. yyyyMMddHHmmss.SSSZ */
-	public static final String SHORT_FORMAT_WITH_PLUS_TIMEZONE = "yyyyMMddHHmmss.SSSZ"; // 20140321183123.000+0900
+	public static final String SHORT_FORMAT_WITH_PLUS_TIMEZONE =
+			"yyyyMMddHHmmss.SSSZ"; // 20140321183123.000+0900
 
 	/** The Constant SHORT_FORMAT_WITH_TIMEZONE. yyyyMMddHHmmss.SSSz */
-	public static final String SHORT_FORMAT_WITH_TIMEZONE = "yyyyMMddHHmmss.SSSz"; // 20140321183123.000KST
+	public static final String SHORT_FORMAT_WITH_TIMEZONE =
+			"yyyyMMddHHmmss.SSSz"; // 20140321183123.000KST
 
 	/** The Constant SHORT_FORMAT_WITHOUT_TIMEZONE. yyyyMMddHHmmss.SSS */
-	public static final String SHORT_FORMAT_WITHOUT_TIMEZONE = "yyyyMMddHHmmss.SSS"; // 20140321183123.000
+	public static final String SHORT_FORMAT_WITHOUT_TIMEZONE =
+			"yyyyMMddHHmmss.SSS"; // 20140321183123.000
 
 	/**
 	 * The Constant DATETIME_FORMAT_WITH_PLUS_TIMEZONE. yyyy-MM-dd'T'HH:mm:ssZ
 	 */
-	public static final String DATETIME_FORMAT_WITH_PLUS_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ssZ"; // 20140321183123+0900
+	public static final String DATETIME_FORMAT_WITH_PLUS_TIMEZONE =
+			"yyyy-MM-dd'T'HH:mm:ssZ"; // 20140321183123+0900
 
 	/** The Constant DATETIME_FORMAT_WITH_Z. yyyy-MM-dd'T'HH:mm:ss'Z' */
-	public static final String DATETIME_FORMAT_WITH_Z = "yyyy-MM-dd'T'HH:mm:ss'Z'"; // 2014-03-21T18:31:23Z
+	public static final String DATETIME_FORMAT_WITH_Z =
+			"yyyy-MM-dd'T'HH:mm:ss'Z'"; // 2014-03-21T18:31:23Z
 
 	/** The Constant DATETIME_FORMAT_WITHOUT_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss */
-	public static final String DATETIME_FORMAT_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss"; // 2014-03-21T18:31:23
+	public static final String DATETIME_FORMAT_WITHOUT_TIMEZONE =
+			"yyyy-MM-dd'T'HH:mm:ss"; // 2014-03-21T18:31:23
 
 	private static final String UTC_0000 = "+0000";
-	private static final Pattern isoTimestampZoneInfoPattern = Pattern
-			.compile("[\\+|\\-][0-9]{4}$");
-	private static Map<String, SimpleDateFormat> simpleDateFormatMap = new HashMap<String, SimpleDateFormat>();
-	private static BiFunction<String, String, Supplier<SimpleDateFormat>> newSimpleDateFormatBuilder = (
-			dateFormat, timeZoneId) -> () -> setIfTimeZoneId(
+	private static final Pattern isoTimestampZoneInfoPattern =
+			Pattern.compile("[\\+|\\-][0-9]{4}$");
+	private static Map<String, SimpleDateFormat> simpleDateFormatMap =
+			new HashMap<String, SimpleDateFormat>();
+	private static BiFunction<String, String, Supplier<SimpleDateFormat>> newSimpleDateFormatBuilder =
+			(dateFormat, timeZoneId) -> () -> setIfTimeZoneId(
 					new SimpleDateFormat(dateFormat, Locale.US), timeZoneId);
 
 	/**
@@ -96,8 +111,8 @@ public class JMTimeUtil {
 	 *            the iso timestamp
 	 * @return the string
 	 */
-	public static String changeIsoTimestampToIsoLocalDateTime(
-			String isoTimestamp) {
+	public static String
+			changeIsoTimestampToIsoLocalDateTime(String isoTimestamp) {
 		return changeFormatAndTimeZone(isoTimestamp,
 				DATETIME_FORMAT_WITHOUT_TIMEZONE, UTC);
 	}
@@ -186,8 +201,8 @@ public class JMTimeUtil {
 	 *            the epoch timestamp
 	 * @return the time as long format with plus timezone
 	 */
-	public static String getTimeAsLongFormatWithPlusTimezone(
-			long epochTimestamp) {
+	public static String
+			getTimeAsLongFormatWithPlusTimezone(long epochTimestamp) {
 		return getTime(epochTimestamp, LONG_FORMAT3_WITH_PLUS_TIMEZONE);
 	}
 
@@ -209,8 +224,8 @@ public class JMTimeUtil {
 	 *            the epoch timestamp
 	 * @return the time as long format without timezone
 	 */
-	public static String getTimeAsLongFormatWithoutTimezone(
-			long epochTimestamp) {
+	public static String
+			getTimeAsLongFormatWithoutTimezone(long epochTimestamp) {
 		return getTime(epochTimestamp, LONG_FORMAT3_WITHOUT_TIMEZONE);
 	}
 
@@ -221,8 +236,8 @@ public class JMTimeUtil {
 	 *            the epoch timestamp
 	 * @return the time as short format with plus timezone
 	 */
-	public static String getTimeAsShortFormatWithPlusTimezone(
-			long epochTimestamp) {
+	public static String
+			getTimeAsShortFormatWithPlusTimezone(long epochTimestamp) {
 		return getTime(epochTimestamp, SHORT_FORMAT_WITH_PLUS_TIMEZONE);
 	}
 
@@ -244,8 +259,8 @@ public class JMTimeUtil {
 	 *            the epoch timestamp
 	 * @return the time as short format without timezone
 	 */
-	public static String getTimeAsShortFormatWithoutTimezone(
-			long epochTimestamp) {
+	public static String
+			getTimeAsShortFormatWithoutTimezone(long epochTimestamp) {
 		return getTime(epochTimestamp, SHORT_FORMAT_WITHOUT_TIMEZONE);
 	}
 
@@ -389,8 +404,8 @@ public class JMTimeUtil {
 
 	private static String getTimeFormat(String isoTimestamp) {
 		boolean isContainsDot = isoTimestamp.contains(".");
-		boolean isContainsPlusOrMinus = isoTimestampZoneInfoPattern
-				.matcher(isoTimestamp).find();
+		boolean isContainsPlusOrMinus =
+				isoTimestampZoneInfoPattern.matcher(isoTimestamp).find();
 		int length = isoTimestamp.length();
 		if (isContainsDot && isContainsPlusOrMinus) {
 			if (length == 28)

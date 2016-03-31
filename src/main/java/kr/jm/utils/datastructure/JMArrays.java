@@ -20,8 +20,8 @@ public class JMArrays {
 	 *            the objects
 	 * @return the e[]
 	 */
-	public static <E> E[] buildArray(
-			@SuppressWarnings("unchecked") E... objects) {
+	public static <E> E[]
+			buildArray(@SuppressWarnings("unchecked") E... objects) {
 		return objects;
 	}
 

@@ -11,12 +11,18 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.function.Supplier;
+
+import kr.jm.utils.exception.JMExceptionManager;
 
 /**
  * The Class JMThread.
  */
 public class JMThread {
+
+	private static final org.slf4j.Logger log =
+			org.slf4j.LoggerFactory.getLogger(JMThread.class);
 
 	/**
 	 * Gets the thread queue.
@@ -25,8 +31,8 @@ public class JMThread {
 	 *            the executor service
 	 * @return the thread queue
 	 */
-	public static BlockingQueue<Runnable> getThreadQueue(
-			ExecutorService executorService) {
+	public static BlockingQueue<Runnable>
+			getThreadQueue(ExecutorService executorService) {
 		return ((ThreadPoolExecutor) executorService).getQueue();
 	}
 
@@ -105,7 +111,7 @@ public class JMThread {
 		try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			JMExceptionManager.logException(log, e, "sleep", millis);
 		}
 	}
 
@@ -119,19 +125,20 @@ public class JMThread {
 	 */
 	public static void run(final Runnable runnableWork,
 			final long timeoutInSec) {
-		final ExecutorService threadPool = Executors.newFixedThreadPool(2);
+		ExecutorService threadPool = Executors.newFixedThreadPool(2);
 		afterTimeout(timeoutInSec, threadPool, threadPool.submit(runnableWork));
 	}
 
-	private static void afterTimeout(final long timeoutInSec,
-			final ExecutorService threadPool, final Future<?> future) {
+	private static void afterTimeout(long timeoutInSec,
+			ExecutorService threadPool, Future<?> future) {
 		threadPool.execute(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					future.get(timeoutInSec, TimeUnit.SECONDS);
 				} catch (Exception e) {
-					throw new RuntimeException(e);
+					JMExceptionManager.logException(log, e, "afterTimeout",
+							timeoutInSec, threadPool, future);
 				} finally {
 					if (!threadPool.isShutdown())
 						threadPool.shutdownNow();
@@ -175,7 +182,16 @@ public class JMThread {
 	 *            the runnable
 	 */
 	public static void runAsync(Runnable runnable) {
-		CompletableFuture.runAsync(runnable);
+		CompletableFuture.runAsync(runnable)
+				.exceptionally(handleExceptionally("runAsync", runnable));
+	}
+
+	private static Function<Throwable, ? extends Void>
+			handleExceptionally(String methodName, Object... objects) {
+		return throwable -> {
+			throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
+					throwable, methodName, objects);
+		};
 	}
 
 	/**
@@ -187,7 +203,8 @@ public class JMThread {
 	 *            the executor
 	 */
 	public static void runAsync(Runnable runnable, Executor executor) {
-		CompletableFuture.runAsync(runnable, executor);
+		CompletableFuture.runAsync(runnable, executor).exceptionally(
+				handleExceptionally("runAsync", runnable, executor));
 	}
 
 	/**
@@ -200,7 +217,10 @@ public class JMThread {
 	 * @return the completable future
 	 */
 	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier) {
-		return CompletableFuture.supplyAsync(supplier);
+		return CompletableFuture.supplyAsync(supplier)
+				.exceptionally(throwable -> JMExceptionManager
+						.handleExceptionAndReturn(log, throwable, "supplyAsync",
+								supplier, supplier));
 	}
 
 	/**
@@ -216,7 +236,10 @@ public class JMThread {
 	 */
 	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
 			Executor executor) {
-		return CompletableFuture.supplyAsync(supplier, executor);
+		return CompletableFuture.supplyAsync(supplier, executor)
+				.exceptionally(throwable -> JMExceptionManager
+						.handleExceptionAndReturn(log, throwable, "supplyAsync",
+								supplier, supplier, executor));
 	}
 
 }

@@ -16,8 +16,8 @@ import kr.jm.utils.exception.JMExceptionManager;
  */
 public class JMIO {
 
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
-			.getLogger(JMIO.class);
+	private static final org.slf4j.Logger log =
+			org.slf4j.LoggerFactory.getLogger(JMIO.class);
 
 	private static final String UTF_8 = "UTF-8";
 	private static final String NEW_LINE = System.getProperty("line.separator");
@@ -116,8 +116,8 @@ public class JMIO {
 			String encoding, Consumer<String> consumer) {
 		try (BufferedReader br = new BufferedReader(
 				new InputStreamReader(inputStream, encoding))) {
-			for (String line = br.readLine(); line != null; line = br
-					.readLine())
+			for (String line = br.readLine(); line != null; line =
+					br.readLine())
 				consumer.accept(line);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
