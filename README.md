@@ -13,7 +13,7 @@ Binaries and dependency information for Maven, Gradle and others can be found at
 Example for Gradle:
 
 ```groovy
-compile 'kr.jmlab:jmlab-utils-java8:0.1.8-SNAPSHOT'
+compile 'kr.jmlab:jmlab-utils-java8:0.1.8'
 ```
 
 and for Maven:
@@ -22,7 +22,7 @@ and for Maven:
 <dependency>
     <groupId>kr.jmlab</groupId>
     <artifactId>jmlab-utils-java8</artifactId>
-    <version>0.1.8-SNAPSHOT</version>
+    <version>0.1.8</version>
 </dependency>
 ```
 
@@ -32,6 +32,7 @@ Checkout the source code:
 
     git clone https://github.com/JM-Lab/utils-java8.git
     cd utils-java8
+    git checkout -b 0.1.8 origin/0.1.8 
     mvn install
 
 ## Useful Utilities With New Features Of Java 8  :
@@ -46,6 +47,8 @@ Checkout the source code:
 * **JMThread**
 * **JMLambda**
 * **JMTimeUtil**
+* **JMLog**
+* **JMExceptionManager**
 * **etc.**
 
 ## LICENSE
