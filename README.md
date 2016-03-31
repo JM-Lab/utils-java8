@@ -8,7 +8,7 @@ JMLab Java 8 Utility Libraries
 
 ## Binaries
 
-Binaries and dependency information for Maven, Gradle and others can be found at [http://search.maven.org](http://http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22kr.jmlab%22%20AND%20a%3A%22jmlab-utils-java8%22).
+Binaries and dependency information for Maven, Gradle and others can be found at [http://search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22kr.jmlab%22%20AND%20a%3A%22jmlab-utils-java8%22).
 
 Example for Gradle:
 
