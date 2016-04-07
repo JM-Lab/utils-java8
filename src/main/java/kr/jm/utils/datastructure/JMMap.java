@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -352,10 +353,11 @@ public class JMMap {
 	 * @return the map
 	 */
 	public static <K, V> Map<K, V> sort(Map<K, V> map,
-			Comparator<? super Entry<K, V>> comparator) {
+			Comparator<K> comparator) {
 		synchronized (map) {
-			return sortedStream(map, comparator)
-					.collect(toMap(Entry::getKey, Entry::getValue));
+			TreeMap<K, V> sortedMap = new TreeMap<>(comparator);
+			sortedMap.putAll(map);
+			return sortedMap;
 		}
 	}
 
@@ -372,8 +374,7 @@ public class JMMap {
 	 */
 	public static <K extends Comparable<K>, V> Map<K, V> sort(Map<K, V> map) {
 		synchronized (map) {
-			return sortedStream(map)
-					.collect(toMap(Entry::getKey, Entry::getValue));
+			return new TreeMap<>(map);
 		}
 	}
 
@@ -428,10 +429,7 @@ public class JMMap {
 	 */
 	public static <K, V extends Comparable<V>> Map<K, V>
 			sortByValue(Map<K, V> map) {
-		synchronized (map) {
-			return sortedStreamByValue(map)
-					.collect(toMap(Entry::getKey, Entry::getValue));
-		}
+		return sort(map, (k1, k2) -> map.get(k1).compareTo(map.get(k2)));
 	}
 
 	/**

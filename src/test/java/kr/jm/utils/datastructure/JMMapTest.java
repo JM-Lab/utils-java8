@@ -50,10 +50,30 @@ public class JMMapTest {
 	 */
 	@Test
 	public void testSortedStreamByValue() throws Exception {
-		Map<Integer, Integer> map = new HashMap<>();
-		JMStream.numberRangeClosed(0, 100, 1).forEach(num -> map.put(num, num));
+		Map<Integer, Double> map = new HashMap<>();
+		JMStream.numberRangeClosed(0, 100, 1)
+				.forEach(num -> map.put(num, Math.random() % 100));
 		System.out.println(map);
 		JMMap.sortedStreamByValue(map).limit(10).forEach(System.out::println);
+	}
+
+	/**
+	 * Test sorted.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testSorted() throws Exception {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("99", 90);
+		map.put("90", 95);
+		map.put("95", 99);
+		System.out.println(map);
+		System.out.println(JMMap.sort(map));
+		assertEquals("{90=95, 95=99, 99=90}", JMMap.sort(map).toString());
+		System.out.println(JMMap.sortByValue(map));
+		assertEquals("{99=90, 90=95, 95=99}",
+				JMMap.sortByValue(map).toString());
 	}
 
 }
