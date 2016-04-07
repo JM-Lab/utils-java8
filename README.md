@@ -32,7 +32,7 @@ Checkout the source code:
 
     git clone https://github.com/JM-Lab/utils-java8.git
     cd utils-java8
-    git checkout -b 0.1.8 origin/0.1.8 
+    git checkout -b 0.1.81 origin/0.1.81
     mvn install
 
 ## Useful Utilities With New Features Of Java 8  :
