@@ -1,7 +1,6 @@
 
 package kr.jm.utils.helper;
 
-import static kr.jm.utils.helper.JMPredicate.getBoolean;
 import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
 
 import java.util.Collection;
@@ -12,6 +11,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * The Class JMOptional.
@@ -168,8 +168,7 @@ public class JMOptional {
 	 */
 	public static <T, C extends Collection<T>> Optional<C>
 			getOptional(C collection) {
-		return Optional.<C> ofNullable(collection)
-				.filter(getBoolean(collection.size() > 0));
+		return Optional.<C> ofNullable(collection).filter(c -> c.size() > 0);
 	}
 
 	/**
@@ -206,7 +205,7 @@ public class JMOptional {
 	 */
 	public static <K, V, M extends Map<K, V>> Optional<V> getOptional(M map,
 			K key) {
-		return Optional.<V> ofNullable(map.get(key));
+		return Optional.<M> ofNullable(map).map(m -> m.get(key));
 	}
 
 	/**
@@ -275,4 +274,20 @@ public class JMOptional {
 		return Optional.ofNullable(target).orElse(elseTarget);
 	}
 
+	/**
+	 * Change into stream.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param <C>
+	 *            the generic type
+	 * @param collection
+	 *            the collection
+	 * @return the stream
+	 */
+	public static <T, C extends Collection<T>> Stream<T>
+			changeIntoStream(C collection) {
+		return getOptional(collection).map(Collection::stream)
+				.orElseGet(Stream::empty);
+	}
 }
