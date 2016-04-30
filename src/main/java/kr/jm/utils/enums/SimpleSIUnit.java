@@ -11,7 +11,7 @@ import kr.jm.utils.helper.JMString;
  */
 public enum SimpleSIUnit {
 
-	k(1), M(2), G(3), T(4), P(5), E(6);
+	K(1), M(2), G(3), T(4), P(5), E(6);
 
 	/** The Constant BASE_SIZE. */
 	public static final int BASE_SIZE = 1024;
