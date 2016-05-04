@@ -60,7 +60,8 @@ public class JMMapTest {
 	/**
 	 * Test sorted.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testSorted() throws Exception {

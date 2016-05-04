@@ -21,8 +21,8 @@ import kr.jm.utils.exception.JMExceptionManager;
  */
 public class JMThread {
 
-	private static final org.slf4j.Logger log =
-			org.slf4j.LoggerFactory.getLogger(JMThread.class);
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+			.getLogger(JMThread.class);
 
 	/**
 	 * Gets the thread queue.
@@ -31,9 +31,14 @@ public class JMThread {
 	 *            the executor service
 	 * @return the thread queue
 	 */
-	public static BlockingQueue<Runnable>
-			getThreadQueue(ExecutorService executorService) {
-		return ((ThreadPoolExecutor) executorService).getQueue();
+	public static BlockingQueue<Runnable> getThreadQueue(
+			ExecutorService executorService) {
+		if (executorService instanceof ThreadPoolExecutor)
+			return ((ThreadPoolExecutor) executorService).getQueue();
+		throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
+				new IllegalArgumentException(
+						"Unsupport ExecutorService - Use ThrJMThread.newThreadPool Or newSingleThreadPool To Get ExecutorService !!!"),
+				"getThreadQueue", executorService);
 	}
 
 	/**
@@ -89,6 +94,15 @@ public class JMThread {
 	public static ExecutorService newThreadPool(int numOfThreads) {
 		return numOfThreads < 1 ? Executors.newCachedThreadPool()
 				: Executors.newFixedThreadPool(numOfThreads);
+	}
+
+	/**
+	 * New single thread pool.
+	 *
+	 * @return the executor service
+	 */
+	public static ExecutorService newSingleThreadPool() {
+		return Executors.newFixedThreadPool(1);
 	}
 
 	/**
@@ -186,8 +200,8 @@ public class JMThread {
 				.exceptionally(handleExceptionally("runAsync", runnable));
 	}
 
-	private static Function<Throwable, ? extends Void>
-			handleExceptionally(String methodName, Object... objects) {
+	private static Function<Throwable, ? extends Void> handleExceptionally(
+			String methodName, Object... objects) {
 		return throwable -> {
 			throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
 					throwable, methodName, objects);
