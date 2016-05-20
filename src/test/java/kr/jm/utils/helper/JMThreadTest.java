@@ -40,7 +40,7 @@ public class JMThreadTest {
 	 */
 	@Test
 	public void testRunAsyncSupplyExecutor() {
-		JMThread.supplyAsync(() -> 1 / 0);
+		JMThread.supplyAsync(() -> 1 / 0, () -> 0);
 	}
 
 	/**

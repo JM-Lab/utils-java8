@@ -21,8 +21,8 @@ import kr.jm.utils.exception.JMExceptionManager;
  */
 public class JMThread {
 
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
-			.getLogger(JMThread.class);
+	private static final org.slf4j.Logger log =
+			org.slf4j.LoggerFactory.getLogger(JMThread.class);
 
 	/**
 	 * Gets the thread queue.
@@ -31,8 +31,8 @@ public class JMThread {
 	 *            the executor service
 	 * @return the thread queue
 	 */
-	public static BlockingQueue<Runnable> getThreadQueue(
-			ExecutorService executorService) {
+	public static BlockingQueue<Runnable>
+			getThreadQueue(ExecutorService executorService) {
 		if (executorService instanceof ThreadPoolExecutor)
 			return ((ThreadPoolExecutor) executorService).getQueue();
 		throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
@@ -200,8 +200,8 @@ public class JMThread {
 				.exceptionally(handleExceptionally("runAsync", runnable));
 	}
 
-	private static Function<Throwable, ? extends Void> handleExceptionally(
-			String methodName, Object... objects) {
+	private static Function<Throwable, ? extends Void>
+			handleExceptionally(String methodName, Object... objects) {
 		return throwable -> {
 			throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
 					throwable, methodName, objects);
@@ -230,11 +230,12 @@ public class JMThread {
 	 *            the supplier
 	 * @return the completable future
 	 */
-	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier) {
+	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
+			Supplier<U> failureSupplier) {
 		return CompletableFuture.supplyAsync(supplier)
 				.exceptionally(throwable -> JMExceptionManager
 						.handleExceptionAndReturn(log, throwable, "supplyAsync",
-								supplier, supplier));
+								failureSupplier, supplier));
 	}
 
 	/**
@@ -249,11 +250,11 @@ public class JMThread {
 	 * @return the completable future
 	 */
 	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
-			Executor executor) {
+			Supplier<U> failureSupplier, Executor executor) {
 		return CompletableFuture.supplyAsync(supplier, executor)
 				.exceptionally(throwable -> JMExceptionManager
 						.handleExceptionAndReturn(log, throwable, "supplyAsync",
-								supplier, supplier, executor));
+								failureSupplier, supplier, executor));
 	}
 
 }
