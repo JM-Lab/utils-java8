@@ -340,4 +340,30 @@ public class JMPredicate {
 		return target -> target.equals(target2);
 	}
 
+	/**
+	 * Negate.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param predicate
+	 *            the predicate
+	 * @return the predicate
+	 */
+	public static <T> Predicate<T> negate(Predicate<T> predicate) {
+		return target -> predicate.negate().test(target);
+	}
+
+	/**
+	 * Negate.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param bool
+	 *            the bool
+	 * @return the predicate
+	 */
+	public static <T> Predicate<T> negate(boolean bool) {
+		return target -> !bool;
+	}
+
 }
