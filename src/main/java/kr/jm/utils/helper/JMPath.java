@@ -30,8 +30,8 @@ import kr.jm.utils.exception.JMExceptionManager;
  */
 public class JMPath {
 
-	private static final org.slf4j.Logger log =
-			org.slf4j.LoggerFactory.getLogger(JMPath.class);
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+			.getLogger(JMPath.class);
 
 	private static final OS os = OS.getOS();
 
@@ -42,8 +42,7 @@ public class JMPath {
 	public static final Predicate<Path> DirectoryFilter = Files::isDirectory;
 
 	/** The Constant RegularFileFilter. */
-	public static final Predicate<Path> RegularFileFilter =
-			Files::isRegularFile;
+	public static final Predicate<Path> RegularFileFilter = Files::isRegularFile;
 
 	/** The Constant ExecutableFilter. */
 	public static final Predicate<Path> ExecutableFilter = Files::isExecutable;
@@ -55,8 +54,7 @@ public class JMPath {
 	public static final Predicate<Path> WritableFilter = Files::isWritable;
 
 	/** The Constant SymbolicLinkFilter. */
-	public static final Predicate<Path> SymbolicLinkFilter =
-			Files::isSymbolicLink;
+	public static final Predicate<Path> SymbolicLinkFilter = Files::isSymbolicLink;
 
 	/** The Constant HiddenFilter. */
 	public static final Predicate<Path> HiddenFilter = JMPath::isHidden;
@@ -68,12 +66,12 @@ public class JMPath {
 	public static final Predicate<Path> ExistFilter = Files::exists;
 
 	/** The Constant DirectoryAndNotSymbolicLinkFilter. */
-	public static final Predicate<Path> DirectoryAndNotSymbolicLinkFilter =
-			DirectoryFilter.and(SymbolicLinkFilter.negate());
+	public static final Predicate<Path> DirectoryAndNotSymbolicLinkFilter = DirectoryFilter
+			.and(SymbolicLinkFilter.negate());
 
 	/** The Constant directoryFirstComparator. */
-	public static final Comparator<Path> directoryFirstComparator =
-			(p1, p2) -> isDirectory(p1) && !isDirectory(p2) ? -1
+	public static final Comparator<Path> directoryFirstComparator = (p1,
+			p2) -> isDirectory(p1) && !isDirectory(p2) ? -1
 					: !isDirectory(p1) && isDirectory(p2) ? 1
 							: p1.compareTo(p2);
 
@@ -219,8 +217,8 @@ public class JMPath {
 	 *            the path
 	 * @return the parent
 	 */
-	public static Path getParent(Path path) {
-		return Optional.ofNullable(path.getParent()).orElse(path.getRoot());
+	public static Optional<Path> getParentAsOpt(Path path) {
+		return Optional.ofNullable(path.getParent()).filter(ExistFilter);
 	}
 
 	/**
@@ -348,6 +346,21 @@ public class JMPath {
 			Predicate<Path> filter) {
 		return getChildrenPathStream(path)
 				.filter(RegularFileFilter.and(filter));
+	}
+
+	/**
+	 * Gets the parent directory path list.
+	 *
+	 * @param startPath
+	 *            the start path
+	 * @return the parent directory path list
+	 */
+	public static List<Path> getParentDirectoryPathList(Path startPath) {
+		List<Path> parentDirectoryPathList = new ArrayList<>();
+		if (exists(startPath))
+			startPath.spliterator()
+					.forEachRemaining(parentDirectoryPathList::add);
+		return parentDirectoryPathList;
 	}
 
 	/**
