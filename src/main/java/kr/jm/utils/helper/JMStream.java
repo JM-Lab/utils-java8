@@ -1,6 +1,7 @@
 
 package kr.jm.utils.helper;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.IntPredicate;
 import java.util.stream.DoubleStream;
@@ -108,6 +109,19 @@ public class JMStream {
 	 */
 	public static <T> Stream<T> getReversedStream(Collection<T> collection) {
 		return JMCollections.getReversed(collection).stream();
+	}
+
+	/**
+	 * Builds the stream.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param array
+	 *            the array
+	 * @return the stream
+	 */
+	public static <T> Stream<T> buildStream(T[] array) {
+		return Arrays.stream(array);
 	}
 
 }
