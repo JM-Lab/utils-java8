@@ -8,8 +8,17 @@ import java.util.Optional;
 
 import org.junit.Test;
 
+/**
+ * The Class JMPredicateTest.
+ */
 public class JMPredicateTest {
 
+	/**
+	 * Negate.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void negate() throws Exception {
 		String testString = "a";

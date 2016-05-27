@@ -339,22 +339,20 @@ public class JMStats {
 	 */
 	public static <N extends Number> Number min(List<N> numberList) {
 		return JMCollections
-				.isNullOrEmpty(
-						numberList)
-								? 0
-								: numberList.get(0) instanceof Integer
+				.isNullOrEmpty(numberList)
+						? 0
+						: numberList.get(0) instanceof Integer
+								? numberList.stream()
+										.mapToInt(Number::intValue).min()
+										.orElse(0)
+								: numberList.get(0) instanceof Long
 										? numberList.stream()
-												.mapToInt(Number::intValue)
+												.mapToLong(Number::longValue)
 												.min().orElse(0)
-										: numberList.get(0) instanceof Long
-												? numberList.stream()
-														.mapToLong(
-																Number::longValue)
-														.min().orElse(0)
-												: numberList.stream()
-														.mapToDouble(
-																Number::doubleValue)
-														.min().orElse(0);
+										: numberList.stream()
+												.mapToDouble(
+														Number::doubleValue)
+												.min().orElse(0);
 	}
 
 	/**
@@ -368,22 +366,20 @@ public class JMStats {
 	 */
 	public static <N extends Number> Number max(List<N> numberList) {
 		return JMCollections
-				.isNullOrEmpty(
-						numberList)
-								? 0
-								: numberList.get(0) instanceof Integer
+				.isNullOrEmpty(numberList)
+						? 0
+						: numberList.get(0) instanceof Integer
+								? numberList.stream()
+										.mapToInt(Number::intValue).max()
+										.orElse(0)
+								: numberList.get(0) instanceof Long
 										? numberList.stream()
-												.mapToInt(Number::intValue)
+												.mapToLong(Number::longValue)
 												.max().orElse(0)
-										: numberList.get(0) instanceof Long
-												? numberList.stream()
-														.mapToLong(
-																Number::longValue)
-														.max().orElse(0)
-												: numberList.stream()
-														.mapToDouble(
-																Number::doubleValue)
-														.max().orElse(0);
+										: numberList.stream()
+												.mapToDouble(
+														Number::doubleValue)
+												.max().orElse(0);
 	}
 
 	/**
@@ -428,22 +424,20 @@ public class JMStats {
 	 */
 	public static <N extends Number> Number average(List<N> numberList) {
 		return JMCollections
-				.isNullOrEmpty(
-						numberList)
-								? 0
-								: numberList.get(0) instanceof Integer
+				.isNullOrEmpty(numberList)
+						? 0
+						: numberList.get(0) instanceof Integer
+								? numberList.stream()
+										.mapToInt(Number::intValue).average()
+										.orElse(0)
+								: numberList.get(0) instanceof Long
 										? numberList.stream()
-												.mapToInt(Number::intValue)
+												.mapToLong(Number::longValue)
 												.average().orElse(0)
-										: numberList.get(0) instanceof Long
-												? numberList.stream()
-														.mapToLong(
-																Number::longValue)
-														.average().orElse(0)
-												: numberList.stream()
-														.mapToDouble(
-																Number::doubleValue)
-														.average().orElse(0);
+										: numberList.stream()
+												.mapToDouble(
+														Number::doubleValue)
+												.average().orElse(0);
 	}
 
 }

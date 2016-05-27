@@ -51,22 +51,20 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#add(java.lang.Object)
 	 */
 	@Override
 	public boolean add(E e) {
-		synchronized (linkedBlockingDeque) {
-			return capacity > linkedBlockingDeque.size()
-					? linkedBlockingDeque.add(e)
-					: Optional.of(linkedBlockingDeque.removeFirst())
-							.map(changeInto(linkedBlockingDeque.add(e))).get();
-		}
+		return capacity > linkedBlockingDeque.size()
+				? linkedBlockingDeque.add(e)
+				: Optional.of(linkedBlockingDeque.removeFirst())
+						.map(changeInto(linkedBlockingDeque.add(e))).get();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#size()
 	 */
 	@Override
@@ -76,7 +74,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#isEmpty()
 	 */
 	@Override
@@ -86,7 +84,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#contains(java.lang.Object)
 	 */
 	@Override
@@ -96,7 +94,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#iterator()
 	 */
 	@Override
@@ -106,7 +104,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#toArray()
 	 */
 	@Override
@@ -116,7 +114,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#toArray(java.lang.Object[])
 	 */
 	@Override
@@ -126,7 +124,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#remove(java.lang.Object)
 	 */
 	@Override
@@ -136,7 +134,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#containsAll(java.util.Collection)
 	 */
 	@Override
@@ -146,7 +144,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#addAll(java.util.Collection)
 	 */
 	@Override
@@ -156,7 +154,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#removeAll(java.util.Collection)
 	 */
 	@Override
@@ -166,7 +164,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#retainAll(java.util.Collection)
 	 */
 	@Override
@@ -176,7 +174,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#clear()
 	 */
 	@Override
@@ -186,7 +184,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -196,7 +194,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override

@@ -278,9 +278,8 @@ public class JMMap {
 			Map<K, V> map, Function<K, NK> changingKeyFunction,
 			Function<V, NV> changingValueFunction) {
 		synchronized (map) {
-			return map.entrySet().stream()
-					.collect(toMap(entry -> changingKeyFunction
-							.apply(entry.getKey()),
+			return map.entrySet().stream().collect(toMap(
+					entry -> changingKeyFunction.apply(entry.getKey()),
 					entry -> changingValueFunction.apply(entry.getValue())));
 		}
 	}
@@ -311,9 +310,8 @@ public class JMMap {
 			Function<K, NK> changingKeyFunction,
 			Function<V, NV> changingValueFunction) {
 		synchronized (map) {
-			return map.entrySet().stream().filter(filter)
-					.collect(toMap(entry -> changingKeyFunction
-							.apply(entry.getKey()),
+			return map.entrySet().stream().filter(filter).collect(toMap(
+					entry -> changingKeyFunction.apply(entry.getKey()),
 					entry -> changingValueFunction.apply(entry.getValue())));
 		}
 	}

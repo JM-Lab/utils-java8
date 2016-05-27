@@ -228,6 +228,8 @@ public class JMThread {
 	 *            the generic type
 	 * @param supplier
 	 *            the supplier
+	 * @param failureSupplier
+	 *            the failure supplier
 	 * @return the completable future
 	 */
 	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
@@ -245,6 +247,8 @@ public class JMThread {
 	 *            the generic type
 	 * @param supplier
 	 *            the supplier
+	 * @param failureSupplier
+	 *            the failure supplier
 	 * @param executor
 	 *            the executor
 	 * @return the completable future

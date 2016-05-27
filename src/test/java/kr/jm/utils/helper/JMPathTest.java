@@ -189,10 +189,12 @@ public class JMPathTest {
 				.map(Path::toAbsolutePath).map(Path::toString)
 				.collect(toList());
 		System.out.println(rootChildFilePaths);
-		List<String> rootchildDirPaths = JMPath.getRootDirectoryStream()
-				.flatMap(path -> JMPath.getChildDirectoryPathStream(path))
-				.map(Path::toAbsolutePath).map(Path::toString)
-				.collect(toList());
+		List<String> rootchildDirPaths =
+				JMPath.getRootDirectoryStream()
+						.flatMap(path -> JMPath
+								.getChildDirectoryPathStream(path))
+						.map(Path::toAbsolutePath).map(Path::toString)
+						.collect(toList());
 
 		System.out.println(rootchildDirPaths);
 
@@ -201,7 +203,7 @@ public class JMPathTest {
 		assertEquals(JMCollections.sort(rootChildPaths).toString(),
 				Stream.concat(rootchildDirPaths.stream(),
 						rootChildFilePaths.stream()).sorted().collect(toList())
-				.toString());
+						.toString());
 
 	}
 
@@ -278,8 +280,8 @@ public class JMPathTest {
 	 */
 	@Test
 	public void testGetPathExtensionAsOpt() throws Exception {
-		Path path = JMPath
-				.getPath("/09A0F357-E206-444C-83CA-0475947F8718/Data/7/3"
+		Path path =
+				JMPath.getPath("/09A0F357-E206-444C-83CA-0475947F8718/Data/7/3"
 						+ "/Attachments/37857/2/Mail 첨부 파일.png");
 		System.out.println(JMPath.getPathExtensionAsOpt(path));
 		assertEquals(".png", JMPath.getPathExtensionAsOpt(path).get());
@@ -331,6 +333,12 @@ public class JMPathTest {
 
 	}
 
+	/**
+	 * Test get parent directory path list.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetParentDirectoryPathList() throws Exception {
 		System.out.println(

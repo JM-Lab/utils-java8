@@ -50,22 +50,20 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#add(java.lang.Object)
 	 */
 	@Override
 	public boolean add(E e) {
-		synchronized (linkedBlockingQueue) {
-			return capacity > linkedBlockingQueue.size()
-					? linkedBlockingQueue.add(e)
-					: Optional.of(linkedBlockingQueue.remove())
-							.map(changeInto(linkedBlockingQueue.add(e))).get();
-		}
+		return capacity > linkedBlockingQueue.size()
+				? linkedBlockingQueue.add(e)
+				: Optional.of(linkedBlockingQueue.remove())
+						.map(changeInto(linkedBlockingQueue.add(e))).get();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#size()
 	 */
 	@Override
@@ -75,7 +73,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#isEmpty()
 	 */
 	@Override
@@ -85,7 +83,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#contains(java.lang.Object)
 	 */
 	@Override
@@ -95,7 +93,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#iterator()
 	 */
 	@Override
@@ -105,7 +103,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#toArray()
 	 */
 	@Override
@@ -115,7 +113,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#toArray(java.lang.Object[])
 	 */
 	@Override
@@ -125,7 +123,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#remove(java.lang.Object)
 	 */
 	@Override
@@ -135,7 +133,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#containsAll(java.util.Collection)
 	 */
 	@Override
@@ -145,7 +143,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#addAll(java.util.Collection)
 	 */
 	@Override
@@ -155,7 +153,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#removeAll(java.util.Collection)
 	 */
 	@Override
@@ -165,7 +163,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#retainAll(java.util.Collection)
 	 */
 	@Override
@@ -175,7 +173,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Collection#clear()
 	 */
 	@Override
@@ -185,7 +183,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -195,7 +193,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
