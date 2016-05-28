@@ -1,7 +1,7 @@
 JMLab Java 8 Utility Libraries
 ==============================
 ## version
-0.1.81
+0.1.82
 
 ## Prerequisites:
 * Java 8 or later
@@ -13,7 +13,7 @@ Binaries and dependency information for Maven, Gradle and others can be found at
 Example for Gradle:
 
 ```groovy
-compile 'kr.jmlab:jmlab-utils-java8:0.1.81'
+compile 'kr.jmlab:jmlab-utils-java8:0.1.82'
 ```
 
 and for Maven:
@@ -22,7 +22,7 @@ and for Maven:
 <dependency>
     <groupId>kr.jmlab</groupId>
     <artifactId>jmlab-utils-java8</artifactId>
-    <version>0.1.81</version>
+    <version>0.1.82</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ Checkout the source code:
 
     git clone https://github.com/JM-Lab/utils-java8.git
     cd utils-java8
-    git checkout -b 0.1.81 origin/0.1.81
+    git checkout -b 0.1.82 origin/0.1.82
     mvn install
 
 ## Useful Utilities With New Features Of Java 8  :
