@@ -241,6 +241,8 @@ public class JMLimitedList<E> implements Collection<E> {
 	 */
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
+		if (c.size() + size() > capacity)
+			return false;
 		return c.stream().allMatch(this::add);
 	}
 
