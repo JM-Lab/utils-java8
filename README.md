@@ -1,7 +1,7 @@
 JMLab Java 8 Utility Libraries
 ==============================
 ## version
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/kr.jmlab/jmlab-utils-java8/badge.svg)](http://mvnrepository.com/artifact/kr.jmlab/jmlab-utils-java8/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/kr.jmlab/jmlab-utils-java8/badge.svg)](http://search.maven.org/#artifactdetails%7Ckr.jmlab%7Cjmlab-utils-java8%7C0.1.82%7Cjar)
 
 ## Prerequisites:
 * Java 8 or later
