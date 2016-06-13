@@ -3,6 +3,7 @@ package kr.jm.utils.helper;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.partitioningBy;
+import static java.util.stream.Collectors.toMap;
 
 import java.util.Collection;
 import java.util.List;
@@ -53,6 +54,30 @@ public class JMLambda {
 	public static <T, R> Map<R, List<T>> groupBy(Collection<T> collection,
 			Function<T, R> classifier) {
 		return collection.stream().collect(groupingBy(classifier));
+	}
+
+	/**
+	 * Group by.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param <R1>
+	 *            the generic type
+	 * @param <R2>
+	 *            the generic type
+	 * @param collection
+	 *            the collection
+	 * @param classifier1
+	 *            the classifier1
+	 * @param classifier2
+	 *            the classifier2
+	 * @return the map
+	 */
+	public static <T, R1, R2> Map<R1, Map<R2, T>> groupBy(
+			Collection<T> collection, Function<T, R1> classifier1,
+			Function<T, R2> classifier2) {
+		return collection.stream()
+				.collect(groupingBy(classifier1, toMap(classifier2, r -> r)));
 	}
 
 	/**
