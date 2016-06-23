@@ -2,6 +2,7 @@
 package kr.jm.utils.helper;
 
 import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
+import static kr.jm.utils.helper.JMPredicate.getIsNotNull;
 
 import java.util.Collection;
 import java.util.Map;
@@ -205,7 +206,8 @@ public class JMOptional {
 	 */
 	public static <K, V, M extends Map<K, V>> Optional<V> getOptional(M map,
 			K key) {
-		return Optional.<M> ofNullable(map).map(m -> m.get(key));
+		return Optional.<M> ofNullable(map).map(m -> m.get(key))
+				.filter(getIsNotNull());
 	}
 
 	/**
