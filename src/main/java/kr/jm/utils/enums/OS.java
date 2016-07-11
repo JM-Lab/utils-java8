@@ -1,13 +1,20 @@
 
 package kr.jm.utils.enums;
 
+import static java.util.stream.Collectors.toList;
+import static kr.jm.utils.helper.JMPredicate.negate;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import javax.swing.Icon;
 import javax.swing.JFileChooser;
@@ -18,6 +25,7 @@ import kr.jm.utils.AutoStringBuilder;
 import kr.jm.utils.datastructure.JMCollections;
 import kr.jm.utils.exception.JMExceptionManager;
 import kr.jm.utils.helper.JMLog;
+import kr.jm.utils.helper.JMString;
 
 /**
  * The Enum OS.
@@ -34,6 +42,9 @@ public enum OS {
 
 	private static final String fileSeparator =
 			System.getProperty("file.separator");
+
+	private static Predicate<InetAddress> LoopbackFilter =
+			negate(InetAddress::isLoopbackAddress);
 
 	/**
 	 * Gets the file separator.
@@ -160,31 +171,68 @@ public enum OS {
 	}
 
 	/**
-	 * Gets the ip.
-	 *
-	 * @return the ip
-	 */
-	public static String getIp() {
-		try {
-			return InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-					"getIp");
-		}
-
-	}
-
-	/**
 	 * Gets the hostname.
 	 *
 	 * @return the hostname
 	 */
 	public static String getHostname() {
+		return getDefaultInetAddressAsOpt().map(InetAddress::getHostName)
+				.orElseGet(() -> getAllInetAddressInfoStream()
+						.map(InetAddress::getHostName)
+						.filter(s -> !s.contains(":")).findFirst().get());
+	}
+
+	/**
+	 * Gets the ip.
+	 *
+	 * @return the ip
+	 */
+	public static String getIp() {
+		return getIpInfo().getHostAddress();
+	}
+
+	public static List<String> getIpList() {
+		return getIpInfoList().stream().map(InetAddress::getHostAddress)
+				.collect(toList());
+	}
+
+	public static InetAddress getIpInfo() {
+		return getDefaultInetAddressAsOpt().filter(OS::isIpv4Address)
+				.orElseGet(getIpInfoList().stream().findFirst()::get);
+	}
+
+	public static List<InetAddress> getIpInfoList() {
+		return getAllInetAddressInfoStream().filter(LoopbackFilter)
+				.filter(OS::isIpv4Address).collect(toList());
+	}
+
+	private static boolean isIpv4Address(InetAddress inetAddress) {
+		return inetAddress.getHostAddress().matches(JMString.ipv4Pattern);
+	}
+
+	private static Optional<InetAddress> getDefaultInetAddressAsOpt() {
 		try {
-			return InetAddress.getLocalHost().getHostName();
-		} catch (UnknownHostException e) {
+			return Optional.ofNullable(InetAddress.getLocalHost())
+					.filter(LoopbackFilter);
+		} catch (Exception e) {
+			return JMExceptionManager.handleExceptionAndThrowRuntimeEx(log,
+					new RuntimeException("There Is No IP Address !!!"),
+					"getDefaultInetAddressAsOpt");
+		}
+	}
+
+	public static List<InetAddress> getAllInetAddressInfoList() {
+		return getAllInetAddressInfoStream().collect(toList());
+	}
+
+	public static Stream<InetAddress> getAllInetAddressInfoStream() {
+		try {
+			return Collections.list(NetworkInterface.getNetworkInterfaces())
+					.stream().flatMap(nic -> Collections
+							.list(nic.getInetAddresses()).stream());
+		} catch (SocketException e) {
 			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-					"getHostname");
+					"getAllInetAddressInfoStream");
 		}
 	}
 

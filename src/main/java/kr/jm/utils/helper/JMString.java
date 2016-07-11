@@ -40,6 +40,14 @@ public class JMString {
 	public static final String LINE_SEPERATOR =
 			System.getProperty("line.separator");
 
+	/** The Constant ipv4Pattern. */
+	public static final String ipv4Pattern =
+			"(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])";
+
+	/** The Constant ipv6Pattern. */
+	public static final String ipv6Pattern =
+			"([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}";
+
 	/**
 	 * Checks if is number.
 	 *
