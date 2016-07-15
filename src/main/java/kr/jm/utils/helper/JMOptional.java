@@ -175,6 +175,19 @@ public class JMOptional {
 	/**
 	 * Gets the optional.
 	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param array
+	 *            the array
+	 * @return the optional
+	 */
+	public static <T> Optional<T[]> getOptional(T[] array) {
+		return Optional.ofNullable(array).filter(a -> a.length > 0);
+	}
+
+	/**
+	 * Gets the optional.
+	 *
 	 * @param <K>
 	 *            the key type
 	 * @param <V>
@@ -292,4 +305,5 @@ public class JMOptional {
 		return getOptional(collection).map(Collection::stream)
 				.orElseGet(Stream::empty);
 	}
+
 }
