@@ -8,6 +8,7 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import kr.jm.utils.datastructure.JMCollections;
 
@@ -122,6 +123,19 @@ public class JMStream {
 	 */
 	public static <T> Stream<T> buildStream(T[] array) {
 		return Arrays.stream(array);
+	}
+
+	/**
+	 * Builds the stream.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param iterable
+	 *            the iterable
+	 * @return the stream
+	 */
+	public static <T> Stream<T> buildStream(Iterable<T> iterable) {
+		return StreamSupport.stream(iterable.spliterator(), false);
 	}
 
 }
