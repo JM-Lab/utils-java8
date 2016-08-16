@@ -81,4 +81,9 @@ public class OSTest {
 						.filter(s -> !s.contains(":")).findFirst().get());
 	}
 
+	@Test
+	public void testGetDefaultDirctoryFile() throws Exception {
+		System.out.println(OS.getOS().getRootFileList());
+	}
+
 }

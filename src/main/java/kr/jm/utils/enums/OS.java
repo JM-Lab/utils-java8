@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -122,13 +123,12 @@ public enum OS {
 	 */
 	public static OS getOS() {
 		String os = getOsName().toLowerCase();
-		if (os.contains("windows")) {
+		if (os.contains("windows"))
 			return WINDOWS;
-		} else if (os.contains("mac")) {
+		else if (os.contains("mac"))
 			return MAC;
-		} else {
+		else
 			return LINUX;
-		}
 	}
 
 	/**
@@ -237,17 +237,14 @@ public enum OS {
 	}
 
 	private static FileSystemView getFileSystemView() {
-		return Optional.ofNullable(fileSystemView).orElseGet(() -> {
-			fileSystemView = FileSystemView.getFileSystemView();
-			return fileSystemView;
-		});
+		return Optional.ofNullable(fileSystemView)
+				.orElseGet(FileSystemView::getFileSystemView);
 	}
 
 	private static FileView getFileView() {
 		return Optional.ofNullable(fileView).orElseGet(() -> {
 			JFileChooser jFileChooser = new JFileChooser();
-			fileView = jFileChooser.getUI().getFileView(jFileChooser);
-			return fileView;
+			return fileView = jFileChooser.getUI().getFileView(jFileChooser);
 		});
 	}
 
@@ -309,12 +306,22 @@ public enum OS {
 		case MAC:
 			List<File> fileList = new ArrayList<>();
 			fileList.add(getDefaultDirctoryFile());
+			fileList.addAll(getDefaultRootFileList());
 			Optional.ofNullable(new File("/Volumes").listFiles())
-					.map(JMCollections::buildList).ifPresent(fileList::addAll);
+					.map(JMCollections::buildList).map(
+							list -> list.stream()
+									.filter(f -> !Files
+											.isSymbolicLink(f.toPath()))
+									.collect(toList()))
+					.ifPresent(fileList::addAll);
 			return fileList;
 		default:
-			return JMCollections.buildList(getFileSystemView().getRoots());
+			return getDefaultRootFileList();
 		}
+	}
+
+	private List<File> getDefaultRootFileList() {
+		return JMCollections.buildList(getFileSystemView().getRoots());
 	}
 
 	/**
