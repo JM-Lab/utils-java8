@@ -50,7 +50,7 @@ public class JMStringTest {
 		System.out.println(trunctedString.length());
 		System.out.println(trunctedString.getBytes().length);
 		System.out.println(trunctedString);
-		assertEquals(2000, trunctedString.getBytes().length);
+		assertEquals(1999, trunctedString.getBytes().length);
 		trunctedString = JMString.truncate(testString, 2000);
 		System.out.println(trunctedString.length());
 		System.out.println(trunctedString.getBytes().length);

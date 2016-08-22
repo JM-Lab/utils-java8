@@ -272,15 +272,7 @@ public class JMString {
 	public static String truncate(String string, int maxBytesLength) {
 		byte[] stringBytes = string.getBytes();
 		return stringBytes.length > maxBytesLength
-				? buildNewString(stringBytes, maxBytesLength) : string;
-	}
-
-	private static String buildNewString(byte[] stringBytes,
-			int maxBytesLength) {
-		String string = new String(stringBytes, 0, maxBytesLength);
-		return string.getBytes().length > maxBytesLength
-				? buildNewString(string.getBytes(), maxBytesLength - 1)
-				: string;
+				? new String(stringBytes, 0, maxBytesLength - 1) : string;
 	}
 
 	/**
