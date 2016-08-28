@@ -8,11 +8,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -53,58 +54,71 @@ public class JMResources {
 	/**
 	 * Gets the resource URL.
 	 *
-	 * @param pathInClassPath
+	 * @param classpath
 	 *            the path in class path
 	 * @return the resource URL
 	 */
-	public static URL getResourceURL(String pathInClassPath) {
-		return ClassLoader.getSystemResource(pathInClassPath);
+	public static URL getResourceURL(String classpath) {
+		return ClassLoader.getSystemResource(classpath);
+	}
+
+	public static URL getURL(String classpathOrFilePath) {
+		try {
+			return getURI(classpathOrFilePath).toURL();
+		} catch (MalformedURLException e) {
+			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+					"getURL", classpathOrFilePath);
+		}
 	}
 
 	/**
 	 * Gets the resource URI.
 	 *
-	 * @param pathInClassPath
+	 * @param classpath
 	 *            the path in class path
 	 * @return the resource URI
 	 */
-	public static URI getResourceURI(String pathInClassPath) {
+	public static URI getResourceURI(String classpath) {
 		try {
-			return getResourceURL(pathInClassPath).toURI();
-		} catch (URISyntaxException e) {
-			JMExceptionManager.logException(log, e, "getResourceURI",
-					pathInClassPath);
-			return null;
+			return getResourceURL(classpath).toURI();
+		} catch (Exception e) {
+			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+					"getResourceURI", classpath);
 		}
+	}
+
+	public static URI getURI(String classpathOrFilePath) {
+		return Optional.ofNullable(getResourceURI(classpathOrFilePath))
+				.orElseGet(() -> new File(classpathOrFilePath).toURI());
 	}
 
 	/**
 	 * Gets the resource input stream.
 	 *
-	 * @param pathInClassPath
+	 * @param classpath
 	 *            the path in class path
 	 * @return the resource input stream
 	 */
-	public static InputStream getResourceInputStream(String pathInClassPath) {
-		return ClassLoader.getSystemResourceAsStream(pathInClassPath);
+	public static InputStream getResourceInputStream(String classpath) {
+		return ClassLoader.getSystemResourceAsStream(classpath);
 	}
 
 	/**
 	 * Gets the properties.
 	 *
-	 * @param pathInClassPath
+	 * @param classpath
 	 *            the path in class path
 	 * @return the properties
 	 */
-	public static Properties getProperties(String pathInClassPath) {
+	public static Properties getProperties(String classpath) {
 		Properties properties = new Properties();
-		InputStream is = getResourceInputStream(pathInClassPath);
+		InputStream is = getResourceInputStream(classpath);
 		try {
 			properties.load(is);
 			is.close();
 		} catch (IOException e) {
 			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-					"getProperties", pathInClassPath);
+					"getProperties", classpath);
 		}
 		return properties;
 	}
@@ -214,49 +228,49 @@ public class JMResources {
 	/**
 	 * Gets the string from classpath or file path.
 	 *
-	 * @param resourceInClasspathOrFilePath
+	 * @param classpathOrFilePath
 	 *            the resource in classpath or file path
 	 * @return the string from classpath or file path
 	 */
-	public static String getStringFromClasspathOrFilePath(
-			String resourceInClasspathOrFilePath) {
+	public static String
+			getStringFromClasspathOrFilePath(String classpathOrFilePath) {
 		InputStream resourceInputStream =
-				getResourceInputStream(resourceInClasspathOrFilePath);
+				getResourceInputStream(classpathOrFilePath);
 		return resourceInputStream != null ? JMIO.toString(resourceInputStream)
-				: JMFile.readString(resourceInClasspathOrFilePath);
+				: JMFile.readString(classpathOrFilePath);
 	}
 
 	/**
 	 * Gets the string from classpath or file path.
 	 *
-	 * @param resourceInClasspathOrFilePath
+	 * @param classpathOrFilePath
 	 *            the resource in classpath or file path
 	 * @param encoding
 	 *            the encoding
 	 * @return the string from classpath or file path
 	 */
 	public static String getStringFromClasspathOrFilePath(
-			String resourceInClasspathOrFilePath, String encoding) {
+			String classpathOrFilePath, String encoding) {
 		InputStream resourceInputStream =
-				getResourceInputStream(resourceInClasspathOrFilePath);
+				getResourceInputStream(classpathOrFilePath);
 		return resourceInputStream != null
 				? JMIO.toString(resourceInputStream, encoding)
-				: JMFile.readString(resourceInClasspathOrFilePath, encoding);
+				: JMFile.readString(classpathOrFilePath, encoding);
 	}
 
 	/**
 	 * Read lines from classpath or file path.
 	 *
-	 * @param resourceInClasspathOrFilePath
+	 * @param classpathOrFilePath
 	 *            the resource in classpath or file path
 	 * @return the list
 	 */
-	public static List<String> readLinesFromClasspathOrFilePath(
-			String resourceInClasspathOrFilePath) {
+	public static List<String>
+			readLinesFromClasspathOrFilePath(String classpathOrFilePath) {
 		InputStream resourceInputStream =
-				getResourceInputStream(resourceInClasspathOrFilePath);
+				getResourceInputStream(classpathOrFilePath);
 		return resourceInputStream != null ? JMIO.readLines(resourceInputStream)
-				: JMFile.readLines(resourceInClasspathOrFilePath);
+				: JMFile.readLines(classpathOrFilePath);
 	}
 
 	/**
