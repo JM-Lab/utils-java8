@@ -3,6 +3,8 @@ package kr.jm.utils.helper;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.function.IntPredicate;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -136,6 +138,42 @@ public class JMStream {
 	 */
 	public static <T> Stream<T> buildStream(Iterable<T> iterable) {
 		return StreamSupport.stream(iterable.spliterator(), false);
+	}
+
+	/**
+	 * Builds the stream.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param iterator
+	 *            the iterator
+	 * @return the stream
+	 */
+	public static <T> Stream<T> buildStream(Iterator<T> iterator) {
+		return buildStream(() -> iterator);
+	}
+
+	/**
+	 * Builds the stream.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param enumeration
+	 *            the enumeration
+	 * @return the stream
+	 */
+	public static <T> Stream<T> buildStream(Enumeration<T> enumeration) {
+		return buildStream(new Iterator<T>() {
+			@Override
+			public boolean hasNext() {
+				return enumeration.hasMoreElements();
+			}
+
+			@Override
+			public T next() {
+				return enumeration.nextElement();
+			}
+		});
 	}
 
 }
