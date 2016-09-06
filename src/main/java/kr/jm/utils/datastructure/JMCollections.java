@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.function.Consumer;
 import java.util.stream.StreamSupport;
 
@@ -156,8 +157,10 @@ public class JMCollections {
 	 */
 	public static List<String> buildListWithDelimeter(
 			String stringWithDelimeter, String delimeter) {
-		return buildList(JMArrays.buildArrayWithDelimeter(stringWithDelimeter,
-				delimeter));
+		return JMStream
+				.buildStream(
+						new StringTokenizer(stringWithDelimeter, delimeter))
+				.map(o -> (String) o).collect(toList());
 	}
 
 	/**
