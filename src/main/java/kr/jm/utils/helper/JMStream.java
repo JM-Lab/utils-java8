@@ -102,15 +102,15 @@ public class JMStream {
 	}
 
 	/**
-	 * Gets the reversed stream.
+	 * Builds the reversed stream.
 	 *
 	 * @param <T>
 	 *            the generic type
 	 * @param collection
 	 *            the collection
-	 * @return the reversed stream
+	 * @return the stream
 	 */
-	public static <T> Stream<T> getReversedStream(Collection<T> collection) {
+	public static <T> Stream<T> buildReversedStream(Collection<T> collection) {
 		return JMCollections.getReversed(collection).stream();
 	}
 
@@ -174,6 +174,22 @@ public class JMStream {
 				return enumeration.nextElement();
 			}
 		});
+	}
+
+	/**
+	 * Builds the stream.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param isParallel
+	 *            the is parallel
+	 * @param collection
+	 *            the collection
+	 * @return the stream
+	 */
+	public static <T> Stream<T> buildStream(boolean isParallel,
+			Collection<T> collection) {
+		return isParallel ? collection.parallelStream() : collection.stream();
 	}
 
 }

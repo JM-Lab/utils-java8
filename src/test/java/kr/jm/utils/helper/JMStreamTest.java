@@ -30,23 +30,23 @@ public class JMStreamTest {
 	}
 
 	/**
-	 * Test get reversed stream.
-	 *
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Test
-	public void testGetReversedStream() throws Exception {
-		Integer[] ints = { 1, 3, 2, 4, 5 };
-		List<Integer> sourceList = Arrays.asList(ints);
-		System.out.println(
-				JMStream.getReversedStream(sourceList).collect(toList()));
-		assertEquals("[5, 4, 2, 3, 1]", JMStream.getReversedStream(sourceList)
-				.collect(toList()).toString());
-		System.out.println(sourceList);
-		assertEquals("[1, 3, 2, 4, 5]", sourceList.toString());
-
-	}
+		 * Test get reversed stream.
+		 *
+		 * @throws Exception
+		 *             the exception
+		 */
+		@Test
+		public void testBuildReversedStream() throws Exception {
+			Integer[] ints = { 1, 3, 2, 4, 5 };
+			List<Integer> sourceList = Arrays.asList(ints);
+			System.out.println(
+					JMStream.buildReversedStream(sourceList).collect(toList()));
+			assertEquals("[5, 4, 2, 3, 1]", JMStream.buildReversedStream(sourceList)
+					.collect(toList()).toString());
+			System.out.println(sourceList);
+			assertEquals("[1, 3, 2, 4, 5]", sourceList.toString());
+	
+		}
 
 	@Test
 	public void testBuildStream() {
