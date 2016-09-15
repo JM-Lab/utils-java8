@@ -29,9 +29,6 @@ import kr.jm.utils.enums.OS;
  */
 public class JMPath {
 
-	static final org.slf4j.Logger log =
-			org.slf4j.LoggerFactory.getLogger(JMPath.class);
-
 	private static final OS os = OS.getOS();
 
 	/** The Constant FS. */

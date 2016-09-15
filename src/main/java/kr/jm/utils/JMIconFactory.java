@@ -15,6 +15,7 @@ import kr.jm.utils.datastructure.JMMap;
 import kr.jm.utils.enums.OS;
 import kr.jm.utils.helper.JMOptional;
 import kr.jm.utils.helper.JMPath;
+import kr.jm.utils.helper.JMPathOperation;
 
 /**
  * A factory for creating JMIcon objects.
@@ -53,7 +54,7 @@ public class JMIconFactory {
 	}
 
 	/**
-	 * Builds the buffered image of icon in os.
+	 * Builds the buffered image of icon in OS.
 	 *
 	 * @param path
 	 *            the path
@@ -62,7 +63,7 @@ public class JMIconFactory {
 	public BufferedImage buildBufferedImageOfIconInOS(Path path) {
 		path = JMOptional
 				.getNullableAndFilteredOptional(path, JMPath.NotExistFilter)
-				.flatMap(JMPath::createTempFilePathAsOpt).orElse(path);
+				.flatMap(JMPathOperation::createTempFilePathAsOpt).orElse(path);
 		Icon iconInOS = os.getIcon(path.toFile());
 		BufferedImage bufferedImage = new BufferedImage(iconInOS.getIconWidth(),
 				iconInOS.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -71,11 +72,11 @@ public class JMIconFactory {
 	}
 
 	/**
-	 * Gets the cached buffered image of icon in os.
+	 * Gets the cached buffered image of icon in OS.
 	 *
 	 * @param path
 	 *            the path
-	 * @return the cached buffered image of icon in os
+	 * @return the cached buffered image of icon in OS
 	 */
 	public BufferedImage getCachedBufferedImageOfIconInOS(Path path) {
 		return getSpecialPathAsOpt(path)
