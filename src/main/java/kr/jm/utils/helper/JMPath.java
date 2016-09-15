@@ -23,14 +23,13 @@ import java.util.stream.Stream;
 
 import kr.jm.utils.datastructure.JMCollections;
 import kr.jm.utils.enums.OS;
-import kr.jm.utils.exception.JMExceptionManager;
 
 /**
  * The Class JMPath.
  */
 public class JMPath {
 
-	private static final org.slf4j.Logger log =
+	static final org.slf4j.Logger log =
 			org.slf4j.LoggerFactory.getLogger(JMPath.class);
 
 	private static final OS os = OS.getOS();
@@ -213,11 +212,11 @@ public class JMPath {
 	}
 
 	/**
-	 * Gets the parent.
+	 * Gets the parent as opt.
 	 *
 	 * @param path
 	 *            the path
-	 * @return the parent
+	 * @return the parent as opt
 	 */
 	public static Optional<Path> getParentAsOpt(Path path) {
 		return Optional.ofNullable(path.getParent()).filter(ExistFilter);
@@ -351,18 +350,18 @@ public class JMPath {
 	}
 
 	/**
-	 * Gets the parent directory path list.
+	 * Gets the path list of ancestor directory.
 	 *
 	 * @param startPath
 	 *            the start path
-	 * @return the parent directory path list
+	 * @return the path list of ancestor directory
 	 */
-	public static List<Path> getParentDirectoryPathList(Path startPath) {
-		List<Path> parentDirectoryPathList = new ArrayList<>();
+	public static List<Path> getPathListOfAncestorDirectory(Path startPath) {
+		List<Path> pathListOfAncestorDirectory = new ArrayList<>();
 		if (exists(startPath))
 			startPath.spliterator()
-					.forEachRemaining(parentDirectoryPathList::add);
-		return parentDirectoryPathList;
+					.forEachRemaining(pathListOfAncestorDirectory::add);
+		return pathListOfAncestorDirectory;
 	}
 
 	/**
@@ -534,19 +533,25 @@ public class JMPath {
 	 */
 	public static List<Path> getSubPathList(Path startDirectoryPath,
 			int maxDepth, Predicate<Path> filter) {
-		List<Path> pathList = Collections.synchronizedList(new ArrayList<>());
+		List<Path> subPathList =
+				Collections.synchronizedList(new ArrayList<>());
+		if (isDirectory(startDirectoryPath))
+			buildSubPath(startDirectoryPath, maxDepth, filter, subPathList);
+		return subPathList;
+	}
+
+	private static void buildSubPath(Path startDirectoryPath, int maxDepth,
+			Predicate<Path> filter, List<Path> pathList) {
 		addAndGetDirectoryStream(pathList,
 				getChildrenPathStream(startDirectoryPath), filter).parallel()
 						.forEach(getDrillDownFunction(maxDepth, filter,
 								pathList));
-		return pathList;
 	}
 
 	private static Stream<Path> addAndGetDirectoryStream(List<Path> pathList,
 			Stream<Path> pathStream, Predicate<Path> filter) {
-		return pathStream
-				.peek(path -> JMLambda.consumeIfTrue(path, filter,
-						pathList::add))
+		return pathStream.peek(
+				path -> JMLambda.consumeIfTrue(path, filter, pathList::add))
 				.filter(DirectoryAndNotSymbolicLinkFilter);
 	}
 
@@ -567,17 +572,16 @@ public class JMPath {
 	/**
 	 * Consume path list.
 	 *
+	 * @param isParallel
+	 *            the is parallel
 	 * @param pathList
 	 *            the path list
 	 * @param consumer
 	 *            the consumer
-	 * @param isParallel
-	 *            the is parallel
 	 */
-	public static void consumePathList(List<Path> pathList,
-			Consumer<Path> consumer, boolean isParallel) {
-		JMLambda.getByBoolean(isParallel, () -> pathList.parallelStream(),
-				() -> pathList.stream()).forEach(consumer);
+	public static void consumePathList(boolean isParallel, List<Path> pathList,
+			Consumer<Path> consumer) {
+		JMStream.buildStream(isParallel, pathList).forEach(consumer);
 	}
 
 	/**
@@ -590,7 +594,8 @@ public class JMPath {
 	 */
 	public static void consumePathList(List<Path> pathList,
 			Consumer<Path> consumer) {
-		pathList.parallelStream().forEach(consumer);
+		for (Path path : pathList)
+			consumer.accept(path);
 	}
 
 	/**
@@ -607,7 +612,7 @@ public class JMPath {
 	 */
 	public static void consumeSubFilePaths(Path startDirectoryPath,
 			int maxDepth, Predicate<Path> filter, Consumer<Path> consumer) {
-		consumePathList(
+		consumePathList(true,
 				getSubFilePathList(startDirectoryPath, maxDepth, filter),
 				consumer);
 	}
@@ -661,22 +666,21 @@ public class JMPath {
 	/**
 	 * Apply path list and get result list.
 	 *
-	 * @param <R>
-	 *            the generic type
+	 * @param isParallel
+	 *            the is parallel
 	 * @param pathList
 	 *            the path list
 	 * @param function
 	 *            the function
-	 * @param isParallel
-	 *            the is parallel
+	 *
+	 * @param <R>
+	 *            the generic type
 	 * @return the list
 	 */
-	public static <R> List<R> applyPathListAndGetResultList(List<Path> pathList,
-			Function<Path, R> function, boolean isParallel) {
-		return JMLambda
-				.getByBoolean(isParallel, () -> pathList.parallelStream(),
-						() -> pathList.stream())
-				.map(function).collect(toList());
+	public static <R> List<R> applyPathListAndGetResultList(boolean isParallel,
+			List<Path> pathList, Function<Path, R> function) {
+		return JMStream.buildStream(isParallel, pathList).map(function)
+				.collect(toList());
 	}
 
 	/**
@@ -715,9 +719,9 @@ public class JMPath {
 	public static <R> List<R> applySubFilePathsAndGetAppliedList(
 			Path startDirectoryPath, int maxDepth, Predicate<Path> filter,
 			Function<Path, R> function, boolean isParallel) {
-		return applyPathListAndGetResultList(
+		return applyPathListAndGetResultList(isParallel,
 				getSubFilePathList(startDirectoryPath, maxDepth, filter),
-				function, isParallel);
+				function);
 	}
 
 	/**
@@ -828,37 +832,6 @@ public class JMPath {
 	}
 
 	/**
-	 * Creates the temp file path as opt.
-	 *
-	 * @param path
-	 *            the path
-	 * @return the optional
-	 */
-	public static Optional<Path> createTempFilePathAsOpt(Path path) {
-		String[] prefixSuffix = JMFile.getPrefixSuffix(path.toFile());
-		try {
-			return Optional
-					.of(Files.createTempFile(prefixSuffix[0], prefixSuffix[1]))
-					.filter(ExistFilter).map(JMPath::deleteOnExit);
-		} catch (Exception e) {
-			return JMExceptionManager.handleExceptionAndReturnEmptyOptional(log,
-					e, "createTempFile", path);
-		}
-	}
-
-	/**
-	 * Delete on exit.
-	 *
-	 * @param path
-	 *            the path
-	 * @return the path
-	 */
-	public static Path deleteOnExit(Path path) {
-		path.toFile().deleteOnExit();
-		return path;
-	}
-
-	/**
 	 * Gets the last name.
 	 *
 	 * @param path
@@ -912,5 +885,4 @@ public class JMPath {
 	public static long getSize(Path path) {
 		return path.toFile().length();
 	}
-
 }

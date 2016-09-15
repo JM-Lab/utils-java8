@@ -32,8 +32,10 @@ public class JMPathTest {
 	 */
 	@Test
 	public void testGetRootPaths() throws Exception {
-		System.out.println(JMPath.getRootPathStream());
-		System.out.println(getRoot().getFileSystem().getRootDirectories());
+		JMPath.getRootPathStream().forEach(System.out::println);
+		JMStream.buildStream(getRoot().getFileSystem().getRootDirectories())
+				.flatMap(JMPath::getChildrenPathStream)
+				.forEach(System.out::println);
 	}
 
 	private Path getRoot() {
@@ -189,21 +191,18 @@ public class JMPathTest {
 				.map(Path::toAbsolutePath).map(Path::toString)
 				.collect(toList());
 		System.out.println(rootChildFilePaths);
-		List<String> rootchildDirPaths =
-				JMPath.getRootDirectoryStream()
-						.flatMap(path -> JMPath
-								.getChildDirectoryPathStream(path))
-						.map(Path::toAbsolutePath).map(Path::toString)
-						.collect(toList());
+		List<String> rootchildDirPaths = JMPath.getRootDirectoryStream()
+				.flatMap(path -> JMPath.getChildDirectoryPathStream(path))
+				.map(Path::toAbsolutePath).map(Path::toString)
+				.collect(toList());
 
 		System.out.println(rootchildDirPaths);
 
 		assertEquals(rootChildPaths.size(),
 				rootchildDirPaths.size() + rootChildFilePaths.size());
-		assertEquals(JMCollections.sort(rootChildPaths).toString(),
-				Stream.concat(rootchildDirPaths.stream(),
-						rootChildFilePaths.stream()).sorted().collect(toList())
-						.toString());
+		assertEquals(JMCollections.sort(rootChildPaths).toString(), Stream
+				.concat(rootchildDirPaths.stream(), rootChildFilePaths.stream())
+				.sorted().collect(toList()).toString());
 
 	}
 
@@ -257,7 +256,7 @@ public class JMPathTest {
 	}
 
 	/**
-	 * Test consume sub file paths and get applied list2.
+	 * Test consume sub file paths and get applied list 2.
 	 *
 	 * @throws Exception
 	 *             the exception
@@ -334,20 +333,24 @@ public class JMPathTest {
 	}
 
 	/**
-	 * Test get parent directory path list.
+	 * Test get path list of ancestor directory.
 	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	@Test
-	public void testGetParentDirectoryPathList() throws Exception {
+	public void testGetPathListOfAncestorDirectory() throws Exception {
 		System.out.println(
-				JMPath.getParentDirectoryPathList(JMPath.getUserHome()));
+				JMPath.getPathListOfAncestorDirectory(JMPath.getUserHome()));
 		Path path = JMPath.getPath("$jlkaj");
 		System.out.println(path);
-		assertEquals(0, JMPath.getParentDirectoryPathList(path).size());
+		System.out.println(JMPath.exists(path));
+		assertEquals(0, JMPath.getPathListOfAncestorDirectory(path).size());
+		System.out.println(
+				JMPath.getPathListOfAncestorDirectory(path.getParent()));
 		path = Paths.get("$jlkaj");
 		System.out.println(path);
-		assertEquals(0, JMPath.getParentDirectoryPathList(path).size());
+		assertEquals(0, JMPath.getPathListOfAncestorDirectory(path).size());
 	}
+
 }
