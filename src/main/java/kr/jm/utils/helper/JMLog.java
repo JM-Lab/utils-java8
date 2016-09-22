@@ -13,43 +13,43 @@ import kr.jm.utils.AutoStringBuilder;
 public class JMLog {
 
 	/**
-	 * Log method start info.
+	 * Info.
 	 *
-	 * @param log
-	 *            the log
+	 * @param logger
+	 *            the logger
 	 * @param methodName
 	 *            the method name
 	 */
-	static public void infoBeforeStart(Logger log, String methodName) {
-		log.info(buildMethodLogString(methodName));
+	static public void info(Logger logger, String methodName) {
+		logger.info(buildMethodLogString(methodName));
 	}
 
 	/**
-	 * Log method start info.
+	 * Info.
 	 *
-	 * @param log
-	 *            the log
+	 * @param logger
+	 *            the logger
 	 * @param methodName
 	 *            the method name
 	 * @param params
 	 *            the params
 	 */
-	static public void infoBeforeStart(Logger log, String methodName,
+	static public void info(Logger logger, String methodName,
 			Object... params) {
-		log.info(buildMethodLogString(methodName, params));
+		logger.info(buildMethodLogString(methodName, params));
 	}
 
 	/**
-	 * Log method start info and debug.
+	 * Info and debug.
 	 *
-	 * @param log
-	 *            the log
+	 * @param logger
+	 *            the logger
 	 * @param methodName
 	 *            the method name
 	 * @param params
 	 *            the params
 	 */
-	static public void infoAndDebugBeforeStart(Logger log, String methodName,
+	static public void infoAndDebug(Logger logger, String methodName,
 			Object... params) {
 		int length = params.length;
 		Object[] newParams = new Object[length];
@@ -62,40 +62,67 @@ public class JMLog {
 				newParams[i] = params[i];
 		}
 		if (hasCollection)
-			log.info(buildMethodLogString(methodName, newParams));
-		log.debug(buildMethodLogString(methodName, params));
+			logger.info(buildMethodLogString(methodName, newParams));
+		logger.debug(buildMethodLogString(methodName, params));
 	}
 
 	/**
-	 * Log exception.
+	 * Error.
 	 *
-	 * @param log
-	 *            the log
-	 * @param throwable
-	 *            the exception
+	 * @param logger
+	 *            the logger
 	 * @param methodName
 	 *            the method name
 	 */
-	static public void errorForException(Logger log, Throwable throwable,
-			String methodName) {
-		log.error(buildMethodLogString(methodName), throwable);
+	static public void error(Logger logger, String methodName) {
+		logger.error(buildMethodLogString(methodName));
 	}
 
 	/**
-	 * Log exception.
+	 * Error.
 	 *
-	 * @param log
-	 *            the log
-	 * @param throwable
-	 *            the exception
+	 * @param logger
+	 *            the logger
 	 * @param methodName
 	 *            the method name
 	 * @param params
 	 *            the params
 	 */
-	static public void errorForException(Logger log, Throwable throwable,
+	static public void error(Logger logger, String methodName,
+			Object... params) {
+		logger.error(buildMethodLogString(methodName, params));
+	}
+
+	/**
+	 * Error for exception.
+	 *
+	 * @param logger
+	 *            the logger
+	 * @param throwable
+	 *            the throwable
+	 * @param methodName
+	 *            the method name
+	 */
+	static public void errorForException(Logger logger, Throwable throwable,
+			String methodName) {
+		logger.error(buildMethodLogString(methodName), throwable);
+	}
+
+	/**
+	 * Error for exception.
+	 *
+	 * @param logger
+	 *            the logger
+	 * @param throwable
+	 *            the throwable
+	 * @param methodName
+	 *            the method name
+	 * @param params
+	 *            the params
+	 */
+	static public void errorForException(Logger logger, Throwable throwable,
 			String methodName, Object... params) {
-		log.error(buildMethodLogString(methodName, params), throwable);
+		logger.error(buildMethodLogString(methodName, params), throwable);
 	}
 
 	private static String buildMethodLogString(String methodName) {
@@ -104,71 +131,71 @@ public class JMLog {
 
 	private static String buildMethodLogString(String methodName,
 			Object[] params) {
-		AutoStringBuilder logASB = new AutoStringBuilder(", ");
-		logASB.getStringBuilder().append(methodName).append("(");
+		AutoStringBuilder loggerASB = new AutoStringBuilder(", ");
+		loggerASB.getStringBuilder().append(methodName).append("(");
 		for (Object param : params) {
 			if (param == null)
-				logASB.append("null");
+				loggerASB.append("null");
 			else
-				logASB.append(param.toString());
+				loggerASB.append(param.toString());
 		}
-		String finalLogString = logASB.removeLastAutoAppendingString()
+		String finalLogString = loggerASB.removeLastAutoAppendingString()
 				.getStringBuilder().append(")").toString();
 		return finalLogString;
 	}
 
 	/**
-	 * Log method start debug.
+	 * Debug.
 	 *
-	 * @param log
-	 *            the log
+	 * @param logger
+	 *            the logger
 	 * @param methodName
 	 *            the method name
 	 * @param params
 	 *            the params
 	 */
-	public static void debugBeforeStart(Logger log, String methodName,
+	public static void debug(Logger logger, String methodName,
 			Object... params) {
-		log.debug(buildMethodLogString(methodName, params));
+		logger.debug(buildMethodLogString(methodName, params));
 	}
 
 	/**
-	 * Log method start debug.
+	 * Debug.
 	 *
-	 * @param log
-	 *            the log
+	 * @param logger
+	 *            the logger
 	 * @param methodName
 	 *            the method name
 	 */
-	public static void debugBeforeStart(Logger log, String methodName) {
-		log.debug(buildMethodLogString(methodName));
+	public static void debug(Logger logger, String methodName) {
+		logger.debug(buildMethodLogString(methodName));
 	}
 
 	/**
-	 * Log method start warn.
+	 * Warn.
 	 *
-	 * @param log
-	 *            the log
+	 * @param logger
+	 *            the logger
 	 * @param methodName
 	 *            the method name
 	 * @param params
 	 *            the params
 	 */
-	public static void warnBeforeStart(Logger log, String methodName,
+	public static void warn(Logger logger, String methodName,
 			Object... params) {
-		log.warn(buildMethodLogString(methodName, params));
+		logger.warn(buildMethodLogString(methodName, params));
 	}
 
 	/**
-	 * Warn before start.
+	 * Warn.
 	 *
-	 * @param log
-	 *            the log
+	 * @param logger
+	 *            the logger
 	 * @param methodName
 	 *            the method name
 	 */
-	public static void warnBeforeStart(Logger log, String methodName) {
-		log.warn(buildMethodLogString(methodName));
+	public static void warn(Logger logger, String methodName) {
+		logger.warn(buildMethodLogString(methodName));
 	}
 
 }
