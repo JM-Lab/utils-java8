@@ -1,15 +1,18 @@
 package kr.jm.utils.helper;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.concurrent.atomic.LongAdder;
+import java.util.Optional;
 
 import org.junit.Test;
+
+import kr.jm.utils.ProgressiveManager;
 
 public class JMPathOperationTest {
 
@@ -24,7 +27,7 @@ public class JMPathOperationTest {
 		assertTrue(JMPath.exists(startDirectoryPath));
 		assertEquals(0,
 				JMPathOperation
-						.deleteBulkWithFalseList(
+						.deleteBulkThenFalseList(
 								JMPath.getSubPathList(startDirectoryPath))
 						.size());
 		System.out.println(JMPath.getSubPathList(startDirectoryPath));
@@ -42,10 +45,8 @@ public class JMPathOperationTest {
 		Files.createFile(startDirectoryPath.resolve("test.file"));
 		Files.createFile(d1Path.resolve("test.file"));
 		Files.createFile(d2Path.resolve("test.file"));
-		LongAdder longAdder = new LongAdder();
-		JMPathOperation.deleteDir(startDirectoryPath,
-				path -> longAdder.increment());
-		assertEquals(5, longAdder.intValue());
+		assertFalse(JMPathOperation.delete(startDirectoryPath));
+		assertTrue(JMPathOperation.deleteDir(startDirectoryPath));
 	}
 
 	@Test
@@ -71,13 +72,14 @@ public class JMPathOperationTest {
 		int size2 = subPathList2.size();
 		System.out.println(JMPath.getSubPathList(startDirectoryPath));
 		Path copyd1 = startDirectoryPath.resolve("copyd1");
-		JMPathOperation.copyDir(d1Path, copyd1);
+		Optional<ProgressiveManager<Path, Path>> copyDirProgress =
+				JMPathOperation.copyDir(d1Path, copyd1);
+		copyDirProgress.get().getResultListSync();
 		subPathList = JMPath.getSubPathList(startDirectoryPath);
 		System.out.println(subPathList);
 		assertEquals(subPathList.size(), size + size2 + 3);
-		LongAdder longAdder = new LongAdder();
-		JMPathOperation.copyDir(copyd1, d2Path, path -> longAdder.increment());
-		assertEquals(3, longAdder.intValue());
+		copyDirProgress = JMPathOperation.copyDir(copyd1, d2Path);
+		assertEquals(3, copyDirProgress.get().getResultListSync().size());
 		System.out.println(JMPath.getSubPathList(startDirectoryPath));
 		JMPathOperation.deleteDir(startDirectoryPath);
 
@@ -109,10 +111,11 @@ public class JMPathOperationTest {
 		subPathList = JMPath.getSubPathList(startDirectoryPath);
 		System.out.println(subPathList);
 		assertEquals(subPathList.size(), size + 1);
-
-		LongAdder longAdder = new LongAdder();
-		JMPathOperation.moveDir(copyd1, d2Path, path -> longAdder.increment());
-		assertEquals(2, longAdder.intValue());
+		List<Path> subPathList2 =
+				JMPath.getSubPathList(JMPathOperation.move(copyd1, d2Path));
+		System.out.println(subPathList2);
+		System.out.println(JMPath.getSubPathList(d1Path));
+		assertEquals(5, JMPath.getSubPathList(d1Path).size());
 		System.out.println(JMPath.getSubPathList(startDirectoryPath));
 		JMPathOperation.deleteDir(startDirectoryPath);
 	}
