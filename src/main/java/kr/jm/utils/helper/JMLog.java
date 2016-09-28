@@ -20,8 +20,9 @@ public class JMLog {
 	 * @param methodName
 	 *            the method name
 	 */
-	static public void info(Logger logger, String methodName) {
-		logger.info(buildMethodLogString(methodName));
+	public static void info(Logger log, String methodName) {
+		if (log.isInfoEnabled())
+			log.info(buildMethodLogString(methodName));
 	}
 
 	/**
@@ -34,9 +35,9 @@ public class JMLog {
 	 * @param params
 	 *            the params
 	 */
-	static public void info(Logger logger, String methodName,
-			Object... params) {
-		logger.info(buildMethodLogString(methodName, params));
+	public static void info(Logger log, String methodName, Object... params) {
+		if (log.isInfoEnabled())
+			log.info(buildMethodLogString(methodName, params));
 	}
 
 	/**
@@ -49,8 +50,10 @@ public class JMLog {
 	 * @param params
 	 *            the params
 	 */
-	static public void infoAndDebug(Logger logger, String methodName,
+	public static void infoAndDebug(Logger log, String methodName,
 			Object... params) {
+		if (!log.isInfoEnabled())
+			return;
 		int length = params.length;
 		Object[] newParams = new Object[length];
 		boolean hasCollection = false;
@@ -62,8 +65,8 @@ public class JMLog {
 				newParams[i] = params[i];
 		}
 		if (hasCollection)
-			logger.info(buildMethodLogString(methodName, newParams));
-		logger.debug(buildMethodLogString(methodName, params));
+			log.info(buildMethodLogString(methodName, newParams));
+		log.debug(buildMethodLogString(methodName, params));
 	}
 
 	/**
@@ -74,8 +77,8 @@ public class JMLog {
 	 * @param methodName
 	 *            the method name
 	 */
-	static public void error(Logger logger, String methodName) {
-		logger.error(buildMethodLogString(methodName));
+	public static void error(Logger log, String methodName) {
+		log.error(buildMethodLogString(methodName));
 	}
 
 	/**
@@ -88,9 +91,8 @@ public class JMLog {
 	 * @param params
 	 *            the params
 	 */
-	static public void error(Logger logger, String methodName,
-			Object... params) {
-		logger.error(buildMethodLogString(methodName, params));
+	public static void error(Logger log, String methodName, Object... params) {
+		log.error(buildMethodLogString(methodName, params));
 	}
 
 	/**
@@ -103,9 +105,9 @@ public class JMLog {
 	 * @param methodName
 	 *            the method name
 	 */
-	static public void errorForException(Logger logger, Throwable throwable,
+	public static void errorForException(Logger log, Throwable throwable,
 			String methodName) {
-		logger.error(buildMethodLogString(methodName), throwable);
+		log.error(buildMethodLogString(methodName), throwable);
 	}
 
 	/**
@@ -120,9 +122,9 @@ public class JMLog {
 	 * @param params
 	 *            the params
 	 */
-	static public void errorForException(Logger logger, Throwable throwable,
+	public static void errorForException(Logger log, Throwable throwable,
 			String methodName, Object... params) {
-		logger.error(buildMethodLogString(methodName, params), throwable);
+		log.error(buildMethodLogString(methodName, params), throwable);
 	}
 
 	private static String buildMethodLogString(String methodName) {
@@ -154,9 +156,9 @@ public class JMLog {
 	 * @param params
 	 *            the params
 	 */
-	public static void debug(Logger logger, String methodName,
-			Object... params) {
-		logger.debug(buildMethodLogString(methodName, params));
+	public static void debug(Logger log, String methodName, Object... params) {
+		if (log.isDebugEnabled())
+			log.debug(buildMethodLogString(methodName, params));
 	}
 
 	/**
@@ -167,8 +169,9 @@ public class JMLog {
 	 * @param methodName
 	 *            the method name
 	 */
-	public static void debug(Logger logger, String methodName) {
-		logger.debug(buildMethodLogString(methodName));
+	public static void debug(Logger log, String methodName) {
+		if (log.isDebugEnabled())
+			log.debug(buildMethodLogString(methodName));
 	}
 
 	/**
@@ -181,9 +184,9 @@ public class JMLog {
 	 * @param params
 	 *            the params
 	 */
-	public static void warn(Logger logger, String methodName,
-			Object... params) {
-		logger.warn(buildMethodLogString(methodName, params));
+	public static void warn(Logger log, String methodName, Object... params) {
+		if (log.isWarnEnabled())
+			log.warn(buildMethodLogString(methodName, params));
 	}
 
 	/**
@@ -194,8 +197,9 @@ public class JMLog {
 	 * @param methodName
 	 *            the method name
 	 */
-	public static void warn(Logger logger, String methodName) {
-		logger.warn(buildMethodLogString(methodName));
+	public static void warn(Logger log, String methodName) {
+		if (log.isWarnEnabled())
+			log.warn(buildMethodLogString(methodName));
 	}
 
 }
