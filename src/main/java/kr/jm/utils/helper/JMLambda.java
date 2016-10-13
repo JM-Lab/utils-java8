@@ -57,7 +57,7 @@ public class JMLambda {
 	}
 
 	/**
-	 * Group by.
+	 * Group by two key.
 	 *
 	 * @param <T>
 	 *            the generic type
@@ -68,16 +68,16 @@ public class JMLambda {
 	 * @param collection
 	 *            the collection
 	 * @param classifier1
-	 *            the classifier1
+	 *            the classifier 1
 	 * @param classifier2
-	 *            the classifier2
+	 *            the classifier 2
 	 * @return the map
 	 */
-	public static <T, R1, R2> Map<R1, Map<R2, T>> groupBy(
+	public static <T, R1, R2> Map<R1, Map<R2, T>> groupByTwoKey(
 			Collection<T> collection, Function<T, R1> classifier1,
 			Function<T, R2> classifier2) {
 		return collection.stream()
-				.collect(groupingBy(classifier1, toMap(classifier2, r -> r)));
+				.collect(groupingBy(classifier1, toMap(classifier2, t -> t)));
 	}
 
 	/**
@@ -205,9 +205,9 @@ public class JMLambda {
 	 * @param bool
 	 *            the bool
 	 * @param target1
-	 *            the target1
+	 *            the target 1
 	 * @param target2
-	 *            the target2
+	 *            the target 2
 	 * @param biConsumer
 	 *            the bi consumer
 	 */
@@ -225,9 +225,9 @@ public class JMLambda {
 	 * @param <U>
 	 *            the generic type
 	 * @param target1
-	 *            the target1
+	 *            the target 1
 	 * @param target2
-	 *            the target2
+	 *            the target 2
 	 * @param targetTester
 	 *            the target tester
 	 * @param biConsumer
@@ -240,7 +240,7 @@ public class JMLambda {
 	}
 
 	/**
-	 * Apply if true.
+	 * Function if true.
 	 *
 	 * @param <T>
 	 *            the generic type
@@ -254,14 +254,13 @@ public class JMLambda {
 	 *            the function
 	 * @return the optional
 	 */
-	public static <T, R> Optional<R> applyIfTrue(boolean bool, T target,
+	public static <T, R> Optional<R> functionIfTrue(boolean bool, T target,
 			Function<T, R> function) {
-		return bool ? Optional.ofNullable(function.apply(target))
-				: Optional.empty();
+		return supplierIfTrue(bool, () -> function.apply(target));
 	}
 
 	/**
-	 * Apply if true.
+	 * Bi function if true.
 	 *
 	 * @param <T>
 	 *            the generic type
@@ -272,21 +271,20 @@ public class JMLambda {
 	 * @param bool
 	 *            the bool
 	 * @param target1
-	 *            the target1
+	 *            the target 1
 	 * @param target2
-	 *            the target2
+	 *            the target 2
 	 * @param biFunction
 	 *            the bi function
 	 * @return the optional
 	 */
-	public static <T, U, R> Optional<R> applyIfTrue(boolean bool, T target1,
-			U target2, BiFunction<T, U, R> biFunction) {
-		return bool ? Optional.ofNullable(biFunction.apply(target1, target2))
-				: Optional.empty();
+	public static <T, U, R> Optional<R> biFunctionIfTrue(boolean bool,
+			T target1, U target2, BiFunction<T, U, R> biFunction) {
+		return supplierIfTrue(bool, () -> biFunction.apply(target1, target2));
 	}
 
 	/**
-	 * Gets the if true.
+	 * Supplier if true.
 	 *
 	 * @param <R>
 	 *            the generic type
@@ -294,15 +292,15 @@ public class JMLambda {
 	 *            the bool
 	 * @param supplier
 	 *            the supplier
-	 * @return the if true
+	 * @return the optional
 	 */
-	public static <R> Optional<R> getIfTrue(boolean bool,
+	public static <R> Optional<R> supplierIfTrue(boolean bool,
 			Supplier<R> supplier) {
 		return bool ? Optional.ofNullable(supplier.get()) : Optional.empty();
 	}
 
 	/**
-	 * Apply by boolean.
+	 * Function by boolean.
 	 *
 	 * @param <T>
 	 *            the generic type
@@ -318,27 +316,27 @@ public class JMLambda {
 	 *            the false function
 	 * @return the r
 	 */
-	public static <T, R> R applyByBoolean(boolean bool, T target,
+	public static <T, R> R functionByBoolean(boolean bool, T target,
 			Function<T, R> trueFunction, Function<T, R> falseFunction) {
 		return bool ? trueFunction.apply(target) : falseFunction.apply(target);
 	}
 
 	/**
-	 * Gets the by boolean.
+	 * Supplier by boolean.
 	 *
 	 * @param <R>
 	 *            the generic type
 	 * @param bool
 	 *            the bool
-	 * @param trueSupply
-	 *            the true supply
-	 * @param falseSupply
-	 *            the false supply
-	 * @return the by boolean
+	 * @param trueSupplier
+	 *            the true supplier
+	 * @param falseSupplier
+	 *            the false supplier
+	 * @return the r
 	 */
-	public static <R> R getByBoolean(boolean bool, Supplier<R> trueSupply,
-			Supplier<R> falseSupply) {
-		return bool ? trueSupply.get() : falseSupply.get();
+	public static <R> R supplierByBoolean(boolean bool,
+			Supplier<R> trueSupplier, Supplier<R> falseSupplier) {
+		return bool ? trueSupplier.get() : falseSupplier.get();
 	}
 
 	/**
@@ -357,18 +355,18 @@ public class JMLambda {
 	}
 
 	/**
-	 * Gets the else if null.
+	 * Supplier if null.
 	 *
 	 * @param <R>
 	 *            the generic type
 	 * @param target
 	 *            the target
-	 * @param elseSupplier
-	 *            the else supplier
-	 * @return the else if null
+	 * @param supplier
+	 *            the supplier
+	 * @return the r
 	 */
-	public static <R> R getElseIfNull(R target, Supplier<R> elseSupplier) {
-		return Optional.ofNullable(target).orElseGet(elseSupplier);
+	public static <R> R supplierIfNull(R target, Supplier<R> supplier) {
+		return Optional.ofNullable(target).orElseGet(supplier);
 	}
 
 	/**
@@ -424,6 +422,30 @@ public class JMLambda {
 			trueBlock.run();
 		else
 			falseBlock.run();
+	}
+
+	/**
+	 * Gets the self.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @return the self
+	 */
+	public static <T> Function<T, T> getSelf() {
+		return t -> t;
+	}
+
+	/**
+	 * Gets the supplier.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param target
+	 *            the target
+	 * @return the supplier
+	 */
+	public static <T> Supplier<T> getSupplier(T target) {
+		return () -> target;
 	}
 
 }

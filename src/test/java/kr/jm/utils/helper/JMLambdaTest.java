@@ -14,11 +14,20 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class JMLambdaTest.
+ */
 public class JMLambdaTest {
 
 	Collection<Number> numberCollection;
 	Collection<String> stringCollection;
 
+	/**
+	 * Sets the up.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		numberCollection =
@@ -27,6 +36,12 @@ public class JMLambdaTest {
 				.map(Object::toString).collect(toList());
 	}
 
+	/**
+	 * Test partition by.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testPartitionBy() throws Exception {
 		Map<Boolean, List<Number>> partitionBy = JMLambda
@@ -36,22 +51,40 @@ public class JMLambdaTest {
 				partitionBy.get(true).size() == partitionBy.get(false).size());
 	}
 
+	/**
+	 * Test group by two key.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
-	public final void testGroupBy() throws Exception {
+	public final void testGroupByTwoKey() throws Exception {
 		Map<Boolean, List<Number>> groupBy = JMLambda.groupBy(numberCollection,
 				n -> n.doubleValue() % 2 == 0d);
 		System.out.println(groupBy);
 		assertTrue(groupBy.get(true).size() == groupBy.get(false).size());
 	}
 
+	/**
+	 * Test group by two key 2.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
-	public final void testGroupBy2() throws Exception {
+	public final void testGroupByTwoKey2() throws Exception {
 		Map<Boolean, Map<String, String>> groupBy = JMLambda
-				.groupBy(stringCollection, s -> s.contains("0"), s -> s);
+				.groupByTwoKey(stringCollection, s -> s.contains("0"), s -> s);
 		System.out.println(groupBy);
 		assertTrue(groupBy.get(true).size() == 10);
 	}
 
+	/**
+	 * Test consume by predicate.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testConsumeByPredicate() throws Exception {
 		JMLambda.consumeByPredicate(numberCollection,
@@ -60,6 +93,12 @@ public class JMLambdaTest {
 				n -> assertTrue(n.intValue() % 2 == 1));
 	}
 
+	/**
+	 * Test consume by predicate in parallel.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testConsumeByPredicateInParallel() throws Exception {
 		JMLambda.consumeByPredicateInParallel(numberCollection,
@@ -68,6 +107,12 @@ public class JMLambdaTest {
 				n -> assertTrue(n.intValue() % 2 == 1));
 	}
 
+	/**
+	 * Test consume by boolean.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testConsumeByBoolean() throws Exception {
 		String testString = "run by true";
@@ -79,6 +124,12 @@ public class JMLambdaTest {
 		assertTrue(falseStringBuilder.toString().equals(""));
 	}
 
+	/**
+	 * Test consume if not null.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testConsumeIfNotNull() throws Exception {
 		String testString = "run by true";
@@ -90,6 +141,12 @@ public class JMLambdaTest {
 		assertTrue(falseStringBuilder.toString().equals(""));
 	}
 
+	/**
+	 * Test consume if ture.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testConsumeIfTure() throws Exception {
 		String testString = "run by true";
@@ -114,34 +171,59 @@ public class JMLambdaTest {
 				trueStringBuilder2.toString().equals(testString + testString2));
 	}
 
+	/**
+	 * Test supplier if true.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
-	public final void testGetIfTrue() throws Exception {
+	public final void testSupplierIfTrue() throws Exception {
 		String testString = "run by true";
-		assertEquals(JMLambda.getIfTrue(true, () -> testString).get(),
+		assertEquals(JMLambda.supplierIfTrue(true, () -> testString).get(),
 				testString);
-		assertFalse(JMLambda.getIfTrue(false, () -> testString).isPresent());
+		assertFalse(
+				JMLambda.supplierIfTrue(false, () -> testString).isPresent());
 	}
 
+	/**
+	 * Test function by boolean.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
-	public final void testApplyByBoolean() throws Exception {
+	public final void testFunctionByBoolean() throws Exception {
 		String testString = "run by true";
 		String testString2 = "false";
-		assertTrue(JMLambda.applyByBoolean(true, testString,
+		assertTrue(JMLambda.functionByBoolean(true, testString,
 				s -> s.equals(testString), s -> s.equals(testString2)));
-		assertFalse(JMLambda.applyByBoolean(false, testString,
+		assertFalse(JMLambda.functionByBoolean(false, testString,
 				s -> s.equals(testString), s -> s.equals(testString2)));
 	}
 
+	/**
+	 * Test supplier by boolean.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
-	public final void testGetByBoolean() throws Exception {
+	public final void testSupplierByBoolean() throws Exception {
 		String testString = "run by true";
 		String testString2 = "false";
-		assertEquals(JMLambda.getByBoolean(true, () -> testString,
+		assertEquals(JMLambda.supplierByBoolean(true, () -> testString,
 				() -> testString2), testString);
-		assertEquals(JMLambda.getByBoolean(false, () -> testString,
+		assertEquals(JMLambda.supplierByBoolean(false, () -> testString,
 				() -> testString2), testString2);
 	}
 
+	/**
+	 * Test change into.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testChangeInto() throws Exception {
 		String testString = "run by true";
@@ -151,14 +233,26 @@ public class JMLambdaTest {
 				testString);
 	}
 
+	/**
+	 * Test supplier if null.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
-	public final void testGetElseIfNull() throws Exception {
+	public final void testSupplierIfNull() throws Exception {
 		String testString = "run by true";
 		String testString2 = null;
-		assertEquals(JMLambda.getElseIfNull(testString2, () -> testString),
+		assertEquals(JMLambda.supplierIfNull(testString2, () -> testString),
 				testString);
 	}
 
+	/**
+	 * Test get true after running.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testGetTrueAfterRunning() throws Exception {
 		String testString = "false";
@@ -166,6 +260,12 @@ public class JMLambdaTest {
 				.getTrueAfterRunning(() -> getSOPL().accept(testString)));
 	}
 
+	/**
+	 * Test get false after running.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testGetFalseAfterRunning() throws Exception {
 		String testString = "true";
@@ -173,6 +273,12 @@ public class JMLambdaTest {
 				.getFalseAfterRunning(() -> getSOPL().accept(testString)));
 	}
 
+	/**
+	 * Test run if true.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testRunIfTrue() throws Exception {
 		String testString = "true";
@@ -181,6 +287,12 @@ public class JMLambdaTest {
 		assertEquals(trueStringBuilder.toString(), testString);
 	}
 
+	/**
+	 * Test run by boolean.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public final void testRunByBoolean() throws Exception {
 		String testString = "true";
