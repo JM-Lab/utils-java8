@@ -43,10 +43,11 @@ public class ProgressiveManager<T, R> {
 	private List<Consumer<ProgressiveManager<T, R>>> completedConsumerList;
 	private CompletableFuture<Void> completableFuture;
 	private boolean isStoped;
+	private Function<T, Optional<R>> processFunction;
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -66,9 +67,13 @@ public class ProgressiveManager<T, R> {
 	 *
 	 * @param targetCollection
 	 *            the target collection
+	 * @param processFunction
+	 *            the process function
 	 */
-	public ProgressiveManager(Collection<T> targetCollection) {
+	public ProgressiveManager(Collection<T> targetCollection,
+			Function<T, Optional<R>> processFunction) {
 		this.targetCollection = targetCollection;
+		this.processFunction = processFunction;
 		this.totalCount = targetCollection.size();
 		this.progressiveCount = new SimpleIntegerProperty();
 		this.progressivePercent = new SimpleIntegerProperty();
@@ -76,19 +81,16 @@ public class ProgressiveManager<T, R> {
 		this.lastResult = new SimpleObjectProperty<>();
 		this.resultList = new ArrayList<>();
 		this.completedConsumerList = new ArrayList<>();
-		this.isStoped = true;
+		this.isStoped = false;
 	}
 
 	/**
 	 * Start.
 	 *
-	 * @param processFunction
-	 *            the process function
 	 * @return the progressive manager
 	 */
-	public ProgressiveManager<T, R> start(Function<T, R> processFunction) {
-		info(log, "start", processFunction);
-		this.isStoped = false;
+	public ProgressiveManager<T, R> start() {
+		info(log, "start");
 		this.completableFuture = JMThread.runAsync(
 				() -> targetCollection.stream().filter(t -> !isStoped())
 						.peek(this::setNextTarget).map(t -> {
@@ -98,29 +100,10 @@ public class ProgressiveManager<T, R> {
 								return handleExceptionAndReturnNull(log, e,
 										"start", t, processFunction);
 							}
-						}).map(Optional::ofNullable).peek(lastResult::set)
-						.forEach(resultList::add))
-				.thenRun(this::setStoped).thenRun(() -> completedConsumerList
+						}).peek(lastResult::set).forEach(resultList::add))
+				.thenRun(this::setStoped)
+				.thenRunAsync(() -> completedConsumerList
 						.forEach(c -> c.accept(this)));
-		return this;
-	}
-
-	/**
-	 * Stop sync.
-	 *
-	 * @return the progressive manager
-	 */
-	public ProgressiveManager<T, R> stopSync() {
-		setStoped();
-		return getAfterCompletion();
-	}
-
-	public ProgressiveManager<T, R> getAfterCompletion() {
-		try {
-			completableFuture.get();
-		} catch (InterruptedException | ExecutionException e) {
-			logException(log, e, "stopSync");
-		}
 		return this;
 	}
 
@@ -131,6 +114,24 @@ public class ProgressiveManager<T, R> {
 	 */
 	public ProgressiveManager<T, R> stopAsync() {
 		setStoped();
+		return this;
+	}
+
+	/**
+	 * Stop sync.
+	 *
+	 * @return the progressive manager
+	 */
+	public ProgressiveManager<T, R> stopSync() {
+		return stopAsync().getAfterCompletion();
+	}
+
+	public ProgressiveManager<T, R> getAfterCompletion() {
+		try {
+			completableFuture.get();
+		} catch (InterruptedException | ExecutionException e) {
+			logException(log, e, "stopSync");
+		}
 		return this;
 	}
 
@@ -155,8 +156,8 @@ public class ProgressiveManager<T, R> {
 		return this;
 	}
 
-	public List<Optional<R>> getResultList() {
-		return new ArrayList<>(resultList);
+	public List<Optional<R>> getResultListSync() {
+		return new ArrayList<>(getAfterCompletion().resultList);
 	}
 
 	/**
@@ -204,7 +205,8 @@ public class ProgressiveManager<T, R> {
 	private void setNextTarget(T target) {
 		int progressiveCount = getProgressiveCount() + 1;
 		int percent = JMStats.calPercent(progressiveCount, totalCount);
-		this.progressivePercent.set(percent);
+		if (progressivePercent.get() != percent)
+			this.progressivePercent.set(percent);
 		this.progressiveCount.set(progressiveCount);
 		this.currentTarget.set(target);
 	}
@@ -243,6 +245,10 @@ public class ProgressiveManager<T, R> {
 
 	public List<T> getTargetList() {
 		return new ArrayList<>(targetCollection);
+	}
+
+	public Function<T, Optional<R>> getProcessFunction() {
+		return processFunction;
 	}
 
 }
