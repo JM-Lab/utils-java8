@@ -9,8 +9,7 @@ import java.io.File;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.nio.file.Files;
-import java.util.ArrayList;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -161,7 +160,7 @@ public enum OS {
 	private boolean open(String runCmd, File file) {
 		try {
 			String command = runCmd + file.getAbsolutePath();
-			JMLog.infoBeforeStart(log, "open", command);
+			JMLog.info(log, "open", command);
 			Runtime.getRuntime().exec(command);
 			return true;
 		} catch (Exception e) {
@@ -176,10 +175,13 @@ public enum OS {
 	 * @return the hostname
 	 */
 	public static String getHostname() {
-		return getDefaultInetAddressAsOpt().map(InetAddress::getHostName)
-				.orElseGet(() -> getAllInetAddressInfoStream()
-						.map(InetAddress::getHostName)
-						.filter(s -> !s.contains(":")).findFirst().get());
+		try {
+			return InetAddress.getLocalHost().getHostName();
+		} catch (UnknownHostException e) {
+			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+					"getHostname");
+		}
+
 	}
 
 	/**
@@ -302,25 +304,6 @@ public enum OS {
 	 * @return the root file list
 	 */
 	public List<File> getRootFileList() {
-		switch (this) {
-		case MAC:
-			List<File> fileList = new ArrayList<>();
-			fileList.add(getDefaultDirctoryFile());
-			fileList.addAll(getDefaultRootFileList());
-			Optional.ofNullable(new File("/Volumes").listFiles())
-					.map(JMCollections::buildList).map(
-							list -> list.stream()
-									.filter(f -> !Files
-											.isSymbolicLink(f.toPath()))
-									.collect(toList()))
-					.ifPresent(fileList::addAll);
-			return fileList;
-		default:
-			return getDefaultRootFileList();
-		}
-	}
-
-	private List<File> getDefaultRootFileList() {
 		return JMCollections.buildList(getFileSystemView().getRoots());
 	}
 
