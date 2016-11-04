@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.junit.Ignore;
@@ -269,39 +268,6 @@ public class JMPathTest {
 						.applySubFilePathsAndGetAppliedList(startDirectoryPath,
 								JMPredicate.getTrue(), JMLambda::changeInto)
 						.size());
-	}
-
-	/**
-	 * Test get path extension as opt.
-	 *
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Test
-	public void testGetPathExtensionAsOpt() throws Exception {
-		Path path =
-				JMPath.getPath("/09A0F357-E206-444C-83CA-0475947F8718/Data/7/3"
-						+ "/Attachments/37857/2/Mail 첨부 파일.png");
-		System.out.println(JMPath.getPathExtensionAsOpt(path));
-		assertEquals(".png", JMPath.getPathExtensionAsOpt(path).get());
-
-		path = JMPath.getPath("Data/7/3/Attachments/37857/2/Mail 첨부 파일");
-		System.out.println(JMPath.getPathExtensionAsOpt(path));
-		assertEquals(Optional.empty(), JMPath.getFilePathExtensionAsOpt(path));
-
-		JMPath.getPath(
-				"/09A0F357-E206-444C-83CA-0475947F8718/Data/7/3/Attachments/37857/2/");
-		System.out.println(JMPath.getPathExtensionAsOpt(path));
-		assertEquals(Optional.empty(), JMPath.getFilePathExtensionAsOpt(path));
-
-		path = JMPath.getPath("Mail 첨부 파일");
-		System.out.println(JMPath.getPathExtensionAsOpt(path));
-		assertEquals(Optional.empty(), JMPath.getFilePathExtensionAsOpt(path));
-
-		path = JMPath.getPath("Mail. 첨.부 파일.png");
-		System.out.println(JMPath.getPathExtensionAsOpt(path));
-		assertEquals(".png", JMPath.getPathExtensionAsOpt(path).get());
-
 	}
 
 	/**

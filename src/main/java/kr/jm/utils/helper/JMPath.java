@@ -663,15 +663,14 @@ public class JMPath {
 	/**
 	 * Apply path list and get result list.
 	 *
+	 * @param <R>
+	 *            the generic type
 	 * @param isParallel
 	 *            the is parallel
 	 * @param pathList
 	 *            the path list
 	 * @param function
 	 *            the function
-	 *
-	 * @param <R>
-	 *            the generic type
 	 * @return the list
 	 */
 	public static <R> List<R> applyPathListAndGetResultList(boolean isParallel,
@@ -807,23 +806,8 @@ public class JMPath {
 	 * @return the file path extension as opt
 	 */
 	public static Optional<String> getFilePathExtensionAsOpt(Path path) {
-		return getPathExtensionAsOpt(path, RegularFileFilter);
-	}
-
-	/**
-	 * Gets the path extension as opt.
-	 *
-	 * @param path
-	 *            the path
-	 * @return the path extension as opt
-	 */
-	public static Optional<String> getPathExtensionAsOpt(Path path) {
-		return getPathExtensionAsOpt(path, JMPredicate.getTrue());
-	}
-
-	private static Optional<String> getPathExtensionAsOpt(Path path,
-			Predicate<Path> filter) {
-		return JMOptional.getNullableAndFilteredOptional(path, filter)
+		return JMOptional
+				.getNullableAndFilteredOptional(path, RegularFileFilter)
 				.map(JMPath::getLastName).map(JMString::getExtension)
 				.filter(getIsEmpty().negate());
 	}
@@ -881,5 +865,69 @@ public class JMPath {
 	 */
 	public static long getSize(Path path) {
 		return path.toFile().length();
+	}
+
+	/**
+	 * Gets the sub files count.
+	 *
+	 * @param dirPath
+	 *            the dir path
+	 * @return the sub files count
+	 */
+	public static int getSubFilesCount(Path dirPath) {
+		return getSubFilePathList(dirPath).size();
+	}
+
+	/**
+	 * Gets the sub directories count.
+	 *
+	 * @param dirPath
+	 *            the dir path
+	 * @return the sub directories count
+	 */
+	public static int getSubDirectoriesCount(Path dirPath) {
+		return getSubDirectoryPathList(dirPath).size();
+	}
+
+	/**
+	 * Gets the sub paths count.
+	 *
+	 * @param dirPath
+	 *            the dir path
+	 * @return the sub paths count
+	 */
+	public static int getSubPathsCount(Path dirPath) {
+		return getSubPathList(dirPath).size();
+	}
+
+	/**
+	 * Extract sub path.
+	 *
+	 * @param basePath
+	 *            the base path
+	 * @param sourcePath
+	 *            the source path
+	 * @return the path
+	 */
+	public static Path extractSubPath(Path basePath, Path sourcePath) {
+		return sourcePath.subpath(basePath.getNameCount() - 1,
+				sourcePath.getNameCount());
+	}
+
+	/**
+	 * Builds the relative destination path.
+	 *
+	 * @param destinationDirPath
+	 *            the destination dir path
+	 * @param baseDirPath
+	 *            the base dir path
+	 * @param sourcePath
+	 *            the source path
+	 * @return the path
+	 */
+	public static Path buildRelativeDestinationPath(Path destinationDirPath,
+			Path baseDirPath, Path sourcePath) {
+		Path extractSubPath = extractSubPath(baseDirPath, sourcePath);
+		return destinationDirPath.resolve(extractSubPath);
 	}
 }
