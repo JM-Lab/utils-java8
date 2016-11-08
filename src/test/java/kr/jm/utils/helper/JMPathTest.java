@@ -305,18 +305,16 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetPathListOfAncestorDirectory() throws Exception {
-		System.out.println(
-				JMPath.getPathListOfAncestorDirectory(JMPath.getUserHome()));
+	public void testGetAncestorPathList() throws Exception {
+		System.out.println(JMPath.getAncestorPathList(JMPath.getUserHome()));
 		Path path = JMPath.getPath("$jlkaj");
 		System.out.println(path);
 		System.out.println(JMPath.exists(path));
-		assertEquals(0, JMPath.getPathListOfAncestorDirectory(path).size());
-		System.out.println(
-				JMPath.getPathListOfAncestorDirectory(path.getParent()));
-		path = Paths.get("$jlkaj");
-		System.out.println(path);
-		assertEquals(0, JMPath.getPathListOfAncestorDirectory(path).size());
+		List<Path> ancestorPathList = JMPath.getAncestorPathList(path);
+		System.out.println(ancestorPathList);
+		assertEquals(path.getRoot(), ancestorPathList.get(0));
+		assertEquals(path.getParent(),
+				ancestorPathList.get(ancestorPathList.size() - 1));
 	}
 
 }

@@ -3,6 +3,7 @@ package kr.jm.utils.helper;
 
 import static java.util.stream.Collectors.toList;
 import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
+import static kr.jm.utils.helper.JMPredicate.peek;
 
 import java.io.File;
 import java.io.IOException;
@@ -353,12 +354,19 @@ public class JMPath {
 	 *            the start path
 	 * @return the path list of ancestor directory
 	 */
-	public static List<Path> getPathListOfAncestorDirectory(Path startPath) {
-		List<Path> pathListOfAncestorDirectory = new ArrayList<>();
-		if (exists(startPath))
-			startPath.spliterator()
-					.forEachRemaining(pathListOfAncestorDirectory::add);
-		return pathListOfAncestorDirectory;
+	public static List<Path> getAncestorPathList(Path startPath) {
+		List<Path> ancestorPathList = new ArrayList<>();
+		buildPathListOfAncestorDirectory(ancestorPathList, startPath);
+		Collections.reverse(ancestorPathList);
+		return ancestorPathList;
+	}
+
+	private static void buildPathListOfAncestorDirectory(
+			List<Path> pathListOfAncestorDirectory, Path path) {
+		Optional.ofNullable(path.getParent())
+				.filter(peek(pathListOfAncestorDirectory::add))
+				.ifPresent(p -> buildPathListOfAncestorDirectory(
+						pathListOfAncestorDirectory, p));
 	}
 
 	/**
