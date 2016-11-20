@@ -14,7 +14,7 @@ import org.junit.Test;
 public class CollectionStringPrinterTest {
 
 	/**
-	 * Test collection to json string.
+	 * Test collection to JSON string.
 	 */
 	@Test
 	public void testCollectionToJSONString() {

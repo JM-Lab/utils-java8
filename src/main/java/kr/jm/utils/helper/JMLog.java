@@ -15,8 +15,8 @@ public class JMLog {
 	/**
 	 * Info.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param methodName
 	 *            the method name
 	 */
@@ -28,8 +28,8 @@ public class JMLog {
 	/**
 	 * Info.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param methodName
 	 *            the method name
 	 * @param params
@@ -43,8 +43,8 @@ public class JMLog {
 	/**
 	 * Info and debug.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param methodName
 	 *            the method name
 	 * @param params
@@ -72,8 +72,8 @@ public class JMLog {
 	/**
 	 * Error.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param methodName
 	 *            the method name
 	 */
@@ -84,8 +84,8 @@ public class JMLog {
 	/**
 	 * Error.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param methodName
 	 *            the method name
 	 * @param params
@@ -98,8 +98,8 @@ public class JMLog {
 	/**
 	 * Error for exception.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param throwable
 	 *            the throwable
 	 * @param methodName
@@ -113,8 +113,8 @@ public class JMLog {
 	/**
 	 * Error for exception.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param throwable
 	 *            the throwable
 	 * @param methodName
@@ -149,8 +149,8 @@ public class JMLog {
 	/**
 	 * Debug.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param methodName
 	 *            the method name
 	 * @param params
@@ -164,8 +164,8 @@ public class JMLog {
 	/**
 	 * Debug.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param methodName
 	 *            the method name
 	 */
@@ -177,8 +177,8 @@ public class JMLog {
 	/**
 	 * Warn.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param methodName
 	 *            the method name
 	 * @param params
@@ -192,8 +192,8 @@ public class JMLog {
 	/**
 	 * Warn.
 	 *
-	 * @param logger
-	 *            the logger
+	 * @param log
+	 *            the log
 	 * @param methodName
 	 *            the method name
 	 */

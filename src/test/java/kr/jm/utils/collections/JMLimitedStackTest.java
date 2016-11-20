@@ -19,7 +19,7 @@ public class JMLimitedStackTest {
 	private JMLimitedStack<Integer> jmLimitedStack;
 
 	/**
-	 * Creates the jm limited stack.
+	 * Creates the JM limited stack.
 	 *
 	 * @throws Exception
 	 *             the exception

@@ -12,10 +12,20 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import kr.jm.utils.ProgressiveManager;
+import kr.jm.utils.JMProgressiveManager;
+import kr.jm.utils.datastructure.JMCollections;
 
+/**
+ * The Class JMPathOperationTest.
+ */
 public class JMPathOperationTest {
 
+	/**
+	 * Test delete.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testDelete() throws Exception {
 		Path startDirectoryPath = Paths.get("test");
@@ -27,8 +37,8 @@ public class JMPathOperationTest {
 		assertTrue(JMPath.exists(startDirectoryPath));
 		assertEquals(0,
 				JMPathOperation
-						.deleteBulkThenFalseList(
-								JMPath.getSubPathList(startDirectoryPath))
+						.deleteBulkThenFalseList(JMCollections.getReversed(
+								JMPath.getSubPathList(startDirectoryPath)))
 						.size());
 		System.out.println(JMPath.getSubPathList(startDirectoryPath));
 		assertTrue(JMPath.exists(startDirectoryPath));
@@ -49,6 +59,12 @@ public class JMPathOperationTest {
 		assertTrue(JMPathOperation.deleteDir(startDirectoryPath));
 	}
 
+	/**
+	 * Test copy.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testCopy() throws Exception {
 		Path startDirectoryPath = Paths.get("test");
@@ -61,6 +77,7 @@ public class JMPathOperationTest {
 		Path d1FilePath = d1Path.resolve("test.file");
 		Files.createFile(d1FilePath);
 		Path d2FilePath = d2Path.resolve("test.file");
+
 		Files.createFile(d2FilePath);
 		List<Path> subPathList = JMPath.getSubPathList(startDirectoryPath);
 		System.out.println(subPathList);
@@ -72,19 +89,27 @@ public class JMPathOperationTest {
 		int size2 = subPathList2.size();
 		System.out.println(JMPath.getSubPathList(startDirectoryPath));
 		Path copyd1 = startDirectoryPath.resolve("copyd1");
-		Optional<ProgressiveManager<Path, Path>> copyDirProgress =
-				JMPathOperation.copyDir(d1Path, copyd1);
-		copyDirProgress.get().getResultListSync();
+		Optional<JMProgressiveManager<Path, Path>> copyDirProgress =
+				JMPathOperation.copyDirRecursivelyAsync(d1Path, copyd1);
+		copyDirProgress.get().start().getResultMapSync();
 		subPathList = JMPath.getSubPathList(startDirectoryPath);
 		System.out.println(subPathList);
 		assertEquals(subPathList.size(), size + size2 + 3);
-		copyDirProgress = JMPathOperation.copyDir(copyd1, d2Path);
-		assertEquals(3, copyDirProgress.get().getResultListSync().size());
+		copyDirProgress =
+				JMPathOperation.copyDirRecursivelyAsync(copyd1, d2Path);
+		assertEquals(3,
+				copyDirProgress.get().start().getResultMapSync().size());
 		System.out.println(JMPath.getSubPathList(startDirectoryPath));
 		JMPathOperation.deleteDir(startDirectoryPath);
 
 	}
 
+	/**
+	 * Test move.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testMove() throws Exception {
 		Path startDirectoryPath = Paths.get("test");

@@ -102,7 +102,7 @@ public class JMTimeUtilTest {
 	}
 
 	/**
-	 * Test change iso timestamp in utc.
+	 * Test change iso timestamp in UTC.
 	 */
 	@Test
 	public void testChangeIsoTimestampInUTC() {
@@ -246,7 +246,7 @@ public class JMTimeUtilTest {
 	}
 
 	/**
-	 * Test change iso timestamp with mills to without mills.
+	 * Test change ISO timestamp with mills to without mills.
 	 *
 	 * @throws Exception
 	 *             the exception

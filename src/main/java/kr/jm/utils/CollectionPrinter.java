@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 public class CollectionPrinter {
 
 	/**
-	 * List to json string.
+	 * List to JSON string.
 	 *
 	 * @param list
 	 *            the list
@@ -45,7 +45,7 @@ public class CollectionPrinter {
 	}
 
 	/**
-	 * Map to json string.
+	 * Map to JSON string.
 	 *
 	 * @param map
 	 *            the map

@@ -246,22 +246,22 @@ public class JMPredicate {
 	}
 
 	/**
-	 * Gets the end with.
+	 * Gets the ends with.
 	 *
 	 * @param suffix
 	 *            the suffix
-	 * @return the end with
+	 * @return the ends with
 	 */
 	public static Predicate<String> getEndsWith(String suffix) {
 		return string -> string.endsWith(suffix);
 	}
 
 	/**
-	 * Gets the start with.
+	 * Gets the starts with.
 	 *
 	 * @param prefix
 	 *            the prefix
-	 * @return the start with
+	 * @return the starts with
 	 */
 	public static Predicate<String> getStartsWith(String prefix) {
 		return string -> string.startsWith(prefix);
@@ -333,7 +333,7 @@ public class JMPredicate {
 	 * @param <T>
 	 *            the generic type
 	 * @param target2
-	 *            the target2
+	 *            the target 2
 	 * @return the equals
 	 */
 	public static <T> Predicate<T> getEquals(T target2) {

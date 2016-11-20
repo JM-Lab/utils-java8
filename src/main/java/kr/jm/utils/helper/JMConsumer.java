@@ -31,15 +31,15 @@ public class JMConsumer {
 	}
 
 	/**
-	 * Gets the runnable Consumer that ignores the input parameter.
+	 * Gets the consumer.
 	 *
 	 * @param <T>
 	 *            the generic type
 	 * @param runnable
 	 *            the runnable
-	 * @return the runnable
+	 * @return the consumer
 	 */
-	public static <T> Consumer<T> getRunnable(Runnable runnable) {
+	public static <T> Consumer<T> getConsumer(Runnable runnable) {
 		return t -> runnable.run();
 	}
 
@@ -49,7 +49,7 @@ public class JMConsumer {
 	 * @param <T>
 	 *            the generic type
 	 * @param returnConsumer
-	 *            the consumer
+	 *            the return consumer
 	 * @return the consumer
 	 */
 	public static <T> Consumer<T> getConsumer(Consumer<T> returnConsumer) {

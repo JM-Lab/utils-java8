@@ -29,69 +29,59 @@ public class JMTimeUtil {
 	/** The Constant UTC. */
 	public static final String UTC = "UTC";
 
-	/**
-	 * The Constant LONG_FORMAT_WITH_Z. yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
-	 */
+	/** The Constant LONG_FORMAT_WITH_Z. */
 	public static final String LONG_FORMAT_WITH_Z =
 			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"; // 2014-03-21T18:31:23.000Z
 
-	/**
-	 * The Constant LONG_FORMAT3_WITH_PLUS_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SSSZ
-	 */
+	/** The Constant LONG_FORMAT3_WITH_PLUS_TIMEZONE. */
 	public static final String LONG_FORMAT3_WITH_PLUS_TIMEZONE =
 			"yyyy-MM-dd'T'HH:mm:ss.SSSZ"; // 2014-03-21T18:31:23.000+0900
 
-	/**
-	 * The Constant LONG_FORMAT2_WITH_PLUS_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SSZ
-	 */
+	/** The Constant LONG_FORMAT2_WITH_PLUS_TIMEZONE. */
 	public static final String LONG_FORMAT2_WITH_PLUS_TIMEZONE =
 			"yyyy-MM-dd'T'HH:mm:ss.SSZ"; // 2014-03-21T18:31:23.00+0900
 
-	/**
-	 * The Constant LONG_FORMAT1_WITH_PLUS_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SZ
-	 */
+	/** The Constant LONG_FORMAT1_WITH_PLUS_TIMEZONE. */
 	public static final String LONG_FORMAT1_WITH_PLUS_TIMEZONE =
 			"yyyy-MM-dd'T'HH:mm:ss.SZ"; // 2014-03-21T18:31:23.0+0900
 
-	/** The Constant LONG_FORMAT_WITH_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SSSz */
+	/** The Constant LONG_FORMAT_WITH_TIMEZONE. */
 	public static final String LONG_FORMAT_WITH_TIMEZONE =
 			"yyyy-MM-dd'T'HH:mm:ss.SSSz"; // 2014-03-21T18:31:23.000KST
 
-	/** The Constant LONG_FORMAT3_WITHOUT_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SSS */
+	/** The Constant LONG_FORMAT3_WITHOUT_TIMEZONE. */
 	public static final String LONG_FORMAT3_WITHOUT_TIMEZONE =
 			"yyyy-MM-dd'T'HH:mm:ss.SSS"; // 2014-03-21T18:31:23.000
 
-	/** The Constant LONG_FORMAT2_WITHOUT_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.SS */
+	/** The Constant LONG_FORMAT2_WITHOUT_TIMEZONE. */
 	public static final String LONG_FORMAT2_WITHOUT_TIMEZONE =
 			"yyyy-MM-dd'T'HH:mm:ss.SS"; // 2014-03-21T18:31:23.00
 
-	/** The Constant LONG_FORMAT1_WITHOUT_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss.S */
+	/** The Constant LONG_FORMAT1_WITHOUT_TIMEZONE. */
 	public static final String LONG_FORMAT1_WITHOUT_TIMEZONE =
 			"yyyy-MM-dd'T'HH:mm:ss.S"; // 2014-03-21T18:31:23.0
 
-	/** The Constant SHORT_FORMAT_WITH_PLUS_TIMEZONE. yyyyMMddHHmmss.SSSZ */
+	/** The Constant SHORT_FORMAT_WITH_PLUS_TIMEZONE. */
 	public static final String SHORT_FORMAT_WITH_PLUS_TIMEZONE =
 			"yyyyMMddHHmmss.SSSZ"; // 20140321183123.000+0900
 
-	/** The Constant SHORT_FORMAT_WITH_TIMEZONE. yyyyMMddHHmmss.SSSz */
+	/** The Constant SHORT_FORMAT_WITH_TIMEZONE. */
 	public static final String SHORT_FORMAT_WITH_TIMEZONE =
 			"yyyyMMddHHmmss.SSSz"; // 20140321183123.000KST
 
-	/** The Constant SHORT_FORMAT_WITHOUT_TIMEZONE. yyyyMMddHHmmss.SSS */
+	/** The Constant SHORT_FORMAT_WITHOUT_TIMEZONE. */
 	public static final String SHORT_FORMAT_WITHOUT_TIMEZONE =
 			"yyyyMMddHHmmss.SSS"; // 20140321183123.000
 
-	/**
-	 * The Constant DATETIME_FORMAT_WITH_PLUS_TIMEZONE. yyyy-MM-dd'T'HH:mm:ssZ
-	 */
+	/** The Constant DATETIME_FORMAT_WITH_PLUS_TIMEZONE. */
 	public static final String DATETIME_FORMAT_WITH_PLUS_TIMEZONE =
 			"yyyy-MM-dd'T'HH:mm:ssZ"; // 20140321183123+0900
 
-	/** The Constant DATETIME_FORMAT_WITH_Z. yyyy-MM-dd'T'HH:mm:ss'Z' */
+	/** The Constant DATETIME_FORMAT_WITH_Z. */
 	public static final String DATETIME_FORMAT_WITH_Z =
 			"yyyy-MM-dd'T'HH:mm:ss'Z'"; // 2014-03-21T18:31:23Z
 
-	/** The Constant DATETIME_FORMAT_WITHOUT_TIMEZONE. yyyy-MM-dd'T'HH:mm:ss */
+	/** The Constant DATETIME_FORMAT_WITHOUT_TIMEZONE. */
 	public static final String DATETIME_FORMAT_WITHOUT_TIMEZONE =
 			"yyyy-MM-dd'T'HH:mm:ss"; // 2014-03-21T18:31:23
 
@@ -265,13 +255,13 @@ public class JMTimeUtil {
 	}
 
 	/**
-	 * Gets the time in utc.
+	 * Gets the time in UTC.
 	 *
 	 * @param epochTimestamp
 	 *            the epoch timestamp
 	 * @param timeFormat
 	 *            the time format
-	 * @return the time in utc
+	 * @return the time in UTC
 	 */
 	public static String getTimeInUTC(long epochTimestamp, String timeFormat) {
 		return getTime(epochTimestamp, timeFormat, UTC);
@@ -325,7 +315,7 @@ public class JMTimeUtil {
 	}
 
 	/**
-	 * Change iso timestamp in utc.
+	 * Change iso timestamp in UTC.
 	 *
 	 * @param isoTimestamp
 	 *            the iso timestamp

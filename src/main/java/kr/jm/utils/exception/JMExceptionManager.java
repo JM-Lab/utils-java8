@@ -226,7 +226,7 @@ public class JMExceptionManager {
 	}
 
 	/**
-	 * Handle exception and return empty optioal.
+	 * Handle exception and return empty optional.
 	 *
 	 * @param <T>
 	 *            the generic type

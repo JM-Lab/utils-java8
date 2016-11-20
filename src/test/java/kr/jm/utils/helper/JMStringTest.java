@@ -65,7 +65,7 @@ public class JMStringTest {
 	}
 
 	/**
-	 * Test get path extension as opt.
+	 * Test file extension as opt.
 	 *
 	 * @throws Exception
 	 *             the exception

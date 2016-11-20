@@ -24,7 +24,7 @@ public enum SimpleSIUnit {
 	}
 
 	/**
-	 * Find si unit and convert to string.
+	 * Find SI unit and convert to string.
 	 *
 	 * @param size
 	 *            the size
@@ -56,7 +56,7 @@ public enum SimpleSIUnit {
 	}
 
 	/**
-	 * Append si unit.
+	 * Append SI unit.
 	 *
 	 * @param target
 	 *            the target

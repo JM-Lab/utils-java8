@@ -299,7 +299,7 @@ public class JMPathTest {
 	}
 
 	/**
-	 * Test get path list of ancestor directory.
+	 * Test get ancestor path list.
 	 *
 	 * @throws Exception
 	 *             the exception

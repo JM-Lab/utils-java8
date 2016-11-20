@@ -11,7 +11,7 @@ import org.junit.Test;
 public class SimpleSIUnitTest {
 
 	/**
-	 * Test convert to string to string with si unit.
+	 * Test convert to string to string with SI unit.
 	 *
 	 * @throws Exception
 	 *             the exception

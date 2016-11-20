@@ -16,7 +16,7 @@ import java.util.stream.LongStream;
 import kr.jm.utils.datastructure.JMCollections;
 
 /**
- * The Class JMStats. Calculate statistics
+ * The Class JMStats.
  */
 public class JMStats {
 
@@ -338,21 +338,17 @@ public class JMStats {
 	 * @return the number
 	 */
 	public static <N extends Number> Number min(List<N> numberList) {
-		return JMCollections
-				.isNullOrEmpty(numberList)
-						? 0
-						: numberList.get(0) instanceof Integer
+		return JMCollections.isNullOrEmpty(numberList) ? 0
+				: numberList.get(0) instanceof Integer
+						? numberList.stream().mapToInt(Number::intValue).min()
+								.orElse(0)
+						: numberList.get(0) instanceof Long
 								? numberList.stream()
-										.mapToInt(Number::intValue).min()
+										.mapToLong(Number::longValue).min()
 										.orElse(0)
-								: numberList.get(0) instanceof Long
-										? numberList.stream()
-												.mapToLong(Number::longValue)
-												.min().orElse(0)
-										: numberList.stream()
-												.mapToDouble(
-														Number::doubleValue)
-												.min().orElse(0);
+								: numberList.stream()
+										.mapToDouble(Number::doubleValue).min()
+										.orElse(0);
 	}
 
 	/**
@@ -365,21 +361,17 @@ public class JMStats {
 	 * @return the number
 	 */
 	public static <N extends Number> Number max(List<N> numberList) {
-		return JMCollections
-				.isNullOrEmpty(numberList)
-						? 0
-						: numberList.get(0) instanceof Integer
+		return JMCollections.isNullOrEmpty(numberList) ? 0
+				: numberList.get(0) instanceof Integer
+						? numberList.stream().mapToInt(Number::intValue).max()
+								.orElse(0)
+						: numberList.get(0) instanceof Long
 								? numberList.stream()
-										.mapToInt(Number::intValue).max()
+										.mapToLong(Number::longValue).max()
 										.orElse(0)
-								: numberList.get(0) instanceof Long
-										? numberList.stream()
-												.mapToLong(Number::longValue)
-												.max().orElse(0)
-										: numberList.stream()
-												.mapToDouble(
-														Number::doubleValue)
-												.max().orElse(0);
+								: numberList.stream()
+										.mapToDouble(Number::doubleValue).max()
+										.orElse(0);
 	}
 
 	/**
@@ -423,21 +415,60 @@ public class JMStats {
 	 * @return the number
 	 */
 	public static <N extends Number> Number average(List<N> numberList) {
-		return JMCollections
-				.isNullOrEmpty(numberList)
-						? 0
-						: numberList.get(0) instanceof Integer
+		return JMCollections.isNullOrEmpty(numberList) ? 0
+				: numberList.get(0) instanceof Integer
+						? numberList.stream().mapToInt(Number::intValue)
+								.average().orElse(0)
+						: numberList.get(0) instanceof Long
 								? numberList.stream()
-										.mapToInt(Number::intValue).average()
+										.mapToLong(Number::longValue).average()
 										.orElse(0)
-								: numberList.get(0) instanceof Long
-										? numberList.stream()
-												.mapToLong(Number::longValue)
-												.average().orElse(0)
-										: numberList.stream()
-												.mapToDouble(
-														Number::doubleValue)
-												.average().orElse(0);
+								: numberList.stream()
+										.mapToDouble(Number::doubleValue)
+										.average().orElse(0);
 	}
 
+	/**
+	 * Cal percent.
+	 *
+	 * @param target
+	 *            the target
+	 * @param total
+	 *            the total
+	 * @return the int
+	 */
+	public static int calPercent(Number target, Number total) {
+		return (int) calPercentPrecisely(target, total);
+	}
+
+	/**
+	 * Cal percent precisely.
+	 *
+	 * @param target
+	 *            the target
+	 * @param total
+	 *            the total
+	 * @return the double
+	 */
+	public static double calPercentPrecisely(Number target, Number total) {
+		double targetD = target.doubleValue();
+		double totalD = total.doubleValue();
+		return targetD == totalD ? 100d : targetD / totalD * 100;
+	}
+
+	/**
+	 * Cal percent.
+	 *
+	 * @param target
+	 *            the target
+	 * @param total
+	 *            the total
+	 * @param digit
+	 *            the digit
+	 * @return the string
+	 */
+	public static String calPercent(Number target, Number total, int digit) {
+		return String.format("%." + digit + "f",
+				calPercentPrecisely(target, total));
+	}
 }

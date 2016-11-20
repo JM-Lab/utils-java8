@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
 import kr.jm.utils.helper.JMOptional;
@@ -207,5 +208,23 @@ public class JMCollections {
 		List<T> reversedList = new ArrayList<>(collection);
 		Collections.reverse(reversedList);
 		return reversedList;
+	}
+
+	/**
+	 * Transform list.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param <R>
+	 *            the generic type
+	 * @param collection
+	 *            the collection
+	 * @param transformFunction
+	 *            the transform function
+	 * @return the list
+	 */
+	public static <T, R> List<R> transformList(Collection<T> collection,
+			Function<T, R> transformFunction) {
+		return collection.stream().map(transformFunction).collect(toList());
 	}
 }

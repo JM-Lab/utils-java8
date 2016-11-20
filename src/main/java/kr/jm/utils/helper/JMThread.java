@@ -1,6 +1,9 @@
 
 package kr.jm.utils.helper;
 
+import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturn;
+import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturnNull;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
@@ -11,6 +14,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -172,8 +176,8 @@ public class JMThread {
 	 *            the timeout in sec
 	 * @return the future
 	 */
-	public static <T> Future<T> run(final Callable<T> callableWork,
-			final long timeoutInSec) {
+	public static <T> Future<T> run(Callable<T> callableWork,
+			long timeoutInSec) {
 		final ExecutorService threadPool = Executors.newFixedThreadPool(2);
 		Future<T> future = threadPool.submit(callableWork);
 		afterTimeout(timeoutInSec, threadPool, future);
@@ -194,18 +198,11 @@ public class JMThread {
 	 *
 	 * @param runnable
 	 *            the runnable
+	 * @return the completable future
 	 */
-	public static void runAsync(Runnable runnable) {
-		CompletableFuture.runAsync(runnable)
+	public static CompletableFuture<Void> runAsync(Runnable runnable) {
+		return CompletableFuture.runAsync(runnable)
 				.exceptionally(handleExceptionally("runAsync", runnable));
-	}
-
-	private static Function<Throwable, ? extends Void>
-			handleExceptionally(String methodName, Object... objects) {
-		return throwable -> {
-			throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
-					throwable, methodName, objects);
-		};
 	}
 
 	/**
@@ -221,23 +218,30 @@ public class JMThread {
 				handleExceptionally("runAsync", runnable, executor));
 	}
 
+	private static Function<Throwable, Void>
+			handleExceptionally(String methodName, Object... objects) {
+		return throwable -> {
+			throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
+					throwable, methodName, objects);
+		};
+	}
+
 	/**
-	 * Supply async.
+	 * Run async.
 	 *
-	 * @param <U>
-	 *            the generic type
-	 * @param supplier
-	 *            the supplier
-	 * @param failureSupplier
-	 *            the failure supplier
-	 * @return the completable future
+	 * @param runnable
+	 *            the runnable
+	 * @param failureConsumer
+	 *            the failure consumer
+	 * @param executor
+	 *            the executor
 	 */
-	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
-			Supplier<U> failureSupplier) {
-		return CompletableFuture.supplyAsync(supplier)
-				.exceptionally(throwable -> JMExceptionManager
-						.handleExceptionAndReturn(log, throwable, "supplyAsync",
-								failureSupplier, supplier));
+	public static void runAsync(Runnable runnable,
+			Consumer<Throwable> failureConsumer, Executor executor) {
+		CompletableFuture.runAsync(runnable, executor).exceptionally(e -> {
+			failureConsumer.accept(e);
+			return (Void) new Object();
+		});
 	}
 
 	/**
@@ -247,18 +251,81 @@ public class JMThread {
 	 *            the generic type
 	 * @param supplier
 	 *            the supplier
-	 * @param failureSupplier
-	 *            the failure supplier
+	 * @return the completable future
+	 */
+	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier) {
+		return CompletableFuture
+				.supplyAsync(handleSupplierWithException(supplier));
+	}
+
+	private static <U> Supplier<U>
+			handleSupplierWithException(Supplier<U> supplier) {
+		return () -> {
+			try {
+				return supplier.get();
+			} catch (Exception e) {
+				return handleExceptionAndReturnNull(log, e, "supplyAsync",
+						supplier);
+			}
+		};
+	}
+
+	/**
+	 * Supply async.
+	 *
+	 * @param <U>
+	 *            the generic type
+	 * @param supplier
+	 *            the supplier
 	 * @param executor
 	 *            the executor
 	 * @return the completable future
 	 */
 	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
-			Supplier<U> failureSupplier, Executor executor) {
+			Executor executor) {
+		return CompletableFuture
+				.supplyAsync(handleSupplierWithException(supplier), executor);
+	}
+
+	/**
+	 * Supply async.
+	 *
+	 * @param <U>
+	 *            the generic type
+	 * @param supplier
+	 *            the supplier
+	 * @param failureFunction
+	 *            the failure function
+	 * @return the completable future
+	 */
+	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
+			Function<Throwable, U> failureFunction) {
+		return CompletableFuture.supplyAsync(supplier)
+				.exceptionally(throwable -> handleExceptionAndReturn(log,
+						throwable, "supplyAsync",
+						() -> failureFunction.apply(throwable), supplier));
+	}
+
+	/**
+	 * Supply async.
+	 *
+	 * @param <U>
+	 *            the generic type
+	 * @param supplier
+	 *            the supplier
+	 * @param failureFunction
+	 *            the failure function
+	 * @param executor
+	 *            the executor
+	 * @return the completable future
+	 */
+	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
+			Function<Throwable, U> failureFunction, Executor executor) {
 		return CompletableFuture.supplyAsync(supplier, executor)
-				.exceptionally(throwable -> JMExceptionManager
-						.handleExceptionAndReturn(log, throwable, "supplyAsync",
-								failureSupplier, supplier, executor));
+				.exceptionally(throwable -> handleExceptionAndReturn(log,
+						throwable, "supplyAsync",
+						() -> failureFunction.apply(throwable), supplier,
+						executor));
 	}
 
 }

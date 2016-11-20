@@ -86,9 +86,10 @@ public class JMIconFactory {
 
 	private Optional<String> getSpecialPathAsOpt(Path path) {
 		return JMOptional
-				.getNullableAndFilteredOptional(path, JMPath.DirectoryFilter
-						.or(JMPath.SymbolicLinkFilter).or(JMPath.HiddenFilter))
-				.map(Path::toString);
+				.getNullableAndFilteredOptional(path,
+						JMPath.DirectoryFilter.or(JMPath.SymbolicLinkFilter)
+								.or(JMPath.HiddenFilter))
+				.map(Path::toAbsolutePath).map(Path::toString);
 	}
 
 	private BufferedImage buildCachedBufferedImageOfFileIconInOS(Path path) {
@@ -98,7 +99,7 @@ public class JMIconFactory {
 	}
 
 	private Optional<String> getFilePathExtensionKeyAsOpt(Path path) {
-		return JMPath.getPathExtensionAsOpt(path)
+		return JMPath.getFilePathExtensionAsOpt(path)
 				.map(this::buildFileExtensionKey);
 	}
 

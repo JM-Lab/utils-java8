@@ -1,6 +1,7 @@
 package kr.jm.utils.helper;
 
 import static java.util.stream.Collectors.toList;
+import static kr.jm.utils.helper.JMLog.debug;
 import static kr.jm.utils.helper.JMPredicate.negate;
 
 import java.nio.file.CopyOption;
@@ -8,11 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
-import kr.jm.utils.ProgressiveManager;
+import kr.jm.utils.JMProgressiveManager;
 import kr.jm.utils.datastructure.JMCollections;
 import kr.jm.utils.exception.JMExceptionManager;
 
@@ -41,56 +42,60 @@ public class JMPathOperation {
 			try {
 				return Files.copy(sourcePath, finalPath, options);
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+						"copy", sourcePath, destinationPath, options);
 			}
 		});
 	}
 
 	/**
-	 * Copy dir.
+	 * Copy dir recursively async.
 	 *
-	 * @param sourceDirPath
-	 *            the source dir path
+	 * @param targetDirPath
+	 *            the target dir path
 	 * @param destinationDirPath
 	 *            the destination dir path
 	 * @param options
 	 *            the options
 	 * @return the optional
 	 */
-	public static Optional<ProgressiveManager<Path, Path>> copyDir(
-			Path sourceDirPath, Path destinationDirPath,
-			CopyOption... options) {
-		return operateDir(sourceDirPath, destinationDirPath,
-				JMPath.getSubFilePathList(sourceDirPath),
-				bulkPathList -> new ProgressiveManager<Path, Path>(bulkPathList)
-						.start(path -> copy(path,
-								buildCopyDestinationPath(path,
-										destinationDirPath, sourceDirPath),
-								options)));
-	}
-
-	private static Path buildCopyDestinationPath(Path path,
-			Path destinationDirPath, Path sourceDirPath) {
-		return destinationDirPath.resolve(
-				path.toString().substring(buildSubPathIndex(sourceDirPath)));
+	public static Optional<JMProgressiveManager<Path, Path>>
+			copyDirRecursivelyAsync(Path targetDirPath, Path destinationDirPath,
+					CopyOption... options) {
+		Map<Boolean, List<Path>> directoryOrFilePathMap = JMLambda.groupBy(
+				JMPath.getSubPathList(targetDirPath), JMPath::isDirectory);
+		JMOptional.getOptional(directoryOrFilePathMap, true)
+				.ifPresent(list -> list.stream()
+						.map(dirPath -> JMPath.buildRelativeDestinationPath(
+								destinationDirPath, targetDirPath, dirPath))
+						.forEach(JMPathOperation::createDirectories));
+		return operateDir(targetDirPath, destinationDirPath,
+				directoryOrFilePathMap.get(false),
+				bulkPathList -> new JMProgressiveManager<>(bulkPathList,
+						path -> Optional.ofNullable(copy(path,
+								JMPath.buildRelativeDestinationPath(
+										destinationDirPath, targetDirPath,
+										path),
+								options))));
 	}
 
 	/**
-	 * Copy bulk.
+	 * Copy file path list async.
 	 *
-	 * @param bulkFilePathList
-	 *            the bulk file path list
+	 * @param filePathList
+	 *            the file path list
 	 * @param destinationDirPath
 	 *            the destination dir path
 	 * @param options
 	 *            the options
 	 * @return the optional
 	 */
-	public static Optional<ProgressiveManager<Path, Path>> copyBulk(
-			List<Path> bulkFilePathList, Path destinationDirPath,
-			CopyOption... options) {
-		return operateBulk(bulkFilePathList, destinationDirPath,
-				sourcePath -> copy(sourcePath, destinationDirPath, options));
+	public static Optional<JMProgressiveManager<Path, Path>>
+			copyFilePathListAsync(List<Path> filePathList,
+					Path destinationDirPath, CopyOption... options) {
+		return operateBulk(filePathList, destinationDirPath,
+				sourcePath -> Optional.ofNullable(
+						copy(sourcePath, destinationDirPath, options)));
 	}
 
 	/**
@@ -110,7 +115,8 @@ public class JMPathOperation {
 			try {
 				return Files.move(sourcePath, finalPath, options);
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+						"move", sourcePath, destinationPath, options);
 			}
 		});
 	}
@@ -133,25 +139,29 @@ public class JMPathOperation {
 	}
 
 	/**
-	 * Move bulk.
+	 * Move path list async.
 	 *
-	 * @param bulkPathList
-	 *            the bulk path list
+	 * @param pathList
+	 *            the path list
 	 * @param destinationDirPath
 	 *            the destination dir path
 	 * @param options
 	 *            the options
 	 * @return the optional
 	 */
-	public static Optional<ProgressiveManager<Path, Path>> moveBulk(
-			List<Path> bulkPathList, Path destinationDirPath,
+	public static Optional<JMProgressiveManager<Path, Path>> movePathListAsync(
+			List<Path> pathList, Path destinationDirPath,
 			CopyOption... options) {
-		return operateBulk(bulkPathList, destinationDirPath,
-				sourcePath -> move(sourcePath, destinationDirPath, options));
+		return operateBulk(pathList, destinationDirPath,
+				sourcePath -> JMPath.isDirectory(sourcePath)
+						? moveDir(sourcePath, destinationDirPath, options)
+						: Optional.ofNullable(
+								move(sourcePath, destinationDirPath, options)));
 	}
 
 	private static Path operate(Path sourcePath, Path destinationPath,
 			String method, Function<Path, Path> resultPathFunction) {
+		debug(log, method, sourcePath, destinationPath);
 		try {
 			return resultPathFunction.apply(JMPath.isDirectory(destinationPath)
 					? destinationPath.resolve(sourcePath.getFileName())
@@ -171,30 +181,22 @@ public class JMPathOperation {
 	private static <T, R> Optional<R> operateDir(Path sourceDirPath,
 			Path destinationDirPath, T target,
 			Function<T, R> operateDirFunction) {
-		if (!JMPath.exists(destinationDirPath)) {
-			log.warn(
-					"DestinationDirPath Doesn't Exist !!! - Create Directory = {}",
-					destinationDirPath);
+		if (!JMPath.exists(destinationDirPath))
 			createDirectories(destinationDirPath);
-		}
 		return JMLambda.functionIfTrue(
 				JMPath.isDirectory(sourceDirPath)
 						&& JMPath.isDirectory(destinationDirPath),
 				target, operateDirFunction);
 	}
 
-	private static Optional<ProgressiveManager<Path, Path>> operateBulk(
+	private static Optional<JMProgressiveManager<Path, Path>> operateBulk(
 			List<Path> bulkPathList, Path destinationDirPath,
-			Function<Path, Path> operationFunction) {
+			Function<Path, Optional<Path>> operationFunction) {
 		JMLambda.runIfTrue(!JMPath.exists(destinationDirPath),
 				() -> createDirectories(destinationDirPath));
 		return JMLambda.supplierIfTrue(JMPath.isDirectory(destinationDirPath),
-				() -> new ProgressiveManager<Path, Path>(bulkPathList)
-						.start(path -> operationFunction.apply(path)));
-	}
-
-	private static int buildSubPathIndex(Path sourceDirPath) {
-		return sourceDirPath.toString().length() - 2;
+				() -> new JMProgressiveManager<>(bulkPathList,
+						path -> operationFunction.apply(path)));
 	}
 
 	/**
@@ -205,6 +207,7 @@ public class JMPathOperation {
 	 * @return true, if successful
 	 */
 	public static boolean delete(Path targetPath) {
+		debug(log, "delete", targetPath);
 		try {
 			Files.delete(targetPath);
 			return true;
@@ -215,6 +218,19 @@ public class JMPathOperation {
 	}
 
 	/**
+	 * Delete all.
+	 *
+	 * @param targetPath
+	 *            the target path
+	 * @return true, if successful
+	 */
+	public static boolean deleteAll(Path targetPath) {
+		debug(log, "deleteAll", targetPath);
+		return JMPath.isDirectory(targetPath) ? deleteDir(targetPath)
+				: delete(targetPath);
+	}
+
+	/**
 	 * Delete dir.
 	 *
 	 * @param targetDirPath
@@ -222,8 +238,10 @@ public class JMPathOperation {
 	 * @return true, if successful
 	 */
 	public static boolean deleteDir(Path targetDirPath) {
-		return deleteBulkThenFalseList(JMPath.getSubPathList(targetDirPath))
-				.size() == 0 ? delete(targetDirPath) : false;
+		debug(log, "deleteDir", targetDirPath);
+		return deleteBulkThenFalseList(
+				JMCollections.getReversed(JMPath.getSubPathList(targetDirPath)))
+						.size() == 0 ? delete(targetDirPath) : false;
 	}
 
 	/**
@@ -234,26 +252,23 @@ public class JMPathOperation {
 	 * @return the list
 	 */
 	public static List<Path> deleteBulkThenFalseList(List<Path> bulkPathList) {
-		return JMCollections.getReversed(bulkPathList).stream()
-				.filter(negate(JMPathOperation::delete)).collect(toList());
+		debug(log, "deleteBulkThenFalseList", bulkPathList);
+		return bulkPathList.stream().filter(negate(JMPathOperation::deleteAll))
+				.collect(toList());
 	}
 
 	/**
-	 * Delete bulk then false list.
+	 * Delete all async.
 	 *
-	 * @param bulkPathList
-	 *            the bulk path list
-	 * @param callbackConsumer
-	 *            the callback consumer
-	 * @return the progressive manager
+	 * @param pathList
+	 *            the path list
+	 * @return the JM progressive manager
 	 */
-	public static ProgressiveManager<Path, Path> deleteBulkThenFalseList(
-			List<Path> bulkPathList, Consumer<Path> callbackConsumer) {
-		ProgressiveManager<Path, Path> progressiveManager =
-				new ProgressiveManager<>(
-						JMCollections.getReversed(bulkPathList));
-		progressiveManager.start(path -> delete(path) ? null : path);
-		return progressiveManager;
+	public static JMProgressiveManager<Path, Boolean>
+			deleteAllAsync(List<Path> pathList) {
+		debug(log, "deleteAllAsync", pathList);
+		return new JMProgressiveManager<Path, Boolean>(pathList,
+				targetPath -> Optional.of(deleteAll(targetPath)));
 	}
 
 	/**
@@ -264,6 +279,7 @@ public class JMPathOperation {
 	 * @return the path
 	 */
 	public static Path deleteOnExit(Path path) {
+		debug(log, "deleteOnExit", path);
 		path.toFile().deleteOnExit();
 		return path;
 	}
@@ -276,6 +292,7 @@ public class JMPathOperation {
 	 * @return the optional
 	 */
 	public static Optional<Path> createTempFilePathAsOpt(Path path) {
+		debug(log, "createTempFilePathAsOpt", path);
 		String[] prefixSuffix = JMFile.getPrefixSuffix(path.toFile());
 		try {
 			return Optional
@@ -299,6 +316,7 @@ public class JMPathOperation {
 	 */
 	public static Optional<Path> createFile(Path path,
 			FileAttribute<?>... attrs) {
+		debug(log, "createFile", path, attrs);
 		try {
 			return Optional.of(Files.createFile(path, attrs));
 		} catch (Exception e) {
@@ -318,11 +336,32 @@ public class JMPathOperation {
 	 */
 	public static Optional<Path> createDirectories(Path dirPath,
 			FileAttribute<?>... attrs) {
+		debug(log, "createDirectories", dirPath, attrs);
 		try {
 			return Optional.of(Files.createDirectories(dirPath, attrs));
 		} catch (Exception e) {
 			return JMExceptionManager.handleExceptionAndReturnEmptyOptional(log,
 					e, "createDirectories", dirPath);
+		}
+	}
+
+	/**
+	 * Creates the directory.
+	 *
+	 * @param dirPath
+	 *            the dir path
+	 * @param attrs
+	 *            the attrs
+	 * @return the optional
+	 */
+	public static Optional<Path> createDirectory(Path dirPath,
+			FileAttribute<?>... attrs) {
+		debug(log, "createDirectory", dirPath, attrs);
+		try {
+			return Optional.of(Files.createDirectory(dirPath, attrs));
+		} catch (Exception e) {
+			return JMExceptionManager.handleExceptionAndReturnEmptyOptional(log,
+					e, "createDirectory", dirPath);
 		}
 	}
 

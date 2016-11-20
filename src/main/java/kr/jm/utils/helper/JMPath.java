@@ -348,11 +348,11 @@ public class JMPath {
 	}
 
 	/**
-	 * Gets the path list of ancestor directory.
+	 * Gets the ancestor path list.
 	 *
 	 * @param startPath
 	 *            the start path
-	 * @return the path list of ancestor directory
+	 * @return the ancestor path list
 	 */
 	public static List<Path> getAncestorPathList(Path startPath) {
 		List<Path> ancestorPathList = new ArrayList<>();

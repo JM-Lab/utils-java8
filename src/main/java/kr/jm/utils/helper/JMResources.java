@@ -55,13 +55,20 @@ public class JMResources {
 	 * Gets the resource URL.
 	 *
 	 * @param classpath
-	 *            the path in class path
+	 *            the classpath
 	 * @return the resource URL
 	 */
 	public static URL getResourceURL(String classpath) {
 		return ClassLoader.getSystemResource(classpath);
 	}
 
+	/**
+	 * Gets the url.
+	 *
+	 * @param classpathOrFilePath
+	 *            the classpath or file path
+	 * @return the url
+	 */
 	public static URL getURL(String classpathOrFilePath) {
 		try {
 			return getURI(classpathOrFilePath).toURL();
@@ -75,7 +82,7 @@ public class JMResources {
 	 * Gets the resource URI.
 	 *
 	 * @param classpath
-	 *            the path in class path
+	 *            the classpath
 	 * @return the resource URI
 	 */
 	public static URI getResourceURI(String classpath) {
@@ -87,6 +94,13 @@ public class JMResources {
 		}
 	}
 
+	/**
+	 * Gets the uri.
+	 *
+	 * @param classpathOrFilePath
+	 *            the classpath or file path
+	 * @return the uri
+	 */
 	public static URI getURI(String classpathOrFilePath) {
 		return Optional.ofNullable(getResourceURI(classpathOrFilePath))
 				.orElseGet(() -> new File(classpathOrFilePath).toURI());
@@ -96,7 +110,7 @@ public class JMResources {
 	 * Gets the resource input stream.
 	 *
 	 * @param classpath
-	 *            the path in class path
+	 *            the classpath
 	 * @return the resource input stream
 	 */
 	public static InputStream getResourceInputStream(String classpath) {
@@ -107,7 +121,7 @@ public class JMResources {
 	 * Gets the properties.
 	 *
 	 * @param classpath
-	 *            the path in class path
+	 *            the classpath
 	 * @return the properties
 	 */
 	public static Properties getProperties(String classpath) {
@@ -229,7 +243,7 @@ public class JMResources {
 	 * Gets the string from classpath or file path.
 	 *
 	 * @param classpathOrFilePath
-	 *            the resource in classpath or file path
+	 *            the classpath or file path
 	 * @return the string from classpath or file path
 	 */
 	public static String
@@ -244,7 +258,7 @@ public class JMResources {
 	 * Gets the string from classpath or file path.
 	 *
 	 * @param classpathOrFilePath
-	 *            the resource in classpath or file path
+	 *            the classpath or file path
 	 * @param encoding
 	 *            the encoding
 	 * @return the string from classpath or file path
@@ -262,7 +276,7 @@ public class JMResources {
 	 * Read lines from classpath or file path.
 	 *
 	 * @param classpathOrFilePath
-	 *            the resource in classpath or file path
+	 *            the classpath or file path
 	 * @return the list
 	 */
 	public static List<String>
