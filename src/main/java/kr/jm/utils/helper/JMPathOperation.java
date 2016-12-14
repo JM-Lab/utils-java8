@@ -267,7 +267,7 @@ public class JMPathOperation {
 	public static JMProgressiveManager<Path, Boolean>
 			deleteAllAsync(List<Path> pathList) {
 		debug(log, "deleteAllAsync", pathList);
-		return new JMProgressiveManager<Path, Boolean>(pathList,
+		return new JMProgressiveManager<>(pathList,
 				targetPath -> Optional.of(deleteAll(targetPath)));
 	}
 
@@ -301,7 +301,19 @@ public class JMPathOperation {
 					.map(JMPathOperation::deleteOnExit);
 		} catch (Exception e) {
 			return JMExceptionManager.handleExceptionAndReturnEmptyOptional(log,
-					e, "createTempFile", path);
+					e, "createTempFilePathAsOpt", path);
+		}
+	}
+
+	public static Optional<Path> createTempDirPathAsOpt(Path path) {
+		debug(log, "createTempDirPathAsOpt", path);
+		try {
+			return Optional.of(Files.createTempDirectory(path.toString()))
+					.filter(JMPath.ExistFilter)
+					.map(JMPathOperation::deleteOnExit);
+		} catch (Exception e) {
+			return JMExceptionManager.handleExceptionAndReturnEmptyOptional(log,
+					e, "createTempDirPathAsOpt", path);
 		}
 	}
 
