@@ -2,7 +2,7 @@
 package kr.jm.utils.destory;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
 import kr.jm.utils.exception.JMExceptionManager;
 import kr.jm.utils.helper.JMOptional;
@@ -35,13 +35,13 @@ public class Destroyer {
 	 *
 	 * @param <D>
 	 *            the generic type
-	 * @param destroyList
+	 * @param destroyCollection
 	 *            the destroy list
 	 */
 	public static <D extends DestroyInterface> void
-			cleanUp(List<D> destroyList) {
-		JMOptional.getOptional(destroyList)
-				.ifPresent(list -> list.forEach(Destroyer::cleanUp));
+			cleanUp(Collection<D> destroyCollection) {
+		JMOptional.getOptional(destroyCollection)
+				.ifPresent(collection -> collection.forEach(Destroyer::cleanUp));
 	}
 
 	/**
