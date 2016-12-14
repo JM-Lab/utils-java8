@@ -3,6 +3,7 @@ package kr.jm.utils.datastructure;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 import kr.jm.utils.helper.JMString;
 
@@ -116,7 +117,9 @@ public class JMArrays {
 	 */
 	public static String[] buildArrayWithDelimeter(String stringWithDelimeter,
 			String delimeter) {
-		return stringWithDelimeter.split(delimeter);
+		List<String> stringList = JMCollections
+				.buildListWithDelimeter(stringWithDelimeter, delimeter);
+		return stringList.toArray(new String[stringList.size()]);
 	}
 
 }
