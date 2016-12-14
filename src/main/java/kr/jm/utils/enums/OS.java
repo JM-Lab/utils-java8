@@ -100,6 +100,10 @@ public enum OS {
 		return System.getProperty("user.home");
 	}
 
+	public static String getJavaIoTmpDir() {
+		return System.getProperty("java.io.tmpdir");
+	}
+
 	/**
 	 * Builds the path.
 	 *
@@ -128,6 +132,10 @@ public enum OS {
 			return MAC;
 		else
 			return LINUX;
+	}
+
+	public static void addShutdownHook(Runnable runAfterShotdown) {
+		Runtime.getRuntime().addShutdownHook(new Thread(runAfterShotdown));
 	}
 
 	/**
@@ -164,7 +172,7 @@ public enum OS {
 			Runtime.getRuntime().exec(command);
 			return true;
 		} catch (Exception e) {
-			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+			return JMExceptionManager.handleExceptionAndReturnFalse(log, e,
 					"open", runCmd, file.getAbsolutePath());
 		}
 	}
