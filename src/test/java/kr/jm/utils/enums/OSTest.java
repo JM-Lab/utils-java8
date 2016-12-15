@@ -1,11 +1,15 @@
 
 package kr.jm.utils.enums;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.net.InetAddress;
 
 import org.junit.Ignore;
 import org.junit.Test;
+
+import kr.jm.utils.helper.JMStream;
 
 /**
  * The Class OSTest.
@@ -90,6 +94,14 @@ public class OSTest {
 	@Test
 	public void testGetDefaultDirctoryFile() throws Exception {
 		System.out.println(OS.getOS().getRootFileList());
+	}
+
+	@Test
+	public void testGetAvailableLocalPort() throws Exception {
+		assertEquals(100,
+				JMStream.numberRange(0, 100, 1)
+						.map(i -> OS.getAvailableLocalPort())
+						.peek(System.out::println).distinct().count());
 	}
 
 }

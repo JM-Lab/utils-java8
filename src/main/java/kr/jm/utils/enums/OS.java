@@ -6,8 +6,10 @@ import static kr.jm.utils.helper.JMPredicate.negate;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.ServerSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -342,6 +344,16 @@ public enum OS {
 	 */
 	public static File getDefaultDirctoryFile() {
 		return getFileSystemView().getDefaultDirectory();
+	}
+
+	public static int getAvailableLocalPort() {
+		try (ServerSocket socket = new ServerSocket(0)) {
+			socket.setReuseAddress(true);
+			return socket.getLocalPort();
+		} catch (IOException e) {
+			return JMExceptionManager.handleExceptionAndReturn(log, e,
+					"getAvailableLocalPort", () -> -1);
+		}
 	}
 
 }
