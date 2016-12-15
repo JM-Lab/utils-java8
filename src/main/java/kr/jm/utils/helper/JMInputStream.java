@@ -14,13 +14,12 @@ import kr.jm.utils.exception.JMExceptionManager;
 /**
  * The Class JMIO.
  */
-public class JMIO {
+public class JMInputStream {
 
 	private static final org.slf4j.Logger log =
-			org.slf4j.LoggerFactory.getLogger(JMIO.class);
+			org.slf4j.LoggerFactory.getLogger(JMInputStream.class);
 
 	private static final String UTF_8 = "UTF-8";
-	private static final String NEW_LINE = System.getProperty("line.separator");
 
 	/**
 	 * To string.
@@ -61,7 +60,7 @@ public class JMIO {
 
 	private static void appendLine(StringBuilder stringBuilder, String line) {
 		stringBuilder.append(line);
-		stringBuilder.append(NEW_LINE);
+		stringBuilder.append(JMString.LINE_SEPERATOR);
 	}
 
 	/**
