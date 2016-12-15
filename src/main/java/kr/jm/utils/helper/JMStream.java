@@ -123,7 +123,8 @@ public class JMStream {
 	 *            the array
 	 * @return the stream
 	 */
-	public static <T> Stream<T> buildStream(T[] array) {
+	@SafeVarargs
+	public static <T> Stream<T> buildStream(T... array) {
 		return Arrays.stream(array);
 	}
 
