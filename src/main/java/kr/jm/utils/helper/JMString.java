@@ -293,4 +293,9 @@ public class JMString {
 				: string;
 	}
 
+	public static String buildIpOrHostnamePortPair(String ipOrHostname,
+			int port) {
+		return ipOrHostname + ":" + port;
+	}
+
 }
