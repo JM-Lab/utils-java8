@@ -29,7 +29,7 @@ public class JMExceptionManager {
 			new Integer(JMResources.getSystemProperty(ERROR_HISTORY_SIZE));
 
 	private static List<ErrorMessageHistory> errorMessageHistoryList =
-			new LinkedList<ErrorMessageHistory>();
+			new LinkedList<>();
 
 	private static long errorCount = 0;
 
@@ -242,7 +242,8 @@ public class JMExceptionManager {
 	 */
 	public static <T> Optional<T> handleExceptionAndReturnEmptyOptional(
 			Logger log, Throwable throwable, String method, Object... params) {
-		return Optional.<T> empty();
+		logException(log, throwable, method, params);
+		return Optional.empty();
 	}
 
 	/**
