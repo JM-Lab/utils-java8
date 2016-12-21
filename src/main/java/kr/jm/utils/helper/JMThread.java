@@ -18,6 +18,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import kr.jm.utils.enums.OS;
 import kr.jm.utils.exception.JMExceptionManager;
 
 /**
@@ -115,8 +116,7 @@ public class JMThread {
 	 * @return the executor service
 	 */
 	public static ExecutorService newThreadPoolWithAvailableProcessors() {
-		return Executors
-				.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+		return Executors.newFixedThreadPool(OS.getAvailableProcessors());
 	}
 
 	/**

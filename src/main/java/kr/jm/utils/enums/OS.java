@@ -356,4 +356,8 @@ public enum OS {
 		}
 	}
 
+	public static int getAvailableProcessors() {
+		return Runtime.getRuntime().availableProcessors();
+	}
+
 }
