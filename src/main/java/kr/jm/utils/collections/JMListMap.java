@@ -25,7 +25,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#size()
 	 */
 	@Override
@@ -35,7 +35,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#isEmpty()
 	 */
 	@Override
@@ -45,7 +45,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#containsKey(java.lang.Object)
 	 */
 	@Override
@@ -55,7 +55,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#containsValue(java.lang.Object)
 	 */
 	@Override
@@ -65,7 +65,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#get(java.lang.Object)
 	 */
 	@Override
@@ -87,7 +87,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#put(java.lang.Object, java.lang.Object)
 	 */
 	@Override
@@ -97,7 +97,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#remove(java.lang.Object)
 	 */
 	@Override
@@ -107,7 +107,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#putAll(java.util.Map)
 	 */
 	@Override
@@ -117,7 +117,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#clear()
 	 */
 	@Override
@@ -127,7 +127,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#keySet()
 	 */
 	@Override
@@ -137,7 +137,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#values()
 	 */
 	@Override
@@ -147,7 +147,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Map#entrySet()
 	 */
 	@Override
@@ -157,7 +157,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -167,7 +167,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -190,6 +190,15 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
 	 */
 	public JMListMap(Map<K, List<V>> map) {
 		this.listMap = map;
+	}
+
+	public Map<K, List<V>> getAll() {
+		return new HashMap<>(this.listMap);
+	}
+
+	@Override
+	public String toString() {
+		return listMap.toString();
 	}
 
 }
