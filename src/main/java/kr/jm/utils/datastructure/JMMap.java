@@ -103,8 +103,7 @@ public class JMMap {
 	public static <K, V> V getOrPutGetNew(Map<K, V> map, K key,
 			Supplier<V> newValueSupplier) {
 		synchronized (map) {
-			return JMOptional.getOptional(map, key).orElseGet(
-					() -> putGetNew(map, key, newValueSupplier.get()));
+			return map.computeIfAbsent(key, k -> newValueSupplier.get());
 		}
 	}
 
@@ -124,10 +123,8 @@ public class JMMap {
 	 * @return the or put get new
 	 */
 	public static <K, V> V getOrPutGetNew(Map<K, V> map, K key, V newValue) {
-		synchronized (map) {
-			return JMOptional.getOptional(map, key)
-					.orElseGet(() -> putGetNew(map, key, newValue));
-		}
+		Supplier<V> newValueSupplier = () -> newValue;
+		return getOrPutGetNew(map, key, newValueSupplier);
 	}
 
 	/**
