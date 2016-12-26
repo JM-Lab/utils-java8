@@ -313,6 +313,26 @@ public class JMMap {
 		}
 	}
 
+	public static <K, V, NK, NV> Map<NK, NV> newChangedKeyValueWithEntryMap(
+			Map<K, V> map, Function<Entry<K, V>, NK> changingKeyFunction,
+			Function<Entry<K, V>, NV> changingValueFunction) {
+		synchronized (map) {
+			return map.entrySet().stream().collect(toMap(
+					changingKeyFunction::apply, changingValueFunction::apply));
+		}
+	}
+
+	public static <K, V, NK, NV> Map<NK, NV>
+			newFilteredChangedKeyValueWithEntryMap(Map<K, V> map,
+					Predicate<? super Entry<K, V>> filter,
+					Function<Entry<K, V>, NK> changingKeyFunction,
+					Function<Entry<K, V>, NV> changingValueFunction) {
+		synchronized (map) {
+			return map.entrySet().stream().filter(filter).collect(toMap(
+					changingKeyFunction::apply, changingValueFunction::apply));
+		}
+	}
+
 	/**
 	 * New filtered map.
 	 *
