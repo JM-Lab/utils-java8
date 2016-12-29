@@ -18,9 +18,9 @@ public class JMTimeUtilTest {
 	private static final String TIMESTAME1 = "2014-09-26T06:36:09.327Z";
 	private static final String TIMESTAME2_1 = "2014-09-26T15:36:09.327";
 	private static final String TIMESTAME2 = "2014-09-26T15:36:09.327Z";
-	private static final String TIMESTAME3 = "2014-09-26T23:59:59.9Z";
+	private static final String TIMESTAME3 = "2014-09-26T23:59:59.900Z";
 	private static final String TIMESTAME4 = "2014-09-26T15:00:00.000Z";
-	private static final String TIMESTAME5 = "2014-09-26T14:59:59.99Z";
+	private static final String TIMESTAME5 = "2014-09-26T14:59:59.990Z";
 	private static final String TIMESTAME6 = "2014-09-26T14:59:59Z";
 	private static final String TIME_ZONE_ID = ASIA_SEOUL; // GMT, UTC
 	private static final String INDEX_FORMAT = "yyyy.MM.dd";
@@ -73,21 +73,22 @@ public class JMTimeUtilTest {
 				TIMESTAME5, INDEX_FORMAT, TIME_ZONE_ID)));
 
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE, ASIA_SEOUL));
+				JMTimeUtil.ISO_OFFSET_DATE_TIME_MILLS, ASIA_SEOUL));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.LONG_FORMAT_WITH_TIMEZONE, ASIA_SEOUL));
+				JMTimeUtil.ISO_INSTANT_MILLS_TIMEZONE_NAME, ASIA_SEOUL));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.LONG_FORMAT3_WITHOUT_TIMEZONE, ASIA_SEOUL));
+				JMTimeUtil.ISO_LOCAL_DATE_TIME_MILLS, ASIA_SEOUL));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.SHORT_FORMAT_WITH_PLUS_TIMEZONE, ASIA_SEOUL));
+				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS_OFFSET, ASIA_SEOUL));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.SHORT_FORMAT_WITH_TIMEZONE, ASIA_SEOUL));
+				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS_TIMEZONE_NAME,
+				ASIA_SEOUL));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.SHORT_FORMAT_WITHOUT_TIMEZONE, ASIA_SEOUL));
+				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS, ASIA_SEOUL));
 
 		long currentTimeMillis = System.currentTimeMillis();
 		System.out.println(JMTimeUtil.getTime(currentTimeMillis,
-				JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE));
+				JMTimeUtil.ISO_OFFSET_DATE_TIME_MILLS));
 		String timeAsDefaultUtcFormat =
 				JMTimeUtil.getTimeAsDefaultUtcFormat(currentTimeMillis);
 		System.out.println(timeAsDefaultUtcFormat);
@@ -95,9 +96,9 @@ public class JMTimeUtilTest {
 		assertTrue(JMTimeUtil.changeIsoTimestampToLong(
 				timeAsDefaultUtcFormat) == currentTimeMillis);
 
-		System.out.println(JMTimeUtil.changeFormatAndTimeZone(
-				timeAsDefaultUtcFormat,
-				JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE, ASIA_SEOUL));
+		System.out.println(
+				JMTimeUtil.changeFormatAndTimeZone(timeAsDefaultUtcFormat,
+						JMTimeUtil.ISO_OFFSET_DATE_TIME_MILLS, ASIA_SEOUL));
 
 	}
 
@@ -124,21 +125,12 @@ public class JMTimeUtilTest {
 		assertEquals("2015-04-28T10:30:23.000Z",
 				JMTimeUtil.changeIsoTimestampInUTC(isoTimestampString));
 
-		isoTimestampString = "2015-04-28T10:30:23.00z";
-		System.out.println(
-				JMTimeUtil.changeIsoTimestampInUTC(isoTimestampString));
 		assertEquals("2015-04-28T10:30:23.000Z",
 				JMTimeUtil.changeIsoTimestampInUTC(isoTimestampString));
 
-		isoTimestampString = "2015-04-28T10:30:23.0z";
-		System.out.println(
-				JMTimeUtil.changeIsoTimestampInUTC(isoTimestampString));
 		assertEquals("2015-04-28T10:30:23.000Z",
 				JMTimeUtil.changeIsoTimestampInUTC(isoTimestampString));
 
-		isoTimestampString = "2015-04-28T10:30:23.0Z";
-		System.out.println(
-				JMTimeUtil.changeIsoTimestampInUTC(isoTimestampString));
 		assertEquals("2015-04-28T10:30:23.000Z",
 				JMTimeUtil.changeIsoTimestampInUTC(isoTimestampString));
 
@@ -283,11 +275,11 @@ public class JMTimeUtilTest {
 		String simpleDateFormat = "yyyyMMddHHmmssSSS";
 		System.out.println(JMTimeUtil.changeTimestampToNewFormat(
 				simpleDateFormat, "20150925133631446",
-				JMTimeUtil.LONG_FORMAT1_WITH_PLUS_TIMEZONE));
-		assertEquals("2015-09-25T13:36:31.4+0900",
+				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS));
+		assertEquals("2015-09-25T13:36:31.446+0900",
 				JMTimeUtil.changeTimestampToNewFormat(simpleDateFormat,
 						"20150925133631446",
-						JMTimeUtil.LONG_FORMAT1_WITH_PLUS_TIMEZONE));
+						JMTimeUtil.ISO_OFFSET_DATE_TIME_MILLS));
 
 	}
 

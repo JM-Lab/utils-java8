@@ -19,17 +19,17 @@ public class FomatedTimeStringTest {
 	public void testFomatedTimeString() {
 
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.LONG_FORMAT3_WITH_PLUS_TIMEZONE, "Asia/Seoul"));
+				JMTimeUtil.ISO_OFFSET_DATE_TIME_MILLS, "Asia/Seoul"));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.LONG_FORMAT_WITH_TIMEZONE, "Asia/Seoul"));
+				JMTimeUtil.ISO_INSTANT_MILLS_TIMEZONE_NAME, "Asia/Seoul"));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.LONG_FORMAT3_WITHOUT_TIMEZONE, "Asia/Seoul"));
+				JMTimeUtil.ISO_LOCAL_DATE_TIME_MILLS, "Asia/Seoul"));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.SHORT_FORMAT_WITH_PLUS_TIMEZONE, "Asia/Seoul"));
+				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS_OFFSET, "Asia/Seoul"));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.SHORT_FORMAT_WITH_TIMEZONE, "Asia/Seoul"));
+				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS_TIMEZONE_NAME, "Asia/Seoul"));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.SHORT_FORMAT_WITHOUT_TIMEZONE, "Asia/Seoul"));
+				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS, "Asia/Seoul"));
 	}
 
 }
