@@ -4,6 +4,10 @@ package kr.jm.utils.time;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 
 import org.junit.Before;
@@ -318,6 +322,56 @@ public class JMTimeUtilTest {
 		assertEquals("2015-09-25T04:36:31.000Z",
 				JMTimeUtil.getTimeAsDefaultUtcFormat(timeMillis));
 
+	}
+
+	@Test
+	public void testGetZonedDataTime() throws Exception {
+		long currentTimeMillis = 1483064372217l;
+		ZonedDateTime zonedDataTime = JMTimeUtil.getZonedDataTime(
+				currentTimeMillis,
+				ZoneId.getAvailableZoneIds().stream().findFirst().get());
+		System.out.println(zonedDataTime);
+		System.out.println(zonedDataTime.toOffsetDateTime());
+		System.out.println(zonedDataTime.toLocalDate());
+		System.out.println(zonedDataTime.toLocalDateTime());
+
+		ZonedDateTime zonedDataTime2 = JMTimeUtil.getZonedDataTime(
+				currentTimeMillis, "America/Indiana/Indianapolis");
+		System.out.println(zonedDataTime2);
+		System.out.println(zonedDataTime2.toOffsetDateTime());
+		System.out.println(zonedDataTime2.toLocalDate());
+		System.out.println(zonedDataTime2.toLocalDateTime());
+
+		assertEquals(
+				zonedDataTime.withZoneSameInstant(ZoneId.of(ASIA_SEOUL))
+						.toLocalDateTime().toString(),
+				zonedDataTime2.withZoneSameInstant(ZoneId.of(ASIA_SEOUL))
+						.toLocalDateTime().toString());
+	}
+
+	@Test
+	public void testGetOffsetDataTime() throws Exception {
+		long currentTimeMillis = 1483064372217l;
+		System.out.println(ZoneOffset.getAvailableZoneIds());
+		OffsetDateTime offsetDataTime =
+				JMTimeUtil.getOffsetDateTime(currentTimeMillis, "+09:00");
+		System.out.println(offsetDataTime);
+		System.out.println(offsetDataTime.toZonedDateTime());
+		System.out.println(offsetDataTime.toLocalDate());
+		System.out.println(offsetDataTime.toLocalDateTime());
+
+		OffsetDateTime offsetDataTime2 =
+				JMTimeUtil.getOffsetDateTime(currentTimeMillis, "-1800");
+		System.out.println(offsetDataTime2);
+		System.out.println(offsetDataTime2.toZonedDateTime());
+		System.out.println(offsetDataTime2.toLocalDate());
+		System.out.println(offsetDataTime2.toLocalDateTime());
+
+		assertEquals(
+				offsetDataTime.withOffsetSameInstant(ZoneOffset.of("+0900"))
+						.toLocalDateTime().toString(),
+				offsetDataTime2.withOffsetSameInstant(ZoneOffset.of("+0900"))
+						.toLocalDateTime().toString());
 	}
 
 }
