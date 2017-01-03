@@ -119,6 +119,11 @@ public class JMThread {
 		return Executors.newFixedThreadPool(OS.getAvailableProcessors());
 	}
 
+	public static ExecutorService
+			newThreadPoolWithAvailableProcessorsMinusOne() {
+		return Executors.newFixedThreadPool(OS.getAvailableProcessors() - 1);
+	}
+
 	/**
 	 * Sleep.
 	 *
