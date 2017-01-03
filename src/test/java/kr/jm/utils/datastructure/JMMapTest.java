@@ -37,7 +37,7 @@ public class JMMapTest {
 		JMMap.putGetNew(map, key, newValue);
 		JMMap.putGetNew(map, key, "ccc");
 		System.out.println(map.get(key));
-		System.out.println(JMMap.getOrPutGetNew(map, key, newValue));
+		System.out.println(JMMap.getOrPutGetNew(map, key, () -> newValue));
 		System.out.println(map.get(key));
 		assertEquals("ccc", map.get(key));
 	}

@@ -11,25 +11,25 @@ import kr.jm.utils.time.JMTimeUtil;
 public class JMListTimeseriesTest {
 	@Test
 	public void testJMTimeseries() throws Exception {
-		JMListTimeseries<Long> jmTimeseries = new JMListTimeseries<>(2);
+		JMListTimeseries<Long> jmListTimeseries = new JMListTimeseries<>(2);
 		long timestamp = System.currentTimeMillis();
-		jmTimeseries.add(timestamp, timestamp);
+		jmListTimeseries.add(timestamp, timestamp);
 		JMThread.sleep(1000);
 		timestamp = System.currentTimeMillis();
-		jmTimeseries.add(timestamp, timestamp);
+		jmListTimeseries.add(timestamp, timestamp);
 		JMThread.sleep(1000);
 		timestamp = System.currentTimeMillis();
-		jmTimeseries.add(timestamp, timestamp);
+		jmListTimeseries.add(timestamp, timestamp);
 		JMThread.sleep(1000);
 		timestamp = System.currentTimeMillis();
-		jmTimeseries.add(timestamp, timestamp);
+		jmListTimeseries.add(timestamp, timestamp);
 		JMThread.sleep(1000);
 		timestamp = System.currentTimeMillis();
-		jmTimeseries.add(timestamp, timestamp);
+		jmListTimeseries.add(timestamp, timestamp);
 
-		assertEquals(3, jmTimeseries.getTimestampKeySet().stream()
+		assertEquals(3, jmListTimeseries.getTimestampKeyList().stream()
 				.map(JMTimeUtil::getTime).sorted().peek(getSOPL()).count());
-		System.out.println(jmTimeseries);
+		System.out.println(jmListTimeseries);
 	}
 
 }

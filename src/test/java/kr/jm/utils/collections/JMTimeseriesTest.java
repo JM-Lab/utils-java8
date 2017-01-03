@@ -27,9 +27,11 @@ public class JMTimeseriesTest {
 		timestamp = System.currentTimeMillis();
 		jmTimeseries.put(timestamp, timestamp);
 
-		assertEquals(3, jmTimeseries.getTimestampKeySet().stream()
+		assertEquals(3, jmTimeseries.getTimestampKeyList().stream()
 				.map(JMTimeUtil::getTime).sorted().peek(getSOPL()).count());
 		System.out.println(jmTimeseries);
+		System.out.println(jmTimeseries.getTimestampKeyList());
+
 	}
 
 }

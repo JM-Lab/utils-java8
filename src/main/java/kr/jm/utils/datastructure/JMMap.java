@@ -108,26 +108,6 @@ public class JMMap {
 	}
 
 	/**
-	 * Gets the or put get new.
-	 *
-	 * @param <K>
-	 *            the key type
-	 * @param <V>
-	 *            the value type
-	 * @param map
-	 *            the map
-	 * @param key
-	 *            the key
-	 * @param newValue
-	 *            the new value
-	 * @return the or put get new
-	 */
-	public static <K, V> V getOrPutGetNew(Map<K, V> map, K key, V newValue) {
-		Supplier<V> newValueSupplier = () -> newValue;
-		return getOrPutGetNew(map, key, newValueSupplier);
-	}
-
-	/**
 	 * Put get new.
 	 *
 	 * @param <V>

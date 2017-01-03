@@ -259,6 +259,10 @@ public class JMOptional {
 		getOptional(map).ifPresent(consumer);
 	}
 
+	public static <T> void ifNotNull(T object, Consumer<T> consumer) {
+		Optional.ofNullable(object).ifPresent(consumer);
+	}
+
 	/**
 	 * Or else get if null.
 	 *
@@ -301,7 +305,7 @@ public class JMOptional {
 	 * @return the stream
 	 */
 	public static <T, C extends Collection<T>> Stream<T>
-			changeIntoStream(C collection) {
+			ifExistIntoStream(C collection) {
 		return getOptional(collection).map(Collection::stream)
 				.orElseGet(Stream::empty);
 	}

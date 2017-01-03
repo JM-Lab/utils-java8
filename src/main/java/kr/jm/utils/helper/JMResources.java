@@ -196,7 +196,8 @@ public class JMResources {
 	 * @return the string
 	 */
 	public static String readString(String resourceClasspath) {
-		return JMInputStream.toString(getResourceInputStream(resourceClasspath));
+		return JMInputStream
+				.toString(getResourceInputStream(resourceClasspath));
 	}
 
 	/**
@@ -221,7 +222,8 @@ public class JMResources {
 	 * @return the list
 	 */
 	public static List<String> readLines(String resourceClasspath) {
-		return JMInputStream.readLines(getResourceInputStream(resourceClasspath));
+		return JMInputStream
+				.readLines(getResourceInputStream(resourceClasspath));
 	}
 
 	/**
@@ -235,8 +237,8 @@ public class JMResources {
 	 */
 	public static List<String> readLines(String resourceClasspath,
 			String encoding) {
-		return JMInputStream.readLines(getResourceInputStream(resourceClasspath),
-				encoding);
+		return JMInputStream
+				.readLines(getResourceInputStream(resourceClasspath), encoding);
 	}
 
 	/**
@@ -250,7 +252,8 @@ public class JMResources {
 			getStringFromClasspathOrFilePath(String classpathOrFilePath) {
 		InputStream resourceInputStream =
 				getResourceInputStream(classpathOrFilePath);
-		return resourceInputStream != null ? JMInputStream.toString(resourceInputStream)
+		return resourceInputStream != null
+				? JMInputStream.toString(resourceInputStream)
 				: JMFile.readString(classpathOrFilePath);
 	}
 
@@ -283,7 +286,8 @@ public class JMResources {
 			readLinesFromClasspathOrFilePath(String classpathOrFilePath) {
 		InputStream resourceInputStream =
 				getResourceInputStream(classpathOrFilePath);
-		return resourceInputStream != null ? JMInputStream.readLines(resourceInputStream)
+		return resourceInputStream != null
+				? JMInputStream.readLines(resourceInputStream)
 				: JMFile.readLines(classpathOrFilePath);
 	}
 
