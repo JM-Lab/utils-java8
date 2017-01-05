@@ -259,6 +259,16 @@ public class JMOptional {
 		getOptional(map).ifPresent(consumer);
 	}
 
+	/**
+	 * If not null.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param object
+	 *            the object
+	 * @param consumer
+	 *            the consumer
+	 */
 	public static <T> void ifNotNull(T object, Consumer<T> consumer) {
 		Optional.ofNullable(object).ifPresent(consumer);
 	}
@@ -294,7 +304,7 @@ public class JMOptional {
 	}
 
 	/**
-	 * Change into stream.
+	 * If exist into stream.
 	 *
 	 * @param <T>
 	 *            the generic type

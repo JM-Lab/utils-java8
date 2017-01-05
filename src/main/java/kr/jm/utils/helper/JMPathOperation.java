@@ -305,6 +305,13 @@ public class JMPathOperation {
 		}
 	}
 
+	/**
+	 * Creates the temp dir path as opt.
+	 *
+	 * @param path
+	 *            the path
+	 * @return the optional
+	 */
 	public static Optional<Path> createTempDirPathAsOpt(Path path) {
 		debug(log, "createTempDirPathAsOpt", path);
 		try {

@@ -293,6 +293,25 @@ public class JMMap {
 		}
 	}
 
+	/**
+	 * New changed key value with entry map.
+	 *
+	 * @param <K>
+	 *            the key type
+	 * @param <V>
+	 *            the value type
+	 * @param <NK>
+	 *            the generic type
+	 * @param <NV>
+	 *            the generic type
+	 * @param map
+	 *            the map
+	 * @param changingKeyFunction
+	 *            the changing key function
+	 * @param changingValueFunction
+	 *            the changing value function
+	 * @return the map
+	 */
 	public static <K, V, NK, NV> Map<NK, NV> newChangedKeyValueWithEntryMap(
 			Map<K, V> map, Function<Entry<K, V>, NK> changingKeyFunction,
 			Function<Entry<K, V>, NV> changingValueFunction) {
@@ -302,6 +321,27 @@ public class JMMap {
 		}
 	}
 
+	/**
+	 * New filtered changed key value with entry map.
+	 *
+	 * @param <K>
+	 *            the key type
+	 * @param <V>
+	 *            the value type
+	 * @param <NK>
+	 *            the generic type
+	 * @param <NV>
+	 *            the generic type
+	 * @param map
+	 *            the map
+	 * @param filter
+	 *            the filter
+	 * @param changingKeyFunction
+	 *            the changing key function
+	 * @param changingValueFunction
+	 *            the changing value function
+	 * @return the map
+	 */
 	public static <K, V, NK, NV> Map<NK, NV>
 			newFilteredChangedKeyValueWithEntryMap(Map<K, V> map,
 					Predicate<? super Entry<K, V>> filter,

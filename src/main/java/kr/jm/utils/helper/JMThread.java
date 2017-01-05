@@ -119,6 +119,11 @@ public class JMThread {
 		return Executors.newFixedThreadPool(OS.getAvailableProcessors());
 	}
 
+	/**
+	 * New thread pool with available processors minus one.
+	 *
+	 * @return the executor service
+	 */
 	public static ExecutorService
 			newThreadPoolWithAvailableProcessorsMinusOne() {
 		return Executors.newFixedThreadPool(OS.getAvailableProcessors() - 1);

@@ -96,6 +96,12 @@ public class OSTest {
 		System.out.println(OS.getOS().getRootFileList());
 	}
 
+	/**
+	 * Test get available local port.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetAvailableLocalPort() throws Exception {
 		assertEquals(100,

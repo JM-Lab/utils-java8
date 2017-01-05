@@ -136,6 +136,12 @@ public enum OS {
 			return LINUX;
 	}
 
+	/**
+	 * Adds the shutdown hook.
+	 *
+	 * @param runAfterShotdown
+	 *            the run after shotdown
+	 */
 	public static void addShutdownHook(Runnable runAfterShotdown) {
 		Runtime.getRuntime().addShutdownHook(new Thread(runAfterShotdown));
 	}

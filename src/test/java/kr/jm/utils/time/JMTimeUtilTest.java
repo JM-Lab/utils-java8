@@ -324,6 +324,12 @@ public class JMTimeUtilTest {
 
 	}
 
+	/**
+	 * Test get zoned data time.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetZonedDataTime() throws Exception {
 		long currentTimeMillis = 1483064372217l;
@@ -349,6 +355,12 @@ public class JMTimeUtilTest {
 						.toLocalDateTime().toString());
 	}
 
+	/**
+	 * Test get offset data time.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetOffsetDataTime() throws Exception {
 		long currentTimeMillis = 1483064372217l;

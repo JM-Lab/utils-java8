@@ -293,6 +293,15 @@ public class JMString {
 				: string;
 	}
 
+	/**
+	 * Builds the ip or hostname port pair.
+	 *
+	 * @param ipOrHostname
+	 *            the ip or hostname
+	 * @param port
+	 *            the port
+	 * @return the string
+	 */
 	public static String buildIpOrHostnamePortPair(String ipOrHostname,
 			int port) {
 		return ipOrHostname + ":" + port;

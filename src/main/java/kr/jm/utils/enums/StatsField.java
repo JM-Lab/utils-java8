@@ -185,18 +185,39 @@ public enum StatsField {
 		}
 	}
 
+	/**
+	 * Cal stats map.
+	 *
+	 * @param summaryStatistics
+	 *            the summary statistics
+	 * @return the map
+	 */
 	public static Map<StatsField, Number>
 			calStatsMap(IntSummaryStatistics summaryStatistics) {
 		return buildStatsMap(
 				statsField -> statsField.calStats(summaryStatistics));
 	}
 
+	/**
+	 * Cal stats map.
+	 *
+	 * @param summaryStatistics
+	 *            the summary statistics
+	 * @return the map
+	 */
 	public static Map<StatsField, Number>
 			calStatsMap(LongSummaryStatistics summaryStatistics) {
 		return buildStatsMap(
 				statsField -> statsField.calStats(summaryStatistics));
 	}
 
+	/**
+	 * Cal stats map.
+	 *
+	 * @param summaryStatistics
+	 *            the summary statistics
+	 * @return the map
+	 */
 	public static Map<StatsField, Number>
 			calStatsMap(DoubleSummaryStatistics summaryStatistics) {
 		return buildStatsMap(

@@ -27,7 +27,8 @@ public class FomatedTimeStringTest {
 		System.out.println(JMTimeUtil.getTime(timestamp,
 				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS_OFFSET, "Asia/Seoul"));
 		System.out.println(JMTimeUtil.getTime(timestamp,
-				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS_TIMEZONE_NAME, "Asia/Seoul"));
+				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS_TIMEZONE_NAME,
+				"Asia/Seoul"));
 		System.out.println(JMTimeUtil.getTime(timestamp,
 				JMTimeUtil.BASIC_ISO_DATE_TIME_MILLS, "Asia/Seoul"));
 	}

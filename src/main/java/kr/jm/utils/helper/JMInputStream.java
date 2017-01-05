@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 import kr.jm.utils.exception.JMExceptionManager;
 
 /**
- * The Class JMIO.
+ * The Class JMInputStream.
  */
 public class JMInputStream {
 

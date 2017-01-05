@@ -8,7 +8,17 @@ import org.junit.Test;
 import kr.jm.utils.helper.JMThread;
 import kr.jm.utils.time.JMTimeUtil;
 
+/**
+ * The Class JMTimeseriesTest.
+ */
 public class JMTimeseriesTest {
+
+	/**
+	 * Test JM timeseries.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testJMTimeseries() throws Exception {
 		JMTimeseries<Long> jmTimeseries = new JMTimeseries<>(2);

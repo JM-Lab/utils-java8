@@ -36,12 +36,12 @@ public class Destroyer {
 	 * @param <D>
 	 *            the generic type
 	 * @param destroyCollection
-	 *            the destroy list
+	 *            the destroy collection
 	 */
 	public static <D extends DestroyInterface> void
 			cleanUp(Collection<D> destroyCollection) {
-		JMOptional.getOptional(destroyCollection)
-				.ifPresent(collection -> collection.forEach(Destroyer::cleanUp));
+		JMOptional.getOptional(destroyCollection).ifPresent(
+				collection -> collection.forEach(Destroyer::cleanUp));
 	}
 
 	/**
