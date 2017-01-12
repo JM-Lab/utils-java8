@@ -3,6 +3,7 @@ package kr.jm.utils.time;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -350,7 +351,12 @@ public class JMTimeUtil {
 	 * @return the long
 	 */
 	public static long changeIsoTimestampToLong(String isoTimestamp) {
-		return changeIsoTimestampToLong(isoTimestamp, null);
+		try {
+			return ZonedDateTime.parse(isoTimestamp).toInstant().toEpochMilli();
+		} catch (Exception e) {
+			return changeIsoTimestampToLong(isoTimestamp,
+					DEFAULT_ZONE_ID_STRING);
+		}
 	}
 
 	/**
@@ -364,9 +370,14 @@ public class JMTimeUtil {
 	 */
 	public static long changeIsoTimestampToLong(String isoTimestamp,
 			String zoneId) {
-		isoTimestamp = changeZTo0000(isoTimestamp);
-		return changeTimestampToLong(getTimeFormat(isoTimestamp), isoTimestamp,
-				zoneId);
+		try {
+			return LocalDateTime.parse(isoTimestamp).atZone(ZoneId.of(zoneId))
+					.toInstant().toEpochMilli();
+		} catch (Exception e) {
+			isoTimestamp = changeZTo0000(isoTimestamp);
+			return changeTimestampToLong(getTimeFormat(isoTimestamp),
+					isoTimestamp, zoneId);
+		}
 	}
 
 	private static String changeZTo0000(String isoTimestamp) {
