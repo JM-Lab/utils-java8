@@ -225,7 +225,7 @@ public enum OS {
 	}
 
 	private static boolean isIpv4Address(InetAddress inetAddress) {
-		return inetAddress.getHostAddress().matches(JMString.ipv4Pattern);
+		return inetAddress.getHostAddress().matches(JMString.IPV4Pattern);
 	}
 
 	private static Optional<InetAddress> getDefaultInetAddressAsOpt() {

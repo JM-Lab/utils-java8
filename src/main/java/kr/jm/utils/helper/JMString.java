@@ -3,6 +3,7 @@ package kr.jm.utils.helper;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,8 @@ public class JMString {
 
 	/** The Constant UNDERSCORE. */
 	public static final String UNDERSCORE = "_";
+
+	public static final String HYPHEN = "-";
 
 	/** The Constant COLON. */
 	public static final String COLON = ":";
@@ -32,21 +35,21 @@ public class JMString {
 	/** The Constant DOT. */
 	public static final String DOT = ".";
 
-	/** The Constant NUMBER_PATTERN. */
-	public static final Pattern NUMBER_PATTERN =
-			Pattern.compile("[+-]?\\d+(\\.\\d+)?");
-
 	/** The Constant LINE_SEPERATOR. */
 	public static final String LINE_SEPERATOR =
 			System.getProperty("line.separator");
 
+	private static final String NumberPattern = "[+-]?\\d+(\\.\\d+)?";
+
 	/** The Constant ipv4Pattern. */
-	public static final String ipv4Pattern =
+	public static final String IPV4Pattern =
 			"(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])";
 
 	/** The Constant ipv6Pattern. */
-	public static final String ipv6Pattern =
+	public static final String IPV6Pattern =
 			"([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}";
+
+	private static Pattern numberPattern;
 
 	/**
 	 * Checks if is number.
@@ -56,7 +59,9 @@ public class JMString {
 	 * @return true, if is number
 	 */
 	public static boolean isNumber(String numberString) {
-		return NUMBER_PATTERN.matcher(numberString).matches();
+		return Optional.ofNullable(numberPattern)
+				.orElseGet(() -> numberPattern = Pattern.compile(NumberPattern))
+				.matcher(numberString).matches();
 	}
 
 	/**
