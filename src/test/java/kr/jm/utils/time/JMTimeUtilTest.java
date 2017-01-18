@@ -8,6 +8,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 import org.junit.Before;
@@ -384,6 +385,32 @@ public class JMTimeUtilTest {
 						.toLocalDateTime().toString(),
 				offsetDataTime2.withOffsetSameInstant(ZoneOffset.of("+0900"))
 						.toLocalDateTime().toString());
+	}
+
+	@Test
+	public void testChangeTimestampToNewFormatStringZoneIdDateTimeFormatter()
+			throws Exception {
+		System.out.println(JMTimeUtil.changeTimestampToNewFormat(TIMESTAME3,
+				ZoneId.of(TIME_ZONE_ID), DateTimeFormatter
+						.ofPattern(JMTimeUtil.ISO_INSTANT_TIMEZONE_NAME)));
+		assertTrue(JMTimeUtil
+				.changeTimestampToNewFormat(TIMESTAME3, ZoneId.of(TIME_ZONE_ID),
+						DateTimeFormatter.ofPattern(
+								JMTimeUtil.ISO_INSTANT_TIMEZONE_NAME))
+				.startsWith("2014-09-27"));
+		System.out.println(JMTimeUtil.changeTimestampToNewFormat(TIMESTAME3,
+				DateTimeFormatter
+						.ofPattern(JMTimeUtil.ISO_INSTANT_TIMEZONE_NAME)));
+		assertTrue(JMTimeUtil
+				.changeTimestampToNewFormat(TIMESTAME3,
+						DateTimeFormatter.ofPattern(
+								JMTimeUtil.ISO_INSTANT_TIMEZONE_NAME))
+				.startsWith("2014-09-26"));
+		assertTrue(JMTimeUtil
+				.changeTimestampToNewFormatWithDefaultZoneId(TIMESTAME3,
+						DateTimeFormatter.ofPattern(
+								JMTimeUtil.ISO_INSTANT_TIMEZONE_NAME))
+				.startsWith("2014-09-27"));
 	}
 
 }

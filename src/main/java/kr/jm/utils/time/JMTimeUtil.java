@@ -494,6 +494,23 @@ public class JMTimeUtil {
 				timestamp), newDateFormat);
 	}
 
+	public static String changeTimestampToNewFormat(String isoTimestamp,
+			ZoneId zoneID, DateTimeFormatter newFormat) {
+		return ZonedDateTime.parse(isoTimestamp).withZoneSameInstant(zoneID)
+				.format(newFormat);
+	}
+
+	public static String changeTimestampToNewFormatWithDefaultZoneId(
+			String isoTimestamp, DateTimeFormatter newFormat) {
+		return changeTimestampToNewFormat(isoTimestamp, DEFAULT_ZONE_ID,
+				newFormat);
+	}
+
+	public static String changeTimestampToNewFormat(String isoTimestamp,
+			DateTimeFormatter newFormat) {
+		return ZonedDateTime.parse(isoTimestamp).format(newFormat);
+	}
+
 	/**
 	 * Change timestamp to iso instant.
 	 *
