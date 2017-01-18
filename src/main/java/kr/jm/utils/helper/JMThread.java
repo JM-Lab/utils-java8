@@ -3,6 +3,7 @@ package kr.jm.utils.helper;
 
 import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturn;
 import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturnNull;
+import static kr.jm.utils.helper.JMOptional.ifNotNull;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
@@ -211,8 +212,7 @@ public class JMThread {
 	 * @return the completable future
 	 */
 	public static CompletableFuture<Void> runAsync(Runnable runnable) {
-		return CompletableFuture.runAsync(runnable)
-				.exceptionally(handleExceptionally("runAsync", runnable));
+		return runAsync(runnable, getCommonPool());
 	}
 
 	/**
@@ -222,14 +222,16 @@ public class JMThread {
 	 *            the runnable
 	 * @param executor
 	 *            the executor
+	 * @return
 	 */
-	public static void runAsync(Runnable runnable, Executor executor) {
-		CompletableFuture.runAsync(runnable, executor).exceptionally(
-				handleExceptionally("runAsync", runnable, executor));
+	public static CompletableFuture<Void> runAsync(Runnable runnable,
+			Executor executor) {
+		return runAsync(runnable,
+				handleExceptionally("runAsync", runnable, executor), executor);
 	}
 
-	private static Function<Throwable, Void>
-			handleExceptionally(String methodName, Object... objects) {
+	private static Consumer<Throwable> handleExceptionally(String methodName,
+			Object... objects) {
 		return throwable -> {
 			throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
 					throwable, methodName, objects);
@@ -245,13 +247,40 @@ public class JMThread {
 	 *            the failure consumer
 	 * @param executor
 	 *            the executor
+	 * @return
 	 */
-	public static void runAsync(Runnable runnable,
+	public static CompletableFuture<Void> runAsync(Runnable runnable,
 			Consumer<Throwable> failureConsumer, Executor executor) {
-		CompletableFuture.runAsync(runnable, executor).exceptionally(e -> {
-			failureConsumer.accept(e);
-			return (Void) new Object();
-		});
+		return CompletableFuture.runAsync(runnable, executor)
+				.exceptionally(e -> {
+					ifNotNull(failureConsumer, c -> c.accept(e));
+					return (Void) new Object();
+				});
+	}
+
+	public static void submitIntervalWork(long intervalMillis,
+			Runnable runnable) {
+		submitIntervalWork(intervalMillis, runnable, getCommonPool());
+	}
+
+	public static void submitIntervalWork(long intervalMillis,
+			Runnable runnable, Executor executor) {
+		submitIntervalWork(intervalMillis, runnable,
+				handleExceptionally("runEveryInterval", runnable, executor),
+				getCommonPool());
+	}
+
+	public static void submitIntervalWork(long intervalMillis,
+			Runnable runnable, Consumer<Throwable> failureConsumer,
+			Executor executor) {
+		runAsync(() -> {
+			while (true) {
+				JMThread.sleep(intervalMillis);
+				JMLog.info(log, "submitIntervalWork.run",
+						System.currentTimeMillis(), intervalMillis);
+				runAsync(runnable, failureConsumer, executor);
+			}
+		}, failureConsumer, executor);
 	}
 
 	/**

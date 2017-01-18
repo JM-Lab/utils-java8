@@ -69,4 +69,13 @@ public class JMThreadTest {
 		assertEquals(0, JMThread.getThreadQueue(es).size());
 	}
 
+	@Test
+	public void testSubmitIntervalWorkLongRunnableExecutor() throws Exception {
+		JMThread.submitIntervalWork(100, () -> {
+			System.out.println("work!!!");
+			JMThread.sleep(10);
+		});
+		JMThread.sleep(3000);
+	}
+
 }
