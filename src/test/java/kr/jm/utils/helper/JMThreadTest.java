@@ -3,11 +3,15 @@ package kr.jm.utils.helper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.time.ZonedDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import kr.jm.utils.time.JMTimeUtil;
 
 /**
  * The Class JMThreadTest.
@@ -70,12 +74,24 @@ public class JMThreadTest {
 	}
 
 	@Test
-	public void testSubmitIntervalWorkLongRunnableExecutor() throws Exception {
-		JMThread.submitIntervalWork(100, () -> {
-			System.out.println("work!!!");
-			JMThread.sleep(10);
-		});
-		JMThread.sleep(3000);
+	public void testRunWithSchedule() throws Exception {
+		System.out.println(JMTimeUtil.getCurrentTimestamp());
+		long delayMillis = 1000;
+		Long delayMillisResult = JMThread
+				.runWithSchedule(delayMillis, () -> System.currentTimeMillis())
+				.get();
+		System.out.println(JMTimeUtil.getTime(delayMillisResult));
+		ScheduledFuture<?> scheduledFuture =
+				JMThread.runWithScheduleAtFixedRateOnStartTime(
+						ZonedDateTime.now().plusSeconds(1), delayMillis,
+						() -> System.out
+								.println(JMTimeUtil.getCurrentTimestamp()));
+		JMThread.sleep(5000);
+		// true면 돌고있는 것 인터럽드 걸고 중지, false 면 끝난뒤 중
+		System.out.println(scheduledFuture.cancel(true));
+		JMThread.sleep(1000);
+		System.out.println(scheduledFuture.cancel(false));
+		JMThread.sleep(1000);
 	}
 
 }

@@ -5,6 +5,7 @@ import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturn;
 import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturnNull;
 import static kr.jm.utils.helper.JMOptional.ifNotNull;
 
+import java.time.ZonedDateTime;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
@@ -13,6 +14,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -204,6 +207,101 @@ public class JMThread {
 		return ForkJoinPool.commonPool();
 	}
 
+	public static <V> ScheduledFuture<V> runWithSchedule(long delayMillis,
+			Callable<V> callable) {
+		return newSingleScheduledThreadPool().schedule(
+				buildCallableWithLogging("runWithSchedule", callable),
+				delayMillis, TimeUnit.MILLISECONDS);
+	}
+
+	private static ScheduledExecutorService newSingleScheduledThreadPool() {
+		return Executors.newScheduledThreadPool(1);
+	}
+
+	public static <V> Callable<V> buildCallableWithLogging(String name,
+			Callable<V> callable, Object... params) {
+		return () -> {
+			try {
+				JMLog.info(log, name, System.currentTimeMillis(), params);
+				return callable.call();
+			} catch (Exception e) {
+				return JMExceptionManager.handleExceptionAndReturn(log, e, name,
+						() -> null, params);
+			}
+		};
+	}
+
+	public static Runnable buildRunnableWithLogging(String runnableName,
+			Runnable runnable, Object... params) {
+		return () -> {
+			try {
+				JMLog.info(log, runnableName, System.currentTimeMillis(),
+						params);
+				runnable.run();
+			} catch (Exception e) {
+				JMExceptionManager.logException(log, e, runnableName, params);
+			}
+		};
+	}
+
+	public static ScheduledFuture<?> runWithSchedule(long delayMillis,
+			Runnable runnable) {
+		return newSingleScheduledThreadPool()
+				.schedule(
+						buildRunnableWithLogging("runWithSchedule", runnable,
+								delayMillis),
+						delayMillis, TimeUnit.MILLISECONDS);
+	}
+
+	private static ScheduledFuture<?> runWithScheduleAtFixedRate(
+			long initialDelayMillis, long periodMillis, String name,
+			Runnable runnable) {
+		return newSingleScheduledThreadPool().scheduleAtFixedRate(
+				buildRunnableWithLogging(name, runnable, initialDelayMillis,
+						periodMillis),
+				initialDelayMillis, periodMillis, TimeUnit.MILLISECONDS);
+	}
+
+	public static ScheduledFuture<?> runWithScheduleAtFixedRate(
+			long initialDelayMillis, long periodMillis, Runnable runnable) {
+		return runWithScheduleAtFixedRate(initialDelayMillis, periodMillis,
+				"runWithScheduleAtFixedRate", runnable);
+	}
+
+	public static ScheduledFuture<?> runWithScheduleAtFixedRateOnStartTime(
+			ZonedDateTime startDateTime, long periodMillis, Runnable runnable) {
+		return runWithScheduleAtFixedRate(calInitialDelayMillis(startDateTime),
+				periodMillis, "runWithScheduleAtFixedRateOnStartTime",
+				runnable);
+	}
+
+	private static ScheduledFuture<?> runWithScheduleWithFixedDelay(
+			long initialDelayMillis, long delayMillis, String name,
+			Runnable runnable) {
+		return newSingleScheduledThreadPool().scheduleWithFixedDelay(
+				buildRunnableWithLogging(name, runnable, initialDelayMillis,
+						delayMillis),
+				initialDelayMillis, delayMillis, TimeUnit.MILLISECONDS);
+	}
+
+	public static ScheduledFuture<?> runWithScheduleWithFixedDelay(
+			long initialDelayMillis, long delayMillis, Runnable runnable) {
+		return runWithScheduleWithFixedDelay(initialDelayMillis, delayMillis,
+				"runWithScheduleWithFixedDelay", runnable);
+	}
+
+	private static long calInitialDelayMillis(ZonedDateTime startDateTime) {
+		return startDateTime.toInstant().toEpochMilli()
+				- System.currentTimeMillis();
+	}
+
+	public static ScheduledFuture<?> runWithScheduleWithFixedDelayOnStartTime(
+			ZonedDateTime startDateTime, long delayMillis, Runnable runnable) {
+		return runWithScheduleWithFixedDelay(
+				calInitialDelayMillis(startDateTime), delayMillis,
+				"runWithScheduleWithFixedDelayOnStartTime", runnable);
+	}
+
 	/**
 	 * Run async.
 	 *
@@ -256,31 +354,6 @@ public class JMThread {
 					ifNotNull(failureConsumer, c -> c.accept(e));
 					return (Void) new Object();
 				});
-	}
-
-	public static void submitIntervalWork(long intervalMillis,
-			Runnable runnable) {
-		submitIntervalWork(intervalMillis, runnable, getCommonPool());
-	}
-
-	public static void submitIntervalWork(long intervalMillis,
-			Runnable runnable, Executor executor) {
-		submitIntervalWork(intervalMillis, runnable,
-				handleExceptionally("runEveryInterval", runnable, executor),
-				getCommonPool());
-	}
-
-	public static void submitIntervalWork(long intervalMillis,
-			Runnable runnable, Consumer<Throwable> failureConsumer,
-			Executor executor) {
-		runAsync(() -> {
-			while (true) {
-				JMThread.sleep(intervalMillis);
-				JMLog.info(log, "submitIntervalWork.run",
-						System.currentTimeMillis(), intervalMillis);
-				runAsync(runnable, failureConsumer, executor);
-			}
-		}, failureConsumer, executor);
 	}
 
 	/**
