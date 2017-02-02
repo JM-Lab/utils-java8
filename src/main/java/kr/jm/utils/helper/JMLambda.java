@@ -448,4 +448,10 @@ public class JMLambda {
 		return () -> target;
 	}
 
+	public static <T> T consumeAndGetSelf(T target,
+			Consumer<T> targetConsumer) {
+		targetConsumer.accept(target);
+		return target;
+	}
+
 }
