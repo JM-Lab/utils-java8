@@ -220,27 +220,22 @@ public class JMThread {
 
 	public static <V> Callable<V> buildCallableWithLogging(String name,
 			Callable<V> callable, Object... params) {
-		return () -> {
+		return () -> supplyAsync(() -> {
 			try {
 				JMLog.info(log, name, System.currentTimeMillis(), params);
 				return callable.call();
 			} catch (Exception e) {
-				return JMExceptionManager.handleExceptionAndReturn(log, e, name,
-						() -> null, params);
+				return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+						name, params);
 			}
-		};
+		}).get();
 	}
 
 	public static Runnable buildRunnableWithLogging(String runnableName,
 			Runnable runnable, Object... params) {
 		return () -> {
-			try {
-				JMLog.info(log, runnableName, System.currentTimeMillis(),
-						params);
-				runnable.run();
-			} catch (Exception e) {
-				JMExceptionManager.logException(log, e, runnableName, params);
-			}
+			JMLog.info(log, runnableName, System.currentTimeMillis(), params);
+			runnable.run();
 		};
 	}
 
@@ -257,8 +252,8 @@ public class JMThread {
 			long initialDelayMillis, long periodMillis, String name,
 			Runnable runnable) {
 		return newSingleScheduledThreadPool().scheduleAtFixedRate(
-				buildRunnableWithLogging(name, runnable, initialDelayMillis,
-						periodMillis),
+				() -> runAsync(buildRunnableWithLogging(name, runnable,
+						initialDelayMillis, periodMillis)),
 				initialDelayMillis, periodMillis, TimeUnit.MILLISECONDS);
 	}
 
@@ -279,8 +274,8 @@ public class JMThread {
 			long initialDelayMillis, long delayMillis, String name,
 			Runnable runnable) {
 		return newSingleScheduledThreadPool().scheduleWithFixedDelay(
-				buildRunnableWithLogging(name, runnable, initialDelayMillis,
-						delayMillis),
+				() -> runAsync(buildRunnableWithLogging(name, runnable,
+						initialDelayMillis, delayMillis)).join(),
 				initialDelayMillis, delayMillis, TimeUnit.MILLISECONDS);
 	}
 
