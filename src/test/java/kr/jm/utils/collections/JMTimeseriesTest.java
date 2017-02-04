@@ -38,7 +38,7 @@ public class JMTimeseriesTest {
 		jmTimeseries.put(timestamp, timestamp);
 
 		assertEquals(3, jmTimeseries.getTimestampKeyList().stream()
-				.map(JMTimeUtil::getTime).sorted().peek(getSOPL()).count());
+				.map(JMTimeUtil::getTime).peek(getSOPL()).count());
 		System.out.println(jmTimeseries);
 		System.out.println(jmTimeseries.getTimestampKeyList());
 
