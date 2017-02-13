@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kr.jmlab</groupId>
 	<artifactId>jmlab-utils-java8</artifactId>
-	<version>0.1.85-SNAPSHOT</version>
+	<version>0.1.85</version>
 	<packaging>jar</packaging>
 	<name>JMLab-Utils-Java8</name>
 	<description>Java 8 Utility Libraries</description>
