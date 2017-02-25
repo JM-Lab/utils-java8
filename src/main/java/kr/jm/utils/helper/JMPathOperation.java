@@ -162,14 +162,12 @@ public class JMPathOperation {
 	private static Path operate(Path sourcePath, Path destinationPath,
 			String method, Function<Path, Path> resultPathFunction) {
 		debug(log, method, sourcePath, destinationPath);
-		try {
-			return resultPathFunction.apply(JMPath.isDirectory(destinationPath)
-					? destinationPath.resolve(sourcePath.getFileName())
-					: buildParentAndDistinationPath(destinationPath));
-		} catch (Exception e) {
-			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-					method, sourcePath, destinationPath);
-		}
+		Path finalPath = JMPath.isDirectory(destinationPath)
+				? destinationPath.resolve(sourcePath.getFileName())
+				: buildParentAndDistinationPath(destinationPath);
+		if (sourcePath.equals(finalPath))
+			throw new RuntimeException("Already Exist !!!");
+		return resultPathFunction.apply(finalPath);
 	}
 
 	private static Path buildParentAndDistinationPath(Path destinationPath) {
