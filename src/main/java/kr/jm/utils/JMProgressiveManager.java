@@ -20,6 +20,7 @@ import java.util.function.Function;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.util.Pair;
 import kr.jm.utils.datastructure.JMMap;
 import kr.jm.utils.helper.JMStats;
 import kr.jm.utils.helper.JMThread;
@@ -43,7 +44,7 @@ public class JMProgressiveManager<T, R> {
 	private SimpleIntegerProperty progressivePercent;
 	private SimpleObjectProperty<T> currentTarget;
 	private SimpleObjectProperty<Optional<R>> lastResult;
-	private SimpleObjectProperty<Exception> lastFailure;
+	private SimpleObjectProperty<Pair<T, Exception>> lastFailure;
 	private Map<T, Optional<R>> resultMap;
 	private Map<T, Exception> failureMap;
 	private List<Consumer<JMProgressiveManager<T, R>>> completedConsumerList;
@@ -117,7 +118,7 @@ public class JMProgressiveManager<T, R> {
 				return resultAsOpt;
 			throw new RuntimeException("Process Failure !!! - " + t);
 		} catch (Exception e) {
-			lastFailure.set(e);
+			lastFailure.set(new Pair<>(t, e));
 			failureMap.put(t, e);
 			return handleExceptionAndReturnEmptyOptional(log, e, "start", t);
 		}
@@ -222,8 +223,9 @@ public class JMProgressiveManager<T, R> {
 	 * @return the JM progressive manager
 	 */
 	public JMProgressiveManager<T, R> registerLastFailureChangeListener(
-			Consumer<Exception> failureChangeListener) {
-		return registerListener(lastFailure, failureChangeListener);
+			Consumer<Pair<T, Exception>> failureChangeListener) {
+		return registerListener(lastFailure,
+				failureChangeListener);
 	}
 
 	private <P> JMProgressiveManager<T, R> registerListener(

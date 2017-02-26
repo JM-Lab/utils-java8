@@ -86,7 +86,8 @@ public class JMProgressiveManagerTest {
 				.registerLastResultChangeListener(i -> System.out.println(
 						getCurrentThread() + " last result change - " + i))
 				.registerLastFailureChangeListener(
-						e -> System.out.println(e.getMessage()))
+						targetExceptionPair -> System.out
+								.println(targetExceptionPair))
 				.registerCompletedConsumer(progressiveManager -> System.out
 						.println(getCurrentThread() + " process complete - "
 								+ progressiveManager));
