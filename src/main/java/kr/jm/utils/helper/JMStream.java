@@ -55,8 +55,19 @@ public class JMStream {
 
 	private static IntStream numberRange(int start, int end, int interval,
 			IntPredicate predicate) {
-		return IntStream.iterate(start, n -> n + interval)
-				.limit((end - start) / interval + 1).filter(predicate);
+		int maxSize = (end - start) / interval + 1;
+		return IntStream.iterate(start, n -> n + interval).limit(maxSize)
+				.filter(predicate);
+	}
+
+	public static DoubleStream numberRangeWithCount(float start, float interval,
+			int count) {
+		return DoubleStream.iterate(start, n -> n + interval).limit(count);
+	}
+
+	public static LongStream numberRangeWithCount(int start, int interval,
+			int count) {
+		return LongStream.iterate(start, n -> n + interval).limit(count);
 	}
 
 	/**

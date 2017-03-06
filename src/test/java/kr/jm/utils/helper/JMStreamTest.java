@@ -6,7 +6,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.LongSummaryStatistics;
 import java.util.StringTokenizer;
 
 import org.junit.Before;
@@ -72,6 +74,22 @@ public class JMStreamTest {
 				.equals(JMStream
 						.buildStream(new StringTokenizer(string, delimeter))
 						.collect(toList()).toString()));
+	}
+
+	@Test
+	public void testNumberRangeWithCountFloatFloatInt() throws Exception {
+		System.out.println(JMStream.numberRangeWithCount(0, 10, 100).boxed()
+				.collect(toList()));
+		System.out.println(JMStream.numberRangeWithCount(0f, 10f, 100).boxed()
+				.collect(toList()));
+		LongSummaryStatistics longSummaryStatistics =
+				JMStream.numberRangeWithCount(0, 10, 100).summaryStatistics();
+		DoubleSummaryStatistics doubleSummaryStatistics =
+				JMStream.numberRangeWithCount(0f, 10f, 100).summaryStatistics();
+		assertTrue(longSummaryStatistics.getMin() == 0);
+		assertTrue(doubleSummaryStatistics.getMin() == 0);
+		assertTrue(doubleSummaryStatistics
+				.getAverage() == doubleSummaryStatistics.getAverage());
 	}
 
 }
