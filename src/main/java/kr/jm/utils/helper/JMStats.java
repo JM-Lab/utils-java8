@@ -301,4 +301,19 @@ public class JMStats {
 		return String.format("%." + digit + "f",
 				calPercentPrecisely(target, total));
 	}
+
+	public static double roundWithDecimalPlace(double doubleNumber,
+			int decimalPlace) {
+		double pow = Math.pow(10, decimalPlace);
+		return Math.round(doubleNumber * pow) / pow;
+	}
+
+	public static double roundWithPlace(double doubleNumber, int place) {
+		double pow = Math.pow(10, place);
+		return Math.round(doubleNumber / pow) * pow;
+	}
+
+	public static long roundWithPlace(long longNumber, int place) {
+		return (long) roundWithPlace((double) longNumber, place);
+	}
 }
