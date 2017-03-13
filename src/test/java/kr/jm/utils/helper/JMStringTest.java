@@ -97,4 +97,15 @@ public class JMStringTest {
 
 	}
 
+	@Test
+	public void testRoundedNumberFormat() throws Exception {
+		System.out.println(JMString.roundedNumberFormat(1000d, 5));
+		assertEquals("1000.00000", JMString.roundedNumberFormat(1000d, 5));
+		System.out.println(JMString.roundedNumberFormat(100.123455, 5));
+		assertEquals("100.12346", JMString.roundedNumberFormat(100.123455, 5));
+		System.out.println(JMString.roundedNumberFormat(0.00000001, 1));
+		assertEquals("0.0", JMString.roundedNumberFormat(0.00000001, 1));
+
+	}
+
 }

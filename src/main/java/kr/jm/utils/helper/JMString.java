@@ -312,4 +312,8 @@ public class JMString {
 		return ipOrHostname + ":" + port;
 	}
 
+	public static String roundedNumberFormat(Double number, int decimalPoint) {
+		return String.format("%." + decimalPoint + "f", number);
+	}
+
 }

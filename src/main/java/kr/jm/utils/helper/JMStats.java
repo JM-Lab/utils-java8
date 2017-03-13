@@ -298,8 +298,8 @@ public class JMStats {
 	 * @return the string
 	 */
 	public static String calPercent(Number target, Number total, int digit) {
-		return String.format("%." + digit + "f",
-				calPercentPrecisely(target, total));
+		return JMString.roundedNumberFormat(
+				calPercentPrecisely(target, total), digit);
 	}
 
 	public static double roundWithDecimalPlace(double doubleNumber,
