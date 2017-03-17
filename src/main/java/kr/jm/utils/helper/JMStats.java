@@ -369,4 +369,14 @@ public class JMStats {
 	private static double calSumOfSquares(DoubleStream doubleStream) {
 		return doubleStream.map(d -> d * d).sum();
 	}
+
+	// https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#cite_note-:0-10
+	public static double calPairwiseVariance(long count1, double sum1,
+			double variance1, long count2, double sum2, double variance2) {
+		return (variance1 * (count1 - 1) + variance2 * (count2 - 1)
+				+ pow(sum2 / count2 - sum1 / count1, 2) * count1 * count2
+						/ (count1 + count2))
+				/ (count1 + count2 - 1);
+	}
+
 }

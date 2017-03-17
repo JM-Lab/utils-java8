@@ -96,4 +96,26 @@ public class JMStatsTest {
 
 	}
 
+	@Test
+	public void testCalPairwiseVariance() {
+		List<Number> sample1 = JMStream.numberRange(1, 1000000, 1)
+				.asDoubleStream().boxed().collect(toList());
+		List<Number> sample2 = JMStream.numberRange(1000000, 1000200, 1)
+				.asDoubleStream().boxed().collect(toList());
+		List<Number> sample3 =
+				JMStream.buildConcatStream(sample1, sample2).collect(toList());
+
+		double variance1 = JMStats.calVariance(sample1);
+		double variance2 = JMStats.calVariance(sample2);
+		double variance3 = JMStats.calVariance(sample3);
+		System.out.println(variance1);
+		System.out.println(variance2);
+		System.out.println(variance3);
+		double pairwiseVarance = JMStats.calPairwiseVariance(sample1.size(),
+				JMStats.sum(sample1).doubleValue(), variance1, sample2.size(),
+				JMStats.sum(sample2).doubleValue(), variance2);
+		System.out.println(variance3 + " " + pairwiseVarance);
+		assertTrue((float) variance3 == (float) pairwiseVarance);
+
+	}
 }
