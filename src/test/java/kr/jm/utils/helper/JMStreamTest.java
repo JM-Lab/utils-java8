@@ -92,4 +92,12 @@ public class JMStreamTest {
 				.getAverage() == doubleSummaryStatistics.getAverage());
 	}
 
+	@Test
+	public void testBuildRandomNumberStream() throws Exception {
+		List<Double> randomNumberList =
+				JMStream.buildRandomNumberStream(100).boxed().collect(toList());
+		System.out.println(randomNumberList);
+		assertEquals(100, randomNumberList.size());
+	}
+
 }

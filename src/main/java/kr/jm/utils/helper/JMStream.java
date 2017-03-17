@@ -210,4 +210,8 @@ public class JMStream {
 		return Stream.concat(sample1.stream(), sample2.stream());
 	}
 
+	public static DoubleStream buildRandomNumberStream(int count) {
+		return IntStream.range(0, count).mapToDouble(i -> Math.random());
+	}
+
 }
