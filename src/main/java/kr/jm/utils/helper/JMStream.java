@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 import java.util.function.IntPredicate;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -202,6 +203,11 @@ public class JMStream {
 	public static <T> Stream<T> buildStream(boolean isParallel,
 			Collection<T> collection) {
 		return isParallel ? collection.parallelStream() : collection.stream();
+	}
+
+	public static <T> Stream<T> buildConcatStream(List<T> sample1,
+			List<T> sample2) {
+		return Stream.concat(sample1.stream(), sample2.stream());
 	}
 
 }
