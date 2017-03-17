@@ -1,9 +1,14 @@
 package kr.jm.utils.helper;
 
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
+
+import kr.jm.utils.datastructure.JMCollections;
 
 /**
  * The Class JMStatsTest.
@@ -46,6 +51,49 @@ public class JMStatsTest {
 		System.out.println(l);
 		System.out.println(JMStats.roundWithPlace(l, 2));
 		assertTrue(10022300 == JMStats.roundWithPlace(l, 2));
+	}
+
+	@Test
+	public void testPow() throws Exception {
+		assertTrue(4 == JMStats.pow(2, 2));
+		assertTrue(100 == JMStats.pow(10, 2));
+		assertTrue(1 == JMStats.pow(10, 0));
+		assertTrue(1024 == JMStats.pow(2, 10));
+		System.out.println(JMStats.pow(3, 9));
+		assertTrue(19683.0 == JMStats.pow(3, 9));
+	}
+
+	@Test
+	public void testCalVariance() throws Exception {
+		List<Integer> sample1 = JMCollections.buildList(1, 2, 3, 4, 5);
+		System.out.println(JMStats.calVariance(sample1));
+		assertTrue(2.5 == JMStats.calVariance(sample1));
+		List<Integer> sample2 = JMCollections.buildList(6, 7, -8, 9, 10);
+		System.out.println(JMStats.calVariance(sample2));
+		assertTrue(53.70000000000001 == JMStats.calVariance(sample2));
+		List<Integer> sample3 =
+				JMStream.buildConcatStream(sample1, sample2).collect(toList());
+		System.out.println(JMStats.calVariance(sample3));
+		assertTrue(25.87777777777778 == JMStats.calVariance(sample3));
+	}
+
+	@Test
+	public void testCalStandardDeviation() throws Exception {
+		List<Integer> sample1 = JMCollections.buildList(9, 2, 5, 4, 12, 7, 8,
+				11, 9, 3, 7, 4, 12, 5, 4, 10, 9, 6, 9, 4);
+		System.out.println(JMStats.calPopulationStandardDeviation(sample1));
+		assertTrue(2.9832867780352594 == JMStats
+				.calPopulationStandardDeviation(sample1));
+		System.out.println(JMStats.calStandardDeviation(sample1));
+		assertTrue(3.0607876523260447 == JMStats.calStandardDeviation(sample1));
+
+		List<Integer> sample2 = JMCollections.buildList(9, 2, 5, 4, 12, 7);
+		System.out.println(JMStats.calPopulationStandardDeviation(sample2));
+		assertTrue(3.304037933599835 == JMStats
+				.calPopulationStandardDeviation(sample2));
+		System.out.println(JMStats.calStandardDeviation(sample2));
+		assertTrue(3.6193922141707713 == JMStats.calStandardDeviation(sample2));
+
 	}
 
 }

@@ -4,6 +4,7 @@ package kr.jm.utils.helper;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
+import java.util.Arrays;
 import java.util.DoubleSummaryStatistics;
 import java.util.IntSummaryStatistics;
 import java.util.List;
@@ -298,22 +299,74 @@ public class JMStats {
 	 * @return the string
 	 */
 	public static String calPercent(Number target, Number total, int digit) {
-		return JMString.roundedNumberFormat(
-				calPercentPrecisely(target, total), digit);
+		return JMString.roundedNumberFormat(calPercentPrecisely(target, total),
+				digit);
 	}
 
 	public static double roundWithDecimalPlace(double doubleNumber,
 			int decimalPlace) {
-		double pow = Math.pow(10, decimalPlace);
+		double pow = pow(10, decimalPlace);
 		return Math.round(doubleNumber * pow) / pow;
 	}
 
 	public static double roundWithPlace(double doubleNumber, int place) {
-		double pow = Math.pow(10, place);
+
+		double pow = pow(10, place);
 		return Math.round(doubleNumber / pow) * pow;
+	}
+
+	public static double pow(Number baseNumber, int exponent) {
+		return exponent < 1 ? 1
+				: exponent > 1
+						? baseNumber.doubleValue()
+								* pow(baseNumber, exponent - 1)
+						: baseNumber.doubleValue();
 	}
 
 	public static long roundWithPlace(long longNumber, int place) {
 		return (long) roundWithPlace((double) longNumber, place);
+	}
+
+	// Sample Standard Deviation
+	public static double
+			calStandardDeviation(List<? extends Number> numberList) {
+		return Math.sqrt(calVariance(numberList));
+	}
+
+	public static double
+			calPopulationStandardDeviation(List<? extends Number> numberList) {
+		return Math.sqrt(calPopulationVariance(numberList));
+	}
+
+	// Sample Variance
+	public static double calVariance(List<? extends Number> numberList) {
+		return numberList.size() == 1 ? numberList.get(0).doubleValue()
+				: calSampleMinusMeanSumOfSquares(numberList)
+						/ (numberList.size() - 1);
+	}
+
+	public static double
+			calPopulationVariance(List<? extends Number> numberList) {
+		return numberList.size() == 1 ? numberList.get(0).doubleValue()
+				: calSampleMinusMeanSumOfSquares(numberList)
+						/ numberList.size();
+	}
+
+	private static double
+			calSampleMinusMeanSumOfSquares(List<? extends Number> numberList) {
+		double[] doubleSamples =
+				numberList.stream().mapToDouble(Number::doubleValue).toArray();
+		double average = Arrays.stream(doubleSamples).average().getAsDouble();
+		return calSumOfSquares(
+				Arrays.stream(doubleSamples).map(d -> d - average));
+	}
+
+	public static double calSumOfSquares(List<? extends Number> numberList) {
+		return calSumOfSquares(
+				numberList.stream().mapToDouble(Number::doubleValue));
+	}
+
+	private static double calSumOfSquares(DoubleStream doubleStream) {
+		return doubleStream.map(d -> d * d).sum();
 	}
 }
