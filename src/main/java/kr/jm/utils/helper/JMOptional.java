@@ -320,4 +320,11 @@ public class JMOptional {
 				.orElseGet(Stream::empty);
 	}
 
+	public static boolean isPresentAll(Optional<?>... optionals) {
+		for (Optional<?> optional : optionals)
+			if (!optional.isPresent())
+				return false;
+		return true;
+	}
+
 }
