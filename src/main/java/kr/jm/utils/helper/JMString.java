@@ -108,6 +108,14 @@ public class JMString {
 		return joiningWithDelimeter(SEMICOLON, stringList);
 	}
 
+	public static String joiningWithDot(List<String> stringList) {
+		return joiningWithDelimeter(DOT, stringList);
+	}
+
+	public static String joiningWithDot(String... strings) {
+		return joiningWithDelimeter(DOT, strings);
+	}
+
 	/**
 	 * Joining with comma.
 	 *
