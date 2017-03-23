@@ -327,6 +327,11 @@ public class JMPredicate {
 				.getTrueAfterRunning(() -> consumer.accept(target));
 	}
 
+	public static <T> Predicate<T> peekSOPL() {
+		return target -> JMLambda
+				.getTrueAfterRunning(() -> System.out.println(target));
+	}
+
 	/**
 	 * Gets the equals.
 	 *

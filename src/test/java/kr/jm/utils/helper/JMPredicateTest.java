@@ -1,7 +1,6 @@
 package kr.jm.utils.helper;
 
-import static kr.jm.utils.helper.JMConsumer.getSOPL;
-import static kr.jm.utils.helper.JMPredicate.peek;
+import static kr.jm.utils.helper.JMPredicate.peekSOPL;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Optional;
@@ -24,10 +23,10 @@ public class JMPredicateTest {
 		String testString = "a";
 		Optional.ofNullable(testString)
 				.filter(JMPredicate.negate(string -> string.equals("")))
-				.filter(peek(getSOPL()))
+				.filter(peekSOPL())
 				.ifPresent(string -> assertEquals("a", string));
 		Optional.ofNullable(testString).filter(JMPredicate.negate(false))
-				.filter(peek(getSOPL()))
+				.filter(peekSOPL())
 				.ifPresent(string -> assertEquals("a", string));
 	}
 
