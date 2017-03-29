@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
  */
 public class JMString {
 
+	public static final String PIPE = "|";
+
 	/** The Constant EMPTY. */
 	public static final String EMPTY = "";
 
@@ -110,6 +112,14 @@ public class JMString {
 
 	public static String joiningWithDot(List<String> stringList) {
 		return joiningWithDelimeter(DOT, stringList);
+	}
+
+	public static String joiningWithPipe(List<String> stringList) {
+		return joiningWithDelimeter(PIPE, stringList);
+	}
+
+	public static String joiningWithPipe(String... strings) {
+		return joiningWithDelimeter(PIPE, strings);
 	}
 
 	public static String joiningWithDot(String... strings) {
