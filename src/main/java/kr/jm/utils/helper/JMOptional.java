@@ -29,6 +29,10 @@ public class JMOptional {
 		return Optional.ofNullable(string).filter(getIsEmpty().negate());
 	}
 
+	public static <T> Optional<T> getOptionalIfTrue(boolean bool, T target) {
+		return bool ? Optional.ofNullable(target) : Optional.empty();
+	}
+
 	/**
 	 * Gets the nullable and filtered optional.
 	 *
