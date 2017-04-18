@@ -29,6 +29,17 @@ public class JMOptional {
 		return Optional.ofNullable(string).filter(getIsEmpty().negate());
 	}
 
+	/**
+	 * Gets the optional if true.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param bool
+	 *            the bool
+	 * @param target
+	 *            the target
+	 * @return the optional if true
+	 */
 	public static <T> Optional<T> getOptionalIfTrue(boolean bool, T target) {
 		return bool ? Optional.ofNullable(target) : Optional.empty();
 	}
@@ -322,6 +333,13 @@ public class JMOptional {
 				.orElseGet(Stream::empty);
 	}
 
+	/**
+	 * Checks if is present all.
+	 *
+	 * @param optionals
+	 *            the optionals
+	 * @return true, if is present all
+	 */
 	public static boolean isPresentAll(Optional<?>... optionals) {
 		for (Optional<?> optional : optionals)
 			if (!optional.isPresent())

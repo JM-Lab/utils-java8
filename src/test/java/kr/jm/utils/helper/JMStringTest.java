@@ -97,6 +97,12 @@ public class JMStringTest {
 
 	}
 
+	/**
+	 * Test rounded number format.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testRoundedNumberFormat() throws Exception {
 		System.out.println(JMString.roundedNumberFormat(1000d, 5));

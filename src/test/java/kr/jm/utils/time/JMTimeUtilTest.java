@@ -387,6 +387,12 @@ public class JMTimeUtilTest {
 						.toLocalDateTime().toString());
 	}
 
+	/**
+	 * Test change timestamp to new format string zone id date time formatter.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testChangeTimestampToNewFormatStringZoneIdDateTimeFormatter()
 			throws Exception {

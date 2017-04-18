@@ -76,6 +76,12 @@ public class JMStreamTest {
 						.collect(toList()).toString()));
 	}
 
+	/**
+	 * Test number range with count float float int.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testNumberRangeWithCountFloatFloatInt() throws Exception {
 		System.out.println(JMStream.numberRangeWithCount(0, 10, 100).boxed()
@@ -92,6 +98,12 @@ public class JMStreamTest {
 				.getAverage() == doubleSummaryStatistics.getAverage());
 	}
 
+	/**
+	 * Test build random number stream.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testBuildRandomNumberStream() throws Exception {
 		List<Double> randomNumberList =

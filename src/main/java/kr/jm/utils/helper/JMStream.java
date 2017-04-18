@@ -61,11 +61,33 @@ public class JMStream {
 				.filter(predicate);
 	}
 
+	/**
+	 * Number range with count.
+	 *
+	 * @param start
+	 *            the start
+	 * @param interval
+	 *            the interval
+	 * @param count
+	 *            the count
+	 * @return the double stream
+	 */
 	public static DoubleStream numberRangeWithCount(float start, float interval,
 			int count) {
 		return DoubleStream.iterate(start, n -> n + interval).limit(count);
 	}
 
+	/**
+	 * Number range with count.
+	 *
+	 * @param start
+	 *            the start
+	 * @param interval
+	 *            the interval
+	 * @param count
+	 *            the count
+	 * @return the long stream
+	 */
 	public static LongStream numberRangeWithCount(int start, int interval,
 			int count) {
 		return LongStream.iterate(start, n -> n + interval).limit(count);
@@ -205,11 +227,29 @@ public class JMStream {
 		return isParallel ? collection.parallelStream() : collection.stream();
 	}
 
+	/**
+	 * Builds the concat stream.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param sample1
+	 *            the sample 1
+	 * @param sample2
+	 *            the sample 2
+	 * @return the stream
+	 */
 	public static <T> Stream<T> buildConcatStream(List<T> sample1,
 			List<T> sample2) {
 		return Stream.concat(sample1.stream(), sample2.stream());
 	}
 
+	/**
+	 * Builds the random number stream.
+	 *
+	 * @param count
+	 *            the count
+	 * @return the double stream
+	 */
 	public static DoubleStream buildRandomNumberStream(int count) {
 		return IntStream.range(0, count).mapToDouble(i -> Math.random());
 	}

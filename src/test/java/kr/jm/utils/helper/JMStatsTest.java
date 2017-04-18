@@ -33,6 +33,12 @@ public class JMStatsTest {
 		assertEquals("18.797", JMStats.calPercent(100, 532, 3));
 	}
 
+	/**
+	 * Test round with decimal place.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testRoundWithDecimalPlace() throws Exception {
 		double x = 100.125093920394890283;
@@ -41,6 +47,12 @@ public class JMStatsTest {
 		assertTrue(100.13 == JMStats.roundWithDecimalPlace(x, 2));
 	}
 
+	/**
+	 * Test round with decimal.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testRoundWithDecimal() throws Exception {
 		double x = 10022250.02394;
@@ -53,6 +65,12 @@ public class JMStatsTest {
 		assertTrue(10022300 == JMStats.roundWithPlace(l, 2));
 	}
 
+	/**
+	 * Test pow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testPow() throws Exception {
 		assertTrue(4 == JMStats.pow(2, 2));
@@ -63,6 +81,12 @@ public class JMStatsTest {
 		assertTrue(19683.0 == JMStats.pow(3, 9));
 	}
 
+	/**
+	 * Test cal variance.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testCalVariance() throws Exception {
 		List<Integer> sample1 = JMCollections.buildList(1, 2, 3, 4, 5);
@@ -77,6 +101,12 @@ public class JMStatsTest {
 		assertTrue(25.87777777777778 == JMStats.calVariance(sample3));
 	}
 
+	/**
+	 * Test cal standard deviation.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testCalStandardDeviation() throws Exception {
 		List<Integer> sample1 = JMCollections.buildList(9, 2, 5, 4, 12, 7, 8,
@@ -96,6 +126,9 @@ public class JMStatsTest {
 
 	}
 
+	/**
+	 * Test cal pairwise variance.
+	 */
 	@Test
 	public void testCalPairwiseVariance() {
 		List<Number> sample1 = JMStream.numberRange(1, 1000000, 1)

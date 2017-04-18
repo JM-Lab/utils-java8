@@ -448,6 +448,17 @@ public class JMLambda {
 		return () -> target;
 	}
 
+	/**
+	 * Consume and get self.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param target
+	 *            the target
+	 * @param targetConsumer
+	 *            the target consumer
+	 * @return the t
+	 */
 	public static <T> T consumeAndGetSelf(T target,
 			Consumer<T> targetConsumer) {
 		targetConsumer.accept(target);

@@ -74,6 +74,12 @@ public class JMThreadTest {
 		assertEquals(0, JMThread.getThreadQueue(es).size());
 	}
 
+	/**
+	 * Test run with schedule.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testRunWithSchedule() throws Exception {
 		System.out.println(JMTimeUtil.getCurrentTimestamp());

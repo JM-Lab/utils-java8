@@ -207,6 +207,17 @@ public class JMThread {
 		return ForkJoinPool.commonPool();
 	}
 
+	/**
+	 * Run with schedule.
+	 *
+	 * @param <V>
+	 *            the value type
+	 * @param delayMillis
+	 *            the delay millis
+	 * @param callable
+	 *            the callable
+	 * @return the scheduled future
+	 */
 	public static <V> ScheduledFuture<V> runWithSchedule(long delayMillis,
 			Callable<V> callable) {
 		return newSingleScheduledThreadPool().schedule(
@@ -218,6 +229,19 @@ public class JMThread {
 		return Executors.newScheduledThreadPool(1);
 	}
 
+	/**
+	 * Builds the callable with logging.
+	 *
+	 * @param <V>
+	 *            the value type
+	 * @param name
+	 *            the name
+	 * @param callable
+	 *            the callable
+	 * @param params
+	 *            the params
+	 * @return the callable
+	 */
 	public static <V> Callable<V> buildCallableWithLogging(String name,
 			Callable<V> callable, Object... params) {
 		return () -> supplyAsync(() -> {
@@ -231,6 +255,17 @@ public class JMThread {
 		}).get();
 	}
 
+	/**
+	 * Builds the runnable with logging.
+	 *
+	 * @param runnableName
+	 *            the runnable name
+	 * @param runnable
+	 *            the runnable
+	 * @param params
+	 *            the params
+	 * @return the runnable
+	 */
 	public static Runnable buildRunnableWithLogging(String runnableName,
 			Runnable runnable, Object... params) {
 		return () -> {
@@ -239,6 +274,15 @@ public class JMThread {
 		};
 	}
 
+	/**
+	 * Run with schedule.
+	 *
+	 * @param delayMillis
+	 *            the delay millis
+	 * @param runnable
+	 *            the runnable
+	 * @return the scheduled future
+	 */
 	public static ScheduledFuture<?> runWithSchedule(long delayMillis,
 			Runnable runnable) {
 		return newSingleScheduledThreadPool()
@@ -257,12 +301,34 @@ public class JMThread {
 				initialDelayMillis, periodMillis, TimeUnit.MILLISECONDS);
 	}
 
+	/**
+	 * Run with schedule at fixed rate.
+	 *
+	 * @param initialDelayMillis
+	 *            the initial delay millis
+	 * @param periodMillis
+	 *            the period millis
+	 * @param runnable
+	 *            the runnable
+	 * @return the scheduled future
+	 */
 	public static ScheduledFuture<?> runWithScheduleAtFixedRate(
 			long initialDelayMillis, long periodMillis, Runnable runnable) {
 		return runWithScheduleAtFixedRate(initialDelayMillis, periodMillis,
 				"runWithScheduleAtFixedRate", runnable);
 	}
 
+	/**
+	 * Run with schedule at fixed rate on start time.
+	 *
+	 * @param startDateTime
+	 *            the start date time
+	 * @param periodMillis
+	 *            the period millis
+	 * @param runnable
+	 *            the runnable
+	 * @return the scheduled future
+	 */
 	public static ScheduledFuture<?> runWithScheduleAtFixedRateOnStartTime(
 			ZonedDateTime startDateTime, long periodMillis, Runnable runnable) {
 		return runWithScheduleAtFixedRate(calInitialDelayMillis(startDateTime),
@@ -279,6 +345,17 @@ public class JMThread {
 				initialDelayMillis, delayMillis, TimeUnit.MILLISECONDS);
 	}
 
+	/**
+	 * Run with schedule with fixed delay.
+	 *
+	 * @param initialDelayMillis
+	 *            the initial delay millis
+	 * @param delayMillis
+	 *            the delay millis
+	 * @param runnable
+	 *            the runnable
+	 * @return the scheduled future
+	 */
 	public static ScheduledFuture<?> runWithScheduleWithFixedDelay(
 			long initialDelayMillis, long delayMillis, Runnable runnable) {
 		return runWithScheduleWithFixedDelay(initialDelayMillis, delayMillis,
@@ -290,6 +367,17 @@ public class JMThread {
 				- System.currentTimeMillis();
 	}
 
+	/**
+	 * Run with schedule with fixed delay on start time.
+	 *
+	 * @param startDateTime
+	 *            the start date time
+	 * @param delayMillis
+	 *            the delay millis
+	 * @param runnable
+	 *            the runnable
+	 * @return the scheduled future
+	 */
 	public static ScheduledFuture<?> runWithScheduleWithFixedDelayOnStartTime(
 			ZonedDateTime startDateTime, long delayMillis, Runnable runnable) {
 		return runWithScheduleWithFixedDelay(
@@ -315,7 +403,7 @@ public class JMThread {
 	 *            the runnable
 	 * @param executor
 	 *            the executor
-	 * @return
+	 * @return the completable future
 	 */
 	public static CompletableFuture<Void> runAsync(Runnable runnable,
 			Executor executor) {
@@ -340,7 +428,7 @@ public class JMThread {
 	 *            the failure consumer
 	 * @param executor
 	 *            the executor
-	 * @return
+	 * @return the completable future
 	 */
 	public static CompletableFuture<Void> runAsync(Runnable runnable,
 			Consumer<Throwable> failureConsumer, Executor executor) {

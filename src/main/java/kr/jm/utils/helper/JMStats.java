@@ -303,18 +303,45 @@ public class JMStats {
 				digit);
 	}
 
+	/**
+	 * Round with decimal place.
+	 *
+	 * @param doubleNumber
+	 *            the double number
+	 * @param decimalPlace
+	 *            the decimal place
+	 * @return the double
+	 */
 	public static double roundWithDecimalPlace(double doubleNumber,
 			int decimalPlace) {
 		double pow = pow(10, decimalPlace);
 		return Math.round(doubleNumber * pow) / pow;
 	}
 
+	/**
+	 * Round with place.
+	 *
+	 * @param doubleNumber
+	 *            the double number
+	 * @param place
+	 *            the place
+	 * @return the double
+	 */
 	public static double roundWithPlace(double doubleNumber, int place) {
 
 		double pow = pow(10, place);
 		return Math.round(doubleNumber / pow) * pow;
 	}
 
+	/**
+	 * Pow.
+	 *
+	 * @param baseNumber
+	 *            the base number
+	 * @param exponent
+	 *            the exponent
+	 * @return the double
+	 */
 	public static double pow(Number baseNumber, int exponent) {
 		return exponent < 1 ? 1
 				: exponent > 1
@@ -323,21 +350,51 @@ public class JMStats {
 						: baseNumber.doubleValue();
 	}
 
+	/**
+	 * Round with place.
+	 *
+	 * @param longNumber
+	 *            the long number
+	 * @param place
+	 *            the place
+	 * @return the long
+	 */
 	public static long roundWithPlace(long longNumber, int place) {
 		return (long) roundWithPlace((double) longNumber, place);
 	}
 
+	/**
+	 * Cal standard deviation.
+	 *
+	 * @param numberList
+	 *            the number list
+	 * @return the double
+	 */
 	// Sample Standard Deviation
 	public static double
 			calStandardDeviation(List<? extends Number> numberList) {
 		return Math.sqrt(calVariance(numberList));
 	}
 
+	/**
+	 * Cal population standard deviation.
+	 *
+	 * @param numberList
+	 *            the number list
+	 * @return the double
+	 */
 	public static double
 			calPopulationStandardDeviation(List<? extends Number> numberList) {
 		return Math.sqrt(calPopulationVariance(numberList));
 	}
 
+	/**
+	 * Cal variance.
+	 *
+	 * @param numberList
+	 *            the number list
+	 * @return the double
+	 */
 	// Sample Variance
 	public static double calVariance(List<? extends Number> numberList) {
 		return numberList.size() == 1 ? numberList.get(0).doubleValue()
@@ -345,6 +402,13 @@ public class JMStats {
 						/ (numberList.size() - 1);
 	}
 
+	/**
+	 * Cal population variance.
+	 *
+	 * @param numberList
+	 *            the number list
+	 * @return the double
+	 */
 	public static double
 			calPopulationVariance(List<? extends Number> numberList) {
 		return numberList.size() == 1 ? numberList.get(0).doubleValue()
@@ -361,6 +425,13 @@ public class JMStats {
 				Arrays.stream(doubleSamples).map(d -> d - average));
 	}
 
+	/**
+	 * Cal sum of squares.
+	 *
+	 * @param numberList
+	 *            the number list
+	 * @return the double
+	 */
 	public static double calSumOfSquares(List<? extends Number> numberList) {
 		return calSumOfSquares(
 				numberList.stream().mapToDouble(Number::doubleValue));
@@ -370,6 +441,23 @@ public class JMStats {
 		return doubleStream.map(d -> d * d).sum();
 	}
 
+	/**
+	 * Cal pairwise variance.
+	 *
+	 * @param count1
+	 *            the count 1
+	 * @param sum1
+	 *            the sum 1
+	 * @param variance1
+	 *            the variance 1
+	 * @param count2
+	 *            the count 2
+	 * @param sum2
+	 *            the sum 2
+	 * @param variance2
+	 *            the variance 2
+	 * @return the double
+	 */
 	// https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#cite_note-:0-10
 	public static double calPairwiseVariance(long count1, double sum1,
 			double variance1, long count2, double sum2, double variance2) {

@@ -327,6 +327,13 @@ public class JMPredicate {
 				.getTrueAfterRunning(() -> consumer.accept(target));
 	}
 
+	/**
+	 * Peek SOPL.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @return the predicate
+	 */
 	public static <T> Predicate<T> peekSOPL() {
 		return target -> JMLambda
 				.getTrueAfterRunning(() -> System.out.println(target));

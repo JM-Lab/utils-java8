@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  */
 public class JMString {
 
+	/** The Constant PIPE. */
 	public static final String PIPE = "|";
 
 	/** The Constant EMPTY. */
@@ -20,6 +21,7 @@ public class JMString {
 	/** The Constant UNDERSCORE. */
 	public static final String UNDERSCORE = "_";
 
+	/** The Constant HYPHEN. */
 	public static final String HYPHEN = "-";
 
 	/** The Constant COLON. */
@@ -43,11 +45,11 @@ public class JMString {
 
 	private static final String NumberPattern = "[+-]?\\d+(\\.\\d+)?";
 
-	/** The Constant ipv4Pattern. */
+	/** The Constant IPV4Pattern. */
 	public static final String IPV4Pattern =
 			"(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])";
 
-	/** The Constant ipv6Pattern. */
+	/** The Constant IPV6Pattern. */
 	public static final String IPV6Pattern =
 			"([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}";
 
@@ -110,18 +112,46 @@ public class JMString {
 		return joiningWithDelimeter(SEMICOLON, stringList);
 	}
 
+	/**
+	 * Joining with dot.
+	 *
+	 * @param stringList
+	 *            the string list
+	 * @return the string
+	 */
 	public static String joiningWithDot(List<String> stringList) {
 		return joiningWithDelimeter(DOT, stringList);
 	}
 
+	/**
+	 * Joining with pipe.
+	 *
+	 * @param stringList
+	 *            the string list
+	 * @return the string
+	 */
 	public static String joiningWithPipe(List<String> stringList) {
 		return joiningWithDelimeter(PIPE, stringList);
 	}
 
+	/**
+	 * Joining with pipe.
+	 *
+	 * @param strings
+	 *            the strings
+	 * @return the string
+	 */
 	public static String joiningWithPipe(String... strings) {
 		return joiningWithDelimeter(PIPE, strings);
 	}
 
+	/**
+	 * Joining with dot.
+	 *
+	 * @param strings
+	 *            the strings
+	 * @return the string
+	 */
 	public static String joiningWithDot(String... strings) {
 		return joiningWithDelimeter(DOT, strings);
 	}
@@ -330,6 +360,15 @@ public class JMString {
 		return ipOrHostname + ":" + port;
 	}
 
+	/**
+	 * Rounded number format.
+	 *
+	 * @param number
+	 *            the number
+	 * @param decimalPoint
+	 *            the decimal point
+	 * @return the string
+	 */
 	public static String roundedNumberFormat(Double number, int decimalPoint) {
 		return String.format("%." + decimalPoint + "f", number);
 	}

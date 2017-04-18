@@ -224,8 +224,7 @@ public class JMProgressiveManager<T, R> {
 	 */
 	public JMProgressiveManager<T, R> registerLastFailureChangeListener(
 			Consumer<Pair<T, Exception>> failureChangeListener) {
-		return registerListener(lastFailure,
-				failureChangeListener);
+		return registerListener(lastFailure, failureChangeListener);
 	}
 
 	private <P> JMProgressiveManager<T, R> registerListener(
