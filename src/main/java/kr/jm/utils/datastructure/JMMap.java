@@ -1,9 +1,7 @@
 
 package kr.jm.utils.datastructure;
 
-import static java.util.Comparator.comparing;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
+import kr.jm.utils.helper.JMOptional;
 
 import java.util.Comparator;
 import java.util.List;
@@ -15,7 +13,9 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import kr.jm.utils.helper.JMOptional;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * The Class JMMap.
@@ -464,7 +464,7 @@ public class JMMap {
 	 */
 	public static <K, V extends Comparable<V>> Map<K, V>
 			sortByValue(Map<K, V> map) {
-		return sort(map, (k1, k2) -> map.get(k1).compareTo(map.get(k2)));
+		return sort(map, comparing(map::get));
 	}
 
 	/**
@@ -504,6 +504,6 @@ public class JMMap {
 	 * @return true, if is null or empty
 	 */
 	public static boolean isNullOrEmpty(Map<?, ?> map) {
-		return map == null || map.size() == 0 ? true : false;
+		return map == null || map.size() == 0;
 	}
 }

@@ -1,11 +1,10 @@
 
 package kr.jm.utils.helper;
 
-import java.util.Collection;
-
+import kr.jm.utils.AutoStringBuilder;
 import org.slf4j.Logger;
 
-import kr.jm.utils.AutoStringBuilder;
+import java.util.Collection;
 
 /**
  * The Class JMLog.
@@ -141,9 +140,8 @@ public class JMLog {
 			else
 				loggerASB.append(param.toString());
 		}
-		String finalLogString = loggerASB.removeLastAutoAppendingString()
+		return loggerASB.removeLastAutoAppendingString()
 				.getStringBuilder().append(")").toString();
-		return finalLogString;
 	}
 
 	/**

@@ -1,9 +1,9 @@
 
-package kr.jm.utils.destory;
-
-import java.util.concurrent.ExecutorService;
+package kr.jm.utils.destroy;
 
 import kr.jm.utils.helper.JMThread;
+
+import java.util.concurrent.ExecutorService;
 
 /**
  * The Interface DestroyInterface.
@@ -16,7 +16,7 @@ public interface DestroyInterface {
 	 * @throws RuntimeException
 	 *             the runtime exception
 	 */
-	public void cleanUp() throws RuntimeException;
+	void cleanUp() throws RuntimeException;
 
 	default void cleanUp(ExecutorService executorService)
 			throws RuntimeException {

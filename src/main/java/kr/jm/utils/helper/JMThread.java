@@ -1,29 +1,18 @@
 
 package kr.jm.utils.helper;
 
-import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturn;
-import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturnNull;
-import static kr.jm.utils.helper.JMOptional.ifNotNull;
+import kr.jm.utils.enums.OS;
+import kr.jm.utils.exception.JMExceptionManager;
 
 import java.time.ZonedDateTime;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import kr.jm.utils.enums.OS;
-import kr.jm.utils.exception.JMExceptionManager;
+import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturn;
+import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturnNull;
+import static kr.jm.utils.helper.JMOptional.ifNotNull;
 
 /**
  * The Class JMThread.
@@ -163,18 +152,15 @@ public class JMThread {
 
 	private static void afterTimeout(long timeoutInSec,
 			ExecutorService threadPool, Future<?> future) {
-		threadPool.execute(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					future.get(timeoutInSec, TimeUnit.SECONDS);
-				} catch (Exception e) {
-					JMExceptionManager.logException(log, e, "afterTimeout",
-							timeoutInSec, threadPool, future);
-				} finally {
-					if (!threadPool.isShutdown())
-						threadPool.shutdownNow();
-				}
+		threadPool.execute(() -> {
+			try {
+				future.get(timeoutInSec, TimeUnit.SECONDS);
+			} catch (Exception e) {
+				JMExceptionManager.logException(log, e, "afterTimeout",
+						timeoutInSec, threadPool, future);
+			} finally {
+				if (!threadPool.isShutdown())
+					threadPool.shutdownNow();
 			}
 		});
 	}

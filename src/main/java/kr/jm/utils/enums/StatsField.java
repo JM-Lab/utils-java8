@@ -1,17 +1,13 @@
 package kr.jm.utils.enums;
 
-import static java.util.stream.Collectors.toMap;
-import static kr.jm.utils.helper.JMLambda.getSelf;
-
-import java.util.Arrays;
-import java.util.DoubleSummaryStatistics;
-import java.util.IntSummaryStatistics;
-import java.util.LongSummaryStatistics;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
+
+import static java.util.stream.Collectors.toMap;
+import static kr.jm.utils.helper.JMLambda.getSelf;
 
 /**
  * The Enum StatsField.
@@ -39,6 +35,48 @@ public enum StatsField {
 		default:
 			return valueOf(alias);
 		}
+	}
+
+	/**
+	 * Cal stats map.
+	 *
+	 * @param summaryStatistics the summary statistics
+	 * @return the map
+	 */
+	public static Map<StatsField, Number>
+	calStatsMap(IntSummaryStatistics summaryStatistics) {
+		return buildStatsMap(
+				statsField -> statsField.calStats(summaryStatistics));
+	}
+
+	/**
+	 * Cal stats map.
+	 *
+	 * @param summaryStatistics the summary statistics
+	 * @return the map
+	 */
+	public static Map<StatsField, Number>
+	calStatsMap(LongSummaryStatistics summaryStatistics) {
+		return buildStatsMap(
+				statsField -> statsField.calStats(summaryStatistics));
+	}
+
+	/**
+	 * Cal stats map.
+	 *
+	 * @param summaryStatistics the summary statistics
+	 * @return the map
+	 */
+	public static Map<StatsField, Number>
+	calStatsMap(DoubleSummaryStatistics summaryStatistics) {
+		return buildStatsMap(
+				statsField -> statsField.calStats(summaryStatistics));
+	}
+
+	private static Map<StatsField, Number>
+	buildStatsMap(Function<StatsField, Number> valueMapper) {
+		return Arrays.stream(StatsField.values())
+				.collect(toMap(getSelf(), valueMapper));
 	}
 
 	/**
@@ -74,18 +112,18 @@ public enum StatsField {
 	 */
 	public Number calStats(LongStream longStream) {
 		switch (this) {
-		case sum:
-			return longStream.sum();
-		case min:
-			return longStream.min().orElse(0l);
-		case max:
-			return longStream.max().orElse(0l);
+			case sum:
+				return longStream.sum();
+			case min:
+				return longStream.min().orElse(0L);
+			case max:
+			return longStream.max().orElse(0L);
 		case count:
 			return longStream.count();
 		case avg:
 			return longStream.average().orElse(0d);
 		default:
-			return 0l;
+			return 0L;
 		}
 	}
 
@@ -157,7 +195,7 @@ public enum StatsField {
 		case avg:
 			return summaryStatistics.getAverage();
 		default:
-			return 0l;
+			return 0L;
 		}
 	}
 
@@ -183,50 +221,5 @@ public enum StatsField {
 		default:
 			return 0d;
 		}
-	}
-
-	/**
-	 * Cal stats map.
-	 *
-	 * @param summaryStatistics
-	 *            the summary statistics
-	 * @return the map
-	 */
-	public static Map<StatsField, Number>
-			calStatsMap(IntSummaryStatistics summaryStatistics) {
-		return buildStatsMap(
-				statsField -> statsField.calStats(summaryStatistics));
-	}
-
-	/**
-	 * Cal stats map.
-	 *
-	 * @param summaryStatistics
-	 *            the summary statistics
-	 * @return the map
-	 */
-	public static Map<StatsField, Number>
-			calStatsMap(LongSummaryStatistics summaryStatistics) {
-		return buildStatsMap(
-				statsField -> statsField.calStats(summaryStatistics));
-	}
-
-	/**
-	 * Cal stats map.
-	 *
-	 * @param summaryStatistics
-	 *            the summary statistics
-	 * @return the map
-	 */
-	public static Map<StatsField, Number>
-			calStatsMap(DoubleSummaryStatistics summaryStatistics) {
-		return buildStatsMap(
-				statsField -> statsField.calStats(summaryStatistics));
-	}
-
-	private static Map<StatsField, Number>
-			buildStatsMap(Function<StatsField, Number> valueMapper) {
-		return Arrays.stream(StatsField.values())
-				.collect(toMap(getSelf(), valueMapper));
 	}
 }

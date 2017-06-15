@@ -12,7 +12,7 @@ public enum Seconds {
 
 	private int seconds;
 
-	private Seconds(int seconds) {
+	Seconds(int seconds) {
 		this.seconds = seconds;
 	}
 

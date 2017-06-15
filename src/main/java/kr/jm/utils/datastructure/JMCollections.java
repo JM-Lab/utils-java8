@@ -1,22 +1,16 @@
 
 package kr.jm.utils.datastructure;
 
-import static java.util.stream.Collectors.toList;
+import kr.jm.utils.helper.JMOptional;
+import kr.jm.utils.helper.JMStream;
+import kr.jm.utils.helper.JMString;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
-import kr.jm.utils.helper.JMOptional;
-import kr.jm.utils.helper.JMStream;
-import kr.jm.utils.helper.JMString;
+import static java.util.stream.Collectors.toList;
 
 /**
  * The Class JMCollections.
@@ -59,7 +53,7 @@ public class JMCollections {
 	 * @return true, if is null or empty
 	 */
 	public static boolean isNullOrEmpty(Collection<?> collection) {
-		return collection == null || collection.size() == 0 ? true : false;
+		return collection == null || collection.size() == 0;
 	}
 
 	/**
@@ -104,7 +98,7 @@ public class JMCollections {
 	 */
 	public static <T> List<T> sort(List<T> list,
 			Comparator<? super T> comparator) {
-		Collections.sort(list, comparator);
+		list.sort(comparator);
 		return list;
 	}
 

@@ -1,13 +1,14 @@
 
 package kr.jm.utils.helper;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 /**
  * The Class JMPredicate.
@@ -242,7 +243,7 @@ public class JMPredicate {
 	 * @return the empty
 	 */
 	public static Predicate<String> getIsEmpty() {
-		return string -> string.isEmpty();
+		return String::isEmpty;
 	}
 
 	/**
@@ -286,7 +287,7 @@ public class JMPredicate {
 	 * @return the null
 	 */
 	public static <T> Predicate<T> getIsNull() {
-		return target -> target == null;
+		return Objects::isNull;
 	}
 
 	/**
@@ -297,7 +298,7 @@ public class JMPredicate {
 	 * @return the not null
 	 */
 	public static <T> Predicate<T> getIsNotNull() {
-		return target -> target != null;
+		return Objects::nonNull;
 	}
 
 	/**

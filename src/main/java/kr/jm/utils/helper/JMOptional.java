@@ -1,17 +1,13 @@
 
 package kr.jm.utils.helper;
 
-import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Stream;
+
+import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
 
 /**
  * The Class JMOptional.
@@ -75,7 +71,7 @@ public class JMOptional {
 	 */
 	public static <T, R> Optional<R> getOptionalIfExist(Optional<T> optional,
 			Function<T, R> returnBuilderFunction) {
-		return optional.map(t -> returnBuilderFunction.apply(t));
+		return optional.map(returnBuilderFunction::apply);
 	}
 
 	/**

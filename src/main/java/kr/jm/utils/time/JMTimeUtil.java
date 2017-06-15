@@ -1,13 +1,10 @@
 
 package kr.jm.utils.time;
 
+import kr.jm.utils.datastructure.JMMap;
+
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
@@ -18,64 +15,50 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
-import kr.jm.utils.datastructure.JMMap;
-
 /**
  * The Class JMTimeUtil.
  */
 public class JMTimeUtil {
 
-	private static final ZoneId DEFAULT_ZONE_ID = ZoneId.systemDefault();
-
-	/** The Constant DEFAULT_ZONE_ID_STRING. */
-	public static final String DEFAULT_ZONE_ID_STRING = DEFAULT_ZONE_ID.getId();
-
 	/** The Constant UTC. */
 	public static final String UTC = "UTC";
-
 	/** The Constant ISO_INSTANT_MILLS_Z. */
 	public static final String ISO_INSTANT_MILLS_Z =
 			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"; // 2014-03-21T18:31:23.000Z
-
 	/** The Constant ISO_OFFSET_DATE_TIME_MILLS. */
 	public static final String ISO_OFFSET_DATE_TIME_MILLS =
 			"yyyy-MM-dd'T'HH:mm:ss.SSSZ"; // 2014-03-21T18:31:23.000+0900
-
 	/** The Constant ISO_INSTANT_TIMEZONE_NAME. */
 	public static final String ISO_INSTANT_TIMEZONE_NAME =
 			"yyyy-MM-dd'T'HH:mm:ssz"; // 2014-03-21T18:31:23KST
-
 	/** The Constant ISO_INSTANT_MILLS_TIMEZONE_NAME. */
 	public static final String ISO_INSTANT_MILLS_TIMEZONE_NAME =
 			"yyyy-MM-dd'T'HH:mm:ss.SSSz"; // 2014-03-21T18:31:23.000KST
-
 	/** The Constant ISO_LOCAL_DATE_TIME_MILLS. */
 	public static final String ISO_LOCAL_DATE_TIME_MILLS =
 			"yyyy-MM-dd'T'HH:mm:ss.SSS"; // 2014-03-21T18:31:23.000
-
 	/** The Constant BASIC_ISO_DATE_TIME_MILLS_OFFSET. */
 	public static final String BASIC_ISO_DATE_TIME_MILLS_OFFSET =
 			"yyyyMMddHHmmss.SSSZ"; // 20140321183123.000+0900
-
 	/** The Constant BASIC_ISO_DATE_TIME_MILLS_TIMEZONE_NAME. */
 	public static final String BASIC_ISO_DATE_TIME_MILLS_TIMEZONE_NAME =
 			"yyyyMMddHHmmss.SSSz"; // 20140321183123.000KST
-
 	/** The Constant BASIC_ISO_DATE_TIME_MILLS. */
 	public static final String BASIC_ISO_DATE_TIME_MILLS = "yyyyMMddHHmmss.SSS"; // 20140321183123.000
-
 	/** The Constant ISO_INSTANT. */
 	public static final String ISO_INSTANT = "yyyy-MM-dd'T'HH:mm:ssZ"; // 20140321183123+0900
-
 	/** The Constant ISO_INSTANT_Z. */
 	public static final String ISO_INSTANT_Z = "yyyy-MM-dd'T'HH:mm:ss'Z'"; // 2014-03-21T18:31:23Z
-
 	/** The Constant ISO_LOCAL_DATE_TIME. */
 	public static final String ISO_LOCAL_DATE_TIME = "yyyy-MM-dd'T'HH:mm:ss"; // 2014-03-21T18:31:23
-
+	private static final ZoneId DEFAULT_ZONE_ID = ZoneId.systemDefault();
+	/**
+	 * The Constant DEFAULT_ZONE_ID_STRING.
+	 */
+	public static final String DEFAULT_ZONE_ID_STRING = DEFAULT_ZONE_ID.getId();
 	private static final String UTC_0000 = "+0000";
 	private static final Pattern isoTimestampZoneInfoPattern =
-			Pattern.compile("[\\+|\\-][0-9]{4}$");
+			Pattern.compile("[+|-][0-9]{4}$");
 	private static Map<String, SimpleDateFormat> simpleDateFormatMap =
 			new HashMap<>();
 	private static BiFunction<String, String, Supplier<SimpleDateFormat>> newSimpleDateFormatBuilder =

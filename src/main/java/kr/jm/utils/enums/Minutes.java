@@ -11,7 +11,7 @@ public enum Minutes {
 
 	private int minutes;
 
-	private Minutes(int minutes) {
+	Minutes(int minutes) {
 		this.minutes = minutes;
 	}
 

@@ -1,10 +1,10 @@
 
 package kr.jm.utils.enums;
 
+import kr.jm.utils.helper.JMString;
+
 import java.text.DecimalFormat;
 import java.util.stream.Stream;
-
-import kr.jm.utils.helper.JMString;
 
 /**
  * The Enum SimpleSIUnit.
@@ -18,7 +18,7 @@ public enum SimpleSIUnit {
 	private double min;
 	private double max;
 
-	private SimpleSIUnit(int power) {
+	SimpleSIUnit(int power) {
 		this.min = Math.pow(BASE_SIZE, power);
 		this.max = this.min * BASE_SIZE;
 	}
