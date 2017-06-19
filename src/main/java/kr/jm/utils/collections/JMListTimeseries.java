@@ -1,10 +1,10 @@
 package kr.jm.utils.collections;
 
+import kr.jm.utils.datastructure.JMMap;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-
-import kr.jm.utils.datastructure.JMMap;
 
 /**
  * The Class JMListTimeseries.
@@ -35,7 +35,7 @@ public class JMListTimeseries<T> extends JMTimeseries<List<T>> {
 	 *            the object
 	 */
 	public void add(long timestamp, T object) {
-		JMMap.getOrPutGetNew(this.timeseriesMap, buildKeyTimetamp(timestamp),
+		JMMap.getOrPutGetNew(this.timeseriesMap, buildKeyTimestamp(timestamp),
 				newListSupplier).add(object);
 	}
 

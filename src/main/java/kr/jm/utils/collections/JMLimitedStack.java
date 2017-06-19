@@ -1,12 +1,11 @@
 package kr.jm.utils.collections;
 
-import static kr.jm.utils.helper.JMLambda.changeInto;
-import static kr.jm.utils.helper.JMOptional.getOptional;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.concurrent.LinkedBlockingDeque;
+
+import static kr.jm.utils.helper.JMOptional.getOptional;
 
 /**
  * The Class JMLimitedStack.
@@ -56,10 +55,9 @@ public class JMLimitedStack<E> implements Collection<E> {
 	 */
 	@Override
 	public boolean add(E e) {
-		return capacity > linkedBlockingDeque.size()
-				? linkedBlockingDeque.add(e)
-				: Optional.of(linkedBlockingDeque.removeFirst())
-						.map(changeInto(linkedBlockingDeque.add(e))).get();
+		if (capacity <= linkedBlockingDeque.size())
+			linkedBlockingDeque.removeFirst();
+		return linkedBlockingDeque.add(e);
 	}
 
 	/*

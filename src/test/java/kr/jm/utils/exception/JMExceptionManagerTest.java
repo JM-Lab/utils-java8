@@ -1,13 +1,12 @@
 
 package kr.jm.utils.exception;
 
-import static org.junit.Assert.assertEquals;
-
+import kr.jm.utils.helper.JMStream;
+import kr.jm.utils.helper.JMThread;
 import org.junit.Before;
 import org.junit.Test;
 
-import kr.jm.utils.helper.JMStream;
-import kr.jm.utils.helper.JMThread;
+import static org.junit.Assert.assertEquals;
 
 /**
  * The Class JMExceptionManagerTest.

@@ -92,16 +92,16 @@ public class JMArrays {
     }
 
     /**
-     * Builds the array with delimeter.
+     * Builds the array with delimiter.
      *
-     * @param stringWithDelimeter the string with delimeter
-     * @param delimeter           the delimeter
+     * @param stringWithDelimiter the string with delimiter
+     * @param delimiter           the delimiter
      * @return the string[]
      */
-    public static String[] buildArrayWithDelimeter(String stringWithDelimeter,
-            String delimeter) {
+    public static String[] buildArrayWithDelimiter(String stringWithDelimiter,
+            String delimiter) {
         List<String> stringList = JMCollections
-                .buildListWithDelimeter(stringWithDelimeter, delimeter);
+                .buildListWithDelimiter(stringWithDelimiter, delimiter);
         return stringList.toArray(new String[stringList.size()]);
     }
 

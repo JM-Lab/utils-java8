@@ -1,21 +1,13 @@
 
 package kr.jm.utils.helper;
 
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.partitioningBy;
-import static java.util.stream.Collectors.toMap;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
+
+import static java.util.stream.Collectors.*;
 
 /**
  * The Class JMLambda.
@@ -218,7 +210,7 @@ public class JMLambda {
 	}
 
 	/**
-	 * Consume if ture.
+	 * Consume if true.
 	 *
 	 * @param <T>
 	 *            the generic type
@@ -233,7 +225,7 @@ public class JMLambda {
 	 * @param biConsumer
 	 *            the bi consumer
 	 */
-	public static <T, U> void consumeIfTure(T target1, U target2,
+	public static <T, U> void consumeIfTrue(T target1, U target2,
 			BiPredicate<T, U> targetTester, BiConsumer<T, U> biConsumer) {
 		consumeIfTrue(targetTester.test(target1, target2), target1, target2,
 				biConsumer);

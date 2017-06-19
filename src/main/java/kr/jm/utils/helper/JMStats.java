@@ -10,6 +10,7 @@ import java.util.stream.LongStream;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
+import static kr.jm.utils.helper.JMStream.buildDoubleStream;
 
 /**
  * The Class JMStats.
@@ -128,7 +129,7 @@ public class JMStats {
     }
 
     private static List<Double> sortedDoubleList(List<Number> numberList) {
-        return JMStream.buildDoubleStream(numberList).sorted().boxed()
+        return buildDoubleStream(numberList).sorted().boxed()
                 .collect(toList());
     }
 
@@ -365,16 +366,16 @@ public class JMStats {
     private static double calVariance(List<? extends Number> numberList,
             int count) {
         return numberList.size() == 1 ? 0 :
-                calSampleMinusMeanSumOfSquares(numberList) / count;
+                calSampleMinusMeanSumOfSquares(numberList,
+                        buildDoubleStream(numberList).summaryStatistics()
+                                .getAverage()) / count;
     }
 
-    public static double
-    calSampleMinusMeanSumOfSquares(List<? extends Number> numberList) {
-        double[] doubleSamples =
-                numberList.stream().mapToDouble(Number::doubleValue).toArray();
-        double average = Arrays.stream(doubleSamples).average().getAsDouble();
+    private static double
+    calSampleMinusMeanSumOfSquares(List<? extends Number> numberList,
+            double average) {
         return calSumOfSquares(
-                Arrays.stream(doubleSamples).map(d -> d - average));
+                buildDoubleStream(numberList).map(d -> d - average));
     }
 
     /**

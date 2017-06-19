@@ -39,20 +39,18 @@ public class JMString {
 	/** The Constant DOT. */
 	public static final String DOT = ".";
 
-	/** The Constant LINE_SEPERATOR. */
-	public static final String LINE_SEPERATOR =
+	/**
+	 * The Constant LINE_SEPARATOR.
+	 */
+	public static final String LINE_SEPARATOR =
 			System.getProperty("line.separator");
-
-	private static final String NumberPattern = "[+-]?\\d+(\\.\\d+)?";
-
 	/** The Constant IPV4Pattern. */
 	public static final String IPV4Pattern =
 			"(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])";
-
 	/** The Constant IPV6Pattern. */
 	public static final String IPV6Pattern =
 			"([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}";
-
+	private static final String NumberPattern = "[+-]?\\d+(\\.\\d+)?";
 	private static Pattern numberPattern;
 
 	/**
@@ -76,7 +74,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithComma(List<String> stringList) {
-		return joiningWithDelimeter(COMMA, stringList);
+		return joiningWithDelimiter(COMMA, stringList);
 	}
 
 	/**
@@ -87,7 +85,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithUnderscore(List<String> stringList) {
-		return joiningWithDelimeter(UNDERSCORE, stringList);
+		return joiningWithDelimiter(UNDERSCORE, stringList);
 	}
 
 	/**
@@ -98,7 +96,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithSpace(List<String> stringList) {
-		return joiningWithDelimeter(SPACE, stringList);
+		return joiningWithDelimiter(SPACE, stringList);
 	}
 
 	/**
@@ -109,7 +107,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithSemicolon(List<String> stringList) {
-		return joiningWithDelimeter(SEMICOLON, stringList);
+		return joiningWithDelimiter(SEMICOLON, stringList);
 	}
 
 	/**
@@ -120,7 +118,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithDot(List<String> stringList) {
-		return joiningWithDelimeter(DOT, stringList);
+		return joiningWithDelimiter(DOT, stringList);
 	}
 
 	/**
@@ -131,7 +129,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithPipe(List<String> stringList) {
-		return joiningWithDelimeter(PIPE, stringList);
+		return joiningWithDelimiter(PIPE, stringList);
 	}
 
 	/**
@@ -142,7 +140,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithPipe(String... strings) {
-		return joiningWithDelimeter(PIPE, strings);
+		return joiningWithDelimiter(PIPE, strings);
 	}
 
 	/**
@@ -153,7 +151,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithDot(String... strings) {
-		return joiningWithDelimeter(DOT, strings);
+		return joiningWithDelimiter(DOT, strings);
 	}
 
 	/**
@@ -164,7 +162,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithComma(String... strings) {
-		return joiningWithDelimeter(COMMA, strings);
+		return joiningWithDelimiter(COMMA, strings);
 	}
 
 	/**
@@ -175,7 +173,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithUnderscore(String... strings) {
-		return joiningWithDelimeter(UNDERSCORE, strings);
+		return joiningWithDelimiter(UNDERSCORE, strings);
 	}
 
 	/**
@@ -186,7 +184,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithSpace(String... strings) {
-		return joiningWithDelimeter(SPACE, strings);
+		return joiningWithDelimiter(SPACE, strings);
 	}
 
 	/**
@@ -197,7 +195,7 @@ public class JMString {
 	 * @return the string
 	 */
 	public static String joiningWithSemicolon(String... strings) {
-		return joiningWithDelimeter(SEMICOLON, strings);
+		return joiningWithDelimiter(SEMICOLON, strings);
 	}
 
 	/**
@@ -245,7 +243,7 @@ public class JMString {
 	}
 
 	/**
-	 * Joining with delimeter.
+	 * Joining with delimiter.
 	 *
 	 * @param delimiter
 	 *            the delimiter
@@ -253,23 +251,23 @@ public class JMString {
 	 *            the strings
 	 * @return the string
 	 */
-	public static String joiningWithDelimeter(CharSequence delimiter,
+	public static String joiningWithDelimiter(CharSequence delimiter,
 			String... strings) {
 		return Arrays.stream(strings).collect(Collectors.joining(delimiter));
 	}
 
 	/**
-	 * Joining with delimeter.
+	 * Joining with delimiter.
 	 *
-	 * @param delimeter
-	 *            the delimeter
+	 * @param delimiter
+	 *            the delimiter
 	 * @param stringList
 	 *            the string list
 	 * @return the string
 	 */
-	public static String joiningWithDelimeter(CharSequence delimeter,
+	public static String joiningWithDelimiter(CharSequence delimiter,
 			List<String> stringList) {
-		return stringList.stream().collect(Collectors.joining(delimeter));
+		return stringList.stream().collect(Collectors.joining(delimiter));
 	}
 
 	/**

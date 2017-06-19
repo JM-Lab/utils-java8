@@ -179,7 +179,7 @@ public class JMOptional {
 	 */
 	public static <T, C extends Collection<T>> Optional<C>
 			getOptional(C collection) {
-		return Optional.<C> ofNullable(collection).filter(c -> c.size() > 0);
+		return Optional.ofNullable(collection).filter(c -> c.size() > 0);
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class JMOptional {
 	 * @return the optional
 	 */
 	public static <K, V, M extends Map<K, V>> Optional<M> getOptional(M map) {
-		return Optional.<M> ofNullable(map).filter(m -> m.size() > 0);
+		return Optional.ofNullable(map).filter(m -> m.size() > 0);
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class JMOptional {
 	 */
 	public static <K, V, M extends Map<K, V>> Optional<V> getOptional(M map,
 			K key) {
-		return Optional.<M> ofNullable(map).map(m -> m.get(key));
+		return Optional.ofNullable(map).map(m -> m.get(key));
 	}
 
 	/**

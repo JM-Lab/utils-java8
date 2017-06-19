@@ -35,7 +35,7 @@ public class JMThread {
 			return ((ThreadPoolExecutor) executorService).getQueue();
 		throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
 				new IllegalArgumentException(
-						"Unsupport ExecutorService - Use ThrJMThread.newThreadPool Or newSingleThreadPool To Get ExecutorService !!!"),
+						"Unsupported ExecutorService - Use ThrJMThread.newThreadPool Or newSingleThreadPool To Get ExecutorService !!!"),
 				"getThreadQueue", executorService);
 	}
 

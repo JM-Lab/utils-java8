@@ -142,19 +142,19 @@ public class JMCollections {
 	}
 
 	/**
-	 * Builds the list with delimeter.
+	 * Builds the list with delimiter.
 	 *
-	 * @param stringWithDelimeter
-	 *            the string with delimeter
-	 * @param delimeter
-	 *            the delimeter
+	 * @param stringWithDelimiter
+	 *            the string with delimiter
+	 * @param delimiter
+	 *            the delimiter
 	 * @return the list
 	 */
-	public static List<String> buildListWithDelimeter(
-			String stringWithDelimeter, String delimeter) {
+	public static List<String> buildListWithDelimiter(
+			String stringWithDelimiter, String delimiter) {
 		return JMStream
 				.buildStream(
-						new StringTokenizer(stringWithDelimeter, delimeter))
+						new StringTokenizer(stringWithDelimiter, delimiter))
 				.map(o -> (String) o).collect(toList());
 	}
 
@@ -166,7 +166,7 @@ public class JMCollections {
 	 * @return the list
 	 */
 	public static List<String> buildListByLine(String stringByLine) {
-		return buildListWithDelimeter(stringByLine, JMString.LINE_SEPERATOR);
+		return buildListWithDelimiter(stringByLine, JMString.LINE_SEPARATOR);
 	}
 
 	/**

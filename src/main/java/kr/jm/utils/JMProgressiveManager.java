@@ -1,22 +1,6 @@
 
 package kr.jm.utils;
 
-import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturnEmptyOptional;
-import static kr.jm.utils.exception.JMExceptionManager.logException;
-import static kr.jm.utils.helper.JMLog.info;
-import static kr.jm.utils.helper.JMPredicate.negate;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -24,6 +8,17 @@ import javafx.util.Pair;
 import kr.jm.utils.datastructure.JMMap;
 import kr.jm.utils.helper.JMStats;
 import kr.jm.utils.helper.JMThread;
+
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturnEmptyOptional;
+import static kr.jm.utils.exception.JMExceptionManager.logException;
+import static kr.jm.utils.helper.JMLog.info;
+import static kr.jm.utils.helper.JMPredicate.negate;
 
 /**
  * The Class JMProgressiveManager.
@@ -49,25 +44,8 @@ public class JMProgressiveManager<T, R> {
 	private Map<T, Exception> failureMap;
 	private List<Consumer<JMProgressiveManager<T, R>>> completedConsumerList;
 	private CompletableFuture<Void> completableFuture;
-	private boolean isStoped;
+	private boolean isStopped;
 	private Function<T, Optional<R>> processFunction;
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		AutoStringBuilder asb = new AutoStringBuilder(", ");
-		return asb.append("totalCount=" + totalCount)
-				.append("progressiveCount=" + progressiveCount)
-				.append("progressivePercent=" + progressivePercent)
-				.append("currentTarget=" + currentTarget)
-				.append("lastResult=" + lastResult)
-				.append("resultList=" + resultMap)
-				.append("isStoped=" + isStoped).autoToString();
-	}
 
 	/**
 	 * Instantiates a new JM progressive manager.
@@ -89,7 +67,24 @@ public class JMProgressiveManager<T, R> {
 		this.lastFailure = new SimpleObjectProperty<>();
 		this.resultMap = new HashMap<>();
 		this.failureMap = new HashMap<>();
-		this.isStoped = false;
+		this.isStopped = false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		AutoStringBuilder asb = new AutoStringBuilder(", ");
+		return asb.append("totalCount=" + totalCount)
+				.append("progressiveCount=" + progressiveCount)
+				.append("progressivePercent=" + progressivePercent)
+				.append("currentTarget=" + currentTarget)
+				.append("lastResult=" + lastResult)
+				.append("resultList=" + resultMap)
+				.append("isStopped=" + isStopped).autoToString();
 	}
 
 	/**
@@ -101,10 +96,10 @@ public class JMProgressiveManager<T, R> {
 		info(log, "start");
 		this.completableFuture = JMThread
 				.runAsync(() -> targetCollection.stream()
-						.filter(negate(isStoped())).map(this::moveNextTarget)
+						.filter(negate(isStopped())).map(this::moveNextTarget)
 						.map(t -> JMMap.putGetNew(resultMap, t, process(t)))
 						.forEach(lastResult::set))
-				.thenRun(this::setStoped)
+				.thenRun(this::setStopped)
 				.thenRun(() -> Optional.ofNullable(completedConsumerList)
 						.ifPresent(list -> list.parallelStream()
 								.forEach(c -> c.accept(this))));
@@ -130,7 +125,7 @@ public class JMProgressiveManager<T, R> {
 	 * @return the JM progressive manager
 	 */
 	public JMProgressiveManager<T, R> stopAsync() {
-		setStoped();
+		setStopped();
 		return this;
 	}
 
@@ -157,17 +152,17 @@ public class JMProgressiveManager<T, R> {
 		return this;
 	}
 
-	private void setStoped() {
-		this.isStoped = true;
+	private void setStopped() {
+		this.isStopped = true;
 	}
 
 	/**
-	 * Checks if is stoped.
+	 * Checks if is stopped.
 	 *
-	 * @return true, if is stoped
+	 * @return true, if is stopped
 	 */
-	public boolean isStoped() {
-		return this.isStoped;
+	public boolean isStopped() {
+		return this.isStopped;
 	}
 
 	/**

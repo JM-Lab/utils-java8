@@ -1,18 +1,16 @@
 package kr.jm.utils.helper;
 
-import static java.util.stream.Collectors.toList;
-import static kr.jm.utils.helper.JMConsumer.getSOPL;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.Test;
+import static java.util.stream.Collectors.toList;
+import static kr.jm.utils.helper.JMConsumer.getSOPL;
+import static org.junit.Assert.*;
 
 /**
  * The Class JMLambdaTest.
@@ -164,7 +162,7 @@ public class JMLambdaTest {
 				(s1, s2) -> trueStringBuilder2.append(s1).append(s2));
 		assertTrue(
 				trueStringBuilder2.toString().equals(testString + testString2));
-		JMLambda.consumeIfTure(testString, testString2,
+		JMLambda.consumeIfTrue(testString, testString2,
 				(s1, s2) -> s1.equals(s2),
 				(s1, s2) -> trueStringBuilder2.append(s1).append(s2));
 		assertTrue(

@@ -1,7 +1,8 @@
 package kr.jm.utils.helper;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import kr.jm.utils.time.JMTimeUtil;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.time.ZonedDateTime;
 import java.util.concurrent.ExecutorService;
@@ -9,10 +10,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.LongAdder;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import kr.jm.utils.time.JMTimeUtil;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The Class JMThreadTest.
@@ -67,7 +66,7 @@ public class JMThreadTest {
 			assertEquals(0, JMThread.getThreadQueue(es).size());
 			System.out.println(JMThread.getThreadQueue(es).size());
 		} catch (Exception e) {
-			assertTrue(e.getMessage().contains("Unsupport ExecutorService"));
+			assertTrue(e.getMessage().contains("Unsupported ExecutorService"));
 		}
 		es = JMThread.newSingleThreadPool();
 		System.out.println(JMThread.getThreadQueue(es).size());

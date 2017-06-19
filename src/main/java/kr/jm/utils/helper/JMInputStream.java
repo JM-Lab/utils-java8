@@ -56,7 +56,7 @@ public class JMInputStream {
 
     private static void appendLine(StringBuilder stringBuilder, String line) {
         stringBuilder.append(line);
-        stringBuilder.append(JMString.LINE_SEPERATOR);
+        stringBuilder.append(JMString.LINE_SEPARATOR);
     }
 
     /**

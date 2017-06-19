@@ -1,20 +1,15 @@
 
 package kr.jm.utils.helper;
 
-import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.DoubleSummaryStatistics;
-import java.util.List;
-import java.util.LongSummaryStatistics;
-import java.util.StringTokenizer;
-
+import kr.jm.utils.datastructure.JMCollections;
 import org.junit.Before;
 import org.junit.Test;
 
-import kr.jm.utils.datastructure.JMCollections;
+import java.util.*;
+
+import static java.util.stream.Collectors.toList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The Class JMStreamTest.
@@ -56,15 +51,15 @@ public class JMStreamTest {
 	@Test
 	public void testBuildStream() {
 		String string = "a b c d ef g";
-		String delimeter = " ";
-		List<String> list = JMCollections.buildList(string.split(delimeter));
+		String delimiter = " ";
+		List<String> list = JMCollections.buildList(string.split(delimiter));
 
 		System.out.println(
 				JMStream.buildStream(list.iterator()).collect(toList()));
 		System.out.println(
 				JMStream.buildStream(() -> list.iterator()).collect(toList()));
 		System.out.println(
-				JMStream.buildStream(new StringTokenizer(string, delimeter))
+				JMStream.buildStream(new StringTokenizer(string, delimiter))
 						.collect(toList()));
 		assertTrue(JMStream.buildStream(list.iterator()).collect(toList())
 				.toString().equals(JMStream.buildStream(() -> list.iterator())
@@ -72,7 +67,7 @@ public class JMStreamTest {
 		assertTrue(JMStream.buildStream(list.iterator()).collect(toList())
 				.toString()
 				.equals(JMStream
-						.buildStream(new StringTokenizer(string, delimeter))
+						.buildStream(new StringTokenizer(string, delimiter))
 						.collect(toList()).toString()));
 	}
 

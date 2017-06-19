@@ -2,7 +2,6 @@ package kr.jm.utils.collections;
 
 import java.util.*;
 
-import static kr.jm.utils.helper.JMLambda.changeInto;
 import static kr.jm.utils.helper.JMOptional.getOptional;
 import static kr.jm.utils.helper.JMPredicate.*;
 
@@ -13,9 +12,9 @@ import static kr.jm.utils.helper.JMPredicate.*;
  */
 public class JMLimitedList<E> implements Collection<E> {
 
+    private final LinkedList<E> linkedList;
     private int currentIndex;
     private int capacity;
-    private LinkedList<E> linkedList;
 
     /**
      * Instantiates a new JM limited list.
@@ -124,9 +123,9 @@ public class JMLimitedList<E> implements Collection<E> {
     @Override
     public boolean add(E e) {
         synchronized (linkedList) {
-            return capacity > linkedList.size() ? addAndChangeCurrentIndex(e)
-                    : Optional.of(linkedList.remove())
-                    .map(changeInto(addAndChangeCurrentIndex(e))).get();
+            if (capacity <= linkedList.size())
+                linkedList.remove();
+            return addAndChangeCurrentIndex(e);
         }
     }
 

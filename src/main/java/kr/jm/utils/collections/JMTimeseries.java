@@ -39,7 +39,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public V put(Long timestamp, V object) {
-        return this.timeseriesMap.put(buildKeyTimetamp(timestamp), object);
+        return this.timeseriesMap.put(buildKeyTimestamp(timestamp), object);
     }
 
     /*
@@ -49,7 +49,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public V get(Object timestamp) {
-        return this.timeseriesMap.get(buildKeyTimetamp(timestamp));
+        return this.timeseriesMap.get(buildKeyTimestamp(timestamp));
     }
 
     /**
@@ -61,7 +61,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     public V getOrNew(Long timestamp, Supplier<V> newSupplier) {
         return JMMap.getOrPutGetNew(this.timeseriesMap,
-                buildKeyTimetamp(timestamp), newSupplier);
+                buildKeyTimestamp(timestamp), newSupplier);
     }
 
     /*
@@ -71,7 +71,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public V remove(Object timestamp) {
-        return this.timeseriesMap.remove(buildKeyTimetamp(timestamp));
+        return this.timeseriesMap.remove(buildKeyTimestamp(timestamp));
     }
 
     public List<Long> getTimestampKeyList() {
@@ -83,17 +83,17 @@ public class JMTimeseries<V> implements Map<Long, V> {
     }
 
     /**
-     * Builds the key timetamp.
+     * Builds the key timestamp.
      *
      * @param timestamp the timestamp
      * @return the long
      */
-    public Long buildKeyTimetamp(Long timestamp) {
+    public Long buildKeyTimestamp(Long timestamp) {
         return timestamp - (timestamp % intervalMillis);
     }
 
-    private Long buildKeyTimetamp(Object timestamp) {
-        return timestamp instanceof Long ? buildKeyTimetamp((Long) timestamp)
+    private Long buildKeyTimestamp(Object timestamp) {
+        return timestamp instanceof Long ? buildKeyTimestamp((Long) timestamp)
                 : null;
     }
 
@@ -130,7 +130,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public boolean containsKey(Object timestamp) {
-        return this.timeseriesMap.containsKey(buildKeyTimetamp(timestamp));
+        return this.timeseriesMap.containsKey(buildKeyTimestamp(timestamp));
     }
 
     /*

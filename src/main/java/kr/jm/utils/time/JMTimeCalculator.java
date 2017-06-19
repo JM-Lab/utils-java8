@@ -52,7 +52,7 @@ public class JMTimeCalculator {
 	}
 
 	/**
-	 * Gets the timestamp minus paremeters.
+	 * Gets the timestamp minus parameters.
 	 *
 	 * @param targetTimestamp
 	 *            the target timestamp
@@ -66,19 +66,19 @@ public class JMTimeCalculator {
 	 *            the num of minutes
 	 * @param numOfSeconds
 	 *            the num of seconds
-	 * @return the timestamp minus paremeters
+	 * @return the timestamp minus parameters
 	 */
-	public static long getTimestampMinusParemeters(long targetTimestamp,
+	public static long getTimestampMinusParameters(long targetTimestamp,
 			int numOfWeeks, int numOfDays, int numOfHours, int numOfMinutes,
 			int numOfSeconds) {
-		long sumOfParemeters =
+		long sumOfParameters =
 				numOfWeeks * aWeek + numOfDays * aDay + numOfHours * anHour
 						+ numOfMinutes * aMinute + numOfSeconds * aSecond;
-		return targetTimestamp - sumOfParemeters;
+		return targetTimestamp - sumOfParameters;
 	}
 
 	/**
-	 * Gets the current timestamp minus paremeters.
+	 * Gets the current timestamp minus parameters.
 	 *
 	 * @param numOfWeeks
 	 *            the num of weeks
@@ -90,11 +90,11 @@ public class JMTimeCalculator {
 	 *            the num of minutes
 	 * @param numOfSeconds
 	 *            the num of seconds
-	 * @return the current timestamp minus paremeters
+	 * @return the current timestamp minus parameters
 	 */
-	public static long getCurrentTimestampMinusParemeters(int numOfWeeks,
+	public static long getCurrentTimestampMinusParameters(int numOfWeeks,
 			int numOfDays, int numOfHours, int numOfMinutes, int numOfSeconds) {
-		return getTimestampMinusParemeters(System.currentTimeMillis(),
+		return getTimestampMinusParameters(System.currentTimeMillis(),
 				numOfWeeks, numOfDays, numOfHours, numOfMinutes, numOfSeconds);
 	}
 

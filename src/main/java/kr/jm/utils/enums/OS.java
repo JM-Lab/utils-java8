@@ -1,33 +1,27 @@
 
 package kr.jm.utils.enums;
 
-import static java.util.stream.Collectors.toList;
-import static kr.jm.utils.helper.JMPredicate.negate;
+import kr.jm.utils.AutoStringBuilder;
+import kr.jm.utils.datastructure.JMCollections;
+import kr.jm.utils.exception.JMExceptionManager;
+import kr.jm.utils.helper.JMLog;
+import kr.jm.utils.helper.JMString;
 
-import java.awt.Desktop;
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.filechooser.FileView;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.ServerSocket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import javax.swing.Icon;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.filechooser.FileView;
-
-import kr.jm.utils.AutoStringBuilder;
-import kr.jm.utils.datastructure.JMCollections;
-import kr.jm.utils.exception.JMExceptionManager;
-import kr.jm.utils.helper.JMLog;
-import kr.jm.utils.helper.JMString;
+import static java.util.stream.Collectors.toList;
+import static kr.jm.utils.helper.JMPredicate.negate;
 
 /**
  * The Enum OS.
@@ -36,15 +30,12 @@ public enum OS {
 
 	WINDOWS, MAC, LINUX;
 
-	private static FileView fileView;
-	private static FileSystemView fileSystemView;
-
 	private static final org.slf4j.Logger log =
 			org.slf4j.LoggerFactory.getLogger(OS.class);
-
 	private static final String fileSeparator =
 			System.getProperty("file.separator");
-
+	private static FileView fileView;
+	private static FileSystemView fileSystemView;
 	private static Predicate<InetAddress> LoopbackFilter =
 			negate(InetAddress::isLoopbackAddress);
 
@@ -139,50 +130,11 @@ public enum OS {
 	/**
 	 * Adds the shutdown hook.
 	 *
-	 * @param runAfterShotdown
-	 *            the run after shotdown
+	 * @param runAfterShutdown
+	 *            the run after shutdown
 	 */
-	public static void addShutdownHook(Runnable runAfterShotdown) {
-		Runtime.getRuntime().addShutdownHook(new Thread(runAfterShotdown));
-	}
-
-	/**
-	 * Open.
-	 *
-	 * @param file
-	 *            the file
-	 * @return true, if successful
-	 */
-	public boolean open(File file) {
-		try {
-			Desktop.getDesktop().open(file);
-			return true;
-		} catch (Exception e) {
-			return openAlternatively(file);
-		}
-	}
-
-	private boolean openAlternatively(File file) {
-		switch (this) {
-		case WINDOWS:
-			return open("cmd /c ", file);
-		case MAC:
-			return open("open ", file);
-		default:
-			return open("open ", file);
-		}
-	}
-
-	private boolean open(String runCmd, File file) {
-		try {
-			String command = runCmd + file.getAbsolutePath();
-			JMLog.info(log, "open", command);
-			Runtime.getRuntime().exec(command);
-			return true;
-		} catch (Exception e) {
-			return JMExceptionManager.handleExceptionAndReturnFalse(log, e,
-					"open", runCmd, file.getAbsolutePath());
-		}
+	public static void addShutdownHook(Runnable runAfterShutdown) {
+		Runtime.getRuntime().addShutdownHook(new Thread(runAfterShutdown));
 	}
 
 	/**
@@ -267,6 +219,86 @@ public enum OS {
 	}
 
 	/**
+	 * Gets the file description.
+	 *
+	 * @param file the file
+	 * @return the file description
+	 */
+	public static String getFileDescription(File file) {
+		return getFileView().getDescription(file);
+	}
+
+	/**
+	 * Gets the home directory file.
+	 *
+	 * @return the home directory file
+	 */
+	public static File getHomeDirectoryFile() {
+		return getFileSystemView().getHomeDirectory();
+	}
+
+	/**
+	 * Gets the default directory file.
+	 *
+	 * @return the default directory file
+	 */
+	public static File getDefaultDirectoryFile() {
+		return getFileSystemView().getDefaultDirectory();
+	}
+
+	public static int getAvailableLocalPort() {
+		try (ServerSocket socket = new ServerSocket(0)) {
+			socket.setReuseAddress(true);
+			return socket.getLocalPort();
+		} catch (IOException e) {
+			return JMExceptionManager.handleExceptionAndReturn(log, e,
+					"getAvailableLocalPort", () -> -1);
+		}
+	}
+
+	public static int getAvailableProcessors() {
+		return Runtime.getRuntime().availableProcessors();
+	}
+
+	/**
+	 * Open.
+	 *
+	 * @param file the file
+	 * @return true, if successful
+	 */
+	public boolean open(File file) {
+		try {
+			Desktop.getDesktop().open(file);
+			return true;
+		} catch (Exception e) {
+			return openAlternatively(file);
+		}
+	}
+
+	private boolean openAlternatively(File file) {
+		switch (this) {
+			case WINDOWS:
+				return open("cmd /c ", file);
+			case MAC:
+				return open("open ", file);
+			default:
+				return open("open ", file);
+		}
+	}
+
+	private boolean open(String runCmd, File file) {
+		try {
+			String command = runCmd + file.getAbsolutePath();
+			JMLog.info(log, "open", command);
+			Runtime.getRuntime().exec(command);
+			return true;
+		} catch (Exception e) {
+			return JMExceptionManager.handleExceptionAndReturnFalse(log, e,
+					"open", runCmd, file.getAbsolutePath());
+		}
+	}
+
+	/**
 	 * Gets the icon.
 	 *
 	 * @param file
@@ -321,49 +353,6 @@ public enum OS {
 	 */
 	public List<File> getRootFileList() {
 		return JMCollections.buildList(getFileSystemView().getRoots());
-	}
-
-	/**
-	 * Gets the file description.
-	 *
-	 * @param file
-	 *            the file
-	 * @return the file description
-	 */
-	public static String getFileDescription(File file) {
-		return getFileView().getDescription(file);
-	}
-
-	/**
-	 * Gets the home dirctory file.
-	 *
-	 * @return the home dirctory file
-	 */
-	public static File getHomeDirctoryFile() {
-		return getFileSystemView().getHomeDirectory();
-	}
-
-	/**
-	 * Gets the default dirctory file.
-	 *
-	 * @return the default dirctory file
-	 */
-	public static File getDefaultDirctoryFile() {
-		return getFileSystemView().getDefaultDirectory();
-	}
-
-	public static int getAvailableLocalPort() {
-		try (ServerSocket socket = new ServerSocket(0)) {
-			socket.setReuseAddress(true);
-			return socket.getLocalPort();
-		} catch (IOException e) {
-			return JMExceptionManager.handleExceptionAndReturn(log, e,
-					"getAvailableLocalPort", () -> -1);
-		}
-	}
-
-	public static int getAvailableProcessors() {
-		return Runtime.getRuntime().availableProcessors();
 	}
 
 }

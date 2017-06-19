@@ -146,13 +146,13 @@ public class JMPathOperation {
         debug(log, method, sourcePath, destinationPath);
         Path finalPath = JMPath.isDirectory(destinationPath)
                 ? destinationPath.resolve(sourcePath.getFileName())
-                : buildParentAndDistinationPath(destinationPath);
+                : buildParentAndDestinationPath(destinationPath);
         if (sourcePath.equals(finalPath))
             throw new RuntimeException("Already Exist !!!");
         return resultPathFunction.apply(finalPath);
     }
 
-    private static Path buildParentAndDistinationPath(Path destinationPath) {
+    private static Path buildParentAndDestinationPath(Path destinationPath) {
         JMLambda.runIfTrue(!JMPath.exists(destinationPath.getParent()),
                 () -> createDirectories(destinationPath.getParent()));
         return destinationPath;
