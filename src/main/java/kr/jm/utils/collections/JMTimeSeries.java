@@ -10,22 +10,22 @@ import java.util.function.Supplier;
 import static java.util.Comparator.reverseOrder;
 
 /**
- * The Class JMTimeseries.
+ * The Class JMTimeSeries.
  *
  * @param <V> the value type
  */
-public class JMTimeseries<V> implements Map<Long, V> {
+public class JMTimeSeries<V> implements Map<Long, V> {
     long intervalMillis;
-    Map<Long, V> timeseriesMap;
+    Map<Long, V> timeSeriesMap;
 
     /**
-     * Instantiates a new JM timeseries.
+     * Instantiates a new JM timeSeries.
      *
      * @param intervalSeconds the interval seconds
      */
-    public JMTimeseries(long intervalSeconds) {
+    public JMTimeSeries(long intervalSeconds) {
         this.intervalMillis = intervalSeconds * 1000;
-        this.timeseriesMap = new ConcurrentHashMap<>();
+        this.timeSeriesMap = new ConcurrentHashMap<>();
     }
 
     public long getIntervalSeconds() {
@@ -39,7 +39,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public V put(Long timestamp, V object) {
-        return this.timeseriesMap.put(buildKeyTimestamp(timestamp), object);
+        return this.timeSeriesMap.put(buildKeyTimestamp(timestamp), object);
     }
 
     /*
@@ -49,7 +49,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public V get(Object timestamp) {
-        return this.timeseriesMap.get(buildKeyTimestamp(timestamp));
+        return this.timeSeriesMap.get(buildKeyTimestamp(timestamp));
     }
 
     /**
@@ -60,7 +60,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      * @return the or new
      */
     public V getOrNew(Long timestamp, Supplier<V> newSupplier) {
-        return JMMap.getOrPutGetNew(this.timeseriesMap,
+        return JMMap.getOrPutGetNew(this.timeSeriesMap,
                 buildKeyTimestamp(timestamp), newSupplier);
     }
 
@@ -71,7 +71,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public V remove(Object timestamp) {
-        return this.timeseriesMap.remove(buildKeyTimestamp(timestamp));
+        return this.timeSeriesMap.remove(buildKeyTimestamp(timestamp));
     }
 
     public List<Long> getTimestampKeyList() {
@@ -79,7 +79,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
     }
 
     public Map<Long, V> getAll() {
-        return new HashMap<>(this.timeseriesMap);
+        return new HashMap<>(this.timeSeriesMap);
     }
 
     /**
@@ -104,8 +104,8 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public String toString() {
-        return "JMTimeseries(intervalSeconds=" + getIntervalSeconds()
-                + ", timeseriesMap=" + timeseriesMap.toString() + ")";
+        return "JMTimeSeries(intervalSeconds=" + getIntervalSeconds()
+                + ", timeSeriesMap=" + timeSeriesMap.toString() + ")";
     }
 
     /*
@@ -115,12 +115,12 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public int size() {
-        return this.timeseriesMap.size();
+        return this.timeSeriesMap.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return this.timeseriesMap.isEmpty();
+        return this.timeSeriesMap.isEmpty();
     }
 
     /*
@@ -130,7 +130,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public boolean containsKey(Object timestamp) {
-        return this.timeseriesMap.containsKey(buildKeyTimestamp(timestamp));
+        return this.timeSeriesMap.containsKey(buildKeyTimestamp(timestamp));
     }
 
     /*
@@ -140,7 +140,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public boolean containsValue(Object value) {
-        return this.timeseriesMap.containsValue(value);
+        return this.timeSeriesMap.containsValue(value);
     }
 
     /*
@@ -150,7 +150,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public void putAll(Map<? extends Long, ? extends V> m) {
-        this.timeseriesMap.putAll(m);
+        this.timeSeriesMap.putAll(m);
     }
 
     /*
@@ -160,7 +160,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public void clear() {
-        this.timeseriesMap.clear();
+        this.timeSeriesMap.clear();
     }
 
     /*
@@ -170,7 +170,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public Set<Long> keySet() {
-        return this.timeseriesMap.keySet();
+        return this.timeSeriesMap.keySet();
     }
 
     /*
@@ -180,7 +180,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public Collection<V> values() {
-        return this.timeseriesMap.values();
+        return this.timeSeriesMap.values();
     }
 
     /*
@@ -190,7 +190,7 @@ public class JMTimeseries<V> implements Map<Long, V> {
      */
     @Override
     public Set<java.util.Map.Entry<Long, V>> entrySet() {
-        return this.timeseriesMap.entrySet();
+        return this.timeSeriesMap.entrySet();
     }
 
 }
