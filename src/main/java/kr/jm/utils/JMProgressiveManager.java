@@ -6,8 +6,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.util.Pair;
 import kr.jm.utils.datastructure.JMMap;
-import kr.jm.utils.helper.JMStats;
 import kr.jm.utils.helper.JMThread;
+import kr.jm.utils.stats.JMStats;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;

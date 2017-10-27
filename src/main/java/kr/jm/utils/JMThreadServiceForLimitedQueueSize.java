@@ -1,11 +1,11 @@
 package kr.jm.utils;
 
+import kr.jm.utils.helper.JMThread;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-
-import kr.jm.utils.helper.JMThread;
 
 /**
  * The Class JMThreadServiceForLimitedQueueSize.
@@ -23,7 +23,7 @@ public class JMThreadServiceForLimitedQueueSize {
 	 * Instantiates a new JM thread service for limited queue size.
 	 *
 	 * @param numOfThread
-	 *            the num of thread
+	 *            the num addAll thread
 	 * @param waitMillis
 	 *            the wait millis
 	 * @param queueSize
@@ -39,7 +39,7 @@ public class JMThreadServiceForLimitedQueueSize {
 	 * Instantiates a new JM thread service for limited queue size.
 	 *
 	 * @param numOfThread
-	 *            the num of thread
+	 *            the num addAll thread
 	 * @param waitMillis
 	 *            the wait millis
 	 * @param queueSize

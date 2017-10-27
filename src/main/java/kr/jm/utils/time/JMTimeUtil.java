@@ -555,7 +555,7 @@ public class JMTimeUtil {
 	 * @param month
 	 *            the month
 	 * @param dayOfMonth
-	 *            the day of month
+	 *            the day addAll month
 	 * @param hour
 	 *            the hour
 	 * @param minute
@@ -586,7 +586,7 @@ public class JMTimeUtil {
 	 * @param month
 	 *            the month
 	 * @param dayOfMonth
-	 *            the day of month
+	 *            the day addAll month
 	 * @param hour
 	 *            the hour
 	 * @param minute
@@ -594,7 +594,7 @@ public class JMTimeUtil {
 	 * @param second
 	 *            the second
 	 * @param nanoOfSecond
-	 *            the nano of second
+	 *            the nano addAll second
 	 * @param zoneId
 	 *            the zone id
 	 * @return the time millis with nano
@@ -614,7 +614,7 @@ public class JMTimeUtil {
 	 * @param month
 	 *            the month
 	 * @param dayOfMonth
-	 *            the day of month
+	 *            the day addAll month
 	 * @param hour
 	 *            the hour
 	 * @param minute
@@ -639,7 +639,7 @@ public class JMTimeUtil {
 	 * @param month
 	 *            the month
 	 * @param dayOfMonth
-	 *            the day of month
+	 *            the day addAll month
 	 * @param hour
 	 *            the hour
 	 * @param minute
@@ -661,7 +661,7 @@ public class JMTimeUtil {
 	 * @param month
 	 *            the month
 	 * @param dayOfMonth
-	 *            the day of month
+	 *            the day addAll month
 	 * @param hour
 	 *            the hour
 	 * @param zoneId
@@ -681,7 +681,7 @@ public class JMTimeUtil {
 	 * @param month
 	 *            the month
 	 * @param dayOfMonth
-	 *            the day of month
+	 *            the day addAll month
 	 * @param zoneId
 	 *            the zone id
 	 * @return the time millis

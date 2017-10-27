@@ -57,15 +57,15 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfWeeks
-	 *            the num of weeks
+	 *            the num addAll weeks
 	 * @param numOfDays
-	 *            the num of days
+	 *            the num addAll days
 	 * @param numOfHours
-	 *            the num of hours
+	 *            the num addAll hours
 	 * @param numOfMinutes
-	 *            the num of minutes
+	 *            the num addAll minutes
 	 * @param numOfSeconds
-	 *            the num of seconds
+	 *            the num addAll seconds
 	 * @return the timestamp minus parameters
 	 */
 	public static long getTimestampMinusParameters(long targetTimestamp,
@@ -81,15 +81,15 @@ public class JMTimeCalculator {
 	 * Gets the current timestamp minus parameters.
 	 *
 	 * @param numOfWeeks
-	 *            the num of weeks
+	 *            the num addAll weeks
 	 * @param numOfDays
-	 *            the num of days
+	 *            the num addAll days
 	 * @param numOfHours
-	 *            the num of hours
+	 *            the num addAll hours
 	 * @param numOfMinutes
-	 *            the num of minutes
+	 *            the num addAll minutes
 	 * @param numOfSeconds
-	 *            the num of seconds
+	 *            the num addAll seconds
 	 * @return the current timestamp minus parameters
 	 */
 	public static long getCurrentTimestampMinusParameters(int numOfWeeks,
@@ -104,7 +104,7 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfSeconds
-	 *            the num of seconds
+	 *            the num addAll seconds
 	 * @return the timestamp minus seconds
 	 */
 	public static long getTimestampMinusSeconds(long targetTimestamp,
@@ -118,7 +118,7 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfMinutes
-	 *            the num of minutes
+	 *            the num addAll minutes
 	 * @return the timestamp minus minutes
 	 */
 	public static long getTimestampMinusMinutes(long targetTimestamp,
@@ -132,7 +132,7 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfHours
-	 *            the num of hours
+	 *            the num addAll hours
 	 * @return the timestamp minus hours
 	 */
 	public static long getTimestampMinusHours(long targetTimestamp,
@@ -146,7 +146,7 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfDays
-	 *            the num of days
+	 *            the num addAll days
 	 * @return the timestamp minus days
 	 */
 	public static long getTimestampMinusDays(long targetTimestamp,
@@ -160,7 +160,7 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfWeeks
-	 *            the num of weeks
+	 *            the num addAll weeks
 	 * @return the timestamp minus weeks
 	 */
 	public static long getTimestampMinusWeeks(long targetTimestamp,
@@ -174,7 +174,7 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfMinutes
-	 *            the num of minutes
+	 *            the num addAll minutes
 	 * @return the timestamp plus minutes
 	 */
 	public static long getTimestampPlusMinutes(long targetTimestamp,
@@ -188,7 +188,7 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfHours
-	 *            the num of hours
+	 *            the num addAll hours
 	 * @return the timestamp plus hours
 	 */
 	public static long getTimestampPlusHours(long targetTimestamp,
@@ -202,7 +202,7 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfDays
-	 *            the num of days
+	 *            the num addAll days
 	 * @return the timestamp plus days
 	 */
 	public static long getTimestampPlusDays(long targetTimestamp,
@@ -216,7 +216,7 @@ public class JMTimeCalculator {
 	 * @param targetTimestamp
 	 *            the target timestamp
 	 * @param numOfWeeks
-	 *            the num of weeks
+	 *            the num addAll weeks
 	 * @return the timestamp plus weeks
 	 */
 	public static long getTimestampPlusWeeks(long targetTimestamp,

@@ -506,4 +506,5 @@ public class JMMap {
 	public static boolean isNullOrEmpty(Map<?, ?> map) {
 		return map == null || map.size() == 0;
 	}
+
 }

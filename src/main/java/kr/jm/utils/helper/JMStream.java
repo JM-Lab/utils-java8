@@ -175,6 +175,17 @@ public class JMStream {
         });
     }
 
+    public static Stream<String> buildTokenStream(String text,
+            String delimiter) {
+        return JMStream.buildStream(delimiter == null ? new StringTokenizer(
+                text) : new StringTokenizer(text, delimiter))
+                .map(o -> (String) o);
+    }
+
+    public static Stream<String> buildTokenStream(String text) {
+        return buildTokenStream(text, null);
+    }
+
     /**
      * Builds the stream.
      *
