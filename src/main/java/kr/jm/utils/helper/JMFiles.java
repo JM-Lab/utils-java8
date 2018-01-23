@@ -107,7 +107,7 @@ public class JMFiles {
      * @return the list
      */
     public static List<String> readLines(File targetFile) {
-        return readLines(targetFile);
+        return readLines(targetFile.toPath());
     }
 
     private static List<String> readLines(Path targetPath) {
