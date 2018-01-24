@@ -1,5 +1,7 @@
 package kr.jm.utils;
 
+import kr.jm.utils.helper.JMLambda;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +12,8 @@ import static java.util.stream.IntStream.rangeClosed;
 import static kr.jm.utils.helper.JMLambda.getSelf;
 
 public class JMRegex {
+    private static final org.slf4j.Logger log =
+            org.slf4j.LoggerFactory.getLogger(JMRegex.class);
     private List<String> groupNameList;
     private Pattern pattern;
 
@@ -31,7 +35,7 @@ public class JMRegex {
     }
 
     public List<String> getGroupNameList() {
-        return groupNameList;
+        return Collections.unmodifiableList(groupNameList);
     }
 
     @Override
@@ -76,7 +80,14 @@ public class JMRegex {
     }
 
     private Optional<Matcher> getMatcherAsOpt(String targetString) {
-        return Optional.of(pattern.matcher(targetString))
-                .filter(Matcher::matches);
+        Optional<Matcher> matcherAsOpt =
+                Optional.of(pattern.matcher(targetString))
+                        .filter(Matcher::matches);
+        return matcherAsOpt.isPresent() ? matcherAsOpt : JMLambda
+                .runAndReturn(() -> log
+                                .warn("Wrong Match Pattern Occur !!! - pattern = {}, targetString = {}",
+                                        pattern.pattern(), targetString),
+                        Optional::empty);
     }
+
 }
