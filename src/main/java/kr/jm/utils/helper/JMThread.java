@@ -5,6 +5,8 @@ import kr.jm.utils.enums.OS;
 import kr.jm.utils.exception.JMExceptionManager;
 
 import java.time.ZonedDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -19,494 +21,512 @@ import static kr.jm.utils.helper.JMOptional.ifNotNull;
  */
 public class JMThread {
 
-	private static final org.slf4j.Logger log =
-			org.slf4j.LoggerFactory.getLogger(JMThread.class);
+    private static final org.slf4j.Logger log =
+            org.slf4j.LoggerFactory.getLogger(JMThread.class);
 
-	/**
-	 * Gets the thread queue.
-	 *
-	 * @param executorService
-	 *            the executor service
-	 * @return the thread queue
-	 */
-	public static BlockingQueue<Runnable>
-			getThreadQueue(ExecutorService executorService) {
-		if (executorService instanceof ThreadPoolExecutor)
-			return ((ThreadPoolExecutor) executorService).getQueue();
-		throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
-				new IllegalArgumentException(
-						"Unsupported ExecutorService - Use ThrJMThread.newThreadPool Or newSingleThreadPool To Get ExecutorService !!!"),
-				"getThreadQueue", executorService);
-	}
+    /**
+     * Gets the thread queue.
+     *
+     * @param executorService the executor service
+     * @return the thread queue
+     */
+    public static BlockingQueue<Runnable> getThreadQueue(
+            ExecutorService executorService) {
+        if (executorService instanceof ThreadPoolExecutor)
+            return ((ThreadPoolExecutor) executorService).getQueue();
+        throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
+                new IllegalArgumentException(
+                        "Unsupported ExecutorService - Use ThrJMThread.newThreadPool Or newSingleThreadPool To Get ExecutorService !!!"),
+                "getThreadQueue", executorService);
+    }
 
-	/**
-	 * Gets the active count.
-	 *
-	 * @param executorService
-	 *            the executor service
-	 * @return the active count
-	 */
-	public static int getActiveCount(ExecutorService executorService) {
-		return ((ThreadPoolExecutor) executorService).getActiveCount();
-	}
+    /**
+     * Gets the active count.
+     *
+     * @param executorService the executor service
+     * @return the active count
+     */
+    public static int getActiveCount(ExecutorService executorService) {
+        return ((ThreadPoolExecutor) executorService).getActiveCount();
+    }
 
-	/**
-	 * Gets the completed task count.
-	 *
-	 * @param executorService
-	 *            the executor service
-	 * @return the completed task count
-	 */
-	public static long getCompletedTaskCount(ExecutorService executorService) {
-		return ((ThreadPoolExecutor) executorService).getCompletedTaskCount();
-	}
+    /**
+     * Gets the completed task count.
+     *
+     * @param executorService the executor service
+     * @return the completed task count
+     */
+    public static long getCompletedTaskCount(ExecutorService executorService) {
+        return ((ThreadPoolExecutor) executorService).getCompletedTaskCount();
+    }
 
-	/**
-	 * Purge.
-	 *
-	 * @param executorService
-	 *            the executor service
-	 */
-	public static void purge(ExecutorService executorService) {
-		((ThreadPoolExecutor) executorService).purge();
-	}
+    /**
+     * Purge.
+     *
+     * @param executorService the executor service
+     */
+    public static void purge(ExecutorService executorService) {
+        ((ThreadPoolExecutor) executorService).purge();
+    }
 
-	/**
-	 * Gets the pool size.
-	 *
-	 * @param executorService
-	 *            the executor service
-	 * @return the pool size
-	 */
-	public static long getPoolSize(ExecutorService executorService) {
-		return ((ThreadPoolExecutor) executorService).getPoolSize();
-	}
+    /**
+     * Gets the pool size.
+     *
+     * @param executorService the executor service
+     * @return the pool size
+     */
+    public static long getPoolSize(ExecutorService executorService) {
+        return ((ThreadPoolExecutor) executorService).getPoolSize();
+    }
 
-	/**
-	 * New thread pool.
-	 *
-	 * @param numOfThreads
-	 *            the num of threads
-	 * @return the executor service
-	 */
-	public static ExecutorService newThreadPool(int numOfThreads) {
-		return numOfThreads < 1 ? Executors.newCachedThreadPool()
-				: Executors.newFixedThreadPool(numOfThreads);
-	}
+    public static void shutdownAndWaitToBeTerminated(ExecutorService
+            executorService) {
+        if (executorService.isTerminated())
+            return;
+        log.warn("Start Shutdown !!! - {}", executorService);
+        long startTimeMillis = System.currentTimeMillis();
+        executorService.shutdown();
+        while (!executorService.isTerminated())
+            sleep(100);
+        log.warn("Terminating !!! - {} over {} ms", executorService,
+                startTimeMillis - System.currentTimeMillis());
+    }
 
-	/**
-	 * New single thread pool.
-	 *
-	 * @return the executor service
-	 */
-	public static ExecutorService newSingleThreadPool() {
-		return Executors.newFixedThreadPool(1);
-	}
+    public static List<Runnable> shutdownNowAndWaitToBeTerminated(
+            ExecutorService executorService) {
+        if (!executorService.isTerminated())
+            return Collections.emptyList();
+        log.warn("Shutdown Now!!! - {}", executorService);
+        return executorService.shutdownNow();
+    }
 
-	/**
-	 * New thread pool with available processors.
-	 *
-	 * @return the executor service
-	 */
-	public static ExecutorService newThreadPoolWithAvailableProcessors() {
-		return Executors.newFixedThreadPool(OS.getAvailableProcessors());
-	}
 
-	/**
-	 * New thread pool with available processors minus one.
-	 *
-	 * @return the executor service
-	 */
-	public static ExecutorService
-			newThreadPoolWithAvailableProcessorsMinusOne() {
-		return Executors.newFixedThreadPool(OS.getAvailableProcessors() - 1);
-	}
+    /**
+     * New thread pool.
+     *
+     * @param numOfThreads the num addAll threads
+     * @return the executor service
+     */
+    public static ExecutorService newThreadPool(int numOfThreads) {
+        return numOfThreads < 1 ? Executors.newCachedThreadPool()
+                : Executors.newFixedThreadPool(numOfThreads);
+    }
 
-	/**
-	 * Sleep.
-	 *
-	 * @param millis
-	 *            the millis
-	 */
-	public static void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			JMExceptionManager.logException(log, e, "sleep", millis);
-		}
-	}
+    /**
+     * New single thread pool.
+     *
+     * @return the executor service
+     */
+    public static ExecutorService newSingleThreadPool() {
+        return Executors.newFixedThreadPool(1);
+    }
 
-	/**
-	 * Run.
-	 *
-	 * @param runnableWork
-	 *            the runnable work
-	 * @param timeoutInSec
-	 *            the timeout in sec
-	 */
-	public static void run(final Runnable runnableWork,
-			final long timeoutInSec) {
-		ExecutorService threadPool = Executors.newFixedThreadPool(2);
-		afterTimeout(timeoutInSec, threadPool, threadPool.submit(runnableWork));
-	}
+    /**
+     * New thread pool with available processors.
+     *
+     * @return the executor service
+     */
+    public static ExecutorService newThreadPoolWithAvailableProcessors() {
+        return Executors.newFixedThreadPool(OS.getAvailableProcessors());
+    }
 
-	private static void afterTimeout(long timeoutInSec,
-			ExecutorService threadPool, Future<?> future) {
-		threadPool.execute(() -> {
-			try {
-				future.get(timeoutInSec, TimeUnit.SECONDS);
-			} catch (Exception e) {
-				JMExceptionManager.logException(log, e, "afterTimeout",
-						timeoutInSec, threadPool, future);
-			} finally {
-				if (!threadPool.isShutdown())
-					threadPool.shutdownNow();
-			}
-		});
-	}
+    /**
+     * New thread pool with available processors minus one.
+     *
+     * @return the executor service
+     */
+    public static ExecutorService
+    newThreadPoolWithAvailableProcessorsMinusOne() {
+        return Executors.newFixedThreadPool(OS.getAvailableProcessors() - 1);
+    }
 
-	/**
-	 * Run.
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param callableWork
-	 *            the callable work
-	 * @param timeoutInSec
-	 *            the timeout in sec
-	 * @return the future
-	 */
-	public static <T> Future<T> run(Callable<T> callableWork,
-			long timeoutInSec) {
-		final ExecutorService threadPool = Executors.newFixedThreadPool(2);
-		Future<T> future = threadPool.submit(callableWork);
-		afterTimeout(timeoutInSec, threadPool, future);
-		return future;
-	}
+    /**
+     * Sleep.
+     *
+     * @param millis the millis
+     */
+    public static void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            JMExceptionManager.logException(log, e, "sleep", millis);
+        }
+    }
 
-	/**
-	 * Gets the common pool.
-	 *
-	 * @return the common pool
-	 */
-	public static ForkJoinPool getCommonPool() {
-		return ForkJoinPool.commonPool();
-	}
+    public static void suspend(long intervalAsMillis,
+            Supplier<Boolean> suspendConditionSupplier) {
+        if (!suspendConditionSupplier.get())
+            return;
+        log.warn("Start Suspending !!!");
+        long startTimeMillis = System.currentTimeMillis();
+        while (suspendConditionSupplier.get())
+            sleep(intervalAsMillis);
+        log.warn("Stop Suspending Over {} ms",
+                System.currentTimeMillis() - startTimeMillis);
+    }
 
-	/**
-	 * Run with schedule.
-	 *
-	 * @param <V>
-	 *            the value type
-	 * @param delayMillis
-	 *            the delay millis
-	 * @param callable
-	 *            the callable
-	 * @return the scheduled future
-	 */
-	public static <V> ScheduledFuture<V> runWithSchedule(long delayMillis,
-			Callable<V> callable) {
-		return newSingleScheduledThreadPool().schedule(
-				buildCallableWithLogging("runWithSchedule", callable),
-				delayMillis, TimeUnit.MILLISECONDS);
-	}
+    public static <R> R suspendWhenNull(long intervalAsMillis,
+            Supplier<R> objectSupplier) {
+        R object = objectSupplier.get();
+        if (object == null) {
+            log.warn("Start Suspending !!!");
+            long startTimeMillis = System.currentTimeMillis();
+            while ((object = objectSupplier.get()) == null)
+                sleep(intervalAsMillis);
+            log.warn("Stop Suspending Over {} ms",
+                    System.currentTimeMillis() - startTimeMillis);
+        }
+        return object;
+    }
 
-	private static ScheduledExecutorService newSingleScheduledThreadPool() {
-		return Executors.newScheduledThreadPool(1);
-	}
+    /**
+     * Run.
+     *
+     * @param runnableWork the runnable work
+     * @param timeoutInSec the timeout in sec
+     */
+    public static void run(final Runnable runnableWork,
+            final long timeoutInSec) {
+        ExecutorService threadPool = Executors.newFixedThreadPool(2);
+        afterTimeout(timeoutInSec, threadPool, threadPool.submit(runnableWork));
+    }
 
-	/**
-	 * Builds the callable with logging.
-	 *
-	 * @param <V>
-	 *            the value type
-	 * @param name
-	 *            the name
-	 * @param callable
-	 *            the callable
-	 * @param params
-	 *            the params
-	 * @return the callable
-	 */
-	public static <V> Callable<V> buildCallableWithLogging(String name,
-			Callable<V> callable, Object... params) {
-		return () -> supplyAsync(() -> {
-			try {
-				JMLog.info(log, name, System.currentTimeMillis(), params);
-				return callable.call();
-			} catch (Exception e) {
-				return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-						name, params);
-			}
-		}).get();
-	}
+    private static void afterTimeout(long timeoutInSec,
+            ExecutorService threadPool, Future<?> future) {
+        threadPool.execute(() -> {
+            try {
+                future.get(timeoutInSec, TimeUnit.SECONDS);
+            } catch (Exception e) {
+                JMExceptionManager.logException(log, e, "afterTimeout",
+                        timeoutInSec, threadPool, future);
+            } finally {
+                if (!threadPool.isShutdown())
+                    threadPool.shutdownNow();
+            }
+        });
+    }
 
-	/**
-	 * Builds the runnable with logging.
-	 *
-	 * @param runnableName
-	 *            the runnable name
-	 * @param runnable
-	 *            the runnable
-	 * @param params
-	 *            the params
-	 * @return the runnable
-	 */
-	public static Runnable buildRunnableWithLogging(String runnableName,
-			Runnable runnable, Object... params) {
-		return () -> {
-			JMLog.info(log, runnableName, System.currentTimeMillis(), params);
-			runnable.run();
-		};
-	}
+    /**
+     * Run.
+     *
+     * @param <T>          the generic type
+     * @param callableWork the callable work
+     * @param timeoutInSec the timeout in sec
+     * @return the future
+     */
+    public static <T> Future<T> run(Callable<T> callableWork,
+            long timeoutInSec) {
+        final ExecutorService threadPool = Executors.newFixedThreadPool(2);
+        Future<T> future = threadPool.submit(callableWork);
+        afterTimeout(timeoutInSec, threadPool, future);
+        return future;
+    }
 
-	/**
-	 * Run with schedule.
-	 *
-	 * @param delayMillis
-	 *            the delay millis
-	 * @param runnable
-	 *            the runnable
-	 * @return the scheduled future
-	 */
-	public static ScheduledFuture<?> runWithSchedule(long delayMillis,
-			Runnable runnable) {
-		return newSingleScheduledThreadPool()
-				.schedule(
-						buildRunnableWithLogging("runWithSchedule", runnable,
-								delayMillis),
-						delayMillis, TimeUnit.MILLISECONDS);
-	}
+    /**
+     * Gets the common pool.
+     *
+     * @return the common pool
+     */
+    public static ForkJoinPool getCommonPool() {
+        return ForkJoinPool.commonPool();
+    }
 
-	private static ScheduledFuture<?> runWithScheduleAtFixedRate(
-			long initialDelayMillis, long periodMillis, String name,
-			Runnable runnable) {
-		return newSingleScheduledThreadPool().scheduleAtFixedRate(
-				() -> runAsync(buildRunnableWithLogging(name, runnable,
-						initialDelayMillis, periodMillis)),
-				initialDelayMillis, periodMillis, TimeUnit.MILLISECONDS);
-	}
+    /**
+     * Run with schedule.
+     *
+     * @param <V>         the value type
+     * @param delayMillis the delay millis
+     * @param callable    the callable
+     * @return the scheduled future
+     */
+    public static <V> ScheduledFuture<V> runWithSchedule(long delayMillis,
+            Callable<V> callable) {
+        return newSingleScheduledThreadPool().schedule(
+                buildCallableWithLogging("runWithSchedule", callable),
+                delayMillis, TimeUnit.MILLISECONDS);
+    }
 
-	/**
-	 * Run with schedule at fixed rate.
-	 *
-	 * @param initialDelayMillis
-	 *            the initial delay millis
-	 * @param periodMillis
-	 *            the period millis
-	 * @param runnable
-	 *            the runnable
-	 * @return the scheduled future
-	 */
-	public static ScheduledFuture<?> runWithScheduleAtFixedRate(
-			long initialDelayMillis, long periodMillis, Runnable runnable) {
-		return runWithScheduleAtFixedRate(initialDelayMillis, periodMillis,
-				"runWithScheduleAtFixedRate", runnable);
-	}
+    private static ScheduledExecutorService newSingleScheduledThreadPool() {
+        ScheduledExecutorService scheduledExecutorService =
+                Executors.newScheduledThreadPool(1);
+        OS.addShutdownHook(scheduledExecutorService::shutdown);
+        return scheduledExecutorService;
+    }
 
-	/**
-	 * Run with schedule at fixed rate on start time.
-	 *
-	 * @param startDateTime
-	 *            the start date time
-	 * @param periodMillis
-	 *            the period millis
-	 * @param runnable
-	 *            the runnable
-	 * @return the scheduled future
-	 */
-	public static ScheduledFuture<?> runWithScheduleAtFixedRateOnStartTime(
-			ZonedDateTime startDateTime, long periodMillis, Runnable runnable) {
-		return runWithScheduleAtFixedRate(calInitialDelayMillis(startDateTime),
-				periodMillis, "runWithScheduleAtFixedRateOnStartTime",
-				runnable);
-	}
+    /**
+     * Builds the callable with logging.
+     *
+     * @param <V>      the value type
+     * @param name     the name
+     * @param callable the callable
+     * @param params   the params
+     * @return the callable
+     */
+    public static <V> Callable<V> buildCallableWithLogging(String name,
+            Callable<V> callable, Object... params) {
+        return () -> supplyAsync(() -> {
+            try {
+                JMLog.debug(log, name, System.currentTimeMillis(), params);
+                return callable.call();
+            } catch (Exception e) {
+                return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+                        name, params);
+            }
+        }).get();
+    }
 
-	private static ScheduledFuture<?> runWithScheduleWithFixedDelay(
-			long initialDelayMillis, long delayMillis, String name,
-			Runnable runnable) {
-		return newSingleScheduledThreadPool().scheduleWithFixedDelay(
-				() -> runAsync(buildRunnableWithLogging(name, runnable,
-						initialDelayMillis, delayMillis)).join(),
-				initialDelayMillis, delayMillis, TimeUnit.MILLISECONDS);
-	}
+    /**
+     * Builds the runnable with logging.
+     *
+     * @param runnableName the runnable name
+     * @param runnable     the runnable
+     * @param params       the params
+     * @return the runnable
+     */
+    public static Runnable buildRunnableWithLogging(String runnableName,
+            Runnable runnable, Object... params) {
+        return () -> {
+            JMLog.debug(log, runnableName, System.currentTimeMillis(), params);
+            runnable.run();
+        };
+    }
 
-	/**
-	 * Run with schedule with fixed delay.
-	 *
-	 * @param initialDelayMillis
-	 *            the initial delay millis
-	 * @param delayMillis
-	 *            the delay millis
-	 * @param runnable
-	 *            the runnable
-	 * @return the scheduled future
-	 */
-	public static ScheduledFuture<?> runWithScheduleWithFixedDelay(
-			long initialDelayMillis, long delayMillis, Runnable runnable) {
-		return runWithScheduleWithFixedDelay(initialDelayMillis, delayMillis,
-				"runWithScheduleWithFixedDelay", runnable);
-	}
+    /**
+     * Run with schedule.
+     *
+     * @param delayMillis the delay millis
+     * @param runnable    the runnable
+     * @return the scheduled future
+     */
+    public static ScheduledFuture<?> runWithSchedule(long delayMillis,
+            Runnable runnable) {
+        return newSingleScheduledThreadPool()
+                .schedule(
+                        buildRunnableWithLogging("runWithSchedule", runnable,
+                                delayMillis),
+                        delayMillis, TimeUnit.MILLISECONDS);
+    }
 
-	private static long calInitialDelayMillis(ZonedDateTime startDateTime) {
-		return startDateTime.toInstant().toEpochMilli()
-				- System.currentTimeMillis();
-	}
+    private static ScheduledFuture<?> runWithScheduleAtFixedRate(
+            long initialDelayMillis, long periodMillis, String name,
+            Runnable runnable) {
+        return newSingleScheduledThreadPool().scheduleAtFixedRate(
+                () -> runAsync(buildRunnableWithLogging(name, runnable,
+                        initialDelayMillis, periodMillis)),
+                initialDelayMillis, periodMillis, TimeUnit.MILLISECONDS);
+    }
 
-	/**
-	 * Run with schedule with fixed delay on start time.
-	 *
-	 * @param startDateTime
-	 *            the start date time
-	 * @param delayMillis
-	 *            the delay millis
-	 * @param runnable
-	 *            the runnable
-	 * @return the scheduled future
-	 */
-	public static ScheduledFuture<?> runWithScheduleWithFixedDelayOnStartTime(
-			ZonedDateTime startDateTime, long delayMillis, Runnable runnable) {
-		return runWithScheduleWithFixedDelay(
-				calInitialDelayMillis(startDateTime), delayMillis,
-				"runWithScheduleWithFixedDelayOnStartTime", runnable);
-	}
+    /**
+     * Run with schedule at fixed rate.
+     *
+     * @param initialDelayMillis the initial delay millis
+     * @param periodMillis       the period millis
+     * @param runnable           the runnable
+     * @return the scheduled future
+     */
+    public static ScheduledFuture<?> runWithScheduleAtFixedRate(
+            long initialDelayMillis, long periodMillis, Runnable runnable) {
+        return runWithScheduleAtFixedRate(initialDelayMillis, periodMillis,
+                "runWithScheduleAtFixedRate", runnable);
+    }
 
-	/**
-	 * Run async.
-	 *
-	 * @param runnable
-	 *            the runnable
-	 * @return the completable future
-	 */
-	public static CompletableFuture<Void> runAsync(Runnable runnable) {
-		return runAsync(runnable, getCommonPool());
-	}
+    /**
+     * Run with schedule at fixed rate on start time.
+     *
+     * @param startDateTime the start date time
+     * @param periodMillis  the period millis
+     * @param runnable      the runnable
+     * @return the scheduled future
+     */
+    public static ScheduledFuture<?> runWithScheduleAtFixedRateOnStartTime(
+            ZonedDateTime startDateTime, long periodMillis, Runnable runnable) {
+        return runWithScheduleAtFixedRate(calInitialDelayMillis(startDateTime),
+                periodMillis, "runWithScheduleAtFixedRateOnStartTime",
+                runnable);
+    }
 
-	/**
-	 * Run async.
-	 *
-	 * @param runnable
-	 *            the runnable
-	 * @param executor
-	 *            the executor
-	 * @return the completable future
-	 */
-	public static CompletableFuture<Void> runAsync(Runnable runnable,
-			Executor executor) {
-		return runAsync(runnable,
-				handleExceptionally("runAsync", runnable, executor), executor);
-	}
+    private static ScheduledFuture<?> runWithScheduleWithFixedDelay(
+            long initialDelayMillis, long delayMillis, String name,
+            Runnable runnable) {
+        return newSingleScheduledThreadPool().scheduleWithFixedDelay(
+                () -> runAsync(buildRunnableWithLogging(name, runnable,
+                        initialDelayMillis, delayMillis)).join(),
+                initialDelayMillis, delayMillis, TimeUnit.MILLISECONDS);
+    }
 
-	private static Consumer<Throwable> handleExceptionally(String methodName,
-			Object... objects) {
-		return throwable -> {
-			throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
-					throwable, methodName, objects);
-		};
-	}
+    /**
+     * Run with schedule with fixed delay.
+     *
+     * @param initialDelayMillis the initial delay millis
+     * @param delayMillis        the delay millis
+     * @param runnable           the runnable
+     * @return the scheduled future
+     */
+    public static ScheduledFuture<?> runWithScheduleWithFixedDelay(
+            long initialDelayMillis, long delayMillis, Runnable runnable) {
+        return runWithScheduleWithFixedDelay(initialDelayMillis, delayMillis,
+                "runWithScheduleWithFixedDelay", runnable);
+    }
 
-	/**
-	 * Run async.
-	 *
-	 * @param runnable
-	 *            the runnable
-	 * @param failureConsumer
-	 *            the failure consumer
-	 * @param executor
-	 *            the executor
-	 * @return the completable future
-	 */
-	public static CompletableFuture<Void> runAsync(Runnable runnable,
-			Consumer<Throwable> failureConsumer, Executor executor) {
-		return CompletableFuture.runAsync(runnable, executor)
-				.exceptionally(e -> {
-					ifNotNull(failureConsumer, c -> c.accept(e));
-					return (Void) new Object();
-				});
-	}
+    private static long calInitialDelayMillis(ZonedDateTime startDateTime) {
+        return startDateTime.toInstant().toEpochMilli()
+                - System.currentTimeMillis();
+    }
 
-	/**
-	 * Supply async.
-	 *
-	 * @param <U>
-	 *            the generic type
-	 * @param supplier
-	 *            the supplier
-	 * @return the completable future
-	 */
-	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier) {
-		return CompletableFuture
-				.supplyAsync(handleSupplierWithException(supplier));
-	}
+    /**
+     * Run with schedule with fixed delay on start time.
+     *
+     * @param startDateTime the start date time
+     * @param delayMillis   the delay millis
+     * @param runnable      the runnable
+     * @return the scheduled future
+     */
+    public static ScheduledFuture<?> runWithScheduleWithFixedDelayOnStartTime(
+            ZonedDateTime startDateTime, long delayMillis, Runnable runnable) {
+        return runWithScheduleWithFixedDelay(
+                calInitialDelayMillis(startDateTime), delayMillis,
+                "runWithScheduleWithFixedDelayOnStartTime", runnable);
+    }
 
-	private static <U> Supplier<U>
-			handleSupplierWithException(Supplier<U> supplier) {
-		return () -> {
-			try {
-				return supplier.get();
-			} catch (Exception e) {
-				return handleExceptionAndReturnNull(log, e, "supplyAsync",
-						supplier);
-			}
-		};
-	}
+    /**
+     * Run async.
+     *
+     * @param runnable the runnable
+     * @return the completable future
+     */
+    public static CompletableFuture<Void> runAsync(Runnable runnable) {
+        return runAsync(runnable, getCommonPool());
+    }
 
-	/**
-	 * Supply async.
-	 *
-	 * @param <U>
-	 *            the generic type
-	 * @param supplier
-	 *            the supplier
-	 * @param executor
-	 *            the executor
-	 * @return the completable future
-	 */
-	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
-			Executor executor) {
-		return CompletableFuture
-				.supplyAsync(handleSupplierWithException(supplier), executor);
-	}
+    /**
+     * Run async.
+     *
+     * @param runnable the runnable
+     * @param executor the executor
+     * @return the completable future
+     */
+    public static CompletableFuture<Void> runAsync(Runnable runnable,
+            Executor executor) {
+        return runAsync(runnable,
+                handleExceptionally("runAsync", runnable, executor), executor);
+    }
 
-	/**
-	 * Supply async.
-	 *
-	 * @param <U>
-	 *            the generic type
-	 * @param supplier
-	 *            the supplier
-	 * @param failureFunction
-	 *            the failure function
-	 * @return the completable future
-	 */
-	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
-			Function<Throwable, U> failureFunction) {
-		return CompletableFuture.supplyAsync(supplier)
-				.exceptionally(throwable -> handleExceptionAndReturn(log,
-						throwable, "supplyAsync",
-						() -> failureFunction.apply(throwable), supplier));
-	}
+    private static Consumer<Throwable> handleExceptionally(String methodName,
+            Object... objects) {
+        return throwable -> {
+            throw JMExceptionManager.handleExceptionAndReturnRuntimeEx(log,
+                    throwable, methodName, objects);
+        };
+    }
 
-	/**
-	 * Supply async.
-	 *
-	 * @param <U>
-	 *            the generic type
-	 * @param supplier
-	 *            the supplier
-	 * @param failureFunction
-	 *            the failure function
-	 * @param executor
-	 *            the executor
-	 * @return the completable future
-	 */
-	public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
-			Function<Throwable, U> failureFunction, Executor executor) {
-		return CompletableFuture.supplyAsync(supplier, executor)
-				.exceptionally(throwable -> handleExceptionAndReturn(log,
-						throwable, "supplyAsync",
-						() -> failureFunction.apply(throwable), supplier,
-						executor));
-	}
+    /**
+     * Run async.
+     *
+     * @param runnable        the runnable
+     * @param failureConsumer the failure consumer
+     * @param executor        the executor
+     * @return the completable future
+     */
+    public static CompletableFuture<Void> runAsync(Runnable runnable,
+            Consumer<Throwable> failureConsumer, Executor executor) {
+        return CompletableFuture.runAsync(runnable, executor)
+                .exceptionally(e -> {
+                    ifNotNull(failureConsumer, c -> c.accept(e));
+                    return (Void) new Object();
+                });
+    }
 
+    /**
+     * Supply async.
+     *
+     * @param <U>      the generic type
+     * @param supplier the supplier
+     * @return the completable future
+     */
+    public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier) {
+        return CompletableFuture
+                .supplyAsync(handleSupplierWithException(supplier));
+    }
+
+    private static <U> Supplier<U>
+    handleSupplierWithException(Supplier<U> supplier) {
+        return () -> {
+            try {
+                return supplier.get();
+            } catch (Exception e) {
+                return handleExceptionAndReturnNull(log, e, "supplyAsync",
+                        supplier);
+            }
+        };
+    }
+
+    /**
+     * Supply async.
+     *
+     * @param <U>      the generic type
+     * @param supplier the supplier
+     * @param executor the executor
+     * @return the completable future
+     */
+    public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
+            Executor executor) {
+        return CompletableFuture
+                .supplyAsync(handleSupplierWithException(supplier), executor);
+    }
+
+    /**
+     * Supply async.
+     *
+     * @param <U>             the generic type
+     * @param supplier        the supplier
+     * @param failureFunction the failure function
+     * @return the completable future
+     */
+    public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
+            Function<Throwable, U> failureFunction) {
+        return CompletableFuture.supplyAsync(supplier)
+                .exceptionally(throwable -> handleExceptionAndReturn(log,
+                        throwable, "supplyAsync",
+                        () -> failureFunction.apply(throwable), supplier));
+    }
+
+    /**
+     * Supply async.
+     *
+     * @param <U>             the generic type
+     * @param supplier        the supplier
+     * @param failureFunction the failure function
+     * @param executor        the executor
+     * @return the completable future
+     */
+    public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier,
+            Function<Throwable, U> failureFunction, Executor executor) {
+        return CompletableFuture.supplyAsync(supplier, executor)
+                .exceptionally(throwable -> handleExceptionAndReturn(log,
+                        throwable, "supplyAsync",
+                        () -> failureFunction.apply(throwable), supplier,
+                        executor));
+    }
+
+    public static ExecutorService startWithSingleExecutorService(String message,
+            Runnable runnable) {
+        return startWithExecutorService(newSingleThreadPool(), message,
+                runnable);
+    }
+
+    public static ExecutorService startWithExecutorService(String message,
+            Runnable runnable) {
+        return startWithExecutorService(newThreadPoolWithAvailableProcessors(),
+                message, runnable);
+    }
+
+    public static ExecutorService startWithExecutorService(
+            ExecutorService executorService, String message,
+            Runnable runnable) {
+        runAsync(() -> {
+            JMLog.info(log, "startWithExecutorService", message);
+            runnable.run();
+        }, executorService);
+        return executorService;
+    }
 }
