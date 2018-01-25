@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -68,7 +69,14 @@ public class JMInputStream {
      */
     public static List<String> readLines(InputStream inputStream,
             String encoding) {
-        return readLines(inputStream, encoding, new ArrayList<>());
+        List<String> stringList = new ArrayList<>();
+        try {
+            consumeInputStream(inputStream, encoding, stringList::add);
+        } catch (Exception e) {
+            return JMExceptionManager.handleExceptionAndReturn(log, e,
+                    "readLines", Collections::emptyList, inputStream, encoding);
+        }
+        return stringList;
     }
 
     /**
@@ -78,20 +86,9 @@ public class JMInputStream {
      * @return the list
      */
     public static List<String> readLines(InputStream inputStream) {
-        return readLines(inputStream, UTF_8, new ArrayList<>());
+        return readLines(inputStream, UTF_8);
     }
 
-    private static List<String> readLines(InputStream inputStream,
-            String encoding, List<String> stringList) {
-        try {
-            consumeInputStream(inputStream, encoding, stringList::add);
-            return stringList;
-        } catch (Exception e) {
-            return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-                    "readLines", inputStream, encoding);
-        }
-
-    }
 
     /**
      * Consume input stream.
@@ -104,11 +101,12 @@ public class JMInputStream {
             String encoding, Consumer<String> consumer) {
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(inputStream, encoding))) {
-            for (String line = br.readLine(); line != null; line =
-                    br.readLine())
+            for (String line = br.readLine(); line != null;
+                    line = br.readLine())
                 consumer.accept(line);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            JMExceptionManager.handleExceptionAndThrowRuntimeEx(log, e,
+                    "consumeInputStream", inputStream, encoding, consumer);
         }
     }
 }
