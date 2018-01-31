@@ -10,6 +10,7 @@ import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 import static kr.jm.utils.helper.JMStream.buildTokenStream;
 import static kr.jm.utils.helper.JMString.LINE_SEPARATOR;
 
@@ -197,4 +198,21 @@ public class JMCollections {
         return collection.stream().map(transformFunction).collect(toList());
     }
 
+    public static <T> List<T> newSynchronizedList() {
+        return Collections.synchronizedList(new ArrayList<>());
+    }
+
+    public static <T> Set<T> newSet(Collection<T> collection) {
+        return new HashSet<>(collection);
+    }
+
+    public static <T> List<T> newList(Collection<T> collection) {
+        return new ArrayList<>(collection);
+    }
+
+    public static <K, V> Map<K, V> newMap(
+            Collection<Map.Entry<K, V>> collection) {
+        return collection.stream()
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
 }
