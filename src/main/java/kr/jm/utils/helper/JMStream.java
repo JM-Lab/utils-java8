@@ -40,24 +40,10 @@ public class JMStream {
                 n -> n <= endInclusive);
     }
 
-    private static IntStream numberRange(int start, int end, int interval,
+    public static IntStream numberRange(int start, int end, int interval,
             IntPredicate predicate) {
-        int maxSize = (end - start) / interval + 1;
-        return IntStream.iterate(start, n -> n + interval).limit(maxSize)
-                .filter(predicate);
-    }
-
-    /**
-     * Number range with count.
-     *
-     * @param start    the start
-     * @param interval the interval
-     * @param count    the count
-     * @return the double stream
-     */
-    public static DoubleStream numberRangeWithCount(float start, float interval,
-            int count) {
-        return DoubleStream.iterate(start, n -> n + interval).limit(count);
+        return numberRangeWithCount(start, interval,
+                (end - start) / interval + 1).filter(predicate);
     }
 
     /**
@@ -68,10 +54,15 @@ public class JMStream {
      * @param count    the count
      * @return the long stream
      */
-    public static LongStream numberRangeWithCount(int start, int interval,
+    public static IntStream numberRangeWithCount(int start, int interval,
             int count) {
-        return LongStream.iterate(start, n -> n + interval).limit(count);
+        return IntStream.iterate(start, n -> n + interval).limit(count);
     }
+
+    public static IntStream increaseRange(int size) {
+        return IntStream.range(0, size);
+    }
+
 
     /**
      * Builds the int stream.
@@ -129,7 +120,8 @@ public class JMStream {
      */
     @SafeVarargs
     public static <T> Stream<T> buildStream(T... array) {
-        return Arrays.stream(array);
+        return JMOptional.getOptional(array).map(Arrays::stream)
+                .orElseGet(Stream::empty);
     }
 
     /**
