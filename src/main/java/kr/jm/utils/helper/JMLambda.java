@@ -18,7 +18,7 @@ public class JMLambda {
      *
      * @param <T>        the generic type
      * @param collection the collection
-     * @param predicate  the predicate
+     * @param predicate  the predicates
      * @return the map
      */
     public static <T> Map<Boolean, List<T>>
@@ -31,6 +31,7 @@ public class JMLambda {
      *
      * @param <T>        the generic type
      * @param <R>        the generic type
+     * @param stream     the stream
      * @param classifier the classifier
      * @return the map
      */
@@ -39,30 +40,79 @@ public class JMLambda {
         return stream.collect(groupingBy(classifier));
     }
 
+    /**
+     * Map by map.
+     *
+     * @param <T>        the type parameter
+     * @param <R>        the type parameter
+     * @param stream     the stream
+     * @param classifier the classifier
+     * @return the map
+     */
     public static <T, R> Map<R, T> mapBy(Stream<T> stream,
             Function<T, R> classifier) {
         return stream
                 .collect(toMap(classifier, identity(), (o, o2) -> o2));
     }
 
+    /**
+     * Count by map.
+     *
+     * @param <T>    the type parameter
+     * @param stream the stream
+     * @return the map
+     */
     public static <T> Map<T, Long> countBy(Stream<T> stream) {
         return stream.collect(groupingBy(identity(), counting()));
     }
 
+    /**
+     * Group by map.
+     *
+     * @param <T>        the type parameter
+     * @param <R>        the type parameter
+     * @param collection the collection
+     * @param classifier the classifier
+     * @return the map
+     */
     public static <T, R> Map<R, List<T>> groupBy(Collection<T> collection,
             Function<T, R> classifier) {
         return groupBy(collection.stream(), classifier);
     }
 
+    /**
+     * Map by map.
+     *
+     * @param <T>        the type parameter
+     * @param <R>        the type parameter
+     * @param collection the collection
+     * @param classifier the classifier
+     * @return the map
+     */
     public static <T, R> Map<R, T> mapBy(Collection<T> collection,
             Function<T, R> classifier) {
         return mapBy(collection.stream(), classifier);
     }
 
+    /**
+     * Count by map.
+     *
+     * @param <T>        the type parameter
+     * @param collection the collection
+     * @return the map
+     */
     public static <T> Map<T, Long> countBy(Collection<T> collection) {
         return countBy(collection.stream());
     }
 
+    /**
+     * Merge map.
+     *
+     * @param <T>    the type parameter
+     * @param <R>    the type parameter
+     * @param stream the stream
+     * @return the map
+     */
     public static <T, R> Map<R, T> merge(Stream<Map<R, T>> stream) {
         return stream.collect(HashMap::new, Map::putAll, Map::putAll);
     }
@@ -388,13 +438,30 @@ public class JMLambda {
         return target;
     }
 
+    /**
+     * Run and return r.
+     *
+     * @param <R>            the type parameter
+     * @param runnable       the runnable
+     * @param returnSupplier the return supplier
+     * @return the r
+     */
     public static <R> R runAndReturn(Runnable runnable,
             Supplier<R> returnSupplier) {
         runnable.run();
         return returnSupplier.get();
     }
 
+    /**
+     * Run and return r.
+     *
+     * @param <R>          the type parameter
+     * @param runnable     the runnable
+     * @param returnObject the return object
+     * @return the r
+     */
     public static <R> R runAndReturn(Runnable runnable, R returnObject) {
         return runAndReturn(runnable, () -> returnObject);
     }
+
 }

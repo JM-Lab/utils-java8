@@ -15,6 +15,10 @@ public class JMResources {
 
     private static final org.slf4j.Logger log =
             org.slf4j.LoggerFactory.getLogger(JMResources.class);
+    /**
+     * The constant UTF_8_CharsetString.
+     */
+    public static final String UTF_8_CharsetString = "UTF-8";
 
     /**
      * Sets the system property if is null.
@@ -145,10 +149,8 @@ public class JMResources {
     public static boolean saveProperties(Properties inProperties, File saveFile,
             String comment) {
         try {
-            if (!saveFile.exists()) {
-                saveFile.getParentFile().mkdirs();
+            if (!saveFile.exists() && saveFile.getParentFile().mkdirs())
                 saveFile.createNewFile();
-            }
             BufferedWriter writer =
                     new BufferedWriter(new FileWriter(saveFile));
             inProperties.store(writer, comment);
@@ -176,12 +178,13 @@ public class JMResources {
      * Read string.
      *
      * @param resourceClasspath the resource classpath
-     * @param encoding          the encoding
+     * @param charsetName       the charsetName
      * @return the string
      */
-    public static String readString(String resourceClasspath, String encoding) {
+    public static String readString(String resourceClasspath,
+            String charsetName) {
         return JMInputStream.toString(getResourceInputStream(resourceClasspath),
-                encoding);
+                charsetName);
     }
 
     /**
@@ -199,13 +202,14 @@ public class JMResources {
      * Read lines.
      *
      * @param resourceClasspath the resource classpath
-     * @param encoding          the encoding
+     * @param charsetName       the charsetName
      * @return the list
      */
     public static List<String> readLines(String resourceClasspath,
-            String encoding) {
+            String charsetName) {
         return JMInputStream
-                .readLines(getResourceInputStream(resourceClasspath), encoding);
+                .readLines(getResourceInputStream(resourceClasspath),
+                        charsetName);
     }
 
     /**
@@ -214,29 +218,24 @@ public class JMResources {
      * @param classpathOrFilePath the classpath or file path
      * @return the string from classpath or file path
      */
-    public static String
-    getStringFromClasspathOrFilePath(String classpathOrFilePath) {
-        InputStream resourceInputStream =
-                getResourceInputStream(classpathOrFilePath);
-        return resourceInputStream != null
-                ? JMInputStream.toString(resourceInputStream)
-                : JMFile.readString(classpathOrFilePath);
+    public static String getStringWithClasspathOrFilePath(
+            String classpathOrFilePath) {
+        return getStringWithClasspathOrFilePath(classpathOrFilePath,
+                UTF_8_CharsetString);
     }
 
     /**
      * Gets the string from classpath or file path.
      *
      * @param classpathOrFilePath the classpath or file path
-     * @param encoding            the encoding
+     * @param charsetName         the charsetName
      * @return the string from classpath or file path
      */
-    public static String getStringFromClasspathOrFilePath(
-            String classpathOrFilePath, String encoding) {
-        InputStream resourceInputStream =
-                getResourceInputStream(classpathOrFilePath);
-        return resourceInputStream != null
-                ? JMInputStream.toString(resourceInputStream, encoding)
-                : JMFile.readString(classpathOrFilePath, encoding);
+    public static String getStringWithClasspathOrFilePath(
+            String classpathOrFilePath, String charsetName) {
+        return getStringAsOptWithClasspath(classpathOrFilePath, charsetName)
+                .orElseGet(() -> getStringAsOptWithFilePath
+                        (classpathOrFilePath, charsetName).orElse(null));
     }
 
     /**
@@ -245,13 +244,101 @@ public class JMResources {
      * @param classpathOrFilePath the classpath or file path
      * @return the list
      */
-    public static List<String>
-    readLinesFromClasspathOrFilePath(String classpathOrFilePath) {
-        InputStream resourceInputStream =
-                getResourceInputStream(classpathOrFilePath);
-        return resourceInputStream != null
-                ? JMInputStream.readLines(resourceInputStream)
-                : JMFile.readLines(classpathOrFilePath);
+    public static List<String> readLinesWithClasspathOrFilePath(
+            String classpathOrFilePath) {
+        return getStringListAsOptWithClasspath(classpathOrFilePath)
+                .filter(JMPredicate.getGreaterSize(0))
+                .orElseGet(() -> JMFiles.readLines(classpathOrFilePath));
+    }
+
+    /**
+     * Gets string list as opt with classpath.
+     *
+     * @param classpathOrFilePath the classpath or file path
+     * @return the string list as opt with classpath
+     */
+    public static Optional<List<String>> getStringListAsOptWithClasspath(
+            String classpathOrFilePath) {
+        return getResourceInputStreamAsOpt(classpathOrFilePath)
+                .map(JMInputStream::readLines);
+    }
+
+    /**
+     * Read lines with file path or classpath list.
+     *
+     * @param filePathOrClasspath the file path or classpath
+     * @return the list
+     */
+    public static List<String> readLinesWithFilePathOrClasspath(
+            String filePathOrClasspath) {
+        return JMOptional.getOptional(JMFiles.readLines(filePathOrClasspath))
+                .orElseGet(() -> getStringListAsOptWithClasspath(
+                        filePathOrClasspath).orElseGet(Collections::emptyList));
+    }
+
+    /**
+     * Gets string with file path or classpath.
+     *
+     * @param filePathOrClasspath the file path or classpath
+     * @param charsetName         the charset name
+     * @return the string with file path or classpath
+     */
+    public static String getStringWithFilePathOrClasspath(
+            String filePathOrClasspath, String charsetName) {
+        return getStringAsOptWithFilePath(filePathOrClasspath, charsetName)
+                .orElseGet(
+                        () -> getStringAsOptWithClasspath(filePathOrClasspath,
+                                charsetName).orElse(null));
+    }
+
+    /**
+     * Gets string with file path or classpath.
+     *
+     * @param filePathOrClasspath the file path or classpath
+     * @return the string with file path or classpath
+     */
+    public static String getStringWithFilePathOrClasspath(
+            String filePathOrClasspath) {
+        return getStringWithFilePathOrClasspath(filePathOrClasspath,
+                UTF_8_CharsetString);
+    }
+
+    /**
+     * Gets string as opt with file path.
+     *
+     * @param filePath    the file path
+     * @param charsetName the charset name
+     * @return the string as opt with file path
+     */
+    public static Optional<String> getStringAsOptWithFilePath(
+            String filePath, String charsetName) {
+        return JMOptional
+                .getOptional(JMFiles.readString(filePath, charsetName));
+    }
+
+    /**
+     * Gets string as opt with classpath.
+     *
+     * @param classpath   the classpath
+     * @param charsetName the charset name
+     * @return the string as opt with classpath
+     */
+    public static Optional<String> getStringAsOptWithClasspath(
+            String classpath, String charsetName) {
+        return getResourceInputStreamAsOpt(classpath)
+                .map(resourceInputStream -> JMInputStream
+                        .toString(resourceInputStream, charsetName));
+    }
+
+    /**
+     * Gets resource input stream as opt.
+     *
+     * @param classpath the classpath
+     * @return the resource input stream as opt
+     */
+    public static Optional<InputStream> getResourceInputStreamAsOpt(
+            String classpath) {
+        return Optional.ofNullable(getResourceInputStream(classpath));
     }
 
     /**
@@ -276,5 +363,4 @@ public class JMResources {
         Locale.setDefault(targetLocale);
         return ResourceBundle.getBundle(baseName);
     }
-
 }

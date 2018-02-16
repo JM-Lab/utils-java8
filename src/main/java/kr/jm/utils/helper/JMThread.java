@@ -79,6 +79,11 @@ public class JMThread {
         return ((ThreadPoolExecutor) executorService).getPoolSize();
     }
 
+    /**
+     * Shutdown and wait to be terminated.
+     *
+     * @param executorService the executor service
+     */
     public static void shutdownAndWaitToBeTerminated(ExecutorService
             executorService) {
         if (executorService.isTerminated())
@@ -92,6 +97,12 @@ public class JMThread {
                 startTimeMillis - System.currentTimeMillis());
     }
 
+    /**
+     * Shutdown now and wait to be terminated list.
+     *
+     * @param executorService the executor service
+     * @return the list
+     */
     public static List<Runnable> shutdownNowAndWaitToBeTerminated(
             ExecutorService executorService) {
         if (!executorService.isTerminated())
@@ -153,6 +164,12 @@ public class JMThread {
         }
     }
 
+    /**
+     * Suspend.
+     *
+     * @param intervalAsMillis         the interval as millis
+     * @param suspendConditionSupplier the suspend condition supplier
+     */
     public static void suspend(long intervalAsMillis,
             Supplier<Boolean> suspendConditionSupplier) {
         if (!suspendConditionSupplier.get())
@@ -165,6 +182,14 @@ public class JMThread {
                 System.currentTimeMillis() - startTimeMillis);
     }
 
+    /**
+     * Suspend when null r.
+     *
+     * @param <R>              the type parameter
+     * @param intervalAsMillis the interval as millis
+     * @param objectSupplier   the object supplier
+     * @return the r
+     */
     public static <R> R suspendWhenNull(long intervalAsMillis,
             Supplier<R> objectSupplier) {
         R object = objectSupplier.get();
@@ -508,18 +533,40 @@ public class JMThread {
                         executor));
     }
 
+    /**
+     * Start with single executor service executor service.
+     *
+     * @param message  the message
+     * @param runnable the runnable
+     * @return the executor service
+     */
     public static ExecutorService startWithSingleExecutorService(String message,
             Runnable runnable) {
         return startWithExecutorService(newSingleThreadPool(), message,
                 runnable);
     }
 
+    /**
+     * Start with executor service executor service.
+     *
+     * @param message  the message
+     * @param runnable the runnable
+     * @return the executor service
+     */
     public static ExecutorService startWithExecutorService(String message,
             Runnable runnable) {
         return startWithExecutorService(newThreadPoolWithAvailableProcessors(),
                 message, runnable);
     }
 
+    /**
+     * Start with executor service executor service.
+     *
+     * @param executorService the executor service
+     * @param message         the message
+     * @param runnable        the runnable
+     * @return the executor service
+     */
     public static ExecutorService startWithExecutorService(
             ExecutorService executorService, String message,
             Runnable runnable) {

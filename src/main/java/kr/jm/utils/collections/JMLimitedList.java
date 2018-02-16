@@ -182,7 +182,7 @@ public class JMLimitedList<E> implements Collection<E> {
     /*
      * (non-Javadoc)
      *
-     * @see java.util.Collection#toArray()
+     * @see java.util.Collection#buildStringArray()
      */
     @Override
     public Object[] toArray() {
@@ -192,7 +192,7 @@ public class JMLimitedList<E> implements Collection<E> {
     /*
      * (non-Javadoc)
      *
-     * @see java.util.Collection#toArray(java.lang.Object[])
+     * @see java.util.Collection#buildStringArray(java.lang.Object[])
      */
     @Override
     public <T> T[] toArray(T[] a) {

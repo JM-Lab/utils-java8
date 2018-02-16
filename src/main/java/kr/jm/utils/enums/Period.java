@@ -6,7 +6,22 @@ import java.util.Optional;
  * The Enum Period.
  */
 public enum Period {
-    WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY;
+    /**
+     * Weekly period.
+     */
+    WEEKLY, /**
+     * Daily period.
+     */
+    DAILY, /**
+     * Hourly period.
+     */
+    HOURLY, /**
+     * Minutely period.
+     */
+    MINUTELY, /**
+     * Secondly period.
+     */
+    SECONDLY;
 
     private DateType getDateType() {
         switch (this) {

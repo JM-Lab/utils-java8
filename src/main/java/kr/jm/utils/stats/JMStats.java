@@ -324,7 +324,7 @@ public class JMStats {
      * @param numberList the number list
      * @return the double
      */
-    // Sample Standard Deviation
+// Sample Standard Deviation
     public static double
     calStandardDeviation(List<? extends Number> numberList) {
         return Math.sqrt(calVariance(numberList));
@@ -347,7 +347,7 @@ public class JMStats {
      * @param numberList the number list
      * @return the double
      */
-    // Sample Variance
+// Sample Variance
     public static double calVariance(List<? extends Number> numberList) {
         return calVariance(numberList, numberList.size() - 1);
     }
@@ -389,6 +389,12 @@ public class JMStats {
                 numberList.stream().mapToDouble(Number::doubleValue));
     }
 
+    /**
+     * Cal sum of squares double.
+     *
+     * @param doubleStream the double stream
+     * @return the double
+     */
     public static double calSumOfSquares(DoubleStream doubleStream) {
         return doubleStream.map(d -> d * d).sum();
     }
@@ -404,7 +410,7 @@ public class JMStats {
      * @param variance2 the variance 2
      * @return the double
      */
-    // https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#cite_note-:0-10
+// https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#cite_note-:0-10
     public static double calPairwiseVariance(long count1, double sum1,
             double variance1, long count2, double sum2, double variance2) {
         return (variance1 * (count1 - 1) + variance2 * (count2 - 1)

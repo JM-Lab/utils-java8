@@ -22,6 +22,9 @@ import static kr.jm.utils.helper.JMPredicate.negate;
  */
 public class JMPathOperation {
 
+    /**
+     * The Log.
+     */
     static final org.slf4j.Logger log =
             org.slf4j.LoggerFactory.getLogger(JMPathOperation.class);
 
@@ -266,7 +269,7 @@ public class JMPathOperation {
      */
     public static Optional<Path> createTempFilePathAsOpt(Path path) {
         debug(log, "createTempFilePathAsOpt", path);
-        String[] prefixSuffix = JMFile.getPrefixSuffix(path.toFile());
+        String[] prefixSuffix = JMFiles.getPrefixSuffix(path.toFile());
         try {
             return Optional
                     .of(Files.createTempFile(prefixSuffix[0], prefixSuffix[1]))
@@ -350,4 +353,15 @@ public class JMPathOperation {
         }
     }
 
+    /**
+     * Create file with parent directories.
+     *
+     * @param path  the path
+     * @param attrs the attrs
+     */
+    public static void createFileWithParentDirectories(Path path,
+            FileAttribute<?>... attrs) {
+        createDirectories(path.getParent(), attrs);
+        createFile(path, attrs);
+    }
 }

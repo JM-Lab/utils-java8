@@ -323,7 +323,7 @@ public class JMTimeUtilTest {
     }
 
     /**
-     * Test get zoned data time.
+     * Test get zoned metric time.
      *
      * @throws Exception the exception
      */
@@ -353,7 +353,7 @@ public class JMTimeUtilTest {
     }
 
     /**
-     * Test get offset data time.
+     * Test get offset metric time.
      *
      * @throws Exception the exception
      */

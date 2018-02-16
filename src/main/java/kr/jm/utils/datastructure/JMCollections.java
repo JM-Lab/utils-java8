@@ -20,7 +20,7 @@ import static kr.jm.utils.helper.JMString.LINE_SEPARATOR;
 public class JMCollections {
 
     /**
-     * If not null or empty consume.
+     * If not null or getEmptyStringArray consume.
      *
      * @param <T>        the generic type
      * @param <C>        the generic type
@@ -33,20 +33,20 @@ public class JMCollections {
     }
 
     /**
-     * Checks if is not null or empty.
+     * Checks if is not null or getEmptyStringArray.
      *
      * @param collection the collection
-     * @return true, if is not null or empty
+     * @return true, if is not null or getEmptyStringArray
      */
     public static boolean isNotNullOrEmpty(Collection<?> collection) {
         return !isNullOrEmpty(collection);
     }
 
     /**
-     * Checks if is null or empty.
+     * Checks if is null or getEmptyStringArray.
      *
      * @param collection the collection
-     * @return true, if is null or empty
+     * @return true, if is null or getEmptyStringArray
      */
     public static boolean isNullOrEmpty(Collection<?> collection) {
         return collection == null || collection.size() == 0;
@@ -114,6 +114,14 @@ public class JMCollections {
                 .collect(toList());
     }
 
+    /**
+     * Build merged list list.
+     *
+     * @param <E>         the type parameter
+     * @param collection1 the collection 1
+     * @param collection2 the collection 2
+     * @return the list
+     */
     public static <E> List<E> buildMergedList(
             Collection<E> collection1, Collection<E> collection2) {
         List<E> mergedList = new ArrayList<>(collection1);
@@ -198,21 +206,62 @@ public class JMCollections {
         return collection.stream().map(transformFunction).collect(toList());
     }
 
+    /**
+     * New synchronized list list.
+     *
+     * @param <T> the type parameter
+     * @return the list
+     */
     public static <T> List<T> newSynchronizedList() {
         return Collections.synchronizedList(new ArrayList<>());
     }
 
+    /**
+     * New set set.
+     *
+     * @param <T>        the type parameter
+     * @param collection the collection
+     * @return the set
+     */
     public static <T> Set<T> newSet(Collection<T> collection) {
         return new HashSet<>(collection);
     }
 
+    /**
+     * New list list.
+     *
+     * @param <T>        the type parameter
+     * @param collection the collection
+     * @return the list
+     */
     public static <T> List<T> newList(Collection<T> collection) {
         return new ArrayList<>(collection);
     }
 
+    /**
+     * New map map.
+     *
+     * @param <K>        the type parameter
+     * @param <V>        the type parameter
+     * @param collection the collection
+     * @return the map
+     */
     public static <K, V> Map<K, V> newMap(
             Collection<Map.Entry<K, V>> collection) {
         return collection.stream()
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    /**
+     * New map map.
+     *
+     * @param <K>     the type parameter
+     * @param <V>     the type parameter
+     * @param entries the entries
+     * @return the map
+     */
+    @SafeVarargs
+    public static <K, V> Map<K, V> newMap(Map.Entry<K, V>... entries) {
+        return newMap(Arrays.asList(entries));
     }
 }

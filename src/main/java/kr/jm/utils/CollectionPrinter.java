@@ -10,14 +10,13 @@ import java.util.Map.Entry;
  */
 public class CollectionPrinter {
 
-	/**
-	 * List to JSON string.
-	 *
-	 * @param list
-	 *            the list
-	 * @return the string
-	 */
-	static public String listToJSONString(List<?> list) {
+    /**
+     * List to JSON string.
+     *
+     * @param list the list
+     * @return the string
+     */
+    static public String listToJSONString(List<?> list) {
 		if (list == null || list.size() == 0) {
 			return "[]";
 		}
@@ -44,14 +43,13 @@ public class CollectionPrinter {
 		return sb;
 	}
 
-	/**
-	 * Map to JSON string.
-	 *
-	 * @param map
-	 *            the map
-	 * @return the string
-	 */
-	public static String mapToJSONString(Map<?, ?> map) {
+    /**
+     * Map to JSON string.
+     *
+     * @param map the map
+     * @return the string
+     */
+    public static String mapToJSONString(Map<?, ?> map) {
 		if (map == null || map.size() == 0) {
 			return "{}";
 		}

@@ -35,22 +35,22 @@ public class JMInputStream {
      * To string.
      *
      * @param inputStream the input stream
-     * @param encoding    the encoding
+     * @param charsetName the charsetName
      * @return the string
      */
-    public static String toString(InputStream inputStream, String encoding) {
-        return toString(inputStream, encoding, new StringBuilder());
+    public static String toString(InputStream inputStream, String charsetName) {
+        return toString(inputStream, charsetName, new StringBuilder());
     }
 
-    private static String toString(InputStream inputStream, String encoding,
+    private static String toString(InputStream inputStream, String charsetName,
             StringBuilder stringBuilder) {
         try {
-            consumeInputStream(inputStream, encoding,
+            consumeInputStream(inputStream, charsetName,
                     line -> appendLine(stringBuilder, line));
             return stringBuilder.toString();
         } catch (Exception e) {
             return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-                    "toString", inputStream, encoding);
+                    "toString", inputStream, charsetName);
         }
 
     }
@@ -64,17 +64,17 @@ public class JMInputStream {
      * Read lines.
      *
      * @param inputStream the input stream
-     * @param encoding    the encoding
+     * @param charsetName the charsetName
      * @return the list
      */
     public static List<String> readLines(InputStream inputStream,
-            String encoding) {
+            String charsetName) {
         List<String> stringList = new ArrayList<>();
         try {
-            consumeInputStream(inputStream, encoding, stringList::add);
+            consumeInputStream(inputStream, charsetName, stringList::add);
         } catch (Exception e) {
             return JMExceptionManager.handleExceptionAndReturn(log, e,
-                    "readLines", Collections::emptyList, inputStream, encoding);
+                    "readLines", Collections::emptyList, inputStream, charsetName);
         }
         return stringList;
     }
@@ -94,19 +94,19 @@ public class JMInputStream {
      * Consume input stream.
      *
      * @param inputStream the input stream
-     * @param encoding    the encoding
+     * @param charsetName the charsetName
      * @param consumer    the consumer
      */
     public static void consumeInputStream(InputStream inputStream,
-            String encoding, Consumer<String> consumer) {
+            String charsetName, Consumer<String> consumer) {
         try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(inputStream, encoding))) {
+                new InputStreamReader(inputStream, charsetName))) {
             for (String line = br.readLine(); line != null;
                     line = br.readLine())
                 consumer.accept(line);
         } catch (IOException e) {
             JMExceptionManager.handleExceptionAndThrowRuntimeEx(log, e,
-                    "consumeInputStream", inputStream, encoding, consumer);
+                    "consumeInputStream", inputStream, charsetName, consumer);
         }
     }
 }

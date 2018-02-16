@@ -1,6 +1,7 @@
-package kr.jm.utils.helper;
+package kr.jm.utils.stats;
 
 import kr.jm.utils.datastructure.JMCollections;
+import kr.jm.utils.helper.JMStream;
 import org.junit.Test;
 
 import java.util.List;

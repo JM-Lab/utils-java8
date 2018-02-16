@@ -26,10 +26,10 @@ public class JMIconFactory {
 	private String unknownFileName;
 	private Map<String, BufferedImage> bufferedImageCache;
 
-	/**
-	 * Instantiates a new JM icon factory.
-	 */
-	public JMIconFactory() {
+    /**
+     * Instantiates a new JM icon factory.
+     */
+    public JMIconFactory() {
 		this.os = OS.getOS();
 		this.unknownFileName = "?";
 		this.bufferedImageCache = new ConcurrentHashMap<>();
@@ -53,14 +53,13 @@ public class JMIconFactory {
 		return unknownFileName + extension;
 	}
 
-	/**
-	 * Builds the buffered image of icon in OS.
-	 *
-	 * @param path
-	 *            the path
-	 * @return the buffered image
-	 */
-	public BufferedImage buildBufferedImageOfIconInOS(Path path) {
+    /**
+     * Builds the buffered image of icon in OS.
+     *
+     * @param path the path
+     * @return the buffered image
+     */
+    public BufferedImage buildBufferedImageOfIconInOS(Path path) {
 		path = JMOptional
 				.getNullableAndFilteredOptional(path, JMPath.NotExistFilter)
 				.flatMap(JMPathOperation::createTempFilePathAsOpt).orElse(path);
@@ -71,14 +70,13 @@ public class JMIconFactory {
 		return bufferedImage;
 	}
 
-	/**
-	 * Gets the cached buffered image of icon in OS.
-	 *
-	 * @param path
-	 *            the path
-	 * @return the cached buffered image of icon in OS
-	 */
-	public BufferedImage getCachedBufferedImageOfIconInOS(Path path) {
+    /**
+     * Gets the cached buffered image of icon in OS.
+     *
+     * @param path the path
+     * @return the cached buffered image of icon in OS
+     */
+    public BufferedImage getCachedBufferedImageOfIconInOS(Path path) {
 		return getSpecialPathAsOpt(path)
 				.map(getCachedBufferedImageFunction(path))
 				.orElseGet(() -> buildCachedBufferedImageOfFileIconInOS(path));

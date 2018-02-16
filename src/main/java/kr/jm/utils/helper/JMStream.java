@@ -40,6 +40,15 @@ public class JMStream {
                 n -> n <= endInclusive);
     }
 
+    /**
+     * Number range int stream.
+     *
+     * @param start     the start
+     * @param end       the end
+     * @param interval  the interval
+     * @param predicate the predicate
+     * @return the int stream
+     */
     public static IntStream numberRange(int start, int end, int interval,
             IntPredicate predicate) {
         return numberRangeWithCount(start, interval,
@@ -59,6 +68,12 @@ public class JMStream {
         return IntStream.iterate(start, n -> n + interval).limit(count);
     }
 
+    /**
+     * Increase range int stream.
+     *
+     * @param size the size
+     * @return the int stream
+     */
     public static IntStream increaseRange(int size) {
         return IntStream.range(0, size);
     }
@@ -167,6 +182,13 @@ public class JMStream {
         });
     }
 
+    /**
+     * Build token stream stream.
+     *
+     * @param text      the text
+     * @param delimiter the delimiter
+     * @return the stream
+     */
     public static Stream<String> buildTokenStream(String text,
             String delimiter) {
         return JMStream.buildStream(delimiter == null ? new StringTokenizer(
@@ -174,6 +196,12 @@ public class JMStream {
                 .map(o -> (String) o);
     }
 
+    /**
+     * Build token stream stream.
+     *
+     * @param text the text
+     * @return the stream
+     */
     public static Stream<String> buildTokenStream(String text) {
         return buildTokenStream(text, null);
     }
@@ -214,14 +242,17 @@ public class JMStream {
         return IntStream.range(0, count).mapToDouble(i -> Math.random());
     }
 
-    public static <T> Stream<T> buildCollectionAsOptStream(
-            Optional<Collection<T>> collectionAsOpt) {
-        return collectionAsOpt.map(Collection::stream).orElseGet(Stream::empty);
-    }
-
-    public static <K, V> Stream<Entry<K, V>> buildMapStream(
-            Optional<Map<K, V>> mapAsOpt) {
-        return buildCollectionAsOptStream(mapAsOpt.map(Map::entrySet));
+    /**
+     * Build entry stream stream.
+     *
+     * @param <K> the type parameter
+     * @param <V> the type parameter
+     * @param map the map
+     * @return the stream
+     */
+    public static <K, V> Stream<Entry<K, V>> buildEntryStream(Map<K, V> map) {
+        return JMOptional.getOptional(map).map(Map::entrySet).map
+                (Set::stream).orElseGet(Stream::empty);
     }
 
 }

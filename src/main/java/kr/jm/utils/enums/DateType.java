@@ -6,14 +6,29 @@ package kr.jm.utils.enums;
  */
 public enum DateType {
 
-	WEEK, DAY, HOUR, MINUTE, SECOND;
+    /**
+     * Week date type.
+     */
+    WEEK, /**
+     * Day date type.
+     */
+    DAY, /**
+     * Hour date type.
+     */
+    HOUR, /**
+     * Minute date type.
+     */
+    MINUTE, /**
+     * Second date type.
+     */
+    SECOND;
 
-	/**
-	 * Gets the milliseconds.
-	 *
-	 * @return the milliseconds
-	 */
-	public long getMilliseconds() {
+    /**
+     * Gets the milliseconds.
+     *
+     * @return the milliseconds
+     */
+    public long getMilliseconds() {
 		switch (this) {
 		case WEEK:
 			return Milliseconds.WEEK.getValue();
@@ -30,12 +45,12 @@ public enum DateType {
 		}
 	}
 
-	/**
-	 * Gets the seconds.
-	 *
-	 * @return the seconds
-	 */
-	public int getSeconds() {
+    /**
+     * Gets the seconds.
+     *
+     * @return the seconds
+     */
+    public int getSeconds() {
 		switch (this) {
 		case WEEK:
 			return Seconds.WEEK.getValue();

@@ -10,15 +10,20 @@ import java.util.concurrent.ExecutorService;
  */
 public interface DestroyInterface {
 
-	/**
-	 * Clean up.
-	 *
-	 * @throws RuntimeException
-	 *             the runtime exception
-	 */
-	void cleanUp() throws RuntimeException;
+    /**
+     * Clean up.
+     *
+     * @throws RuntimeException the runtime exception
+     */
+    void cleanUp() throws RuntimeException;
 
-	default void cleanUp(ExecutorService executorService)
+    /**
+     * Clean up.
+     *
+     * @param executorService the executor service
+     * @throws RuntimeException the runtime exception
+     */
+    default void cleanUp(ExecutorService executorService)
 			throws RuntimeException {
 		executorService.shutdown();
 		while (!executorService.isTerminated())

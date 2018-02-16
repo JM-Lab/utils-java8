@@ -6,7 +6,19 @@ package kr.jm.utils.enums;
  */
 public enum Minutes {
 
-	MINUTE(1), HOUR(MINUTE.getValue() * 60), DAY(HOUR.getValue() * 24), WEEK(
+    /**
+     * Minute minutes.
+     */
+    MINUTE(1), /**
+     * Hour minutes.
+     */
+    HOUR(MINUTE.getValue() * 60), /**
+     * Day minutes.
+     */
+    DAY(HOUR.getValue() * 24), /**
+     * Week minutes.
+     */
+    WEEK(
 			DAY.getValue() * 7);
 
 	private int minutes;
@@ -15,12 +27,12 @@ public enum Minutes {
 		this.minutes = minutes;
 	}
 
-	/**
-	 * Gets the value.
-	 *
-	 * @return the value
-	 */
-	public int getValue() {
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
+    public int getValue() {
 		return minutes;
 	}
 

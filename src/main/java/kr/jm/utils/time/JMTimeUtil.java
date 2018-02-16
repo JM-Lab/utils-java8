@@ -88,6 +88,9 @@ public class JMTimeUtil {
      * The Constant DEFAULT_ZONE_ID_STRING.
      */
     public static final String DEFAULT_ZONE_ID_STRING = DEFAULT_ZONE_ID.getId();
+    /**
+     * The constant DEFAULT_ZONE_OFFSET_ID_STRING.
+     */
     public static final String DEFAULT_ZONE_OFFSET_ID_STRING =
             DEFAULT_ZONE_OFFSET_ID.getId();
     private static final String UTC_0000 = "+0000";
@@ -319,6 +322,14 @@ public class JMTimeUtil {
                 toBeTimeFormat, zoneId);
     }
 
+    /**
+     * Change format and time zone to default utc format string.
+     *
+     * @param dateFormat the date format
+     * @param zoneId     the zone id
+     * @param dateString the date string
+     * @return the string
+     */
     public static String changeFormatAndTimeZoneToDefaultUtcFormat(
             String dateFormat, String zoneId, String dateString) {
         return JMOptional.getOptional(zoneId)
@@ -329,18 +340,40 @@ public class JMTimeUtil {
                         dateFormat, dateString));
     }
 
+    /**
+     * Change format and time zone to default utc format string.
+     *
+     * @param dateFormat the date format
+     * @param dateString the date string
+     * @return the string
+     */
     public static String changeFormatAndTimeZoneToDefaultUtcFormat(
             String dateFormat, String dateString) {
         return getTimeAsDefaultUtcFormat(changeTimestampToLong(dateFormat,
                 dateString));
     }
 
+    /**
+     * Change format and time zone to offset date time string.
+     *
+     * @param dateFormat the date format
+     * @param dateString the date string
+     * @return the string
+     */
     public static String changeFormatAndTimeZoneToOffsetDateTime(
             String dateFormat, String dateString) {
         return getOffsetDateTime(changeTimestampToLong(dateFormat, dateString))
                 .toString();
     }
 
+    /**
+     * Change format and time zone to offset date time string.
+     *
+     * @param dateFormat   the date format
+     * @param zoneOffsetId the zone offset id
+     * @param dateString   the date string
+     * @return the string
+     */
     public static String changeFormatAndTimeZoneToOffsetDateTime(
             String dateFormat, String zoneOffsetId, String dateString) {
         return JMOptional.getOptional(zoneOffsetId)
@@ -412,12 +445,14 @@ public class JMTimeUtil {
         if (isContainsDot && isContainsPlusOrMinus && length == 28)
             return ISO_OFFSET_DATE_TIME_MILLS;
         else if (isContainsDot && !isContainsPlusOrMinus) {
-            if (length == 26)
-                return ISO_INSTANT_MILLS_TIMEZONE_NAME;
-            else if (length == 23)
-                return ISO_LOCAL_DATE_TIME_MILLS;
-            else if (length == 22)
-                return ISO_INSTANT_TIMEZONE_NAME;
+            switch (length) {
+                case 26:
+                    return ISO_INSTANT_MILLS_TIMEZONE_NAME;
+                case 23:
+                    return ISO_LOCAL_DATE_TIME_MILLS;
+                case 22:
+                    return ISO_INSTANT_TIMEZONE_NAME;
+            }
         } else if (!isContainsDot && !isContainsPlusOrMinus && length == 19)
             return ISO_LOCAL_DATE_TIME;
         else if (!isContainsDot && isContainsPlusOrMinus && length == 24)
@@ -692,11 +727,11 @@ public class JMTimeUtil {
     }
 
     /**
-     * Gets the zoned data time.
+     * Gets the zoned metric time.
      *
      * @param timestamp the timestamp
      * @param zoneId    the zone id
-     * @return the zoned data time
+     * @return the zoned metric time
      */
     public static ZonedDateTime getZonedDataTime(long timestamp,
             String zoneId) {
@@ -704,15 +739,22 @@ public class JMTimeUtil {
     }
 
     /**
-     * Gets the zoned data time.
+     * Gets the zoned metric time.
      *
      * @param timestamp the timestamp
-     * @return the zoned data time
+     * @return the zoned metric time
      */
     public static ZonedDateTime getZonedDataTime(long timestamp) {
         return Instant.ofEpochMilli(timestamp).atZone(DEFAULT_ZONE_ID);
     }
 
+    /**
+     * Gets offset date time.
+     *
+     * @param timestamp  the timestamp
+     * @param zoneOffset the zone offset
+     * @return the offset date time
+     */
     public static OffsetDateTime getOffsetDateTime(long timestamp,
             ZoneOffset zoneOffset) {
         return Instant.ofEpochMilli(timestamp).atOffset(zoneOffset);

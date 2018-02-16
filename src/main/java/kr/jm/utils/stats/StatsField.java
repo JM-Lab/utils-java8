@@ -13,16 +13,30 @@ import static kr.jm.utils.helper.JMLambda.getSelf;
  * The Enum StatsField.
  */
 public enum StatsField {
-	sum, min, max, avg, count;
+    /**
+     * Sum stats field.
+     */
+    sum, /**
+     * Min stats field.
+     */
+    min, /**
+     * Max stats field.
+     */
+    max, /**
+     * Avg stats field.
+     */
+    avg, /**
+     * Count stats field.
+     */
+    count;
 
-	/**
-	 * Value addAll alias.
-	 *
-	 * @param alias
-	 *            the alias
-	 * @return the stats field
-	 */
-	public static StatsField valueOfAlias(String alias) {
+    /**
+     * Value addAll alias.
+     *
+     * @param alias the alias
+     * @return the stats field
+     */
+    public static StatsField valueOfAlias(String alias) {
 		switch (alias.toLowerCase()) {
 		case "summary":
 			return sum;
@@ -37,37 +51,37 @@ public enum StatsField {
 		}
 	}
 
-	/**
-	 * Cal stats map.
-	 *
-	 * @param summaryStatistics the summary statistics
-	 * @return the map
-	 */
-	public static Map<StatsField, Number>
+    /**
+     * Cal stats map.
+     *
+     * @param summaryStatistics the summary statistics
+     * @return the map
+     */
+    public static Map<StatsField, Number>
 	calStatsMap(IntSummaryStatistics summaryStatistics) {
 		return buildStatsMap(
 				statsField -> statsField.calStats(summaryStatistics));
 	}
 
-	/**
-	 * Cal stats map.
-	 *
-	 * @param summaryStatistics the summary statistics
-	 * @return the map
-	 */
-	public static Map<StatsField, Number>
+    /**
+     * Cal stats map.
+     *
+     * @param summaryStatistics the summary statistics
+     * @return the map
+     */
+    public static Map<StatsField, Number>
 	calStatsMap(LongSummaryStatistics summaryStatistics) {
 		return buildStatsMap(
 				statsField -> statsField.calStats(summaryStatistics));
 	}
 
-	/**
-	 * Cal stats map.
-	 *
-	 * @param summaryStatistics the summary statistics
-	 * @return the map
-	 */
-	public static Map<StatsField, Number>
+    /**
+     * Cal stats map.
+     *
+     * @param summaryStatistics the summary statistics
+     * @return the map
+     */
+    public static Map<StatsField, Number>
 	calStatsMap(DoubleSummaryStatistics summaryStatistics) {
 		return buildStatsMap(
 				statsField -> statsField.calStats(summaryStatistics));
@@ -79,14 +93,13 @@ public enum StatsField {
 				.collect(toMap(getSelf(), valueMapper));
 	}
 
-	/**
-	 * Cal stats.
-	 *
-	 * @param intStream
-	 *            the int stream
-	 * @return the number
-	 */
-	public Number calStats(IntStream intStream) {
+    /**
+     * Cal stats.
+     *
+     * @param intStream the int stream
+     * @return the number
+     */
+    public Number calStats(IntStream intStream) {
 		switch (this) {
 		case sum:
 			return intStream.sum();
@@ -103,14 +116,13 @@ public enum StatsField {
 		}
 	}
 
-	/**
-	 * Cal stats.
-	 *
-	 * @param longStream
-	 *            the long stream
-	 * @return the number
-	 */
-	public Number calStats(LongStream longStream) {
+    /**
+     * Cal stats.
+     *
+     * @param longStream the long stream
+     * @return the number
+     */
+    public Number calStats(LongStream longStream) {
 		switch (this) {
 			case sum:
 				return longStream.sum();
@@ -127,14 +139,13 @@ public enum StatsField {
 		}
 	}
 
-	/**
-	 * Cal stats.
-	 *
-	 * @param doubleStream
-	 *            the double stream
-	 * @return the number
-	 */
-	public Number calStats(DoubleStream doubleStream) {
+    /**
+     * Cal stats.
+     *
+     * @param doubleStream the double stream
+     * @return the number
+     */
+    public Number calStats(DoubleStream doubleStream) {
 		switch (this) {
 		case sum:
 			return doubleStream.sum();
@@ -151,14 +162,13 @@ public enum StatsField {
 		}
 	}
 
-	/**
-	 * Cal stats.
-	 *
-	 * @param summaryStatistics
-	 *            the summary statistics
-	 * @return the number
-	 */
-	public Number calStats(IntSummaryStatistics summaryStatistics) {
+    /**
+     * Cal stats.
+     *
+     * @param summaryStatistics the summary statistics
+     * @return the number
+     */
+    public Number calStats(IntSummaryStatistics summaryStatistics) {
 		switch (this) {
 		case sum:
 			return summaryStatistics.getSum();
@@ -175,14 +185,13 @@ public enum StatsField {
 		}
 	}
 
-	/**
-	 * Cal stats.
-	 *
-	 * @param summaryStatistics
-	 *            the summary statistics
-	 * @return the number
-	 */
-	public Number calStats(LongSummaryStatistics summaryStatistics) {
+    /**
+     * Cal stats.
+     *
+     * @param summaryStatistics the summary statistics
+     * @return the number
+     */
+    public Number calStats(LongSummaryStatistics summaryStatistics) {
 		switch (this) {
 		case sum:
 			return summaryStatistics.getSum();
@@ -199,14 +208,13 @@ public enum StatsField {
 		}
 	}
 
-	/**
-	 * Cal stats.
-	 *
-	 * @param summaryStatistics
-	 *            the summary statistics
-	 * @return the number
-	 */
-	public Number calStats(DoubleSummaryStatistics summaryStatistics) {
+    /**
+     * Cal stats.
+     *
+     * @param summaryStatistics the summary statistics
+     * @return the number
+     */
+    public Number calStats(DoubleSummaryStatistics summaryStatistics) {
 		switch (this) {
 		case sum:
 			return summaryStatistics.getSum();
@@ -222,4 +230,5 @@ public enum StatsField {
 			return 0d;
 		}
 	}
+
 }

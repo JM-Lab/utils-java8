@@ -190,7 +190,7 @@ public class JMExceptionManager {
     }
 
     /**
-     * Handle exception and return empty optional.
+     * Handle exception and return getEmptyStringArray optional.
      *
      * @param <T>       the generic type
      * @param log       the log
@@ -208,10 +208,48 @@ public class JMExceptionManager {
     /**
      * Gets the dont support method runtime exception.
      *
+     * @param methodName the method name
      * @return the dont support method runtime exception
      */
-    public static RuntimeException getDontSupportMethodRuntimeException() {
-        return new RuntimeException("Don't Support Method !!!");
+    public static RuntimeException getDontSupportMethodRuntimeException(
+            String methodName) {
+        return newRunTimeException(
+                "Don't Support " + methodName + " Method !!!");
     }
 
+    /**
+     * Log runtime exception.
+     *
+     * @param log              the log
+     * @param exceptionMessage the exception message
+     * @param method           the method
+     * @param params           the params
+     */
+    public static void logRuntimeException(Logger log, String exceptionMessage,
+            String method, Object... params) {
+        logException(log, newRunTimeException(exceptionMessage), method,
+                params);
+    }
+
+    /**
+     * New run time exception runtime exception.
+     *
+     * @param exceptionMessage the exception message
+     * @return the runtime exception
+     */
+    public static RuntimeException newRunTimeException(
+            String exceptionMessage) {
+        return new RuntimeException(exceptionMessage);
+    }
+
+    /**
+     * Throw run time exception t.
+     *
+     * @param <T>              the type parameter
+     * @param exceptionMessage the exception message
+     * @return the t
+     */
+    public static <T> T throwRunTimeException(String exceptionMessage) {
+        throw newRunTimeException(exceptionMessage);
+    }
 }

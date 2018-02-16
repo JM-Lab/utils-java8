@@ -11,29 +11,53 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.rangeClosed;
 import static kr.jm.utils.helper.JMLambda.getSelf;
 
+/**
+ * The type Jm regex.
+ */
 public class JMRegex {
     private static final org.slf4j.Logger log =
             org.slf4j.LoggerFactory.getLogger(JMRegex.class);
     private List<String> groupNameList;
     private Pattern pattern;
 
+    /**
+     * Instantiates a new Jm regex.
+     *
+     * @param regex the regex
+     */
     public JMRegex(String regex) {
         this(regex, 0);
     }
 
+    /**
+     * Instantiates a new Jm regex.
+     *
+     * @param regex the regex
+     * @param flag  the flag
+     */
     public JMRegex(String regex, int flag) {
         this.groupNameList = getMatchedPartList(
-                Pattern.compile("\\(\\?\\<\\w+\\>").matcher(regex)).stream()
+                Pattern.compile("\\(\\?<\\w+>").matcher(regex)).stream()
                 .map(s -> s.substring(s.indexOf('<') + 1, s.indexOf('>')))
                 .collect(toList());
         this.pattern = flag == 0 ? Pattern.compile(regex) : Pattern
                 .compile(regex, flag);
     }
 
+    /**
+     * Gets pattern.
+     *
+     * @return the pattern
+     */
     public Pattern getPattern() {
         return pattern;
     }
 
+    /**
+     * Gets group name list.
+     *
+     * @return the group name list
+     */
     public List<String> getGroupNameList() {
         return Collections.unmodifiableList(groupNameList);
     }
@@ -43,17 +67,35 @@ public class JMRegex {
         return "JMRegex{" + "pattern=" + pattern + '}';
     }
 
+    /**
+     * Is matched with part boolean.
+     *
+     * @param targetString the target string
+     * @return the boolean
+     */
     public boolean isMatchedWithPart(String
             targetString) {
         return pattern.matcher(targetString).lookingAt();
     }
 
 
+    /**
+     * Is matched with entire boolean.
+     *
+     * @param targetString the target string
+     * @return the boolean
+     */
     public boolean isMatchedWithEntire(String
             targetString) {
         return pattern.matcher(targetString).matches();
     }
 
+    /**
+     * Gets matched part list.
+     *
+     * @param targetString the target string
+     * @return the matched part list
+     */
     public List<String> getMatchedPartList(String targetString) {
         return getMatchedPartList(pattern.matcher(targetString));
     }
@@ -65,6 +107,12 @@ public class JMRegex {
         return matchedList;
     }
 
+    /**
+     * Gets matched list by group.
+     *
+     * @param targetString the target string
+     * @return the matched list by group
+     */
     public List<String> getMatchedListByGroup(String targetString) {
         return getMatcherAsOpt(targetString)
                 .map(matcher -> rangeClosed(1, matcher.groupCount())
@@ -72,6 +120,12 @@ public class JMRegex {
                         .collect(toList())).orElseGet(Collections::emptyList);
     }
 
+    /**
+     * Gets group name value map.
+     *
+     * @param targetString the target string
+     * @return the group name value map
+     */
     public Map<String, String> getGroupNameValueMap(String targetString) {
         return getMatcherAsOpt(targetString)
                 .map(matcher -> groupNameList.stream()

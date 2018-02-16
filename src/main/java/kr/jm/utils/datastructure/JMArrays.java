@@ -1,15 +1,22 @@
 package kr.jm.utils.datastructure;
 
+import kr.jm.utils.helper.JMOptional;
 import kr.jm.utils.helper.JMString;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The Class JMArrays.
  */
 public class JMArrays {
+
+    /**
+     * The constant EMPTY_STRINGS.
+     */
+    public static final String[] EMPTY_STRINGS = new String[0];
 
     /**
      * Builds the array.
@@ -30,7 +37,8 @@ public class JMArrays {
      * @param array the array
      * @return the v[]
      */
-    public static <V extends Comparable<V>> V[] sort(V[] array) {
+    @SafeVarargs
+    public static <V extends Comparable<V>> V[] sort(V... array) {
         Arrays.sort(array);
         return array;
     }
@@ -55,29 +63,32 @@ public class JMArrays {
      * @param array the array
      * @return the last
      */
-    public static <V> V getLast(V[] array) {
+    @SafeVarargs
+    public static <V> V getLast(V... array) {
         return JMArrays.isNullOrEmpty(array) ? null : array[array.length - 1];
     }
 
     /**
-     * Checks if is null or empty.
+     * Checks if is null or getEmptyStringArray.
      *
      * @param <V>   the value type
      * @param array the array
-     * @return true, if is null or empty
+     * @return true, if is null or getEmptyStringArray
      */
-    public static <V> boolean isNullOrEmpty(V[] array) {
+    @SafeVarargs
+    public static <V> boolean isNullOrEmpty(V... array) {
         return array == null || array.length == 0;
     }
 
     /**
-     * Checks if is not null or empty.
+     * Checks if is not null or getEmptyStringArray.
      *
      * @param <V>   the value type
      * @param array the array
-     * @return true, if is not null or empty
+     * @return true, if is not null or getEmptyStringArray
      */
-    public static <V> boolean isNotNullOrEmpty(V[] array) {
+    @SafeVarargs
+    public static <V> boolean isNotNullOrEmpty(V... array) {
         return !isNullOrEmpty(array);
     }
 
@@ -100,9 +111,52 @@ public class JMArrays {
      */
     public static String[] buildArrayWithDelimiter(String stringWithDelimiter,
             String delimiter) {
-        List<String> stringList = JMCollections
-                .buildListWithDelimiter(stringWithDelimiter, delimiter);
-        return stringList.toArray(new String[stringList.size()]);
+        return toArray(JMCollections
+                .buildListWithDelimiter(stringWithDelimiter, delimiter));
     }
 
+    /**
+     * To array string [ ].
+     *
+     * @param stringCollection the string collection
+     * @return the string [ ]
+     */
+    public static String[] toArray(Collection<String> stringCollection) {
+        return JMOptional.getOptional(stringCollection).map(Collection::size)
+                .map(String[]::new).map(stringCollection::toArray)
+                .orElseGet(JMArrays::getEmptyStringArray);
+    }
+
+    /**
+     * Get empty string array string [ ].
+     *
+     * @return the string [ ]
+     */
+    public static String[] getEmptyStringArray() {
+        return EMPTY_STRINGS;
+    }
+
+    /**
+     * Build string array string [ ].
+     *
+     * @param objects the objects
+     * @return the string [ ]
+     */
+    public static String[] buildStringArray(Object... objects) {
+        return JMOptional.getOptional(objects).map(Arrays::stream)
+                .map(stream -> stream.map(Object::toString)
+                        .collect(Collectors.toList())
+                        .toArray(new String[objects.length]))
+                .orElseGet(JMArrays::getEmptyStringArray);
+    }
+
+    /**
+     * Build object array object [ ].
+     *
+     * @param objects the objects
+     * @return the object [ ]
+     */
+    public static Object[] buildObjectArray(Object... objects) {
+        return buildArray(objects);
+    }
 }

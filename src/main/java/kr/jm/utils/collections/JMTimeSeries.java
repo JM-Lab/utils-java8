@@ -15,21 +15,37 @@ import static java.util.Comparator.reverseOrder;
  * @param <V> the value type
  */
 public class JMTimeSeries<V> implements Map<Long, V> {
-    long intervalMillis;
-    Map<Long, V> timeSeriesMap;
+    /**
+     * The Interval seconds.
+     */
+    protected int intervalSeconds;
+    /**
+     * The Interval millis.
+     */
+    protected long intervalMillis;
+    /**
+     * The Time series map.
+     */
+    protected Map<Long, V> timeSeriesMap;
 
     /**
      * Instantiates a new JM timeSeries.
      *
      * @param intervalSeconds the interval seconds
      */
-    public JMTimeSeries(long intervalSeconds) {
+    public JMTimeSeries(int intervalSeconds) {
+        this.intervalSeconds = intervalSeconds;
         this.intervalMillis = intervalSeconds * 1000;
         this.timeSeriesMap = new ConcurrentHashMap<>();
     }
 
-    public long getIntervalSeconds() {
-        return intervalMillis / 1000;
+    /**
+     * Gets interval seconds.
+     *
+     * @return the interval seconds
+     */
+    public int getIntervalSeconds() {
+        return this.intervalSeconds;
     }
 
     /*
@@ -59,7 +75,7 @@ public class JMTimeSeries<V> implements Map<Long, V> {
      * @param newSupplier the new supplier
      * @return the or new
      */
-    public V getOrNew(Long timestamp, Supplier<V> newSupplier) {
+    public V getOrPutGetNew(Long timestamp, Supplier<V> newSupplier) {
         return JMMap.getOrPutGetNew(this.timeSeriesMap,
                 buildKeyTimestamp(timestamp), newSupplier);
     }
@@ -74,10 +90,20 @@ public class JMTimeSeries<V> implements Map<Long, V> {
         return this.timeSeriesMap.remove(buildKeyTimestamp(timestamp));
     }
 
+    /**
+     * Gets timestamp key list.
+     *
+     * @return the timestamp key list
+     */
     public List<Long> getTimestampKeyList() {
         return JMCollections.sort(new ArrayList<>(keySet()), reverseOrder());
     }
 
+    /**
+     * Gets all.
+     *
+     * @return the all
+     */
     public Map<Long, V> getAll() {
         return new HashMap<>(this.timeSeriesMap);
     }

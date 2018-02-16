@@ -104,6 +104,16 @@ public class JMMap {
         }
     }
 
+    /**
+     * Put if absent v.
+     *
+     * @param <V>              the type parameter
+     * @param <K>              the type parameter
+     * @param map              the map
+     * @param key              the key
+     * @param newValueSupplier the new value supplier
+     * @return the v
+     */
     public static <V, K> V putIfAbsent(Map<K, V> map, K key,
             Supplier<V> newValueSupplier) {
         synchronized (map) {
@@ -395,25 +405,34 @@ public class JMMap {
     }
 
     /**
-     * Checks if is not null or empty.
+     * Checks if is not null or getEmptyStringArray.
      *
      * @param map the map
-     * @return true, if is not null or empty
+     * @return true, if is not null or getEmptyStringArray
      */
     public static boolean isNotNullOrEmpty(Map<?, ?> map) {
         return !JMMap.isNullOrEmpty(map);
     }
 
     /**
-     * Checks if is null or empty.
+     * Checks if is null or getEmptyStringArray.
      *
      * @param map the map
-     * @return true, if is null or empty
+     * @return true, if is null or getEmptyStringArray
      */
     public static boolean isNullOrEmpty(Map<?, ?> map) {
         return map == null || map.size() == 0;
     }
 
+    /**
+     * New combined map map.
+     *
+     * @param <K>    the type parameter
+     * @param <V>    the type parameter
+     * @param keys   the keys
+     * @param values the values
+     * @return the map
+     */
     public static <K, V> Map<K, V> newCombinedMap(K[] keys,
             V[] values) {
         HashMap<K, V> map = new HashMap<>();
@@ -430,15 +449,20 @@ public class JMMap {
         }
     }
 
+    /**
+     * New flat key map map.
+     *
+     * @param map the map
+     * @return the map
+     */
     public static Map<String, Object> newFlatKeyMap(Map<String, ?> map) {
-        HashMap<String, Object> newMap = new HashMap<>();
-        newFlatKeyMap(newMap, map);
-        return newMap;
+        return newFlatKeyMap(new HashMap<>(), map);
     }
 
-    private static void newFlatKeyMap(Map<String, Object> newMap,
+    private static Map<String, Object> newFlatKeyMap(Map<String, Object> newMap,
             Map<String, ?> map) {
         map.forEach((key, value) -> newFlatKeyMap(newMap, key, value));
+        return newMap;
     }
 
     private static void newFlatKeyMap(Map<String, Object> newMap,

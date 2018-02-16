@@ -98,7 +98,7 @@ public class JMStringTest {
 	}
 
 	/**
-	 * Test rounded number format.
+	 * Test rounded number formatted.
 	 *
 	 * @throws Exception
 	 *             the exception

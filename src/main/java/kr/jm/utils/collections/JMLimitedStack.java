@@ -10,41 +10,39 @@ import static kr.jm.utils.helper.JMOptional.getOptional;
 /**
  * The Class JMLimitedStack.
  *
- * @param <E>
- *            the element type
+ * @param <E> the element type
  */
 public class JMLimitedStack<E> implements Collection<E> {
 
 	private int capacity;
 	private LinkedBlockingDeque<E> linkedBlockingDeque;
 
-	/**
-	 * Instantiates a new JM limited stack.
-	 *
-	 * @param capacity
-	 *            the capacity
-	 */
-	public JMLimitedStack(int capacity) {
+    /**
+     * Instantiates a new JM limited stack.
+     *
+     * @param capacity the capacity
+     */
+    public JMLimitedStack(int capacity) {
 		this.capacity = capacity;
 		this.linkedBlockingDeque = new LinkedBlockingDeque<>(capacity);
 	}
 
-	/**
-	 * Pop.
-	 *
-	 * @return the optional
-	 */
-	public Optional<E> pop() {
+    /**
+     * Pop.
+     *
+     * @return the optional
+     */
+    public Optional<E> pop() {
 		return getOptional(linkedBlockingDeque)
 				.map(LinkedBlockingDeque::removeLast);
 	}
 
-	/**
-	 * Peek.
-	 *
-	 * @return the optional
-	 */
-	public Optional<E> peek() {
+    /**
+     * Peek.
+     *
+     * @return the optional
+     */
+    public Optional<E> peek() {
 		return Optional.ofNullable(linkedBlockingDeque.peekLast());
 	}
 
@@ -103,7 +101,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see java.util.Collection#toArray()
+	 * @see java.util.Collection#buildStringArray()
 	 */
 	@Override
 	public Object[] toArray() {
@@ -113,7 +111,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see java.util.Collection#toArray(java.lang.Object[])
+	 * @see java.util.Collection#buildStringArray(java.lang.Object[])
 	 */
 	@Override
 	public <T> T[] toArray(T[] a) {

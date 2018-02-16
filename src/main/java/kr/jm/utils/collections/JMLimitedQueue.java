@@ -10,40 +10,38 @@ import static kr.jm.utils.helper.JMOptional.getOptional;
 /**
  * The Class JMLimitedQueue.
  *
- * @param <E>
- *            the element type
+ * @param <E> the element type
  */
 public class JMLimitedQueue<E> implements Collection<E> {
 
 	private int capacity;
 	private LinkedBlockingQueue<E> linkedBlockingQueue;
 
-	/**
-	 * Instantiates a new JM limited queue.
-	 *
-	 * @param capacity
-	 *            the capacity
-	 */
-	public JMLimitedQueue(int capacity) {
+    /**
+     * Instantiates a new JM limited queue.
+     *
+     * @param capacity the capacity
+     */
+    public JMLimitedQueue(int capacity) {
 		this.capacity = capacity;
 		this.linkedBlockingQueue = new LinkedBlockingQueue<>(capacity);
 	}
 
-	/**
-	 * Poll.
-	 *
-	 * @return the optional
-	 */
-	public Optional<E> poll() {
+    /**
+     * Poll.
+     *
+     * @return the optional
+     */
+    public Optional<E> poll() {
 		return getOptional(linkedBlockingQueue).map(LinkedBlockingQueue::poll);
 	}
 
-	/**
-	 * Peek.
-	 *
-	 * @return the optional
-	 */
-	public Optional<E> peek() {
+    /**
+     * Peek.
+     *
+     * @return the optional
+     */
+    public Optional<E> peek() {
 		return Optional.ofNullable(linkedBlockingQueue.peek());
 	}
 
@@ -102,7 +100,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see java.util.Collection#toArray()
+	 * @see java.util.Collection#buildStringArray()
 	 */
 	@Override
 	public Object[] toArray() {
@@ -112,7 +110,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see java.util.Collection#toArray(java.lang.Object[])
+	 * @see java.util.Collection#buildStringArray(java.lang.Object[])
 	 */
 	@Override
 	public <T> T[] toArray(T[] a) {
