@@ -14,7 +14,7 @@ public class JMWordSplitter {
     /**
      * The constant DefaultSplitPattern.
      */
-    public static Pattern DefaultSplitPattern = Pattern.compile("\\s+");
+    public static Pattern DefaultSplitPattern = Pattern.compile("\\W+");
 
     /**
      * Split as stream stream.
