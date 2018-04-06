@@ -144,6 +144,15 @@ public class JMMap {
         }
     }
 
+    public static <K, V, NK> Map<NK, V> newChangedKeyWithEntryMap(
+            Map<K, V> map,
+            Function<Entry<K, V>, NK> changingKeyFunction) {
+        synchronized (map) {
+            return map.entrySet().stream().collect(
+                    toMap(changingKeyFunction::apply, Entry::getValue));
+        }
+    }
+
     /**
      * New filtered changed key map.
      *
@@ -159,10 +168,18 @@ public class JMMap {
             Predicate<? super Entry<K, V>> filter,
             Function<K, NK> changingKeyFunction) {
         synchronized (map) {
-            return map.entrySet().stream().filter(filter)
-                    .collect(toMap(
-                            entry -> changingKeyFunction.apply(entry.getKey()),
+            return map.entrySet().stream().filter(filter).collect(
+                    toMap(entry -> changingKeyFunction.apply(entry.getKey()),
                             Entry::getValue));
+        }
+    }
+
+    public static <K, V, NK> Map<NK, V> newFilteredChangedKeyWithEntryMap(
+            Map<K, V> map, Predicate<? super Entry<K, V>> filter,
+            Function<Entry<K, V>, NK> changingKeyFunction) {
+        synchronized (map) {
+            return map.entrySet().stream().filter(filter).collect(
+                    toMap(changingKeyFunction::apply, Entry::getValue));
         }
     }
 
@@ -184,6 +201,15 @@ public class JMMap {
         }
     }
 
+    public static <K, V, NV> Map<K, NV> newChangedValueWithEntryMap(
+            Map<K, V> map,
+            Function<Entry<K, V>, NV> changingValueFunction) {
+        synchronized (map) {
+            return map.entrySet().stream().collect(
+                    toMap(Entry::getKey, changingValueFunction::apply));
+        }
+    }
+
     /**
      * New filtered changed value map.
      *
@@ -199,9 +225,18 @@ public class JMMap {
             Map<K, V> map, Predicate<Entry<K, V>> filter,
             Function<V, NV> changingValueFunction) {
         synchronized (map) {
-            return map.entrySet().stream().filter(filter).collect(toMap(
-                    Entry::getKey,
-                    entry -> changingValueFunction.apply(entry.getValue())));
+            return map.entrySet().stream().filter(filter).collect(
+                    toMap(Entry::getKey, entry -> changingValueFunction
+                            .apply(entry.getValue())));
+        }
+    }
+
+    public static <K, V, NV> Map<K, NV> newFilteredChangedValueWithEntryMap(
+            Map<K, V> map, Predicate<Entry<K, V>> filter,
+            Function<Entry<K, V>, NV> changingValueFunction) {
+        synchronized (map) {
+            return map.entrySet().stream().filter(filter).collect(
+                    toMap(Entry::getKey, changingValueFunction::apply));
         }
     }
 

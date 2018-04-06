@@ -11,19 +11,19 @@ public class JMRegexTest {
     public static String testString = " abCC bbA abCC\n abCC abCC bbA";
 
     @Test
-    public void isMatchedWithPart() throws Exception {
+    public void isMatchedWithPart() {
         assertTrue(new JMRegex(".+\n").isMatchedWithPart(testString));
         assertTrue(new JMRegex(".+").isMatchedWithPart(testString));
     }
 
     @Test
-    public void testIsMatchedWithEntire() throws Exception {
+    public void testIsMatchedWithEntire() {
         assertTrue(new JMRegex(".+\n.+").isMatchedWithEntire(testString));
         assertFalse(new JMRegex(".+").isMatchedWithEntire(testString));
     }
 
     @Test
-    public void testGetMatchedPartList() throws Exception {
+    public void testGetMatchedPartList() {
         List<String> matchedList =
                 new JMRegex("\\w").getMatchedPartList(testString);
         System.out.println(matchedList);
@@ -32,7 +32,7 @@ public class JMRegexTest {
     }
 
     @Test
-    public void getMatchedListByGroup() throws Exception {
+    public void getMatchedListByGroup() {
         List<String> matchedListByGroup =
                 new JMRegex(" (\\w+) (\\w+) (\\w+)\n (\\w+) (\\w+) (\\w+)")
                         .getMatchedListByGroup(testString);
@@ -42,7 +42,7 @@ public class JMRegexTest {
     }
 
     @Test
-    public void getGroupNameList() throws Exception {
+    public void getGroupNameList() {
         JMRegex jmRegex = new JMRegex(
                 " (?<n1>\\w+) (?<n2>\\w+) (?<n3>\\w+)\n (?<n4>\\w+) " +
                         "(?<n5>\\w+) (?<n6>\\w+)");
@@ -53,7 +53,7 @@ public class JMRegexTest {
     }
 
     @Test
-    public void getGroupNameValueMap() throws Exception {
+    public void getGroupNameValueMap() {
         JMRegex jmRegex = new JMRegex(
                 " (?<n1>\\w+) (?<n2>\\w+) (?<n3>\\w+)\n (?<n4>\\w+) " +
                         "(?<n5>\\w+) (?<n6>\\w+)");

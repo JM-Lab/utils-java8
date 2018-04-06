@@ -1,8 +1,10 @@
 
 package kr.jm.utils.helper;
 
-import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.assertEquals;
+import kr.jm.utils.datastructure.JMCollections;
+import kr.jm.utils.enums.OS;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,11 +14,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
-import kr.jm.utils.datastructure.JMCollections;
-import kr.jm.utils.enums.OS;
+import static java.util.stream.Collectors.toList;
+import static org.junit.Assert.assertEquals;
 
 /**
  * The Class JMPathTest.
@@ -30,7 +29,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetRootPaths() throws Exception {
+    public void testGetRootPaths() {
 		JMPath.getRootPathStream().forEach(System.out::println);
 		JMStream.buildStream(getRoot().getFileSystem().getRootDirectories())
 				.flatMap(JMPath::getChildrenPathStream)
@@ -48,7 +47,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetPath() throws Exception {
+    public void testGetPath() {
 		System.out.println(JMPath
 				.getChildDirectoryPathStream(JMPath.getPath("[/]")).count());
 		System.out.println(JMPath.getPath("~/"));
@@ -63,7 +62,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetCurrentPath() throws Exception {
+    public void testGetCurrentPath() {
 		System.out.println(JMPath.getCurrentPath());
 	}
 
@@ -74,7 +73,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetUserHome() throws Exception {
+    public void testGetUserHome() {
 		System.out.println(JMPath.getUserHome());
 	}
 
@@ -85,7 +84,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetRootDirectories() throws Exception {
+    public void testGetRootDirectories() {
 		JMPath.getRootPathStream()
 				.forEach(path -> JMPath.getChildrenPathStream(path)
 						.forEach(p -> System.out.println(p)));
@@ -98,7 +97,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetFileStoreList() throws Exception {
+    public void testGetFileStoreList() {
 		System.out.println(JMPath.getFileStoreList());
 		JMPath.getFileStoreList().stream()
 				.forEach(fs -> System.out.print(fs.name() + ", "));
@@ -122,7 +121,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetFileStorePathList() throws Exception {
+    public void testGetFileStorePathList() {
 		System.out.println(JMPath.getFileStorePathList());
 		JMPath.getFileStorePathList().stream()
 				.map(JMPath::getChildrenPathStream)
@@ -136,7 +135,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetChildFilePathStreamAsOptPath() throws Exception {
+    public void testGetChildFilePathStreamAsOptPath() {
 		System.out.println(JMPath.getRootDirectoryStream());
 		JMPath.getRootDirectoryStream()
 				.forEach(path -> JMPath.getChildFilePathStream(path)
@@ -156,7 +155,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetChildDirectoryPathStreamAsOpt() throws Exception {
+    public void testGetChildDirectoryPathStreamAsOpt() {
 		System.out.println(JMPath.getRootDirectoryStream());
 		JMPath.getRootDirectoryStream()
 				.forEach(path -> JMPath.getChildDirectoryPathStream(path)
@@ -176,7 +175,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetChildrenPathStreamAsOptPath() throws Exception {
+    public void testGetChildrenPathStreamAsOptPath() {
 		System.out.println(JMPath.getRootDirectoryStream());
 		List<String> rootChildPaths = JMPath.getRootDirectoryStream()
 				.flatMap(path -> JMPath.getChildrenPathStream(path)
@@ -232,7 +231,7 @@ public class JMPathTest {
 	 */
 	@Ignore
 	@Test
-	public void testConsumeSubFilePaths() throws Exception {
+    public void testConsumeSubFilePaths() {
 		Path startDirectoryPath = JMPath.getUserHome();
 		List<Path> list = Collections.synchronizedList(new ArrayList<>());
 		JMPath.consumeSubFilePaths(startDirectoryPath,
@@ -246,7 +245,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testConsumeSubFilePathsAndGetAppliedList() throws Exception {
+    public void testConsumeSubFilePathsAndGetAppliedList() {
 		Path startDirectoryPath = getRoot();
 		List<Path> consumedList = JMPath.applySubFilePathsAndGetAppliedList(
 				startDirectoryPath, 3, path -> path.toString().contains(".png"),
@@ -261,7 +260,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testConsumeSubFilePathsAndGetAppliedList2() throws Exception {
+    public void testConsumeSubFilePathsAndGetAppliedList2() {
 		Path startDirectoryPath = JMPath.getUserHome();
 		System.out
 				.println(JMPath
@@ -277,7 +276,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetLastName() throws Exception {
+    public void testGetLastName() {
 		Path path = JMPath.getPath(
 				"/09A0F357-E206-444C-83CA-0475947F8718/Data/7/3/Attachments/37857/2/Mail 첨부 파일.png");
 		assertEquals("Mail 첨부 파일.png", JMPath.getLastName(path));
@@ -290,7 +289,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testPathInfo() throws Exception {
+    public void testPathInfo() {
 		Path path = JMPath.getPath("/dev");
 		System.out.println(JMPath.DirectoryFilter.test(path));
 		System.out.println(JMPath.ExistFilter.test(path));
@@ -305,7 +304,7 @@ public class JMPathTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetAncestorPathList() throws Exception {
+    public void testGetAncestorPathList() {
 		System.out.println(JMPath.getAncestorPathList(JMPath.getUserHome()));
 		Path path = JMPath.getPath("$jlkaj");
 		System.out.println(path);

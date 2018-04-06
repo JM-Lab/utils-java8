@@ -3,13 +3,13 @@ package kr.jm.utils;
 import kr.jm.utils.helper.JMLambda;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.rangeClosed;
-import static kr.jm.utils.helper.JMLambda.getSelf;
 
 /**
  * The type Jm regex.
@@ -129,7 +129,8 @@ public class JMRegex {
     public Map<String, String> getGroupNameValueMap(String targetString) {
         return getMatcherAsOpt(targetString)
                 .map(matcher -> groupNameList.stream()
-                        .collect(Collectors.toMap(getSelf(), matcher::group)))
+                        .collect(Collectors
+                                .toMap(Function.identity(), matcher::group)))
                 .orElseGet(Collections::emptyMap);
     }
 

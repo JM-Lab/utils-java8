@@ -149,8 +149,8 @@ public class JMResources {
     public static boolean saveProperties(Properties inProperties, File saveFile,
             String comment) {
         try {
-            if (!saveFile.exists() && saveFile.getParentFile().mkdirs())
-                saveFile.createNewFile();
+            if (!saveFile.exists())
+                JMFiles.createEmptyFile(saveFile);
             BufferedWriter writer =
                     new BufferedWriter(new FileWriter(saveFile));
             inProperties.store(writer, comment);
@@ -316,6 +316,10 @@ public class JMResources {
                 .getOptional(JMFiles.readString(filePath, charsetName));
     }
 
+    public static Optional<String> getStringAsOptWithFilePath(String filePath) {
+        return getStringAsOptWithFilePath(filePath, UTF_8_CharsetString);
+    }
+
     /**
      * Gets string as opt with classpath.
      *
@@ -328,6 +332,11 @@ public class JMResources {
         return getResourceInputStreamAsOpt(classpath)
                 .map(resourceInputStream -> JMInputStream
                         .toString(resourceInputStream, charsetName));
+    }
+
+    public static Optional<String> getStringAsOptWithClasspath(
+            String classpath) {
+        return getStringAsOptWithClasspath(classpath, UTF_8_CharsetString);
     }
 
     /**

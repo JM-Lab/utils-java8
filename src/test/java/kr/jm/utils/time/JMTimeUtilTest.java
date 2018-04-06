@@ -168,7 +168,7 @@ public class JMTimeUtilTest {
      * @throws Exception the exception
      */
     @Test
-    public void testChangeTimestampToLong() throws Exception {
+    public void testChangeTimestampToLong() {
         String defaultLogDateFormat = "dd/MMM/yyyy:HH:mm:ss";
         String dateString = "27/Oct/2000:09:27:09";
         long changeIsoTimestampToLong = JMTimeUtil
@@ -248,8 +248,7 @@ public class JMTimeUtilTest {
      * @throws Exception the exception
      */
     @Test
-    public void testChangeISOTimestampWithMillsToWithoutMills()
-            throws Exception {
+    public void testChangeISOTimestampWithMillsToWithoutMills() {
         String isoTimestampString = "2015-04-28T10:30:23.032+0900";
         System.out.println(
                 JMTimeUtil.changeIsoTimestampToIsoInstant(isoTimestampString));
@@ -293,7 +292,7 @@ public class JMTimeUtilTest {
      * @throws Exception the exception
      */
     @Test
-    public void testChangeTimestampToIsoInstant() throws Exception {
+    public void testChangeTimestampToIsoInstant() {
         String simpleDateFormat = "yyyyMMddHHmmssSSS";
         System.out.println(JMTimeUtil.changeTimestampToIsoInstant(
                 simpleDateFormat, "20150925133631446"));
@@ -308,7 +307,7 @@ public class JMTimeUtilTest {
      * @throws Exception the exception
      */
     @Test
-    public void testChangeIsoTimestampToLong() throws Exception {
+    public void testChangeIsoTimestampToLong() {
         long timeMillis = JMTimeUtil
                 .changeIsoTimestampToLong("2015-09-25T04:36:31", ASIA_SEOUL);
         System.out.println(JMTimeUtil.getTimeAsDefaultUtcFormat(timeMillis));
@@ -328,7 +327,7 @@ public class JMTimeUtilTest {
      * @throws Exception the exception
      */
     @Test
-    public void testGetZonedDataTime() throws Exception {
+    public void testGetZonedDataTime() {
         long currentTimeMillis = 1483064372217l;
         ZonedDateTime zonedDataTime = JMTimeUtil.getZonedDataTime(
                 currentTimeMillis,
@@ -358,7 +357,7 @@ public class JMTimeUtilTest {
      * @throws Exception the exception
      */
     @Test
-    public void testGetOffsetDataTime() throws Exception {
+    public void testGetOffsetDataTime() {
         long currentTimeMillis = 1483064372217l;
         System.out.println(ZoneOffset.getAvailableZoneIds());
         OffsetDateTime offsetDataTime =
@@ -388,8 +387,7 @@ public class JMTimeUtilTest {
      * @throws Exception the exception
      */
     @Test
-    public void testChangeTimestampToNewFormatStringZoneIdDateTimeFormatter()
-            throws Exception {
+    public void testChangeTimestampToNewFormatStringZoneIdDateTimeFormatter() {
         System.out.println(JMTimeUtil.changeTimestampToNewFormat(TIMESTAME3,
                 ZoneId.of(TIME_ZONE_ID), DateTimeFormatter
                         .ofPattern(JMTimeUtil.ISO_INSTANT_TIMEZONE_NAME)));

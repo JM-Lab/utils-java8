@@ -1,15 +1,14 @@
 
 package kr.jm.utils.enums;
 
-import static org.junit.Assert.assertEquals;
+import kr.jm.utils.helper.JMStream;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.File;
 import java.net.InetAddress;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
-import kr.jm.utils.helper.JMStream;
+import static org.junit.Assert.assertEquals;
 
 /**
  * The Class OSTest.
@@ -34,7 +33,7 @@ public class OSTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetHostname() throws Exception {
+    public void testGetHostname() {
 		System.out.println(OS.getHostname());
 	}
 
@@ -45,7 +44,7 @@ public class OSTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetAllInetAddressInfoList() throws Exception {
+    public void testGetAllInetAddressInfoList() {
 		System.out.println(OS.getAllInetAddressInfoList());
 	}
 
@@ -56,7 +55,7 @@ public class OSTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetIpInfo() throws Exception {
+    public void testGetIpInfo() {
 		System.out.println(OS.getIpInfo());
 	}
 
@@ -67,7 +66,7 @@ public class OSTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetIp() throws Exception {
+    public void testGetIp() {
 		System.out.println(OS.getIp());
 	}
 
@@ -78,7 +77,7 @@ public class OSTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetIpInfoList() throws Exception {
+    public void testGetIpInfoList() {
 		System.out.println(OS.getIpInfoList());
 		System.out.println(
 				OS.getAllInetAddressInfoStream().map(InetAddress::getHostName)
@@ -92,7 +91,7 @@ public class OSTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetDefaultDirctoryFile() throws Exception {
+    public void testGetDefaultDirctoryFile() {
 		System.out.println(OS.getOS().getRootFileList());
 	}
 
@@ -103,7 +102,7 @@ public class OSTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetAvailableLocalPort() throws Exception {
+    public void testGetAvailableLocalPort() {
 		assertEquals(100,
 				JMStream.numberRange(0, 100, 1)
 						.map(i -> OS.getAvailableLocalPort())

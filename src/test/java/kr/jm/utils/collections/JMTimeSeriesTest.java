@@ -18,7 +18,7 @@ public class JMTimeSeriesTest {
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testJMTimeSeries() throws Exception {
+    public void testJMTimeSeries() {
 		JMTimeSeries<Long> jmTimeSeries = new JMTimeSeries<>(2);
 		long timestamp = System.currentTimeMillis();
 		jmTimeSeries.put(timestamp, timestamp);

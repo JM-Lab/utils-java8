@@ -33,7 +33,7 @@ public class JMExceptionManagerTest {
 	 *             the exception
 	 */
 	@Test
-	public final void testLogException() throws Exception {
+    public final void testLogException() {
 
 		long count =
 				JMStream.numberRangeClosed(1, 503, 1).parallel().peek(i -> {

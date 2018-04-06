@@ -21,7 +21,7 @@ public class JMStatsTest {
      * @throws Exception the exception
      */
     @Test
-    public void testCalPercent() throws Exception {
+    public void testCalPercent() {
         assertEquals(0, JMStats.calPercent(1, 101));
         assertEquals(49, JMStats.calPercent(50, 101));
         assertEquals(50, JMStats.calPercent(50, 100));
@@ -38,7 +38,7 @@ public class JMStatsTest {
      * @throws Exception the exception
      */
     @Test
-    public void testRoundWithDecimalPlace() throws Exception {
+    public void testRoundWithDecimalPlace() {
         double x = 100.125093920394890283;
         System.out.println(x);
         System.out.println(JMStats.roundWithDecimalPlace(x, 2));
@@ -51,7 +51,7 @@ public class JMStatsTest {
      * @throws Exception the exception
      */
     @Test
-    public void testRoundWithDecimal() throws Exception {
+    public void testRoundWithDecimal() {
         double x = 10022250.02394;
         System.out.println(x);
         System.out.println(JMStats.roundWithPlace(x, 2));
@@ -68,7 +68,7 @@ public class JMStatsTest {
      * @throws Exception the exception
      */
     @Test
-    public void testPow() throws Exception {
+    public void testPow() {
         assertTrue(4 == JMStats.pow(2, 2));
         assertTrue(100 == JMStats.pow(10, 2));
         assertTrue(1 == JMStats.pow(10, 0));
@@ -83,7 +83,7 @@ public class JMStatsTest {
      * @throws Exception the exception
      */
     @Test
-    public void testCalVariance() throws Exception {
+    public void testCalVariance() {
         assertTrue(0 == JMStats.calVariance(JMCollections.buildList
                 (123424235)));
         List<Integer> sample1 = JMCollections.buildList(1, 2, 3, 4, 5);
@@ -104,7 +104,7 @@ public class JMStatsTest {
      * @throws Exception the exception
      */
     @Test
-    public void testCalStandardDeviation() throws Exception {
+    public void testCalStandardDeviation() {
         List<Integer> sample1 = JMCollections.buildList(9, 2, 5, 4, 12, 7, 8,
                 11, 9, 3, 7, 4, 12, 5, 4, 10, 9, 6, 9, 4);
         System.out.println(JMStats.calPopulationStandardDeviation(sample1));

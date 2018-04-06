@@ -1,10 +1,9 @@
 
 package kr.jm.utils.helper;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
@@ -21,8 +20,8 @@ public class JMOptional {
      * @return the optional
      */
     public static Optional<String> getOptional(String string) {
-		return Optional.ofNullable(string).filter(getIsEmpty().negate());
-	}
+        return Optional.ofNullable(string).filter(getIsEmpty().negate());
+    }
 
     /**
      * Gets the optional if true.
@@ -33,8 +32,8 @@ public class JMOptional {
      * @return the optional if true
      */
     public static <T> Optional<T> getOptionalIfTrue(boolean bool, T target) {
-		return bool ? Optional.ofNullable(target) : Optional.empty();
-	}
+        return bool ? Optional.ofNullable(target) : Optional.empty();
+    }
 
     /**
      * Gets the nullable and filtered optional.
@@ -45,9 +44,9 @@ public class JMOptional {
      * @return the nullable and filtered optional
      */
     public static <T> Optional<T> getNullableAndFilteredOptional(T target,
-			Predicate<T> predicate) {
-		return Optional.ofNullable(target).filter(predicate);
-	}
+            Predicate<T> predicate) {
+        return Optional.ofNullable(target).filter(predicate);
+    }
 
     /**
      * Gets the optional if exist.
@@ -59,9 +58,9 @@ public class JMOptional {
      * @return the optional if exist
      */
     public static <T, R> Optional<R> getOptionalIfExist(Optional<T> optional,
-			Function<T, R> returnBuilderFunction) {
-		return optional.map(returnBuilderFunction::apply);
-	}
+            Function<T, R> returnBuilderFunction) {
+        return optional.map(returnBuilderFunction::apply);
+    }
 
     /**
      * Gets the optional if exist.
@@ -75,11 +74,11 @@ public class JMOptional {
      * @return the optional if exist
      */
     public static <T1, T2, R> Optional<R> getOptionalIfExist(
-			Optional<T1> firstOptional, Optional<T2> secondOptional,
-			BiFunction<T1, T2, R> returnBuilderFunction) {
-		return firstOptional.flatMap(t1 -> secondOptional
-				.map(t2 -> returnBuilderFunction.apply(t1, t2)));
-	}
+            Optional<T1> firstOptional, Optional<T2> secondOptional,
+            BiFunction<T1, T2, R> returnBuilderFunction) {
+        return firstOptional.flatMap(t1 -> secondOptional
+                .map(t2 -> returnBuilderFunction.apply(t1, t2)));
+    }
 
     /**
      * Gets the optional if exist.
@@ -92,10 +91,10 @@ public class JMOptional {
      * @return the optional if exist
      */
     public static <T, C extends Collection<T>, R> Optional<R>
-			getOptionalIfExist(C collection,
-					Function<C, R> returnBuilderFunction) {
-		return getOptional(collection).map(returnBuilderFunction);
-	}
+    getOptionalIfExist(C collection,
+            Function<C, R> returnBuilderFunction) {
+        return getOptional(collection).map(returnBuilderFunction);
+    }
 
     /**
      * Gets the optional if exist.
@@ -109,27 +108,25 @@ public class JMOptional {
      * @return the optional if exist
      */
     public static <K, V, M extends Map<K, V>, R> Optional<R>
-			getOptionalIfExist(M map, Function<M, R> returnBuilderFunction) {
-		return getOptional(map).map(returnBuilderFunction);
-	}
+    getOptionalIfExist(M map, Function<M, R> returnBuilderFunction) {
+        return getOptional(map).map(returnBuilderFunction);
+    }
 
     /**
      * Gets the value as opt if exist.
      *
      * @param <K>                   the key type
      * @param <V>                   the value type
-     * @param <M>                   the generic type
      * @param <R>                   the generic type
      * @param map                   the map
      * @param key                   the key
      * @param returnBuilderFunction the return builder function
      * @return the value as opt if exist
      */
-    public static <K, V, M extends Map<K, V>, R> Optional<R>
-			getValueAsOptIfExist(Map<K, V> map, K key,
-					Function<V, R> returnBuilderFunction) {
-		return getOptional(map, key).map(returnBuilderFunction::apply);
-	}
+    public static <K, V, R> Optional<R> getValueAsOptIfExist(Map<K, V> map,
+            K key, Function<V, R> returnBuilderFunction) {
+        return getOptional(map, key).map(returnBuilderFunction::apply);
+    }
 
     /**
      * Gets the optional.
@@ -140,9 +137,9 @@ public class JMOptional {
      * @return the optional
      */
     public static <T, C extends Collection<T>> Optional<C>
-			getOptional(C collection) {
-		return Optional.ofNullable(collection).filter(c -> c.size() > 0);
-	}
+    getOptional(C collection) {
+        return Optional.ofNullable(collection).filter(c -> c.size() > 0);
+    }
 
     /**
      * Gets the optional.
@@ -152,8 +149,8 @@ public class JMOptional {
      * @return the optional
      */
     public static <T> Optional<T[]> getOptional(T[] array) {
-		return Optional.ofNullable(array).filter(a -> a.length > 0);
-	}
+        return Optional.ofNullable(array).filter(a -> a.length > 0);
+    }
 
     /**
      * Gets the optional.
@@ -165,8 +162,8 @@ public class JMOptional {
      * @return the optional
      */
     public static <K, V, M extends Map<K, V>> Optional<M> getOptional(M map) {
-		return Optional.ofNullable(map).filter(m -> m.size() > 0);
-	}
+        return Optional.ofNullable(map).filter(m -> m.size() > 0);
+    }
 
     /**
      * Gets the optional.
@@ -179,9 +176,9 @@ public class JMOptional {
      * @return the optional
      */
     public static <K, V, M extends Map<K, V>> Optional<V> getOptional(M map,
-			K key) {
-		return Optional.ofNullable(map).map(m -> m.get(key));
-	}
+            K key) {
+        return Optional.ofNullable(map).map(m -> m.get(key));
+    }
 
     /**
      * If exist.
@@ -192,9 +189,9 @@ public class JMOptional {
      * @param consumer   the consumer
      */
     public static <E, T extends Collection<E>> void ifExist(T collection,
-			Consumer<T> consumer) {
-		getOptional(collection).ifPresent(consumer);
-	}
+            Consumer<T> consumer) {
+        getOptional(collection).ifPresent(consumer);
+    }
 
     /**
      * If exist.
@@ -206,9 +203,9 @@ public class JMOptional {
      * @param consumer the consumer
      */
     public static <K, V, M extends Map<K, V>> void ifExist(M map,
-			Consumer<M> consumer) {
-		getOptional(map).ifPresent(consumer);
-	}
+            Consumer<M> consumer) {
+        getOptional(map).ifPresent(consumer);
+    }
 
     /**
      * If not null.
@@ -218,8 +215,8 @@ public class JMOptional {
      * @param consumer the consumer
      */
     public static <T> void ifNotNull(T object, Consumer<T> consumer) {
-		Optional.ofNullable(object).ifPresent(consumer);
-	}
+        Optional.ofNullable(object).ifPresent(consumer);
+    }
 
     /**
      * Or else get if null.
@@ -230,8 +227,8 @@ public class JMOptional {
      * @return the t
      */
     public static <T> T orElseGetIfNull(T target, Supplier<T> elseGetSupplier) {
-		return Optional.ofNullable(target).orElseGet(elseGetSupplier);
-	}
+        return Optional.ofNullable(target).orElseGet(elseGetSupplier);
+    }
 
     /**
      * Or else if null.
@@ -242,8 +239,8 @@ public class JMOptional {
      * @return the t
      */
     public static <T> T orElseIfNull(T target, T elseTarget) {
-		return Optional.ofNullable(target).orElse(elseTarget);
-	}
+        return Optional.ofNullable(target).orElse(elseTarget);
+    }
 
     /**
      * If exist into stream.
@@ -254,10 +251,10 @@ public class JMOptional {
      * @return the stream
      */
     public static <T, C extends Collection<T>> Stream<T>
-			ifExistIntoStream(C collection) {
-		return getOptional(collection).map(Collection::stream)
-				.orElseGet(Stream::empty);
-	}
+    ifExistIntoStream(C collection) {
+        return getOptional(collection).map(Collection::stream)
+                .orElseGet(Stream::empty);
+    }
 
     /**
      * Checks if is present all.
@@ -266,10 +263,26 @@ public class JMOptional {
      * @return true, if is present all
      */
     public static boolean isPresentAll(Optional<?>... optionals) {
-		for (Optional<?> optional : optionals)
-			if (!optional.isPresent())
-				return false;
-		return true;
-	}
+        for (Optional<?> optional : optionals)
+            if (!optional.isPresent())
+                return false;
+        return true;
+    }
+
+    public static <T> List<T> getListIfIsPresent(Optional<T>... optionals) {
+        return Arrays.stream(optionals).filter(Optional::isPresent)
+                .map(Optional::get).collect(Collectors.toList());
+    }
+
+    public static <T> List<T> getOrNullList(Optional<T>... optionals) {
+        return Arrays.stream(optionals).map(opt -> opt.orElse(null))
+                .collect(Collectors.toList());
+    }
+
+    public static List<?> getObjectOrNullList(Optional<?>... optionals) {
+        return Arrays.stream(optionals).map(opt -> opt.orElse(null))
+                .collect(Collectors.toList());
+    }
+
 
 }

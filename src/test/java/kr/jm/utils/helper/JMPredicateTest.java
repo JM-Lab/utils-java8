@@ -1,11 +1,11 @@
 package kr.jm.utils.helper;
 
-import static kr.jm.utils.helper.JMPredicate.peekSOPL;
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.Optional;
 
-import org.junit.Test;
+import static kr.jm.utils.helper.JMPredicate.peekSOPL;
+import static org.junit.Assert.assertEquals;
 
 /**
  * The Class JMPredicateTest.
@@ -19,7 +19,7 @@ public class JMPredicateTest {
 	 *             the exception
 	 */
 	@Test
-	public void negate() throws Exception {
+    public void negate() {
 		String testString = "a";
 		Optional.ofNullable(testString)
 				.filter(JMPredicate.negate(string -> string.equals("")))

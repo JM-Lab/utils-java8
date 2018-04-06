@@ -46,7 +46,7 @@ public class JMMapTest {
      * @throws Exception the exception
      */
     @Test
-    public void testSortedStreamByValue() throws Exception {
+    public void testSortedStreamByValue() {
         Map<Integer, Double> map = new HashMap<>();
         JMStream.numberRangeClosed(0, 100, 1)
                 .forEach(num -> map.put(num, Math.random() % 100));
@@ -60,7 +60,7 @@ public class JMMapTest {
      * @throws Exception the exception
      */
     @Test
-    public void testSorted() throws Exception {
+    public void testSorted() {
         Map<String, Integer> map = new HashMap<>();
         map.put("99", 90);
         map.put("90", 95);

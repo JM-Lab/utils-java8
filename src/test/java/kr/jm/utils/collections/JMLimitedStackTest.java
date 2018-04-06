@@ -1,15 +1,14 @@
 package kr.jm.utils.collections;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Optional;
-
+import kr.jm.utils.datastructure.JMCollections;
+import kr.jm.utils.helper.JMStream;
 import org.junit.Before;
 import org.junit.Test;
 
-import kr.jm.utils.datastructure.JMCollections;
-import kr.jm.utils.helper.JMStream;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The Class JMLimitedStackTest.
@@ -25,7 +24,7 @@ public class JMLimitedStackTest {
 	 *             the exception
 	 */
 	@Before
-	public void createJMLimitedStack() throws Exception {
+    public void createJMLimitedStack() {
 		jmLimitedStack = new JMLimitedStack<>(capacity);
 	}
 
@@ -36,7 +35,7 @@ public class JMLimitedStackTest {
 	 *             the exception
 	 */
 	@Test
-	public void test() throws Exception {
+    public void test() {
 		JMStream.numberRange(1, 10, 1).forEach(jmLimitedStack::add);
 		System.out.println(JMCollections.buildList(jmLimitedStack));
 		assertTrue(9 == jmLimitedStack.peek().get());

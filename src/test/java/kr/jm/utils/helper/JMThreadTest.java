@@ -54,7 +54,7 @@ public class JMThreadTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetThreadQueue() throws Exception {
+    public void testGetThreadQueue() {
 		ExecutorService es = Executors.newFixedThreadPool(1);
 		System.out.println(JMThread.getThreadQueue(es).size());
 		assertEquals(0, JMThread.getThreadQueue(es).size());

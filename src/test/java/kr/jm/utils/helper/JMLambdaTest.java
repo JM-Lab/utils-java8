@@ -40,7 +40,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testPartitionBy() throws Exception {
+    public final void testPartitionBy() {
         Map<Boolean, List<Number>> partitionBy = JMLambda
                 .partitionBy(numberCollection, n -> n.doubleValue() % 2 == 0d);
         System.out.println(partitionBy);
@@ -49,7 +49,7 @@ public class JMLambdaTest {
     }
 
     @Test
-    public final void testMapBy() throws Exception {
+    public final void testMapBy() {
         Map<Number, Number> numberMap = JMLambda.mapBy(JMCollections
                         .buildMergedList(numberCollection, numberCollection
                                 .stream().filter(number -> number.doubleValue
@@ -66,7 +66,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testGroupByTwoKey() throws Exception {
+    public final void testGroupByTwoKey() {
         Map<Boolean, List<Number>> groupBy = JMLambda.groupBy(numberCollection,
                 n -> n.doubleValue() % 2 == 0d);
         System.out.println(groupBy);
@@ -79,7 +79,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testGroupByTwoKey2() throws Exception {
+    public final void testGroupByTwoKey2() {
         Map<Boolean, Map<String, String>> groupBy = JMLambda
                 .groupByTwoKey(stringCollection, s -> s.contains("0"), s -> s);
         System.out.println(groupBy);
@@ -92,7 +92,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testConsumeByPredicate() throws Exception {
+    public final void testConsumeByPredicate() {
         JMLambda.consumeByPredicate(numberCollection,
                 n -> n.doubleValue() % 2 == 0d,
                 n -> assertTrue(n.intValue() % 2 == 0),
@@ -105,7 +105,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testConsumeByPredicateInParallel() throws Exception {
+    public final void testConsumeByPredicateInParallel() {
         JMLambda.consumeByPredicateInParallel(numberCollection,
                 n -> n.doubleValue() % 2 == 0d,
                 n -> assertTrue(n.intValue() % 2 == 0),
@@ -118,7 +118,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testConsumeByBoolean() throws Exception {
+    public final void testConsumeByBoolean() {
         String testString = "run by true";
         StringBuilder trueStringBuilder = new StringBuilder();
         StringBuilder falseStringBuilder = new StringBuilder();
@@ -134,7 +134,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testConsumeIfNotNull() throws Exception {
+    public final void testConsumeIfNotNull() {
         String testString = "run by true";
         StringBuilder trueStringBuilder = new StringBuilder();
         StringBuilder falseStringBuilder = new StringBuilder();
@@ -150,7 +150,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testConsumeIfTrue() throws Exception {
+    public final void testConsumeIfTrue() {
         String testString = "run by true";
         String testString2 = "false";
         StringBuilder trueStringBuilder = new StringBuilder();
@@ -179,7 +179,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testSupplierIfTrue() throws Exception {
+    public final void testSupplierIfTrue() {
         String testString = "run by true";
         assertEquals(JMLambda.supplierIfTrue(true, () -> testString).get(),
                 testString);
@@ -193,7 +193,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testFunctionByBoolean() throws Exception {
+    public final void testFunctionByBoolean() {
         String testString = "run by true";
         String testString2 = "false";
         assertTrue(JMLambda.functionByBoolean(true, testString,
@@ -208,7 +208,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testSupplierByBoolean() throws Exception {
+    public final void testSupplierByBoolean() {
         String testString = "run by true";
         String testString2 = "false";
         assertEquals(JMLambda.supplierByBoolean(true, () -> testString,
@@ -223,7 +223,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testChangeInto() throws Exception {
+    public final void testChangeInto() {
         String testString = "run by true";
         assertEquals(
                 Optional.of(stringCollection)
@@ -237,7 +237,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testSupplierIfNull() throws Exception {
+    public final void testSupplierIfNull() {
         String testString = "run by true";
         String testString2 = null;
         assertEquals(JMLambda.supplierIfNull(testString2, () -> testString),
@@ -250,7 +250,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testGetTrueAfterRunning() throws Exception {
+    public final void testGetTrueAfterRunning() {
         String testString = "false";
         assertTrue(JMLambda
                 .getTrueAfterRunning(() -> getSOPL().accept(testString)));
@@ -262,7 +262,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testGetFalseAfterRunning() throws Exception {
+    public final void testGetFalseAfterRunning() {
         String testString = "true";
         assertFalse(JMLambda
                 .getFalseAfterRunning(() -> getSOPL().accept(testString)));
@@ -274,7 +274,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testRunIfTrue() throws Exception {
+    public final void testRunIfTrue() {
         String testString = "true";
         StringBuilder trueStringBuilder = new StringBuilder();
         JMLambda.runIfTrue(true, () -> trueStringBuilder.append(testString));
@@ -287,7 +287,7 @@ public class JMLambdaTest {
      * @throws Exception the exception
      */
     @Test
-    public final void testRunByBoolean() throws Exception {
+    public final void testRunByBoolean() {
         String testString = "true";
         String testString2 = "false";
         StringBuilder trueStringBuilder = new StringBuilder();

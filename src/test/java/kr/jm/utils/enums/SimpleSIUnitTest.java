@@ -1,9 +1,9 @@
 
 package kr.jm.utils.enums;
 
-import java.text.DecimalFormat;
-
 import org.junit.Test;
+
+import java.text.DecimalFormat;
 
 /**
  * The Class SimpleSIUnitTest.
@@ -17,7 +17,7 @@ public class SimpleSIUnitTest {
 	 *             the exception
 	 */
 	@Test
-	public void testConvertToStringToStringWithSIUnit() throws Exception {
+    public void testConvertToStringToStringWithSIUnit() {
 		DecimalFormat df = new DecimalFormat("#.#");
 		String suffix = "B";
 		long kb = 1 * 1024;

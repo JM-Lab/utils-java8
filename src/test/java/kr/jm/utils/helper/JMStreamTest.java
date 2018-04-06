@@ -31,7 +31,7 @@ public class JMStreamTest {
      * @throws Exception the exception
      */
     @Test
-    public void testBuildReversedStream() throws Exception {
+    public void testBuildReversedStream() {
         Integer[] ints = {1, 3, 2, 4, 5};
         List<Integer> sourceList = Arrays.asList(ints);
         System.out.println(
@@ -75,7 +75,7 @@ public class JMStreamTest {
      * @throws Exception the exception
      */
     @Test
-    public void testNumberRangeWithCountFloatFloatInt() throws Exception {
+    public void testNumberRangeWithCountFloatFloatInt() {
         System.out.println(JMStream.numberRangeWithCount(0, 10, 100).boxed()
                 .collect(toList()));
         System.out.println(JMStream.numberRangeWithCount(0, 10, 100)
@@ -99,7 +99,7 @@ public class JMStreamTest {
      * @throws Exception the exception
      */
     @Test
-    public void testBuildRandomNumberStream() throws Exception {
+    public void testBuildRandomNumberStream() {
         List<Double> randomNumberList =
                 JMStream.buildRandomNumberStream(100).boxed().collect(toList());
         System.out.println(randomNumberList);

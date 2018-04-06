@@ -1,16 +1,15 @@
 package kr.jm.utils;
 
-import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import kr.jm.utils.helper.JMStream;
+import kr.jm.utils.helper.JMThread;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Test;
-
-import kr.jm.utils.helper.JMStream;
-import kr.jm.utils.helper.JMThread;
+import static java.util.stream.Collectors.toList;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The Class JMProgressiveManagerTest.
@@ -27,7 +26,7 @@ public class JMProgressiveManagerTest {
 	 *             the exception
 	 */
 	@Test
-	public void testStartAndStop() throws Exception {
+    public void testStartAndStop() {
 		progressiveManager = new JMProgressiveManager<>(targetCollection, s -> {
 			System.out
 					.println(getCurrentThread() + " [Async] processing - " + s);

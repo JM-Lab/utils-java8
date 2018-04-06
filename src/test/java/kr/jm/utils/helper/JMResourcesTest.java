@@ -14,7 +14,7 @@ public class JMResourcesTest {
 	 *             the exception
 	 */
 	@Test
-	public void testGetURL() throws Exception {
+	public void testGetURL() {
 		System.out.println(JMResources.getURL("LICENSE"));
 	}
 
