@@ -72,7 +72,7 @@ public class JMFiles {
      */
     public static Writer buildBufferedAppendWriter(Path path, Charset charset) {
         try {
-            if(JMPath.notExists(path))
+            if (JMPath.notExists(path))
                 JMPathOperation.createFileWithParentDirectories(path);
             BufferedWriter bufferedWriter =
                     Files.newBufferedWriter(path, charset, StandardOpenOption
@@ -368,4 +368,14 @@ public class JMFiles {
         }
     }
 
+    public static boolean createEmptyFile(File file) {
+        try {
+            file.getParentFile().mkdirs();
+            return file.createNewFile();
+        } catch (Exception e) {
+            return JMExceptionManager.handleExceptionAndReturnFalse(log, e,
+                    "createEmptyFile", file);
+        }
+
+    }
 }

@@ -6,7 +6,7 @@ JMLab Java 8 Utility Libraries
 ## Prerequisites:
 * Java 8 or later
 
-## For Example:
+## Usage
 Gradle:
 ```groovy
 compile 'kr.jmlab:jmlab-utils-java8:0.1.90'
@@ -44,14 +44,14 @@ Checkout the source code:
 * **JMLog**
 * **JMExceptionManager**
 * **JMProgressiveManager**
-* **stats package**
-* **accumulator package**
-* **collector package**
-* **generator package**
-* **etc.**
+* **Stats Package**
+* **Accumulator Package**
+* **Collector Package**
+* **Generator Package**
+* **...**
 
-###For example :
-[TestCase](https://github.com/JM-Lab/utils-java8/tree/master/src/test/java/kr/jm/utils)
+### For Example :
+* **[TestCase](https://github.com/JM-Lab/utils-java8/tree/master/src/test/java/kr/jm/utils)**
 
 ## LICENSE
 Copyright 2015 Jemin Huh (JM)
