@@ -261,7 +261,7 @@ public class JMPathTest {
 	 */
 	@Test
     public void testConsumeSubFilePathsAndGetAppliedList2() {
-		Path startDirectoryPath = JMPath.getUserHome();
+		Path startDirectoryPath = JMPath.getCurrentPath();
 		System.out
 				.println(JMPath
 						.applySubFilePathsAndGetAppliedList(startDirectoryPath,

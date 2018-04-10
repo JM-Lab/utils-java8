@@ -76,7 +76,8 @@ public class OSTest {
 	 * @throws Exception
 	 *             the exception
 	 */
-	@Test
+    @Ignore
+    @Test
     public void testGetIpInfoList() {
 		System.out.println(OS.getIpInfoList());
 		System.out.println(
