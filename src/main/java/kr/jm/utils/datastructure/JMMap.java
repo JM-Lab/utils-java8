@@ -144,6 +144,16 @@ public class JMMap {
         }
     }
 
+    /**
+     * New changed key with entry map map.
+     *
+     * @param <K>                 the type parameter
+     * @param <V>                 the type parameter
+     * @param <NK>                the type parameter
+     * @param map                 the map
+     * @param changingKeyFunction the changing key function
+     * @return the map
+     */
     public static <K, V, NK> Map<NK, V> newChangedKeyWithEntryMap(
             Map<K, V> map,
             Function<Entry<K, V>, NK> changingKeyFunction) {
@@ -174,6 +184,17 @@ public class JMMap {
         }
     }
 
+    /**
+     * New filtered changed key with entry map map.
+     *
+     * @param <K>                 the type parameter
+     * @param <V>                 the type parameter
+     * @param <NK>                the type parameter
+     * @param map                 the map
+     * @param filter              the filter
+     * @param changingKeyFunction the changing key function
+     * @return the map
+     */
     public static <K, V, NK> Map<NK, V> newFilteredChangedKeyWithEntryMap(
             Map<K, V> map, Predicate<? super Entry<K, V>> filter,
             Function<Entry<K, V>, NK> changingKeyFunction) {
@@ -201,6 +222,16 @@ public class JMMap {
         }
     }
 
+    /**
+     * New changed value with entry map map.
+     *
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <NV>                  the type parameter
+     * @param map                   the map
+     * @param changingValueFunction the changing value function
+     * @return the map
+     */
     public static <K, V, NV> Map<K, NV> newChangedValueWithEntryMap(
             Map<K, V> map,
             Function<Entry<K, V>, NV> changingValueFunction) {
@@ -231,6 +262,17 @@ public class JMMap {
         }
     }
 
+    /**
+     * New filtered changed value with entry map map.
+     *
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <NV>                  the type parameter
+     * @param map                   the map
+     * @param filter                the filter
+     * @param changingValueFunction the changing value function
+     * @return the map
+     */
     public static <K, V, NV> Map<K, NV> newFilteredChangedValueWithEntryMap(
             Map<K, V> map, Predicate<Entry<K, V>> filter,
             Function<Entry<K, V>, NV> changingValueFunction) {

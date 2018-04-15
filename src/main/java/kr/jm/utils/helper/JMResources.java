@@ -316,6 +316,12 @@ public class JMResources {
                 .getOptional(JMFiles.readString(filePath, charsetName));
     }
 
+    /**
+     * Gets string as opt with file path.
+     *
+     * @param filePath the file path
+     * @return the string as opt with file path
+     */
     public static Optional<String> getStringAsOptWithFilePath(String filePath) {
         return getStringAsOptWithFilePath(filePath, UTF_8_CharsetString);
     }
@@ -334,6 +340,12 @@ public class JMResources {
                         .toString(resourceInputStream, charsetName));
     }
 
+    /**
+     * Gets string as opt with classpath.
+     *
+     * @param classpath the classpath
+     * @return the string as opt with classpath
+     */
     public static Optional<String> getStringAsOptWithClasspath(
             String classpath) {
         return getStringAsOptWithClasspath(classpath, UTF_8_CharsetString);

@@ -368,6 +368,12 @@ public class JMFiles {
         }
     }
 
+    /**
+     * Create empty file boolean.
+     *
+     * @param file the file
+     * @return the boolean
+     */
     public static boolean createEmptyFile(File file) {
         try {
             file.getParentFile().mkdirs();

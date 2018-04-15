@@ -1,6 +1,13 @@
 
 package kr.jm.utils;
 
+import kr.jm.utils.datastructure.JMMap;
+import kr.jm.utils.enums.OS;
+import kr.jm.utils.helper.JMOptional;
+import kr.jm.utils.helper.JMPath;
+import kr.jm.utils.helper.JMPathOperation;
+
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.Map;
@@ -8,14 +15,6 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import javax.swing.Icon;
-
-import kr.jm.utils.datastructure.JMMap;
-import kr.jm.utils.enums.OS;
-import kr.jm.utils.helper.JMOptional;
-import kr.jm.utils.helper.JMPath;
-import kr.jm.utils.helper.JMPathOperation;
 
 /**
  * A factory for creating JMIcon objects.

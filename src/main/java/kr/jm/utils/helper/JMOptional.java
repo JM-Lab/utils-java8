@@ -269,16 +269,36 @@ public class JMOptional {
         return true;
     }
 
+    /**
+     * Gets list if is present.
+     *
+     * @param <T>       the type parameter
+     * @param optionals the optionals
+     * @return the list if is present
+     */
     public static <T> List<T> getListIfIsPresent(Optional<T>... optionals) {
         return Arrays.stream(optionals).filter(Optional::isPresent)
                 .map(Optional::get).collect(Collectors.toList());
     }
 
+    /**
+     * Gets or null list.
+     *
+     * @param <T>       the type parameter
+     * @param optionals the optionals
+     * @return the or null list
+     */
     public static <T> List<T> getOrNullList(Optional<T>... optionals) {
         return Arrays.stream(optionals).map(opt -> opt.orElse(null))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Gets object or null list.
+     *
+     * @param optionals the optionals
+     * @return the object or null list
+     */
     public static List<?> getObjectOrNullList(Optional<?>... optionals) {
         return Arrays.stream(optionals).map(opt -> opt.orElse(null))
                 .collect(Collectors.toList());

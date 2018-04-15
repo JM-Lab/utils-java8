@@ -1,10 +1,10 @@
 package kr.jm.utils;
 
-import java.nio.file.Path;
-import java.text.DecimalFormat;
-
 import kr.jm.utils.enums.SimpleSIUnit;
 import kr.jm.utils.helper.JMPath;
+
+import java.nio.file.Path;
+import java.text.DecimalFormat;
 
 /**
  * The Class FileSize.
