@@ -8,12 +8,12 @@ import java.util.function.IntPredicate;
 import java.util.stream.*;
 
 /**
- * The Class JMStream.
+ * The type Jm stream.
  */
 public class JMStream {
 
     /**
-     * Number range.
+     * Number range int stream.
      *
      * @param startInclusive the start inclusive
      * @param endExclusive   the end exclusive
@@ -27,7 +27,7 @@ public class JMStream {
     }
 
     /**
-     * Number range closed.
+     * Number range closed int stream.
      *
      * @param startInclusive the start inclusive
      * @param endInclusive   the end inclusive
@@ -56,12 +56,12 @@ public class JMStream {
     }
 
     /**
-     * Number range with count.
+     * Number range with count int stream.
      *
      * @param start    the start
      * @param interval the interval
      * @param count    the count
-     * @return the long stream
+     * @return the int stream
      */
     public static IntStream numberRangeWithCount(int start, int interval,
             int count) {
@@ -80,9 +80,9 @@ public class JMStream {
 
 
     /**
-     * Builds the int stream.
+     * Build int stream int stream.
      *
-     * @param <N>              the number type
+     * @param <N>              the type parameter
      * @param numberCollection the number collection
      * @return the int stream
      */
@@ -92,9 +92,9 @@ public class JMStream {
     }
 
     /**
-     * Builds the long stream.
+     * Build long stream long stream.
      *
-     * @param <N>              the number type
+     * @param <N>              the type parameter
      * @param numberCollection the number collection
      * @return the long stream
      */
@@ -104,9 +104,9 @@ public class JMStream {
     }
 
     /**
-     * Builds the double stream.
+     * Build double stream double stream.
      *
-     * @param <N>              the number type
+     * @param <N>              the type parameter
      * @param numberCollection the number collection
      * @return the double stream
      */
@@ -116,9 +116,9 @@ public class JMStream {
     }
 
     /**
-     * Builds the reversed stream.
+     * Build reversed stream stream.
      *
-     * @param <T>        the generic type
+     * @param <T>        the type parameter
      * @param collection the collection
      * @return the stream
      */
@@ -127,9 +127,9 @@ public class JMStream {
     }
 
     /**
-     * Builds the stream.
+     * Build stream stream.
      *
-     * @param <T>   the generic type
+     * @param <T>   the type parameter
      * @param array the array
      * @return the stream
      */
@@ -140,9 +140,9 @@ public class JMStream {
     }
 
     /**
-     * Builds the stream.
+     * Build stream stream.
      *
-     * @param <T>      the generic type
+     * @param <T>      the type parameter
      * @param iterable the iterable
      * @return the stream
      */
@@ -151,9 +151,9 @@ public class JMStream {
     }
 
     /**
-     * Builds the stream.
+     * Build stream stream.
      *
-     * @param <T>      the generic type
+     * @param <T>      the type parameter
      * @param iterator the iterator
      * @return the stream
      */
@@ -162,9 +162,9 @@ public class JMStream {
     }
 
     /**
-     * Builds the stream.
+     * Build stream stream.
      *
-     * @param <T>         the generic type
+     * @param <T>         the type parameter
      * @param enumeration the enumeration
      * @return the stream
      */
@@ -207,9 +207,9 @@ public class JMStream {
     }
 
     /**
-     * Builds the stream.
+     * Build stream stream.
      *
-     * @param <T>        the generic type
+     * @param <T>        the type parameter
      * @param isParallel the is parallel
      * @param collection the collection
      * @return the stream
@@ -220,9 +220,9 @@ public class JMStream {
     }
 
     /**
-     * Builds the concat stream.
+     * Build concat stream stream.
      *
-     * @param <T>     the generic type
+     * @param <T>     the type parameter
      * @param sample1 the sample 1
      * @param sample2 the sample 2
      * @return the stream
@@ -233,7 +233,7 @@ public class JMStream {
     }
 
     /**
-     * Builds the random number stream.
+     * Build random number stream double stream.
      *
      * @param count the count
      * @return the double stream
@@ -253,6 +253,21 @@ public class JMStream {
     public static <K, V> Stream<Entry<K, V>> buildEntryStream(Map<K, V> map) {
         return JMOptional.getOptional(map).map(Map::entrySet).map
                 (Set::stream).orElseGet(Stream::empty);
+    }
+
+    /**
+     * Build stream stream.
+     *
+     * @param object the object
+     * @return the stream
+     */
+    public static Stream<?> buildStream(Object object) {
+        if (object instanceof Collection)
+            return ((Collection<?>) object).stream();
+        else if (object.getClass().isArray())
+            return Arrays.stream((Object[]) object);
+        else
+            return Stream.of(object);
     }
 
 }
