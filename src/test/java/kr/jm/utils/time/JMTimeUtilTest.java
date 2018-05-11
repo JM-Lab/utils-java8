@@ -37,10 +37,9 @@ public class JMTimeUtilTest {
     /**
      * Sets the up.
      *
-     * @throws Exception the exception
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     /**
@@ -436,11 +435,11 @@ public class JMTimeUtilTest {
     public void testChangeFormatAndTimeZoneToOffsetDateTime() {
         System.out.println(JMTimeUtil.getCurrentTimestamp(DATE_FORMAT,
                 TIME_ZONE_ID));
-        System.out.println(JMTimeUtil.DEFAULT_ZONE_ID_STRING);
-        System.out.println(JMTimeUtil.DEFAULT_ZONE_OFFSET_ID_STRING);
+        System.out.println(JMTimeUtil.DEFAULT_ZONE_ID);
+        System.out.println(JMTimeUtil.DEFAULT_ZONE_OFFSET_ID);
         System.out.println(JMTimeUtil
                 .changeFormatAndTimeZoneToOffsetDateTime(DATE_FORMAT2,
-                        JMTimeUtil.DEFAULT_ZONE_OFFSET_ID_STRING,
+                        JMTimeUtil.DEFAULT_ZONE_OFFSET_ID,
                         "03/Jan/2018:18:44:19"));
         assertEquals("2018-01-05T04:53:37.000Z", JMTimeUtil
                 .changeFormatAndTimeZoneToDefaultUtcFormat(DATE_FORMAT,
