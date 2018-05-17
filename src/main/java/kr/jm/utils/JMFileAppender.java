@@ -5,7 +5,6 @@ import kr.jm.utils.helper.JMFiles;
 import kr.jm.utils.helper.JMLog;
 import kr.jm.utils.helper.JMPath;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.Charset;
@@ -19,7 +18,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 /**
  * The type Jm file appender.
  */
-public class JMFileAppender implements Closeable {
+public class JMFileAppender implements AutoCloseable {
 
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
             .getLogger(JMFileAppender.class);
