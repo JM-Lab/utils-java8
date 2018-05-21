@@ -364,4 +364,8 @@ public class JMPathOperation {
         createDirectories(path.getParent(), attrs);
         createFile(path, attrs);
     }
+
+    public static boolean deleteDirOnExist(Path dirPath) {
+        return JMPath.exists(dirPath) && deleteDir(dirPath);
+    }
 }
