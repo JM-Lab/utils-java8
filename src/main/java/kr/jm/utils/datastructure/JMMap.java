@@ -16,50 +16,76 @@ import static java.util.stream.Collectors.toMap;
 import static kr.jm.utils.helper.JMString.DOT;
 
 /**
- * The Class JMMap.
+ * The type Jm map.
  */
 public class JMMap {
 
     /**
-     * Removes the all if by key.
+     * Remove all if by key list.
      *
-     * @param <K>       the key type
-     * @param <V>       the value type
-     * @param map       the map
-     * @param predicate the predicate
+     * @param <K>    the type parameter
+     * @param <V>    the type parameter
+     * @param map    the map
+     * @param filter the filter
      * @return the list
      */
     public static <K, V> List<V> removeAllIfByKey(Map<K, V> map,
-            Predicate<? super K> predicate) {
+            Predicate<? super K> filter) {
         synchronized (map) {
-            return map.keySet().stream().filter(predicate).collect(toList())
+            return map.keySet().stream().filter(filter).collect(toList())
                     .stream().map(map::remove).collect(toList());
         }
     }
 
     /**
-     * Removes the all if by entry.
+     * Remove all if by entry list.
      *
-     * @param <K>       the key type
-     * @param <V>       the value type
-     * @param map       the map
-     * @param predicate the predicate
+     * @param <K>    the type parameter
+     * @param <V>    the type parameter
+     * @param map    the map
+     * @param filter the filter
      * @return the list
      */
     public static <K, V> List<V> removeAllIfByEntry(Map<K, V> map,
-            Predicate<? super Entry<K, V>> predicate) {
+            Predicate<? super Entry<K, V>> filter) {
         synchronized (map) {
-            return map.entrySet().stream().filter(predicate).map(Entry::getKey)
+            return getEntryStreamWithFilter(map, filter).map(Entry::getKey)
                     .collect(toList()).stream().map(map::remove)
                     .collect(toList());
         }
     }
 
     /**
-     * Gets the or else.
+     * Gets entry stream with filter.
      *
-     * @param <K>           the key type
-     * @param <V>           the value type
+     * @param <K>       the type parameter
+     * @param <V>       the type parameter
+     * @param map       the map
+     * @param predicate the predicate
+     * @return the entry stream with filter
+     */
+    public static <K, V> Stream<Entry<K, V>> getEntryStreamWithFilter(
+            Map<K, V> map, Predicate<? super Entry<K, V>> predicate) {
+        return buildEntryStream(map).filter(predicate);
+    }
+
+    /**
+     * Build entry stream stream.
+     *
+     * @param <K> the type parameter
+     * @param <V> the type parameter
+     * @param map the map
+     * @return the stream
+     */
+    public static <K, V> Stream<Entry<K, V>> buildEntryStream(Map<K, V> map) {
+        return map.entrySet().stream();
+    }
+
+    /**
+     * Gets or else.
+     *
+     * @param <K>           the type parameter
+     * @param <V>           the type parameter
      * @param map           the map
      * @param key           the key
      * @param valueSupplier the value supplier
@@ -71,10 +97,10 @@ public class JMMap {
     }
 
     /**
-     * Gets the or put get new.
+     * Gets or put get new.
      *
-     * @param <K>              the key type
-     * @param <V>              the value type
+     * @param <K>              the type parameter
+     * @param <V>              the type parameter
      * @param map              the map
      * @param key              the key
      * @param newValueSupplier the new value supplier
@@ -88,10 +114,10 @@ public class JMMap {
     }
 
     /**
-     * Put get new.
+     * Put get new v.
      *
-     * @param <V>      the value type
-     * @param <K>      the key type
+     * @param <V>      the type parameter
+     * @param <K>      the type parameter
      * @param map      the map
      * @param key      the key
      * @param newValue the new value
@@ -125,11 +151,11 @@ public class JMMap {
     }
 
     /**
-     * New changed key map.
+     * New changed key map map.
      *
-     * @param <K>                 the key type
-     * @param <V>                 the value type
-     * @param <NK>                the generic type
+     * @param <K>                 the type parameter
+     * @param <V>                 the type parameter
+     * @param <NK>                the type parameter
      * @param map                 the map
      * @param changingKeyFunction the changing key function
      * @return the map
@@ -137,7 +163,7 @@ public class JMMap {
     public static <K, V, NK> Map<NK, V> newChangedKeyMap(Map<K, V> map,
             Function<K, NK> changingKeyFunction) {
         synchronized (map) {
-            return map.entrySet().stream()
+            return buildEntryStream(map)
                     .collect(toMap(
                             entry -> changingKeyFunction.apply(entry.getKey()),
                             Entry::getValue));
@@ -158,17 +184,17 @@ public class JMMap {
             Map<K, V> map,
             Function<Entry<K, V>, NK> changingKeyFunction) {
         synchronized (map) {
-            return map.entrySet().stream().collect(
+            return buildEntryStream(map).collect(
                     toMap(changingKeyFunction::apply, Entry::getValue));
         }
     }
 
     /**
-     * New filtered changed key map.
+     * New filtered changed key map map.
      *
-     * @param <K>                 the key type
-     * @param <V>                 the value type
-     * @param <NK>                the generic type
+     * @param <K>                 the type parameter
+     * @param <V>                 the type parameter
+     * @param <NK>                the type parameter
      * @param map                 the map
      * @param filter              the filter
      * @param changingKeyFunction the changing key function
@@ -178,7 +204,7 @@ public class JMMap {
             Predicate<? super Entry<K, V>> filter,
             Function<K, NK> changingKeyFunction) {
         synchronized (map) {
-            return map.entrySet().stream().filter(filter).collect(
+            return getEntryStreamWithFilter(map, filter).collect(
                     toMap(entry -> changingKeyFunction.apply(entry.getKey()),
                             Entry::getValue));
         }
@@ -199,17 +225,17 @@ public class JMMap {
             Map<K, V> map, Predicate<? super Entry<K, V>> filter,
             Function<Entry<K, V>, NK> changingKeyFunction) {
         synchronized (map) {
-            return map.entrySet().stream().filter(filter).collect(
+            return getEntryStreamWithFilter(map, filter).collect(
                     toMap(changingKeyFunction::apply, Entry::getValue));
         }
     }
 
     /**
-     * New changed value map.
+     * New changed value map map.
      *
-     * @param <K>                   the key type
-     * @param <V>                   the value type
-     * @param <NV>                  the generic type
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <NV>                  the type parameter
      * @param map                   the map
      * @param changingValueFunction the changing value function
      * @return the map
@@ -217,7 +243,7 @@ public class JMMap {
     public static <K, V, NV> Map<K, NV> newChangedValueMap(Map<K, V> map,
             Function<V, NV> changingValueFunction) {
         synchronized (map) {
-            return map.entrySet().stream().collect(toMap(Entry::getKey,
+            return buildEntryStream(map).collect(toMap(Entry::getKey,
                     entry -> changingValueFunction.apply(entry.getValue())));
         }
     }
@@ -236,17 +262,17 @@ public class JMMap {
             Map<K, V> map,
             Function<Entry<K, V>, NV> changingValueFunction) {
         synchronized (map) {
-            return map.entrySet().stream().collect(
+            return buildEntryStream(map).collect(
                     toMap(Entry::getKey, changingValueFunction::apply));
         }
     }
 
     /**
-     * New filtered changed value map.
+     * New filtered changed value map map.
      *
-     * @param <K>                   the key type
-     * @param <V>                   the value type
-     * @param <NV>                  the generic type
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <NV>                  the type parameter
      * @param map                   the map
      * @param filter                the filter
      * @param changingValueFunction the changing value function
@@ -256,7 +282,7 @@ public class JMMap {
             Map<K, V> map, Predicate<Entry<K, V>> filter,
             Function<V, NV> changingValueFunction) {
         synchronized (map) {
-            return map.entrySet().stream().filter(filter).collect(
+            return getEntryStreamWithFilter(map, filter).collect(
                     toMap(Entry::getKey, entry -> changingValueFunction
                             .apply(entry.getValue())));
         }
@@ -277,18 +303,18 @@ public class JMMap {
             Map<K, V> map, Predicate<Entry<K, V>> filter,
             Function<Entry<K, V>, NV> changingValueFunction) {
         synchronized (map) {
-            return map.entrySet().stream().filter(filter).collect(
+            return getEntryStreamWithFilter(map, filter).collect(
                     toMap(Entry::getKey, changingValueFunction::apply));
         }
     }
 
     /**
-     * New changed key value map.
+     * New changed key value map map.
      *
-     * @param <K>                   the key type
-     * @param <V>                   the value type
-     * @param <NK>                  the generic type
-     * @param <NV>                  the generic type
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <NK>                  the type parameter
+     * @param <NV>                  the type parameter
      * @param map                   the map
      * @param changingKeyFunction   the changing key function
      * @param changingValueFunction the changing value function
@@ -298,19 +324,19 @@ public class JMMap {
             Map<K, V> map, Function<K, NK> changingKeyFunction,
             Function<V, NV> changingValueFunction) {
         synchronized (map) {
-            return map.entrySet().stream().collect(toMap(
+            return buildEntryStream(map).collect(toMap(
                     entry -> changingKeyFunction.apply(entry.getKey()),
                     entry -> changingValueFunction.apply(entry.getValue())));
         }
     }
 
     /**
-     * New filtered changed key value map.
+     * New filtered changed key value map map.
      *
-     * @param <K>                   the key type
-     * @param <V>                   the value type
-     * @param <NK>                  the generic type
-     * @param <NV>                  the generic type
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <NK>                  the type parameter
+     * @param <NV>                  the type parameter
      * @param map                   the map
      * @param filter                the filter
      * @param changingKeyFunction   the changing key function
@@ -322,19 +348,19 @@ public class JMMap {
             Function<K, NK> changingKeyFunction,
             Function<V, NV> changingValueFunction) {
         synchronized (map) {
-            return map.entrySet().stream().filter(filter).collect(toMap(
+            return getEntryStreamWithFilter(map, filter).collect(toMap(
                     entry -> changingKeyFunction.apply(entry.getKey()),
                     entry -> changingValueFunction.apply(entry.getValue())));
         }
     }
 
     /**
-     * New changed key value with entry map.
+     * New changed key value with entry map map.
      *
-     * @param <K>                   the key type
-     * @param <V>                   the value type
-     * @param <NK>                  the generic type
-     * @param <NV>                  the generic type
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <NK>                  the type parameter
+     * @param <NV>                  the type parameter
      * @param map                   the map
      * @param changingKeyFunction   the changing key function
      * @param changingValueFunction the changing value function
@@ -344,18 +370,18 @@ public class JMMap {
             Map<K, V> map, Function<Entry<K, V>, NK> changingKeyFunction,
             Function<Entry<K, V>, NV> changingValueFunction) {
         synchronized (map) {
-            return map.entrySet().stream().collect(toMap(
+            return buildEntryStream(map).collect(toMap(
                     changingKeyFunction::apply, changingValueFunction::apply));
         }
     }
 
     /**
-     * New filtered changed key value with entry map.
+     * New filtered changed key value with entry map map.
      *
-     * @param <K>                   the key type
-     * @param <V>                   the value type
-     * @param <NK>                  the generic type
-     * @param <NV>                  the generic type
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <NK>                  the type parameter
+     * @param <NV>                  the type parameter
      * @param map                   the map
      * @param filter                the filter
      * @param changingKeyFunction   the changing key function
@@ -368,16 +394,16 @@ public class JMMap {
             Function<Entry<K, V>, NK> changingKeyFunction,
             Function<Entry<K, V>, NV> changingValueFunction) {
         synchronized (map) {
-            return map.entrySet().stream().filter(filter).collect(toMap(
+            return getEntryStreamWithFilter(map, filter).collect(toMap(
                     changingKeyFunction::apply, changingValueFunction::apply));
         }
     }
 
     /**
-     * New filtered map.
+     * New filtered map map.
      *
-     * @param <K>    the key type
-     * @param <V>    the value type
+     * @param <K>    the type parameter
+     * @param <V>    the type parameter
      * @param map    the map
      * @param filter the filter
      * @return the map
@@ -385,16 +411,16 @@ public class JMMap {
     public static <K, V> Map<K, V> newFilteredMap(Map<K, V> map,
             Predicate<? super Entry<K, V>> filter) {
         synchronized (map) {
-            return map.entrySet().stream().filter(filter)
+            return getEntryStreamWithFilter(map, filter)
                     .collect(toMap(Entry::getKey, Entry::getValue));
         }
     }
 
     /**
-     * Sort.
+     * Sort map.
      *
-     * @param <K>        the key type
-     * @param <V>        the value type
+     * @param <K>        the type parameter
+     * @param <V>        the type parameter
      * @param map        the map
      * @param comparator the comparator
      * @return the map
@@ -409,10 +435,10 @@ public class JMMap {
     }
 
     /**
-     * Sort.
+     * Sort map.
      *
-     * @param <K> the key type
-     * @param <V> the value type
+     * @param <K> the type parameter
+     * @param <V> the type parameter
      * @param map the map
      * @return the map
      */
@@ -423,10 +449,10 @@ public class JMMap {
     }
 
     /**
-     * Sorted stream.
+     * Sorted stream stream.
      *
-     * @param <K>        the key type
-     * @param <V>        the value type
+     * @param <K>        the type parameter
+     * @param <V>        the type parameter
      * @param map        the map
      * @param comparator the comparator
      * @return the stream
@@ -434,30 +460,30 @@ public class JMMap {
     public static <K, V> Stream<Entry<K, V>> sortedStream(Map<K, V> map,
             Comparator<? super Entry<K, V>> comparator) {
         synchronized (map) {
-            return map.entrySet().stream().sorted(comparator);
+            return buildEntryStream(map).sorted(comparator);
         }
     }
 
     /**
-     * Sorted stream.
+     * Sorted stream stream.
      *
-     * @param <K> the key type
-     * @param <V> the value type
+     * @param <K> the type parameter
+     * @param <V> the type parameter
      * @param map the map
      * @return the stream
      */
     public static <K extends Comparable<K>, V> Stream<Entry<K, V>>
     sortedStream(Map<K, V> map) {
         synchronized (map) {
-            return map.entrySet().stream().sorted(comparing(Entry::getKey));
+            return buildEntryStream(map).sorted(comparing(Entry::getKey));
         }
     }
 
     /**
-     * Sort by value.
+     * Sort by value map.
      *
-     * @param <K> the key type
-     * @param <V> the value type
+     * @param <K> the type parameter
+     * @param <V> the type parameter
      * @param map the map
      * @return the map
      */
@@ -467,35 +493,35 @@ public class JMMap {
     }
 
     /**
-     * Sorted stream by value.
+     * Sorted stream by value stream.
      *
-     * @param <K> the key type
-     * @param <V> the value type
+     * @param <K> the type parameter
+     * @param <V> the type parameter
      * @param map the map
      * @return the stream
      */
     public static <K, V extends Comparable<V>> Stream<Entry<K, V>>
     sortedStreamByValue(Map<K, V> map) {
         synchronized (map) {
-            return map.entrySet().stream().sorted(comparing(Entry::getValue));
+            return buildEntryStream(map).sorted(comparing(Entry::getValue));
         }
     }
 
     /**
-     * Checks if is not null or getEmptyStringArray.
+     * Is not null or empty boolean.
      *
      * @param map the map
-     * @return true, if is not null or getEmptyStringArray
+     * @return the boolean
      */
     public static boolean isNotNullOrEmpty(Map<?, ?> map) {
         return !JMMap.isNullOrEmpty(map);
     }
 
     /**
-     * Checks if is null or getEmptyStringArray.
+     * Is null or empty boolean.
      *
      * @param map the map
-     * @return true, if is null or getEmptyStringArray
+     * @return the boolean
      */
     public static boolean isNullOrEmpty(Map<?, ?> map) {
         return map == null || map.size() == 0;
