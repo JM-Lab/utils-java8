@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.text.DecimalFormat;
 
 /**
- * The Class FileSize.
+ * The type File size.
  */
 public class FileSize implements Comparable<FileSize> {
 
@@ -19,7 +19,7 @@ public class FileSize implements Comparable<FileSize> {
 	private String siSize;
 
     /**
-     * Instantiates a new file size.
+	 * Instantiates a new File size.
      *
      * @param size the size
      */
@@ -31,7 +31,7 @@ public class FileSize implements Comparable<FileSize> {
 	}
 
     /**
-     * Instantiates a new file size.
+	 * Instantiates a new File size.
      *
      * @param path the path
      */
@@ -40,7 +40,7 @@ public class FileSize implements Comparable<FileSize> {
 	}
 
     /**
-     * Gets the size.
+	 * Gets size.
      *
      * @return the size
      */

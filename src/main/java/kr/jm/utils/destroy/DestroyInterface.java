@@ -6,7 +6,7 @@ import kr.jm.utils.helper.JMThread;
 import java.util.concurrent.ExecutorService;
 
 /**
- * The Interface DestroyInterface.
+ * The interface Destroy interface.
  */
 public interface DestroyInterface {
 

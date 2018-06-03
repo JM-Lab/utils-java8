@@ -2,25 +2,29 @@
 package kr.jm.utils.enums;
 
 /**
- * The Enum Seconds.
+ * The enum Seconds.
  */
 public enum Seconds {
 
     /**
      * Second seconds.
      */
-    SECOND(1), /**
+    SECOND(1),
+    /**
      * Minute seconds.
      */
-    MINUTE(SECOND.getValue() * 60), /**
+    MINUTE(SECOND.getValue() * 60),
+    /**
      * Hour seconds.
      */
     HOUR(
-			MINUTE.getValue() * 60), /**
+            MINUTE.getValue() * 60),
+    /**
      * Day seconds.
      */
     DAY(
-					HOUR.getValue() * 24), /**
+            HOUR.getValue() * 24),
+    /**
      * Week seconds.
      */
     WEEK(DAY.getValue() * 7);
@@ -28,11 +32,11 @@ public enum Seconds {
 	private int seconds;
 
 	Seconds(int seconds) {
-		this.seconds = seconds;
-	}
+        this.seconds = seconds;
+    }
 
     /**
-     * Gets the value.
+     * Gets value.
      *
      * @return the value
      */

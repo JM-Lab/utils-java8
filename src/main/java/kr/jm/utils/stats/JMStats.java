@@ -13,12 +13,12 @@ import static java.util.stream.Collectors.toMap;
 import static kr.jm.utils.helper.JMStream.buildDoubleStream;
 
 /**
- * The Class JMStats.
+ * The type Jm stats.
  */
 public class JMStats {
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param statsString       the stats string
      * @param summaryStatistics the summary statistics
@@ -30,7 +30,7 @@ public class JMStats {
     }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param statsString       the stats string
      * @param summaryStatistics the summary statistics
@@ -42,7 +42,7 @@ public class JMStats {
     }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param statsString       the stats string
      * @param summaryStatistics the summary statistics
@@ -54,7 +54,7 @@ public class JMStats {
     }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param statsString  the stats string
      * @param numberStream the number stream
@@ -65,7 +65,7 @@ public class JMStats {
     }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param statsString  the stats string
      * @param numberStream the number stream
@@ -76,7 +76,7 @@ public class JMStats {
     }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param statsString  the stats string
      * @param numberStream the number stream
@@ -88,7 +88,7 @@ public class JMStats {
     }
 
     /**
-     * Gets the percentile value.
+     * Gets percentile value.
      *
      * @param targetPercentile    the target percentile
      * @param unorderedNumberList the unordered number list
@@ -107,7 +107,7 @@ public class JMStats {
     }
 
     /**
-     * Gets the percentile value map.
+     * Gets percentile value map.
      *
      * @param targetPercentileList the target percentile list
      * @param numberList           the number list
@@ -139,9 +139,9 @@ public class JMStats {
     }
 
     /**
-     * Min.
+     * Min number.
      *
-     * @param <N>        the number type
+     * @param <N>        the type parameter
      * @param numberList the number list
      * @return the number
      */
@@ -160,9 +160,9 @@ public class JMStats {
     }
 
     /**
-     * Max.
+     * Max number.
      *
-     * @param <N>        the number type
+     * @param <N>        the type parameter
      * @param numberList the number list
      * @return the number
      */
@@ -181,7 +181,7 @@ public class JMStats {
     }
 
     /**
-     * Count.
+     * Count number.
      *
      * @param numberList the number list
      * @return the number
@@ -191,9 +191,9 @@ public class JMStats {
     }
 
     /**
-     * Sum.
+     * Sum number.
      *
-     * @param <N>        the number type
+     * @param <N>        the type parameter
      * @param numberList the number list
      * @return the number
      */
@@ -209,9 +209,9 @@ public class JMStats {
     }
 
     /**
-     * Average.
+     * Average number.
      *
-     * @param <N>        the number type
+     * @param <N>        the type parameter
      * @param numberList the number list
      * @return the number
      */
@@ -230,7 +230,7 @@ public class JMStats {
     }
 
     /**
-     * Cal percent.
+     * Cal percent int.
      *
      * @param target the target
      * @param total  the total
@@ -241,7 +241,7 @@ public class JMStats {
     }
 
     /**
-     * Cal percent precisely.
+     * Cal percent precisely double.
      *
      * @param target the target
      * @param total  the total
@@ -254,7 +254,7 @@ public class JMStats {
     }
 
     /**
-     * Cal percent.
+     * Cal percent string.
      *
      * @param target the target
      * @param total  the total
@@ -267,7 +267,7 @@ public class JMStats {
     }
 
     /**
-     * Round with decimal place.
+     * Round with decimal place double.
      *
      * @param doubleNumber the double number
      * @param decimalPlace the decimal place
@@ -280,7 +280,7 @@ public class JMStats {
     }
 
     /**
-     * Round with place.
+     * Round with place double.
      *
      * @param doubleNumber the double number
      * @param place        the place
@@ -293,7 +293,7 @@ public class JMStats {
     }
 
     /**
-     * Pow.
+     * Pow double.
      *
      * @param baseNumber the base number
      * @param exponent   the exponent
@@ -308,7 +308,7 @@ public class JMStats {
     }
 
     /**
-     * Round with place.
+     * Round with place long.
      *
      * @param longNumber the long number
      * @param place      the place
@@ -319,7 +319,7 @@ public class JMStats {
     }
 
     /**
-     * Cal standard deviation.
+     * Cal standard deviation double.
      *
      * @param numberList the number list
      * @return the double
@@ -331,7 +331,7 @@ public class JMStats {
     }
 
     /**
-     * Cal population standard deviation.
+     * Cal population standard deviation double.
      *
      * @param numberList the number list
      * @return the double
@@ -342,7 +342,7 @@ public class JMStats {
     }
 
     /**
-     * Cal variance.
+     * Cal variance double.
      *
      * @param numberList the number list
      * @return the double
@@ -353,7 +353,7 @@ public class JMStats {
     }
 
     /**
-     * Cal population variance.
+     * Cal population variance double.
      *
      * @param numberList the number list
      * @return the double
@@ -379,7 +379,7 @@ public class JMStats {
     }
 
     /**
-     * Cal sum addAll squares.
+     * Cal sum of squares double.
      *
      * @param numberList the number list
      * @return the double
@@ -400,7 +400,7 @@ public class JMStats {
     }
 
     /**
-     * Cal pairwise variance.
+     * Cal pairwise variance double.
      *
      * @param count1    the count 1
      * @param sum1      the sum 1

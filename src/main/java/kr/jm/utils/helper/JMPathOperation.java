@@ -18,7 +18,7 @@ import static kr.jm.utils.helper.JMLog.debug;
 import static kr.jm.utils.helper.JMPredicate.negate;
 
 /**
- * The Class JMPathOperation.
+ * The type Jm path operation.
  */
 public class JMPathOperation {
 
@@ -29,7 +29,7 @@ public class JMPathOperation {
             org.slf4j.LoggerFactory.getLogger(JMPathOperation.class);
 
     /**
-     * Copy.
+     * Copy path.
      *
      * @param sourcePath      the source path
      * @param destinationPath the destination path
@@ -49,7 +49,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Copy dir recursively async.
+     * Copy dir recursively async optional.
      *
      * @param targetDirPath      the target dir path
      * @param destinationDirPath the destination dir path
@@ -77,7 +77,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Copy file path list async.
+     * Copy file path list async optional.
      *
      * @param filePathList       the file path list
      * @param destinationDirPath the destination dir path
@@ -93,7 +93,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Move.
+     * Move path.
      *
      * @param sourcePath      the source path
      * @param destinationPath the destination path
@@ -113,7 +113,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Move dir.
+     * Move dir optional.
      *
      * @param sourceDirPath      the source dir path
      * @param destinationDirPath the destination dir path
@@ -127,7 +127,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Move path list async.
+     * Move path list async optional.
      *
      * @param pathList           the path list
      * @param destinationDirPath the destination dir path
@@ -183,10 +183,10 @@ public class JMPathOperation {
     }
 
     /**
-     * Delete.
+     * Delete boolean.
      *
      * @param targetPath the target path
-     * @return true, if successful
+     * @return the boolean
      */
     public static boolean delete(Path targetPath) {
         debug(log, "delete", targetPath);
@@ -200,10 +200,10 @@ public class JMPathOperation {
     }
 
     /**
-     * Delete all.
+     * Delete all boolean.
      *
      * @param targetPath the target path
-     * @return true, if successful
+     * @return the boolean
      */
     public static boolean deleteAll(Path targetPath) {
         debug(log, "deleteAll", targetPath);
@@ -212,10 +212,10 @@ public class JMPathOperation {
     }
 
     /**
-     * Delete dir.
+     * Delete dir boolean.
      *
      * @param targetDirPath the target dir path
-     * @return true, if successful
+     * @return the boolean
      */
     public static boolean deleteDir(Path targetDirPath) {
         debug(log, "deleteDir", targetDirPath);
@@ -225,7 +225,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Delete bulk then false list.
+     * Delete bulk then false list list.
      *
      * @param bulkPathList the bulk path list
      * @return the list
@@ -237,10 +237,10 @@ public class JMPathOperation {
     }
 
     /**
-     * Delete all async.
+     * Delete all async jm progressive manager.
      *
      * @param pathList the path list
-     * @return the JM progressive manager
+     * @return the jm progressive manager
      */
     public static JMProgressiveManager<Path, Boolean>
     deleteAllAsync(List<Path> pathList) {
@@ -250,7 +250,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Delete on exit.
+     * Delete on exit path.
      *
      * @param path the path
      * @return the path
@@ -262,7 +262,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Creates the temp file path as opt.
+     * Create temp file path as opt optional.
      *
      * @param path the path
      * @return the optional
@@ -282,7 +282,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Creates the temp dir path as opt.
+     * Create temp dir path as opt optional.
      *
      * @param path the path
      * @return the optional
@@ -300,7 +300,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Creates the file.
+     * Create file optional.
      *
      * @param path  the path
      * @param attrs the attrs
@@ -318,7 +318,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Creates the directories.
+     * Create directories optional.
      *
      * @param dirPath the dir path
      * @param attrs   the attrs
@@ -336,7 +336,7 @@ public class JMPathOperation {
     }
 
     /**
-     * Creates the directory.
+     * Create directory optional.
      *
      * @param dirPath the dir path
      * @param attrs   the attrs
@@ -365,6 +365,12 @@ public class JMPathOperation {
         createFile(path, attrs);
     }
 
+    /**
+     * Delete dir on exist boolean.
+     *
+     * @param dirPath the dir path
+     * @return the boolean
+     */
     public static boolean deleteDirOnExist(Path dirPath) {
         return JMPath.exists(dirPath) && deleteDir(dirPath);
     }

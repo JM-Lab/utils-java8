@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import java.util.Collection;
 
 /**
- * The Class JMLog.
+ * The type Jm log.
  */
 public class JMLog {
 

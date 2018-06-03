@@ -6,9 +6,9 @@ import static kr.jm.utils.helper.JMOptional.getOptional;
 import static kr.jm.utils.helper.JMPredicate.*;
 
 /**
- * The Class JMLimitedList.
+ * The type Jm limited list.
  *
- * @param <E> the element type
+ * @param <E> the type parameter
  */
 public class JMLimitedList<E> implements Collection<E> {
 
@@ -17,7 +17,7 @@ public class JMLimitedList<E> implements Collection<E> {
     private int capacity;
 
     /**
-     * Instantiates a new JM limited list.
+     * Instantiates a new Jm limited list.
      *
      * @param capacity the capacity
      */
@@ -28,7 +28,7 @@ public class JMLimitedList<E> implements Collection<E> {
     }
 
     /**
-     * Gets the capacity.
+     * Gets capacity.
      *
      * @return the capacity
      */
@@ -37,7 +37,7 @@ public class JMLimitedList<E> implements Collection<E> {
     }
 
     /**
-     * Gets the first.
+     * Gets first.
      *
      * @return the first
      */
@@ -46,7 +46,7 @@ public class JMLimitedList<E> implements Collection<E> {
     }
 
     /**
-     * Gets the last.
+     * Gets last.
      *
      * @return the last
      */
@@ -55,7 +55,7 @@ public class JMLimitedList<E> implements Collection<E> {
     }
 
     /**
-     * Gets the.
+     * Get optional.
      *
      * @param index the index
      * @return the optional
@@ -67,7 +67,7 @@ public class JMLimitedList<E> implements Collection<E> {
     }
 
     /**
-     * Gets the current.
+     * Gets current.
      *
      * @return the current
      */
@@ -76,7 +76,7 @@ public class JMLimitedList<E> implements Collection<E> {
     }
 
     /**
-     * Sub list.
+     * Sub list list.
      *
      * @param fromIndex the from index
      * @param toIndex   the to index
@@ -87,7 +87,7 @@ public class JMLimitedList<E> implements Collection<E> {
     }
 
     /**
-     * Gets the current index.
+     * Gets current index.
      *
      * @return the current index
      */
@@ -96,7 +96,7 @@ public class JMLimitedList<E> implements Collection<E> {
     }
 
     /**
-     * Gets the previous.
+     * Gets previous.
      *
      * @return the previous
      */
@@ -106,7 +106,7 @@ public class JMLimitedList<E> implements Collection<E> {
     }
 
     /**
-     * Gets the next.
+     * Gets next.
      *
      * @return the next
      */

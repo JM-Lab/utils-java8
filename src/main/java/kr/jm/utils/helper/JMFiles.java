@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * The Class JMFiles.
+ * The type Jm files.
  */
 public class JMFiles {
 
@@ -95,11 +95,11 @@ public class JMFiles {
     }
 
     /**
-     * Write string.
+     * Write string boolean.
      *
      * @param inputString the input string
      * @param targetFile  the target file
-     * @return true, if successful
+     * @return the boolean
      */
     public static boolean writeString(String inputString, File targetFile) {
         if (!targetFile.exists()) {
@@ -114,7 +114,7 @@ public class JMFiles {
     }
 
     /**
-     * Read string.
+     * Read string string.
      *
      * @param targetFile the target file
      * @return the string
@@ -139,10 +139,10 @@ public class JMFiles {
     }
 
     /**
-     * Read string.
+     * Read string string.
      *
      * @param targetFile  the target file
-     * @param charsetName the charsetName
+     * @param charsetName the charset name
      * @return the string
      */
     public static String readString(File targetFile, String charsetName) {
@@ -167,7 +167,7 @@ public class JMFiles {
     }
 
     /**
-     * Read string.
+     * Read string string.
      *
      * @param filePath the file path
      * @return the string
@@ -177,10 +177,10 @@ public class JMFiles {
     }
 
     /**
-     * Read string.
+     * Read string string.
      *
      * @param filePath    the file path
-     * @param charsetName the charsetName
+     * @param charsetName the charset name
      * @return the string
      */
     public static String readString(String filePath, String charsetName) {
@@ -188,7 +188,7 @@ public class JMFiles {
     }
 
     /**
-     * Read lines.
+     * Read lines list.
      *
      * @param targetFile the target file
      * @return the list
@@ -213,10 +213,10 @@ public class JMFiles {
     }
 
     /**
-     * Read lines.
+     * Read lines list.
      *
      * @param targetFile  the target file
-     * @param charsetName the charsetName
+     * @param charsetName the charset name
      * @return the list
      */
     public static List<String> readLines(File targetFile, String charsetName) {
@@ -240,7 +240,7 @@ public class JMFiles {
     }
 
     /**
-     * Read lines.
+     * Read lines list.
      *
      * @param filePath the file path
      * @return the list
@@ -250,10 +250,10 @@ public class JMFiles {
     }
 
     /**
-     * Read lines.
+     * Read lines list.
      *
      * @param filePath    the file path
-     * @param charsetName the charsetName
+     * @param charsetName the charset name
      * @return the list
      */
     public static List<String> readLines(String filePath, String charsetName) {
@@ -271,7 +271,7 @@ public class JMFiles {
     }
 
     /**
-     * Gets the extension.
+     * Gets extension.
      *
      * @param file the file
      * @return the extension
@@ -281,7 +281,7 @@ public class JMFiles {
     }
 
     /**
-     * Gets the prefix.
+     * Gets prefix.
      *
      * @param file the file
      * @return the prefix
@@ -291,17 +291,17 @@ public class JMFiles {
     }
 
     /**
-     * Gets the prefix suffix.
+     * Get prefix suffix string [ ].
      *
      * @param file the file
-     * @return the prefix suffix
+     * @return the string [ ]
      */
     public static String[] getPrefixSuffix(File file) {
         return JMString.splitFileNameIntoPreSuffix(file.getName());
     }
 
     /**
-     * Creates the temp file.
+     * Create temp file file.
      *
      * @param file the file
      * @return the file

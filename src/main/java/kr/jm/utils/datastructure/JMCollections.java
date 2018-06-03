@@ -15,15 +15,15 @@ import static kr.jm.utils.helper.JMStream.buildTokenStream;
 import static kr.jm.utils.helper.JMString.LINE_SEPARATOR;
 
 /**
- * The Class JMCollections.
+ * The type Jm collections.
  */
 public class JMCollections {
 
     /**
-     * If not null or getEmptyStringArray consume.
+     * If not null or empty consume.
      *
-     * @param <T>        the generic type
-     * @param <C>        the generic type
+     * @param <T>        the type parameter
+     * @param <C>        the type parameter
      * @param collection the collection
      * @param consumer   the consumer
      */
@@ -33,30 +33,30 @@ public class JMCollections {
     }
 
     /**
-     * Checks if is not null or getEmptyStringArray.
+     * Is not null or empty boolean.
      *
      * @param collection the collection
-     * @return true, if is not null or getEmptyStringArray
+     * @return the boolean
      */
     public static boolean isNotNullOrEmpty(Collection<?> collection) {
         return !isNullOrEmpty(collection);
     }
 
     /**
-     * Checks if is null or getEmptyStringArray.
+     * Is null or empty boolean.
      *
      * @param collection the collection
-     * @return true, if is null or getEmptyStringArray
+     * @return the boolean
      */
     public static boolean isNullOrEmpty(Collection<?> collection) {
         return collection == null || collection.size() == 0;
     }
 
     /**
-     * Gets the last.
+     * Gets last.
      *
-     * @param <T>  the generic type
-     * @param <L>  the generic type
+     * @param <T>  the type parameter
+     * @param <L>  the type parameter
      * @param list the list
      * @return the last
      */
@@ -65,9 +65,9 @@ public class JMCollections {
     }
 
     /**
-     * Sort.
+     * Sort list.
      *
-     * @param <T>  the generic type
+     * @param <T>  the type parameter
      * @param list the list
      * @return the list
      */
@@ -77,9 +77,9 @@ public class JMCollections {
     }
 
     /**
-     * Sort.
+     * Sort list.
      *
-     * @param <T>        the generic type
+     * @param <T>        the type parameter
      * @param list       the list
      * @param comparator the comparator
      * @return the list
@@ -91,9 +91,9 @@ public class JMCollections {
     }
 
     /**
-     * Builds the list.
+     * Build list list.
      *
-     * @param <E>     the element type
+     * @param <E>     the type parameter
      * @param objects the objects
      * @return the list
      */
@@ -103,9 +103,9 @@ public class JMCollections {
     }
 
     /**
-     * Builds the list.
+     * Build list list.
      *
-     * @param <E>      the element type
+     * @param <E>      the type parameter
      * @param iterable the iterable
      * @return the list
      */
@@ -130,7 +130,7 @@ public class JMCollections {
     }
 
     /**
-     * Builds the list from csv.
+     * Build list from csv list.
      *
      * @param csvString the csv string
      * @return the list
@@ -140,7 +140,7 @@ public class JMCollections {
     }
 
     /**
-     * Builds the list with delimiter.
+     * Build list with delimiter list.
      *
      * @param stringWithDelimiter the string with delimiter
      * @param delimiter           the delimiter
@@ -153,7 +153,7 @@ public class JMCollections {
     }
 
     /**
-     * Builds the list by line.
+     * Build list by line list.
      *
      * @param stringByLine the string by line
      * @return the list
@@ -163,9 +163,9 @@ public class JMCollections {
     }
 
     /**
-     * Split into sub list.
+     * Split into sub list list.
      *
-     * @param <E>        the element type
+     * @param <E>        the type parameter
      * @param list       the list
      * @param targetSize the target size
      * @return the list
@@ -180,9 +180,9 @@ public class JMCollections {
     }
 
     /**
-     * Gets the reversed.
+     * Gets reversed.
      *
-     * @param <T>        the generic type
+     * @param <T>        the type parameter
      * @param collection the collection
      * @return the reversed
      */
@@ -193,10 +193,10 @@ public class JMCollections {
     }
 
     /**
-     * Transform list.
+     * Transform list list.
      *
-     * @param <T>               the generic type
-     * @param <R>               the generic type
+     * @param <T>               the type parameter
+     * @param <R>               the type parameter
      * @param collection        the collection
      * @param transformFunction the transform function
      * @return the list

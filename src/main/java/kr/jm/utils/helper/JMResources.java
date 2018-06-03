@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * The Class JMResources.
+ * The type Jm resources.
  */
 public class JMResources {
 
@@ -21,7 +21,7 @@ public class JMResources {
     public static final String UTF_8_CharsetString = "UTF-8";
 
     /**
-     * Sets the system property if is null.
+     * Sets system property if is null.
      *
      * @param key   the key
      * @param value the value
@@ -32,7 +32,7 @@ public class JMResources {
     }
 
     /**
-     * Gets the system property.
+     * Gets system property.
      *
      * @param key the key
      * @return the system property
@@ -42,17 +42,17 @@ public class JMResources {
     }
 
     /**
-     * Gets the resource URL.
+     * Gets resource url.
      *
      * @param classpath the classpath
-     * @return the resource URL
+     * @return the resource url
      */
     public static URL getResourceURL(String classpath) {
         return ClassLoader.getSystemResource(classpath);
     }
 
     /**
-     * Gets the url.
+     * Gets url.
      *
      * @param classpathOrFilePath the classpath or file path
      * @return the url
@@ -67,10 +67,10 @@ public class JMResources {
     }
 
     /**
-     * Gets the resource URI.
+     * Gets resource uri.
      *
      * @param classpath the classpath
-     * @return the resource URI
+     * @return the resource uri
      */
     public static URI getResourceURI(String classpath) {
         try {
@@ -82,7 +82,7 @@ public class JMResources {
     }
 
     /**
-     * Gets the uri.
+     * Gets uri.
      *
      * @param classpathOrFilePath the classpath or file path
      * @return the uri
@@ -93,7 +93,7 @@ public class JMResources {
     }
 
     /**
-     * Gets the resource input stream.
+     * Gets resource input stream.
      *
      * @param classpath the classpath
      * @return the resource input stream
@@ -103,7 +103,7 @@ public class JMResources {
     }
 
     /**
-     * Gets the properties.
+     * Gets properties.
      *
      * @param classpath the classpath
      * @return the properties
@@ -120,7 +120,7 @@ public class JMResources {
     }
 
     /**
-     * Gets the properties.
+     * Gets properties.
      *
      * @param propertiesFile the properties file
      * @return the properties
@@ -139,12 +139,12 @@ public class JMResources {
     }
 
     /**
-     * Save properties.
+     * Save properties boolean.
      *
      * @param inProperties the in properties
      * @param saveFile     the save file
      * @param comment      the comment
-     * @return true, if successful
+     * @return the boolean
      */
     public static boolean saveProperties(Properties inProperties, File saveFile,
             String comment) {
@@ -164,7 +164,7 @@ public class JMResources {
     }
 
     /**
-     * Read string.
+     * Read string string.
      *
      * @param resourceClasspath the resource classpath
      * @return the string
@@ -175,10 +175,10 @@ public class JMResources {
     }
 
     /**
-     * Read string.
+     * Read string string.
      *
      * @param resourceClasspath the resource classpath
-     * @param charsetName       the charsetName
+     * @param charsetName       the charset name
      * @return the string
      */
     public static String readString(String resourceClasspath,
@@ -188,7 +188,7 @@ public class JMResources {
     }
 
     /**
-     * Read lines.
+     * Read lines list.
      *
      * @param resourceClasspath the resource classpath
      * @return the list
@@ -199,10 +199,10 @@ public class JMResources {
     }
 
     /**
-     * Read lines.
+     * Read lines list.
      *
      * @param resourceClasspath the resource classpath
-     * @param charsetName       the charsetName
+     * @param charsetName       the charset name
      * @return the list
      */
     public static List<String> readLines(String resourceClasspath,
@@ -213,10 +213,10 @@ public class JMResources {
     }
 
     /**
-     * Gets the string from classpath or file path.
+     * Gets string with classpath or file path.
      *
      * @param classpathOrFilePath the classpath or file path
-     * @return the string from classpath or file path
+     * @return the string with classpath or file path
      */
     public static String getStringWithClasspathOrFilePath(
             String classpathOrFilePath) {
@@ -225,11 +225,11 @@ public class JMResources {
     }
 
     /**
-     * Gets the string from classpath or file path.
+     * Gets string with classpath or file path.
      *
      * @param classpathOrFilePath the classpath or file path
-     * @param charsetName         the charsetName
-     * @return the string from classpath or file path
+     * @param charsetName         the charset name
+     * @return the string with classpath or file path
      */
     public static String getStringWithClasspathOrFilePath(
             String classpathOrFilePath, String charsetName) {
@@ -239,7 +239,7 @@ public class JMResources {
     }
 
     /**
-     * Read lines from classpath or file path.
+     * Read lines with classpath or file path list.
      *
      * @param classpathOrFilePath the classpath or file path
      * @return the list
@@ -363,7 +363,7 @@ public class JMResources {
     }
 
     /**
-     * Gets the resource bundle.
+     * Gets resource bundle.
      *
      * @param baseName the base name
      * @return the resource bundle
@@ -373,7 +373,7 @@ public class JMResources {
     }
 
     /**
-     * Gets the resource bundle.
+     * Gets resource bundle.
      *
      * @param baseName     the base name
      * @param targetLocale the target locale

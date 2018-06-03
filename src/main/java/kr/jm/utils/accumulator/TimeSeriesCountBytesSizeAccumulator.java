@@ -11,7 +11,7 @@ import java.util.function.Function;
 public class TimeSeriesCountBytesSizeAccumulator extends
         JMTimeSeries<CountBytesSizeAccumulator> {
     /**
-     * Instantiates a new JM timeSeries.
+     * Instantiates a new Time series count bytes size accumulator.
      *
      * @param intervalSeconds the interval seconds
      */

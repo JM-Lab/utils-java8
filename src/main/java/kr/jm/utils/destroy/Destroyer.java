@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * The Class Destroyer.
+ * The type Destroyer.
  */
 public class Destroyer {
 
@@ -18,7 +18,7 @@ public class Destroyer {
     /**
      * Clean up.
      *
-     * @param <D>      the generic type
+     * @param <D>      the type parameter
      * @param destroys the destroys
      */
     @SafeVarargs
@@ -30,7 +30,7 @@ public class Destroyer {
     /**
      * Clean up.
      *
-     * @param <D>               the generic type
+     * @param <D>               the type parameter
      * @param destroyCollection the destroy collection
      */
     public static <D extends DestroyInterface> void

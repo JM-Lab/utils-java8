@@ -18,72 +18,72 @@ import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
 import static kr.jm.utils.helper.JMPredicate.peek;
 
 /**
- * The Class JMPath.
+ * The type Jm path.
  */
 public class JMPath {
 
 	private static final OS os = OS.getOS();
 
     /**
-     * The Constant FS.
+	 * The constant FS.
      */
     public static final FileSystem FS = FileSystems.getDefault();
 
     /**
-     * The Constant DirectoryFilter.
+	 * The constant DirectoryFilter.
      */
     public static final Predicate<Path> DirectoryFilter = Files::isDirectory;
 
     /**
-     * The Constant RegularFileFilter.
+	 * The constant RegularFileFilter.
      */
     public static final Predicate<Path> RegularFileFilter =
 			Files::isRegularFile;
 
     /**
-     * The Constant ExecutableFilter.
+	 * The constant ExecutableFilter.
      */
     public static final Predicate<Path> ExecutableFilter = Files::isExecutable;
 
     /**
-     * The Constant ReadableFilter.
+	 * The constant ReadableFilter.
      */
     public static final Predicate<Path> ReadableFilter = Files::isReadable;
 
     /**
-     * The Constant WritableFilter.
+	 * The constant WritableFilter.
      */
     public static final Predicate<Path> WritableFilter = Files::isWritable;
 
     /**
-     * The Constant SymbolicLinkFilter.
+	 * The constant SymbolicLinkFilter.
      */
     public static final Predicate<Path> SymbolicLinkFilter =
 			Files::isSymbolicLink;
 
     /**
-     * The Constant HiddenFilter.
+	 * The constant HiddenFilter.
      */
     public static final Predicate<Path> HiddenFilter = JMPath::isHidden;
 
     /**
-     * The Constant NotExistFilter.
+	 * The constant NotExistFilter.
      */
     public static final Predicate<Path> NotExistFilter = Files::notExists;
 
     /**
-     * The Constant ExistFilter.
+	 * The constant ExistFilter.
      */
     public static final Predicate<Path> ExistFilter = Files::exists;
 
     /**
-     * The Constant DirectoryAndNotSymbolicLinkFilter.
+	 * The constant DirectoryAndNotSymbolicLinkFilter.
      */
     public static final Predicate<Path> DirectoryAndNotSymbolicLinkFilter =
 			DirectoryFilter.and(SymbolicLinkFilter.negate());
 
     /**
-     * The Constant directoryFirstComparator.
+	 * The constant directoryFirstComparator.
      */
     public static final Comparator<Path> directoryFirstComparator =
 			(p1, p2) -> isDirectory(p1) && !isDirectory(p2) ? -1
@@ -91,97 +91,97 @@ public class JMPath {
 							: p1.compareTo(p2);
 
     /**
-     * Checks if is directory.
+	 * Is directory boolean.
      *
      * @param path the path
-     * @return true, if is directory
+	 * @return the boolean
      */
     public static boolean isDirectory(Path path) {
 		return DirectoryFilter.test(path);
 	}
 
     /**
-     * Checks if is regular file.
+	 * Is regular file boolean.
      *
      * @param path the path
-     * @return true, if is regular file
+	 * @return the boolean
      */
     public static boolean isRegularFile(Path path) {
 		return RegularFileFilter.test(path);
 	}
 
     /**
-     * Checks if is executable.
+	 * Is executable boolean.
      *
      * @param path the path
-     * @return true, if is executable
+	 * @return the boolean
      */
     public static boolean isExecutable(Path path) {
 		return ExecutableFilter.test(path);
 	}
 
     /**
-     * Checks if is readable.
+	 * Is readable boolean.
      *
      * @param path the path
-     * @return true, if is readable
+	 * @return the boolean
      */
     public static boolean isReadable(Path path) {
 		return ReadableFilter.test(path);
 	}
 
     /**
-     * Checks if is writable.
+	 * Is writable boolean.
      *
      * @param path the path
-     * @return true, if is writable
+	 * @return the boolean
      */
     public static boolean isWritable(Path path) {
 		return WritableFilter.test(path);
 	}
 
     /**
-     * Checks if is symbolic link.
+	 * Is symbolic link boolean.
      *
      * @param path the path
-     * @return true, if is symbolic link
+	 * @return the boolean
      */
     public static boolean isSymbolicLink(Path path) {
 		return SymbolicLinkFilter.test(path);
 	}
 
     /**
-     * Not exists.
+	 * Not exists boolean.
      *
      * @param path the path
-     * @return true, if successful
+	 * @return the boolean
      */
     public static boolean notExists(Path path) {
 		return NotExistFilter.test(path);
 	}
 
     /**
-     * Exists.
+	 * Exists boolean.
      *
      * @param path the path
-     * @return true, if successful
+	 * @return the boolean
      */
     public static boolean exists(Path path) {
 		return ExistFilter.test(path);
 	}
 
     /**
-     * Checks if is directory and not symbolic link.
+	 * Is directory and not symbolic link boolean.
      *
      * @param path the path
-     * @return true, if is directory and not symbolic link
+	 * @return the boolean
      */
     public static boolean isDirectoryAndNotSymbolicLink(Path path) {
 		return DirectoryAndNotSymbolicLinkFilter.test(path);
 	}
 
     /**
-     * Gets the file store list.
+	 * Gets file store list.
      *
      * @return the file store list
      */
@@ -190,7 +190,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the file store path list.
+	 * Gets file store path list.
      *
      * @return the file store path list
      */
@@ -202,10 +202,10 @@ public class JMPath {
 	}
 
     /**
-     * Checks if is hidden.
+	 * Is hidden boolean.
      *
      * @param path the path
-     * @return true, if is hidden
+	 * @return the boolean
      */
     public static boolean isHidden(Path path) {
 		try {
@@ -216,7 +216,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the parent as opt.
+	 * Gets parent as opt.
      *
      * @param path the path
      * @return the parent as opt
@@ -226,7 +226,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the root path stream.
+	 * Gets root path stream.
      *
      * @return the root path stream
      */
@@ -235,7 +235,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the root directory stream.
+	 * Gets root directory stream.
      *
      * @return the root directory stream
      */
@@ -244,7 +244,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the path.
+	 * Gets path.
      *
      * @param path the path
      * @return the path
@@ -254,7 +254,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the current path.
+	 * Gets current path.
      *
      * @return the current path
      */
@@ -263,7 +263,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the user home.
+	 * Gets user home.
      *
      * @return the user home
      */
@@ -272,7 +272,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the children path stream.
+	 * Gets children path stream.
      *
      * @param path the path
      * @return the children path stream
@@ -284,7 +284,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the children path stream.
+	 * Gets children path stream.
      *
      * @param path   the path
      * @param filter the filter
@@ -296,7 +296,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the child directory path stream.
+	 * Gets child directory path stream.
      *
      * @param path the path
      * @return the child directory path stream
@@ -307,7 +307,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the child directory path stream.
+	 * Gets child directory path stream.
      *
      * @param path   the path
      * @param filter the filter
@@ -320,7 +320,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the child file path stream.
+	 * Gets child file path stream.
      *
      * @param path the path
      * @return the child file path stream
@@ -330,7 +330,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the child file path stream.
+	 * Gets child file path stream.
      *
      * @param path   the path
      * @param filter the filter
@@ -343,7 +343,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the ancestor path list.
+	 * Gets ancestor path list.
      *
      * @param startPath the start path
      * @return the ancestor path list
@@ -364,7 +364,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub directory path list.
+	 * Gets sub directory path list.
      *
      * @param startDirectoryPath the start directory path
      * @return the sub directory path list
@@ -375,7 +375,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub directory path list.
+	 * Gets sub directory path list.
      *
      * @param startDirectoryPath the start directory path
      * @param maxDepth           the max depth
@@ -388,7 +388,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub directory path list.
+	 * Gets sub directory path list.
      *
      * @param startDirectoryPath the start directory path
      * @param filter             the filter
@@ -401,7 +401,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub directory path list.
+	 * Gets sub directory path list.
      *
      * @param startDirectoryPath the start directory path
      * @param maxDepth           the max depth
@@ -415,7 +415,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub file path list.
+	 * Gets sub file path list.
      *
      * @param startDirectoryPath the start directory path
      * @return the sub file path list
@@ -425,7 +425,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub file path list.
+	 * Gets sub file path list.
      *
      * @param startDirectoryPath the start directory path
      * @param maxDepth           the max depth
@@ -437,7 +437,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub file path list.
+	 * Gets sub file path list.
      *
      * @param startDirectoryPath the start directory path
      * @param filter             the filter
@@ -450,7 +450,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub file path list.
+	 * Gets sub file path list.
      *
      * @param startDirectoryPath the start directory path
      * @param maxDepth           the max depth
@@ -464,7 +464,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub path list.
+	 * Gets sub path list.
      *
      * @param startDirectoryPath the start directory path
      * @return the sub path list
@@ -474,7 +474,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub path list.
+	 * Gets sub path list.
      *
      * @param startDirectoryPath the start directory path
      * @param maxDepth           the max depth
@@ -487,7 +487,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub path list.
+	 * Gets sub path list.
      *
      * @param startDirectoryPath the start directory path
      * @param filter             the filter
@@ -499,7 +499,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub path list.
+	 * Gets sub path list.
      *
      * @param startDirectoryPath the start directory path
      * @param maxDepth           the max depth
@@ -622,9 +622,9 @@ public class JMPath {
 	}
 
     /**
-     * Apply path list and get result list.
+	 * Apply path list and get result list list.
      *
-     * @param <R>        the generic type
+	 * @param <R>        the type parameter
      * @param isParallel the is parallel
      * @param pathList   the path list
      * @param function   the function
@@ -637,9 +637,9 @@ public class JMPath {
 	}
 
     /**
-     * Apply path list and get result list.
+	 * Apply path list and get result list list.
      *
-     * @param <R>      the generic type
+	 * @param <R>      the type parameter
      * @param pathList the path list
      * @param function the function
      * @return the list
@@ -650,9 +650,9 @@ public class JMPath {
 	}
 
     /**
-     * Apply sub file paths and get applied list.
+	 * Apply sub file paths and get applied list list.
      *
-     * @param <R>                the generic type
+	 * @param <R>                the type parameter
      * @param startDirectoryPath the start directory path
      * @param maxDepth           the max depth
      * @param filter             the filter
@@ -669,9 +669,9 @@ public class JMPath {
 	}
 
     /**
-     * Apply sub file paths and get applied list.
+	 * Apply sub file paths and get applied list list.
      *
-     * @param <R>                the generic type
+	 * @param <R>                the type parameter
      * @param startDirectoryPath the start directory path
      * @param maxDepth           the max depth
      * @param filter             the filter
@@ -686,9 +686,9 @@ public class JMPath {
 	}
 
     /**
-     * Apply sub file paths and get applied list.
+	 * Apply sub file paths and get applied list list.
      *
-     * @param <R>                the generic type
+	 * @param <R>                the type parameter
      * @param startDirectoryPath the start directory path
      * @param function           the function
      * @return the list
@@ -700,9 +700,9 @@ public class JMPath {
 	}
 
     /**
-     * Apply sub file paths and get applied list.
+	 * Apply sub file paths and get applied list list.
      *
-     * @param <R>                the generic type
+	 * @param <R>                the type parameter
      * @param startDirectoryPath the start directory path
      * @param maxDepth           the max depth
      * @param function           the function
@@ -715,9 +715,9 @@ public class JMPath {
 	}
 
     /**
-     * Apply sub file paths and get applied list.
+	 * Apply sub file paths and get applied list list.
      *
-     * @param <R>                the generic type
+	 * @param <R>                the type parameter
      * @param startDirectoryPath the start directory path
      * @param filter             the filter
      * @param function           the function
@@ -731,7 +731,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the file path extension as opt.
+	 * Gets file path extension as opt.
      *
      * @param path the path
      * @return the file path extension as opt
@@ -744,7 +744,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the last name.
+	 * Gets last name.
      *
      * @param path the path
      * @return the last name
@@ -754,17 +754,17 @@ public class JMPath {
 	}
 
     /**
-     * Gets the path name in OS.
+	 * Gets path name in os.
      *
      * @param path the path
-     * @return the path name in OS
+	 * @return the path name in os
      */
     public static String getPathNameInOS(Path path) {
 		return os.getFileName(path.toFile());
 	}
 
     /**
-     * Gets the last modified.
+	 * Gets last modified.
      *
      * @param path the path
      * @return the last modified
@@ -774,7 +774,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the path type description.
+	 * Gets path type description.
      *
      * @param path the path
      * @return the path type description
@@ -784,7 +784,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the size.
+	 * Gets size.
      *
      * @param path the path
      * @return the size
@@ -794,7 +794,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub files count.
+	 * Gets sub files count.
      *
      * @param dirPath the dir path
      * @return the sub files count
@@ -804,7 +804,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub directories count.
+	 * Gets sub directories count.
      *
      * @param dirPath the dir path
      * @return the sub directories count
@@ -814,7 +814,7 @@ public class JMPath {
 	}
 
     /**
-     * Gets the sub paths count.
+	 * Gets sub paths count.
      *
      * @param dirPath the dir path
      * @return the sub paths count
@@ -824,7 +824,7 @@ public class JMPath {
 	}
 
     /**
-     * Extract sub path.
+	 * Extract sub path path.
      *
      * @param basePath   the base path
      * @param sourcePath the source path
@@ -836,7 +836,7 @@ public class JMPath {
 	}
 
     /**
-     * Builds the relative destination path.
+	 * Build relative destination path path.
      *
      * @param destinationDirPath the destination dir path
      * @param baseDirPath        the base dir path

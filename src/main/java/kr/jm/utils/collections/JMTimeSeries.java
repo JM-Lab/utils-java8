@@ -10,9 +10,9 @@ import java.util.function.Supplier;
 import static java.util.Comparator.reverseOrder;
 
 /**
- * The Class JMTimeSeries.
+ * The type Jm time series.
  *
- * @param <V> the value type
+ * @param <V> the type parameter
  */
 public class JMTimeSeries<V> implements Map<Long, V> {
     /**
@@ -29,7 +29,7 @@ public class JMTimeSeries<V> implements Map<Long, V> {
     protected Map<Long, V> timeSeriesMap;
 
     /**
-     * Instantiates a new JM timeSeries.
+     * Instantiates a new Jm time series.
      *
      * @param intervalSeconds the interval seconds
      */
@@ -69,11 +69,11 @@ public class JMTimeSeries<V> implements Map<Long, V> {
     }
 
     /**
-     * Gets the or new.
+     * Gets or put get new.
      *
      * @param timestamp   the timestamp
      * @param newSupplier the new supplier
-     * @return the or new
+     * @return the or put get new
      */
     public V getOrPutGetNew(Long timestamp, Supplier<V> newSupplier) {
         return JMMap.getOrPutGetNew(this.timeSeriesMap,
@@ -109,7 +109,7 @@ public class JMTimeSeries<V> implements Map<Long, V> {
     }
 
     /**
-     * Builds the key timestamp.
+     * Build key timestamp long.
      *
      * @param timestamp the timestamp
      * @return the long

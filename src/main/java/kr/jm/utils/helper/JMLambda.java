@@ -9,16 +9,16 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
 /**
- * The Class JMLambda.
+ * The type Jm lambda.
  */
 public class JMLambda {
 
     /**
-     * Partition by.
+     * Partition by map.
      *
-     * @param <T>        the generic type
+     * @param <T>        the type parameter
      * @param collection the collection
-     * @param predicate  the predicates
+     * @param predicate  the predicate
      * @return the map
      */
     public static <T> Map<Boolean, List<T>>
@@ -27,10 +27,10 @@ public class JMLambda {
     }
 
     /**
-     * Group by.
+     * Group by map.
      *
-     * @param <T>        the generic type
-     * @param <R>        the generic type
+     * @param <T>        the type parameter
+     * @param <R>        the type parameter
      * @param stream     the stream
      * @param classifier the classifier
      * @return the map
@@ -118,11 +118,11 @@ public class JMLambda {
     }
 
     /**
-     * Group by two key.
+     * Group by two key map.
      *
-     * @param <T>         the generic type
-     * @param <R1>        the generic type
-     * @param <R2>        the generic type
+     * @param <T>         the type parameter
+     * @param <R1>        the type parameter
+     * @param <R2>        the type parameter
      * @param collection  the collection
      * @param classifier1 the classifier 1
      * @param classifier2 the classifier 2
@@ -138,7 +138,7 @@ public class JMLambda {
     /**
      * Consume by predicate.
      *
-     * @param <T>           the generic type
+     * @param <T>           the type parameter
      * @param collection    the collection
      * @param predicate     the predicate
      * @param trueConsumer  the true consumer
@@ -154,7 +154,7 @@ public class JMLambda {
     /**
      * Consume by predicate in parallel.
      *
-     * @param <T>           the generic type
+     * @param <T>           the type parameter
      * @param collection    the collection
      * @param predicate     the predicate
      * @param trueConsumer  the true consumer
@@ -172,7 +172,7 @@ public class JMLambda {
     /**
      * Consume by boolean.
      *
-     * @param <T>           the generic type
+     * @param <T>           the type parameter
      * @param bool          the bool
      * @param target        the target
      * @param trueConsumer  the true consumer
@@ -189,7 +189,7 @@ public class JMLambda {
     /**
      * Consume if not null.
      *
-     * @param <T>      the generic type
+     * @param <T>      the type parameter
      * @param target   the target
      * @param consumer the consumer
      */
@@ -200,7 +200,7 @@ public class JMLambda {
     /**
      * Consume if true.
      *
-     * @param <T>      the generic type
+     * @param <T>      the type parameter
      * @param bool     the bool
      * @param target   the target
      * @param consumer the consumer
@@ -214,7 +214,7 @@ public class JMLambda {
     /**
      * Consume if true.
      *
-     * @param <T>          the generic type
+     * @param <T>          the type parameter
      * @param target       the target
      * @param targetTester the target tester
      * @param consumer     the consumer
@@ -227,8 +227,8 @@ public class JMLambda {
     /**
      * Consume if true.
      *
-     * @param <T>        the generic type
-     * @param <U>        the generic type
+     * @param <T>        the type parameter
+     * @param <U>        the type parameter
      * @param bool       the bool
      * @param target1    the target 1
      * @param target2    the target 2
@@ -243,8 +243,8 @@ public class JMLambda {
     /**
      * Consume if true.
      *
-     * @param <T>          the generic type
-     * @param <U>          the generic type
+     * @param <T>          the type parameter
+     * @param <U>          the type parameter
      * @param target1      the target 1
      * @param target2      the target 2
      * @param targetTester the target tester
@@ -257,10 +257,10 @@ public class JMLambda {
     }
 
     /**
-     * Function if true.
+     * Function if true optional.
      *
-     * @param <T>      the generic type
-     * @param <R>      the generic type
+     * @param <T>      the type parameter
+     * @param <R>      the type parameter
      * @param bool     the bool
      * @param target   the target
      * @param function the function
@@ -272,11 +272,11 @@ public class JMLambda {
     }
 
     /**
-     * Bi function if true.
+     * Bi function if true optional.
      *
-     * @param <T>        the generic type
-     * @param <U>        the generic type
-     * @param <R>        the generic type
+     * @param <T>        the type parameter
+     * @param <U>        the type parameter
+     * @param <R>        the type parameter
      * @param bool       the bool
      * @param target1    the target 1
      * @param target2    the target 2
@@ -289,9 +289,9 @@ public class JMLambda {
     }
 
     /**
-     * Supplier if true.
+     * Supplier if true optional.
      *
-     * @param <R>      the generic type
+     * @param <R>      the type parameter
      * @param bool     the bool
      * @param supplier the supplier
      * @return the optional
@@ -302,10 +302,10 @@ public class JMLambda {
     }
 
     /**
-     * Function by boolean.
+     * Function by boolean r.
      *
-     * @param <T>           the generic type
-     * @param <R>           the generic type
+     * @param <T>           the type parameter
+     * @param <R>           the type parameter
      * @param bool          the bool
      * @param target        the target
      * @param trueFunction  the true function
@@ -318,9 +318,9 @@ public class JMLambda {
     }
 
     /**
-     * Supplier by boolean.
+     * Supplier by boolean r.
      *
-     * @param <R>           the generic type
+     * @param <R>           the type parameter
      * @param bool          the bool
      * @param trueSupplier  the true supplier
      * @param falseSupplier the false supplier
@@ -332,10 +332,10 @@ public class JMLambda {
     }
 
     /**
-     * Change into.
+     * Change into function.
      *
-     * @param <T>   the generic type
-     * @param <R>   the generic type
+     * @param <T>   the type parameter
+     * @param <R>   the type parameter
      * @param input the input
      * @return the function
      */
@@ -344,9 +344,9 @@ public class JMLambda {
     }
 
     /**
-     * Supplier if null.
+     * Supplier if null r.
      *
-     * @param <R>      the generic type
+     * @param <R>      the type parameter
      * @param target   the target
      * @param supplier the supplier
      * @return the r
@@ -356,7 +356,7 @@ public class JMLambda {
     }
 
     /**
-     * Gets the true after running.
+     * Gets true after running.
      *
      * @param block the block
      * @return the true after running
@@ -367,7 +367,7 @@ public class JMLambda {
     }
 
     /**
-     * Gets the false after running.
+     * Gets false after running.
      *
      * @param block the block
      * @return the false after running
@@ -404,9 +404,9 @@ public class JMLambda {
     }
 
     /**
-     * Gets the self.
+     * Gets self.
      *
-     * @param <T> the generic type
+     * @param <T> the type parameter
      * @return the self
      */
     public static <T> Function<T, T> getSelf() {
@@ -414,9 +414,9 @@ public class JMLambda {
     }
 
     /**
-     * Gets the supplier.
+     * Gets supplier.
      *
-     * @param <T>    the generic type
+     * @param <T>    the type parameter
      * @param target the target
      * @return the supplier
      */
@@ -425,9 +425,9 @@ public class JMLambda {
     }
 
     /**
-     * Consume and get self.
+     * Consume and get self t.
      *
-     * @param <T>            the generic type
+     * @param <T>            the type parameter
      * @param target         the target
      * @param targetConsumer the target consumer
      * @return the t

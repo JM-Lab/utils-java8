@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 /**
- * The Class JMArrays.
+ * The type Jm arrays.
  */
 public class JMArrays {
 
@@ -19,11 +19,11 @@ public class JMArrays {
     public static final String[] EMPTY_STRINGS = new String[0];
 
     /**
-     * Builds the array.
+     * Build array e [ ].
      *
-     * @param <E>     the element type
+     * @param <E>     the type parameter
      * @param objects the objects
-     * @return the e[]
+     * @return the e [ ]
      */
     @SafeVarargs
     public static <E> E[] buildArray(E... objects) {
@@ -31,11 +31,11 @@ public class JMArrays {
     }
 
     /**
-     * Sort.
+     * Sort v [ ].
      *
-     * @param <V>   the value type
+     * @param <V>   the type parameter
      * @param array the array
-     * @return the v[]
+     * @return the v [ ]
      */
     @SafeVarargs
     public static <V extends Comparable<V>> V[] sort(V... array) {
@@ -44,12 +44,12 @@ public class JMArrays {
     }
 
     /**
-     * Sort.
+     * Sort v [ ].
      *
-     * @param <V>        the value type
+     * @param <V>        the type parameter
      * @param array      the array
      * @param comparator the comparator
-     * @return the v[]
+     * @return the v [ ]
      */
     public static <V> V[] sort(V[] array, Comparator<? super V> comparator) {
         Arrays.sort(array, comparator);
@@ -57,9 +57,9 @@ public class JMArrays {
     }
 
     /**
-     * Gets the last.
+     * Gets last.
      *
-     * @param <V>   the value type
+     * @param <V>   the type parameter
      * @param array the array
      * @return the last
      */
@@ -69,11 +69,11 @@ public class JMArrays {
     }
 
     /**
-     * Checks if is null or getEmptyStringArray.
+     * Is null or empty boolean.
      *
-     * @param <V>   the value type
+     * @param <V>   the type parameter
      * @param array the array
-     * @return true, if is null or getEmptyStringArray
+     * @return the boolean
      */
     @SafeVarargs
     public static <V> boolean isNullOrEmpty(V... array) {
@@ -81,11 +81,11 @@ public class JMArrays {
     }
 
     /**
-     * Checks if is not null or getEmptyStringArray.
+     * Is not null or empty boolean.
      *
-     * @param <V>   the value type
+     * @param <V>   the type parameter
      * @param array the array
-     * @return true, if is not null or getEmptyStringArray
+     * @return the boolean
      */
     @SafeVarargs
     public static <V> boolean isNotNullOrEmpty(V... array) {
@@ -93,21 +93,21 @@ public class JMArrays {
     }
 
     /**
-     * Builds the array from csv.
+     * Build array from csv string [ ].
      *
      * @param csvString the csv string
-     * @return the string[]
+     * @return the string [ ]
      */
     public static String[] buildArrayFromCsv(String csvString) {
         return csvString.split(JMString.COMMA);
     }
 
     /**
-     * Builds the array with delimiter.
+     * Build array with delimiter string [ ].
      *
      * @param stringWithDelimiter the string with delimiter
      * @param delimiter           the delimiter
-     * @return the string[]
+     * @return the string [ ]
      */
     public static String[] buildArrayWithDelimiter(String stringWithDelimiter,
             String delimiter) {

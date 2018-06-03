@@ -17,7 +17,7 @@ import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturnN
 import static kr.jm.utils.helper.JMOptional.ifNotNull;
 
 /**
- * The Class JMThread.
+ * The type Jm thread.
  */
 public class JMThread {
 
@@ -25,7 +25,7 @@ public class JMThread {
             org.slf4j.LoggerFactory.getLogger(JMThread.class);
 
     /**
-     * Gets the thread queue.
+     * Gets thread queue.
      *
      * @param executorService the executor service
      * @return the thread queue
@@ -41,7 +41,7 @@ public class JMThread {
     }
 
     /**
-     * Gets the active count.
+     * Gets active count.
      *
      * @param executorService the executor service
      * @return the active count
@@ -51,7 +51,7 @@ public class JMThread {
     }
 
     /**
-     * Gets the completed task count.
+     * Gets completed task count.
      *
      * @param executorService the executor service
      * @return the completed task count
@@ -70,7 +70,7 @@ public class JMThread {
     }
 
     /**
-     * Gets the pool size.
+     * Gets pool size.
      *
      * @param executorService the executor service
      * @return the pool size
@@ -113,9 +113,9 @@ public class JMThread {
 
 
     /**
-     * New thread pool.
+     * New thread pool executor service.
      *
-     * @param numOfThreads the num addAll threads
+     * @param numOfThreads the num of threads
      * @return the executor service
      */
     public static ExecutorService newThreadPool(int numOfThreads) {
@@ -124,7 +124,7 @@ public class JMThread {
     }
 
     /**
-     * New single thread pool.
+     * New single thread pool executor service.
      *
      * @return the executor service
      */
@@ -133,7 +133,7 @@ public class JMThread {
     }
 
     /**
-     * New thread pool with available processors.
+     * New thread pool with available processors executor service.
      *
      * @return the executor service
      */
@@ -142,7 +142,7 @@ public class JMThread {
     }
 
     /**
-     * New thread pool with available processors minus one.
+     * New thread pool with available processors minus one executor service.
      *
      * @return the executor service
      */
@@ -232,9 +232,9 @@ public class JMThread {
     }
 
     /**
-     * Run.
+     * Run future.
      *
-     * @param <T>          the generic type
+     * @param <T>          the type parameter
      * @param callableWork the callable work
      * @param timeoutInSec the timeout in sec
      * @return the future
@@ -248,7 +248,7 @@ public class JMThread {
     }
 
     /**
-     * Gets the common pool.
+     * Gets common pool.
      *
      * @return the common pool
      */
@@ -257,9 +257,9 @@ public class JMThread {
     }
 
     /**
-     * Run with schedule.
+     * Run with schedule scheduled future.
      *
-     * @param <V>         the value type
+     * @param <V>         the type parameter
      * @param delayMillis the delay millis
      * @param callable    the callable
      * @return the scheduled future
@@ -279,9 +279,9 @@ public class JMThread {
     }
 
     /**
-     * Builds the callable with logging.
+     * Build callable with logging callable.
      *
-     * @param <V>      the value type
+     * @param <V>      the type parameter
      * @param name     the name
      * @param callable the callable
      * @param params   the params
@@ -301,7 +301,7 @@ public class JMThread {
     }
 
     /**
-     * Builds the runnable with logging.
+     * Build runnable with logging runnable.
      *
      * @param runnableName the runnable name
      * @param runnable     the runnable
@@ -317,7 +317,7 @@ public class JMThread {
     }
 
     /**
-     * Run with schedule.
+     * Run with schedule scheduled future.
      *
      * @param delayMillis the delay millis
      * @param runnable    the runnable
@@ -342,7 +342,7 @@ public class JMThread {
     }
 
     /**
-     * Run with schedule at fixed rate.
+     * Run with schedule at fixed rate scheduled future.
      *
      * @param initialDelayMillis the initial delay millis
      * @param periodMillis       the period millis
@@ -356,7 +356,7 @@ public class JMThread {
     }
 
     /**
-     * Run with schedule at fixed rate on start time.
+     * Run with schedule at fixed rate on start time scheduled future.
      *
      * @param startDateTime the start date time
      * @param periodMillis  the period millis
@@ -380,7 +380,7 @@ public class JMThread {
     }
 
     /**
-     * Run with schedule with fixed delay.
+     * Run with schedule with fixed delay scheduled future.
      *
      * @param initialDelayMillis the initial delay millis
      * @param delayMillis        the delay millis
@@ -399,7 +399,7 @@ public class JMThread {
     }
 
     /**
-     * Run with schedule with fixed delay on start time.
+     * Run with schedule with fixed delay on start time scheduled future.
      *
      * @param startDateTime the start date time
      * @param delayMillis   the delay millis
@@ -414,7 +414,7 @@ public class JMThread {
     }
 
     /**
-     * Run async.
+     * Run async completable future.
      *
      * @param runnable the runnable
      * @return the completable future
@@ -424,7 +424,7 @@ public class JMThread {
     }
 
     /**
-     * Run async.
+     * Run async completable future.
      *
      * @param runnable the runnable
      * @param executor the executor
@@ -445,7 +445,7 @@ public class JMThread {
     }
 
     /**
-     * Run async.
+     * Run async completable future.
      *
      * @param runnable        the runnable
      * @param failureConsumer the failure consumer
@@ -462,9 +462,9 @@ public class JMThread {
     }
 
     /**
-     * Supply async.
+     * Supply async completable future.
      *
-     * @param <U>      the generic type
+     * @param <U>      the type parameter
      * @param supplier the supplier
      * @return the completable future
      */
@@ -486,9 +486,9 @@ public class JMThread {
     }
 
     /**
-     * Supply async.
+     * Supply async completable future.
      *
-     * @param <U>      the generic type
+     * @param <U>      the type parameter
      * @param supplier the supplier
      * @param executor the executor
      * @return the completable future
@@ -500,9 +500,9 @@ public class JMThread {
     }
 
     /**
-     * Supply async.
+     * Supply async completable future.
      *
-     * @param <U>             the generic type
+     * @param <U>             the type parameter
      * @param supplier        the supplier
      * @param failureFunction the failure function
      * @return the completable future
@@ -516,9 +516,9 @@ public class JMThread {
     }
 
     /**
-     * Supply async.
+     * Supply async completable future.
      *
-     * @param <U>             the generic type
+     * @param <U>             the type parameter
      * @param supplier        the supplier
      * @param failureFunction the failure function
      * @param executor        the executor

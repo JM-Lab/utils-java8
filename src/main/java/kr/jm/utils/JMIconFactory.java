@@ -17,7 +17,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * A factory for creating JMIcon objects.
+ * The type Jm icon factory.
  */
 public class JMIconFactory {
 
@@ -26,7 +26,7 @@ public class JMIconFactory {
 	private Map<String, BufferedImage> bufferedImageCache;
 
     /**
-     * Instantiates a new JM icon factory.
+	 * Instantiates a new Jm icon factory.
      */
     public JMIconFactory() {
 		this.os = OS.getOS();
@@ -53,7 +53,7 @@ public class JMIconFactory {
 	}
 
     /**
-     * Builds the buffered image of icon in OS.
+	 * Build buffered image of icon in os buffered image.
      *
      * @param path the path
      * @return the buffered image
@@ -70,10 +70,10 @@ public class JMIconFactory {
 	}
 
     /**
-     * Gets the cached buffered image of icon in OS.
+	 * Gets cached buffered image of icon in os.
      *
      * @param path the path
-     * @return the cached buffered image of icon in OS
+	 * @return the cached buffered image of icon in os
      */
     public BufferedImage getCachedBufferedImageOfIconInOS(Path path) {
 		return getSpecialPathAsOpt(path)

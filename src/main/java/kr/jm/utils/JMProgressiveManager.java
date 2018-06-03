@@ -21,10 +21,10 @@ import static kr.jm.utils.helper.JMLog.info;
 import static kr.jm.utils.helper.JMPredicate.negate;
 
 /**
- * The Class JMProgressiveManager.
+ * The type Jm progressive manager.
  *
- * @param <T> the generic type
- * @param <R> the generic type
+ * @param <T> the type parameter
+ * @param <R> the type parameter
  */
 public class JMProgressiveManager<T, R> {
 
@@ -46,7 +46,7 @@ public class JMProgressiveManager<T, R> {
 	private Function<T, Optional<R>> processFunction;
 
     /**
-     * Instantiates a new JM progressive manager.
+	 * Instantiates a new Jm progressive manager.
      *
      * @param targetCollection the target collection
      * @param processFunction  the process function
@@ -84,9 +84,9 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Start.
+	 * Start jm progressive manager.
      *
-     * @return the JM progressive manager
+	 * @return the jm progressive manager
      */
     public JMProgressiveManager<T, R> start() {
 		info(log, "start");
@@ -116,9 +116,9 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Stop async.
+	 * Stop async jm progressive manager.
      *
-     * @return the JM progressive manager
+	 * @return the jm progressive manager
      */
     public JMProgressiveManager<T, R> stopAsync() {
 		setStopped();
@@ -126,16 +126,16 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Stop sync.
+	 * Stop sync jm progressive manager.
      *
-     * @return the JM progressive manager
+	 * @return the jm progressive manager
      */
     public JMProgressiveManager<T, R> stopSync() {
 		return stopAsync().getAfterCompletion();
 	}
 
     /**
-     * Gets the after completion.
+	 * Gets after completion.
      *
      * @return the after completion
      */
@@ -153,19 +153,19 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Checks if is stopped.
+	 * Is stopped boolean.
      *
-     * @return true, if is stopped
+	 * @return the boolean
      */
     public boolean isStopped() {
 		return this.isStopped;
 	}
 
     /**
-     * Register completed consumer.
+	 * Register completed consumer jm progressive manager.
      *
      * @param completedConsumer the completed consumer
-     * @return the JM progressive manager
+	 * @return the jm progressive manager
      */
     public JMProgressiveManager<T, R> registerCompletedConsumer(
 			Consumer<JMProgressiveManager<T, R>> completedConsumer) {
@@ -176,16 +176,16 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Gets the result list sync.
+	 * Gets result map sync.
      *
-     * @return the result list sync
+	 * @return the result map sync
      */
     public Map<T, Optional<R>> getResultMapSync() {
 		return new HashMap<>(getAfterCompletion().resultMap);
 	}
 
     /**
-     * Gets the failure map sync.
+	 * Gets failure map sync.
      *
      * @return the failure map sync
      */
@@ -194,10 +194,10 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Register last result change listener.
+	 * Register last result change listener jm progressive manager.
      *
      * @param resultChangeListener the result change listener
-     * @return the JM progressive manager
+	 * @return the jm progressive manager
      */
     public JMProgressiveManager<T, R> registerLastResultChangeListener(
 			Consumer<Optional<R>> resultChangeListener) {
@@ -205,10 +205,10 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Register last failure change listener.
+	 * Register last failure change listener jm progressive manager.
      *
      * @param failureChangeListener the failure change listener
-     * @return the JM progressive manager
+	 * @return the jm progressive manager
      */
     public JMProgressiveManager<T, R> registerLastFailureChangeListener(
 			Consumer<Pair<T, Exception>> failureChangeListener) {
@@ -222,7 +222,7 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Gets the total count.
+	 * Gets total count.
      *
      * @return the total count
      */
@@ -231,19 +231,19 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Checks if is done.
+	 * Is done boolean.
      *
-     * @return true, if is done
+	 * @return the boolean
      */
     public boolean isDone() {
 		return completableFuture.isDone();
 	}
 
     /**
-     * Register count change listener.
+	 * Register count change listener jm progressive manager.
      *
      * @param countChangeListener the count change listener
-     * @return the JM progressive manager
+	 * @return the jm progressive manager
      */
     public JMProgressiveManager<T, R>
 			registerCountChangeListener(Consumer<Number> countChangeListener) {
@@ -251,7 +251,7 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Gets the progressive count.
+	 * Gets progressive count.
      *
      * @return the progressive count
      */
@@ -268,10 +268,10 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Register percent change listener.
+	 * Register percent change listener jm progressive manager.
      *
      * @param percentChangeListener the percent change listener
-     * @return the JM progressive manager
+	 * @return the jm progressive manager
      */
     public JMProgressiveManager<T, R> registerPercentChangeListener(
 			Consumer<Number> percentChangeListener) {
@@ -279,7 +279,7 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Gets the progressive percent.
+	 * Gets progressive percent.
      *
      * @return the progressive percent
      */
@@ -288,10 +288,10 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Register target change listener.
+	 * Register target change listener jm progressive manager.
      *
      * @param targetChangeListener the target change listener
-     * @return the JM progressive manager
+	 * @return the jm progressive manager
      */
     public JMProgressiveManager<T, R>
 			registerTargetChangeListener(Consumer<T> targetChangeListener) {
@@ -299,7 +299,7 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Gets the current target.
+	 * Gets current target.
      *
      * @return the current target
      */
@@ -308,7 +308,7 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Gets the target list.
+	 * Gets target list.
      *
      * @return the target list
      */
@@ -317,7 +317,7 @@ public class JMProgressiveManager<T, R> {
 	}
 
     /**
-     * Gets the process function.
+	 * Gets process function.
      *
      * @return the process function
      */

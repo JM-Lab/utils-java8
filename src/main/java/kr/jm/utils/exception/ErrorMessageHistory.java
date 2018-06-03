@@ -2,7 +2,7 @@
 package kr.jm.utils.exception;
 
 /**
- * The Class ErrorMessageHistory.
+ * The type Error message history.
  */
 public class ErrorMessageHistory {
 
@@ -10,7 +10,7 @@ public class ErrorMessageHistory {
 	private String errorMessage;
 
     /**
-     * Instantiates a new error message history.
+	 * Instantiates a new Error message history.
      *
      * @param timestamp    the timestamp
      * @param errorMessage the error message
@@ -22,7 +22,7 @@ public class ErrorMessageHistory {
 	}
 
     /**
-     * Gets the timestamp.
+	 * Gets timestamp.
      *
      * @return the timestamp
      */
@@ -31,7 +31,7 @@ public class ErrorMessageHistory {
 	}
 
     /**
-     * Gets the error message.
+	 * Gets error message.
      *
      * @return the error message
      */

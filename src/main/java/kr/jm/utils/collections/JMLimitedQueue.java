@@ -8,9 +8,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import static kr.jm.utils.helper.JMOptional.getOptional;
 
 /**
- * The Class JMLimitedQueue.
+ * The type Jm limited queue.
  *
- * @param <E> the element type
+ * @param <E> the type parameter
  */
 public class JMLimitedQueue<E> implements Collection<E> {
 
@@ -18,7 +18,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 	private LinkedBlockingQueue<E> linkedBlockingQueue;
 
     /**
-     * Instantiates a new JM limited queue.
+	 * Instantiates a new Jm limited queue.
      *
      * @param capacity the capacity
      */
@@ -28,7 +28,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 	}
 
     /**
-     * Poll.
+	 * Poll optional.
      *
      * @return the optional
      */
@@ -37,7 +37,7 @@ public class JMLimitedQueue<E> implements Collection<E> {
 	}
 
     /**
-     * Peek.
+	 * Peek optional.
      *
      * @return the optional
      */

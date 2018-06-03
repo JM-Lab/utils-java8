@@ -21,7 +21,7 @@ public class JMNestedMap<K1, K2, V> implements Map<K1, Map<K2, V>> {
     private Map<K1, Map<K2, V>> nestedMap;
 
     /**
-     * Instantiates a new JM list map.
+     * Instantiates a new Jm nested map.
      */
     public JMNestedMap() {
         this.nestedMap = new ConcurrentHashMap<>();

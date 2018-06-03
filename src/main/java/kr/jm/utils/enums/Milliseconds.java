@@ -2,25 +2,29 @@
 package kr.jm.utils.enums;
 
 /**
- * The Enum Milliseconds.
+ * The enum Milliseconds.
  */
 public enum Milliseconds {
 
     /**
      * Second milliseconds.
      */
-    SECOND(1000L), /**
+    SECOND(1000L),
+    /**
      * Minute milliseconds.
      */
-    MINUTE(SECOND.getValue() * 60), /**
+    MINUTE(SECOND.getValue() * 60),
+    /**
      * Hour milliseconds.
      */
     HOUR(
-			MINUTE.getValue() * 60), /**
+            MINUTE.getValue() * 60),
+    /**
      * Day milliseconds.
      */
     DAY(
-					HOUR.getValue() * 24), /**
+            HOUR.getValue() * 24),
+    /**
      * Week milliseconds.
      */
     WEEK(DAY.getValue() * 7);
@@ -29,10 +33,10 @@ public enum Milliseconds {
 
 	Milliseconds(long milliseconds) {
 		this.milliseconds = milliseconds;
-	}
+    }
 
     /**
-     * Gets the value.
+     * Gets value.
      *
      * @return the value
      */

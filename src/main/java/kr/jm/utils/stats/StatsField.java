@@ -10,28 +10,32 @@ import static java.util.stream.Collectors.toMap;
 import static kr.jm.utils.helper.JMLambda.getSelf;
 
 /**
- * The Enum StatsField.
+ * The enum Stats field.
  */
 public enum StatsField {
     /**
      * Sum stats field.
      */
-    sum, /**
+    sum,
+    /**
      * Min stats field.
      */
-    min, /**
+    min,
+    /**
      * Max stats field.
      */
-    max, /**
+    max,
+    /**
      * Avg stats field.
      */
-    avg, /**
+    avg,
+    /**
      * Count stats field.
      */
     count;
 
     /**
-     * Value addAll alias.
+     * Value of alias stats field.
      *
      * @param alias the alias
      * @return the stats field
@@ -46,13 +50,13 @@ public enum StatsField {
 			return max;
 		case "average":
 			return avg;
-		default:
-			return valueOf(alias);
-		}
-	}
+            default:
+                return valueOf(alias);
+        }
+    }
 
     /**
-     * Cal stats map.
+     * Cal stats map map.
      *
      * @param summaryStatistics the summary statistics
      * @return the map
@@ -61,10 +65,10 @@ public enum StatsField {
 	calStatsMap(IntSummaryStatistics summaryStatistics) {
 		return buildStatsMap(
 				statsField -> statsField.calStats(summaryStatistics));
-	}
+    }
 
     /**
-     * Cal stats map.
+     * Cal stats map map.
      *
      * @param summaryStatistics the summary statistics
      * @return the map
@@ -73,10 +77,10 @@ public enum StatsField {
 	calStatsMap(LongSummaryStatistics summaryStatistics) {
 		return buildStatsMap(
 				statsField -> statsField.calStats(summaryStatistics));
-	}
+    }
 
     /**
-     * Cal stats map.
+     * Cal stats map map.
      *
      * @param summaryStatistics the summary statistics
      * @return the map
@@ -90,11 +94,11 @@ public enum StatsField {
 	private static Map<StatsField, Number>
 	buildStatsMap(Function<StatsField, Number> valueMapper) {
 		return Arrays.stream(StatsField.values())
-				.collect(toMap(getSelf(), valueMapper));
-	}
+                .collect(toMap(getSelf(), valueMapper));
+    }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param intStream the int stream
      * @return the number
@@ -111,13 +115,13 @@ public enum StatsField {
 			return intStream.count();
 		case avg:
 			return intStream.average().orElse(0d);
-		default:
-			return 0;
-		}
-	}
+            default:
+                return 0;
+        }
+    }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param longStream the long stream
      * @return the number
@@ -134,13 +138,13 @@ public enum StatsField {
 			return longStream.count();
 		case avg:
 			return longStream.average().orElse(0d);
-		default:
-			return 0L;
-		}
-	}
+            default:
+                return 0L;
+        }
+    }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param doubleStream the double stream
      * @return the number
@@ -157,13 +161,13 @@ public enum StatsField {
 			return doubleStream.count();
 		case avg:
 			return doubleStream.average().orElse(0d);
-		default:
-			return 0d;
-		}
-	}
+            default:
+                return 0d;
+        }
+    }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param summaryStatistics the summary statistics
      * @return the number
@@ -179,14 +183,14 @@ public enum StatsField {
 		case count:
 			return summaryStatistics.getCount();
 		case avg:
-			return summaryStatistics.getAverage();
-		default:
-			return 0;
-		}
-	}
+            return summaryStatistics.getAverage();
+            default:
+                return 0;
+        }
+    }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param summaryStatistics the summary statistics
      * @return the number
@@ -202,14 +206,14 @@ public enum StatsField {
 		case count:
 			return summaryStatistics.getCount();
 		case avg:
-			return summaryStatistics.getAverage();
-		default:
-			return 0L;
-		}
-	}
+            return summaryStatistics.getAverage();
+            default:
+                return 0L;
+        }
+    }
 
     /**
-     * Cal stats.
+     * Cal stats number.
      *
      * @param summaryStatistics the summary statistics
      * @return the number

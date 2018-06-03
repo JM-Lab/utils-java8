@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Class JMListTimeSeries.
+ * The type Jm list time series.
  *
- * @param <T> the generic type
+ * @param <T> the type parameter
  */
 public class JMListTimeSeries<T> extends JMTimeSeries<List<T>> {
 
     /**
-     * Instantiates a new JM list timeSeries.
+	 * Instantiates a new Jm list time series.
      *
      * @param intervalSeconds the interval seconds
      */
@@ -22,7 +22,7 @@ public class JMListTimeSeries<T> extends JMTimeSeries<List<T>> {
 	}
 
     /**
-     * Adds the.
+	 * Add.
      *
      * @param timestamp the timestamp
      * @param object    the object
@@ -33,7 +33,7 @@ public class JMListTimeSeries<T> extends JMTimeSeries<List<T>> {
 	}
 
     /**
-     * Adds the all.
+	 * Add all.
      *
      * @param timestamp  the timestamp
      * @param objectList the object list

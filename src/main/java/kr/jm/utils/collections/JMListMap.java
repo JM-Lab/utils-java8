@@ -6,24 +6,24 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * The Class JMListMap.
+ * The type Jm list map.
  *
- * @param <K> the key type
- * @param <V> the value type
+ * @param <K> the type parameter
+ * @param <V> the type parameter
  */
 public class JMListMap<K, V> implements Map<K, List<V>> {
 
     private Map<K, List<V>> listMap;
 
     /**
-     * Instantiates a new JM list map.
+     * Instantiates a new Jm list map.
      */
     public JMListMap() {
         this.listMap = new ConcurrentHashMap<>();
     }
 
     /**
-     * Instantiates a new JM list map.
+     * Instantiates a new Jm list map.
      *
      * @param map the map
      */
@@ -82,7 +82,7 @@ public class JMListMap<K, V> implements Map<K, List<V>> {
     }
 
     /**
-     * Adds the.
+     * Add boolean.
      *
      * @param key   the key
      * @param value the value

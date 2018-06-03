@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 /**
- * The Class JMThreadServiceForLimitedQueueSize.
+ * The type Jm thread service for limited queue size.
  */
 public class JMThreadServiceForLimitedQueueSize {
 
@@ -20,9 +20,9 @@ public class JMThreadServiceForLimitedQueueSize {
 	private BlockingQueue<Runnable> threadQueue;
 
     /**
-     * Instantiates a new JM thread service for limited queue size.
+	 * Instantiates a new Jm thread service for limited queue size.
      *
-     * @param numOfThread the num addAll thread
+	 * @param numOfThread the num of thread
      * @param waitMillis  the wait millis
      * @param queueSize   the queue size
      */
@@ -33,9 +33,9 @@ public class JMThreadServiceForLimitedQueueSize {
 	}
 
     /**
-     * Instantiates a new JM thread service for limited queue size.
+	 * Instantiates a new Jm thread service for limited queue size.
      *
-     * @param numOfThread the num addAll thread
+	 * @param numOfThread the num of thread
      * @param waitMillis  the wait millis
      * @param queueSize   the queue size
      * @param threadPool  the thread pool
@@ -51,7 +51,7 @@ public class JMThreadServiceForLimitedQueueSize {
 	}
 
     /**
-     * Gets the current queue size.
+	 * Gets current queue size.
      *
      * @return the current queue size
      */
@@ -60,7 +60,7 @@ public class JMThreadServiceForLimitedQueueSize {
 	}
 
     /**
-     * Gets the queue size.
+	 * Gets queue size.
      *
      * @return the queue size
      */
@@ -69,7 +69,7 @@ public class JMThreadServiceForLimitedQueueSize {
 	}
 
     /**
-     * Submit.
+	 * Submit future.
      *
      * @param runnable the runnable
      * @return the future
@@ -80,9 +80,9 @@ public class JMThreadServiceForLimitedQueueSize {
 	}
 
     /**
-     * Submit.
+	 * Submit future.
      *
-     * @param <T>      the generic type
+	 * @param <T>      the type parameter
      * @param callable the callable
      * @return the future
      */

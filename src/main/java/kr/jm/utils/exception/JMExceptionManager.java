@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 import static kr.jm.utils.helper.JMString.LINE_SEPARATOR;
 
 /**
- * The Class JMExceptionManager.
+ * The type Jm exception manager.
  */
 public class JMExceptionManager {
 
@@ -63,7 +63,7 @@ public class JMExceptionManager {
     }
 
     /**
-     * Gets the error message history list.
+     * Gets error message history list.
      *
      * @return the error message history list
      */
@@ -80,14 +80,14 @@ public class JMExceptionManager {
     }
 
     /**
-     * Removes the error message history list.
+     * Remove error message history list.
      */
     synchronized public static void removeErrorMessageHistoryList() {
         errorMessageHistoryList.clear();
     }
 
     /**
-     * Gets the error count.
+     * Gets error count.
      *
      * @return the error count
      */
@@ -110,9 +110,9 @@ public class JMExceptionManager {
     }
 
     /**
-     * Handle exception and return null.
+     * Handle exception and return null t.
      *
-     * @param <T>       the generic type
+     * @param <T>       the type parameter
      * @param log       the log
      * @param throwable the throwable
      * @param method    the method
@@ -126,13 +126,13 @@ public class JMExceptionManager {
     }
 
     /**
-     * Handle exception and return false.
+     * Handle exception and return false boolean.
      *
      * @param log       the log
      * @param throwable the throwable
      * @param method    the method
      * @param params    the params
-     * @return true, if successful
+     * @return the boolean
      */
     public static boolean handleExceptionAndReturnFalse(Logger log,
             Throwable throwable, String method, Object... params) {
@@ -141,9 +141,9 @@ public class JMExceptionManager {
     }
 
     /**
-     * Handle exception and return.
+     * Handle exception and return t.
      *
-     * @param <T>            the generic type
+     * @param <T>            the type parameter
      * @param log            the log
      * @param throwable      the throwable
      * @param method         the method
@@ -159,9 +159,9 @@ public class JMExceptionManager {
     }
 
     /**
-     * Handle exception and throw runtime ex.
+     * Handle exception and throw runtime ex t.
      *
-     * @param <T>       the generic type
+     * @param <T>       the type parameter
      * @param log       the log
      * @param throwable the throwable
      * @param method    the method
@@ -175,7 +175,7 @@ public class JMExceptionManager {
     }
 
     /**
-     * Handle exception and return runtime ex.
+     * Handle exception and return runtime ex runtime exception.
      *
      * @param log       the log
      * @param throwable the throwable
@@ -190,9 +190,9 @@ public class JMExceptionManager {
     }
 
     /**
-     * Handle exception and return getEmptyStringArray optional.
+     * Handle exception and return empty optional optional.
      *
-     * @param <T>       the generic type
+     * @param <T>       the type parameter
      * @param log       the log
      * @param throwable the throwable
      * @param method    the method
@@ -206,7 +206,7 @@ public class JMExceptionManager {
     }
 
     /**
-     * Gets the dont support method runtime exception.
+     * Gets dont support method runtime exception.
      *
      * @param methodName the method name
      * @return the dont support method runtime exception

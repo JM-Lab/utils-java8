@@ -8,9 +8,9 @@ import java.util.concurrent.LinkedBlockingDeque;
 import static kr.jm.utils.helper.JMOptional.getOptional;
 
 /**
- * The Class JMLimitedStack.
+ * The type Jm limited stack.
  *
- * @param <E> the element type
+ * @param <E> the type parameter
  */
 public class JMLimitedStack<E> implements Collection<E> {
 
@@ -18,7 +18,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 	private LinkedBlockingDeque<E> linkedBlockingDeque;
 
     /**
-     * Instantiates a new JM limited stack.
+	 * Instantiates a new Jm limited stack.
      *
      * @param capacity the capacity
      */
@@ -28,7 +28,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 	}
 
     /**
-     * Pop.
+	 * Pop optional.
      *
      * @return the optional
      */
@@ -38,7 +38,7 @@ public class JMLimitedStack<E> implements Collection<E> {
 	}
 
     /**
-     * Peek.
+	 * Peek optional.
      *
      * @return the optional
      */

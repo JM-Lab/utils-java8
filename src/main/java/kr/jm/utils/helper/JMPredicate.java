@@ -11,14 +11,14 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 /**
- * The Class JMPredicate.
+ * The type Jm predicate.
  */
 public class JMPredicate {
 
     /**
-     * Gets the true.
+	 * Gets true.
      *
-     * @param <T> the generic type
+	 * @param <T> the type parameter
      * @return the true
      */
     public static <T> Predicate<T> getTrue() {
@@ -26,9 +26,9 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the false.
+	 * Gets false.
      *
-     * @param <T> the generic type
+	 * @param <T> the type parameter
      * @return the false
      */
     public static <T> Predicate<T> getFalse() {
@@ -36,9 +36,9 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the boolean.
+	 * Gets boolean.
      *
-     * @param <T>  the generic type
+	 * @param <T>  the type parameter
      * @param bool the bool
      * @return the boolean
      */
@@ -47,7 +47,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the greater.
+	 * Gets greater.
      *
      * @param target the target
      * @return the greater
@@ -57,7 +57,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the greater or equal.
+	 * Gets greater or equal.
      *
      * @param target the target
      * @return the greater or equal
@@ -67,7 +67,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the less.
+	 * Gets less.
      *
      * @param target the target
      * @return the less
@@ -77,7 +77,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the less or equal.
+	 * Gets less or equal.
      *
      * @param target the target
      * @return the less or equal
@@ -87,7 +87,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the greater size.
+	 * Gets greater size.
      *
      * @param target the target
      * @return the greater size
@@ -97,7 +97,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the greater map size.
+	 * Gets greater map size.
      *
      * @param target the target
      * @return the greater map size
@@ -107,7 +107,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the greater length.
+	 * Gets greater length.
      *
      * @param target the target
      * @return the greater length
@@ -117,7 +117,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the greater or equal size.
+	 * Gets greater or equal size.
      *
      * @param target the target
      * @return the greater or equal size
@@ -127,7 +127,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the greater map or equal size.
+	 * Gets greater map or equal size.
      *
      * @param target the target
      * @return the greater map or equal size
@@ -137,7 +137,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the greater or equal length.
+	 * Gets greater or equal length.
      *
      * @param target the target
      * @return the greater or equal length
@@ -147,7 +147,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the less size.
+	 * Gets less size.
      *
      * @param target the target
      * @return the less size
@@ -157,7 +157,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the less map size.
+	 * Gets less map size.
      *
      * @param target the target
      * @return the less map size
@@ -167,7 +167,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the less length.
+	 * Gets less length.
      *
      * @param target the target
      * @return the less length
@@ -177,7 +177,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the less or equal size.
+	 * Gets less or equal size.
      *
      * @param target the target
      * @return the less or equal size
@@ -187,7 +187,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the less map or equal size.
+	 * Gets less map or equal size.
      *
      * @param target the target
      * @return the less map or equal size
@@ -197,7 +197,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the less or equal length.
+	 * Gets less or equal length.
      *
      * @param target the target
      * @return the less or equal length
@@ -218,7 +218,7 @@ public class JMPredicate {
 
 
     /**
-     * Gets the contains.
+	 * Gets contains.
      *
      * @param target the target
      * @return the contains
@@ -228,16 +228,16 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the getEmptyStringArray.
+	 * Gets is empty.
      *
-     * @return the getEmptyStringArray
+	 * @return the is empty
      */
     public static Predicate<String> getIsEmpty() {
 		return String::isEmpty;
 	}
 
     /**
-     * Gets the ends with.
+	 * Gets ends with.
      *
      * @param suffix the suffix
      * @return the ends with
@@ -247,7 +247,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the starts with.
+	 * Gets starts with.
      *
      * @param prefix the prefix
      * @return the starts with
@@ -257,7 +257,7 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the matches.
+	 * Gets matches.
      *
      * @param regex the regex
      * @return the matches
@@ -267,29 +267,29 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the null.
+	 * Gets is null.
      *
-     * @param <T> the generic type
-     * @return the null
+	 * @param <T> the type parameter
+	 * @return the is null
      */
     public static <T> Predicate<T> getIsNull() {
 		return Objects::isNull;
 	}
 
     /**
-     * Gets the not null.
+	 * Gets is not null.
      *
-     * @param <T> the generic type
-     * @return the not null
+	 * @param <T> the type parameter
+	 * @return the is not null
      */
     public static <T> Predicate<T> getIsNotNull() {
 		return Objects::nonNull;
 	}
 
     /**
-     * Peek to run.
+	 * Peek to run predicate.
      *
-     * @param <T>   the generic type
+	 * @param <T>   the type parameter
      * @param block the block
      * @return the predicate
      */
@@ -298,9 +298,9 @@ public class JMPredicate {
 	}
 
     /**
-     * Peek.
+	 * Peek predicate.
      *
-     * @param <T>      the generic type
+	 * @param <T>      the type parameter
      * @param consumer the consumer
      * @return the predicate
      */
@@ -310,9 +310,9 @@ public class JMPredicate {
 	}
 
     /**
-     * Peek SOPL.
+	 * Peek sopl predicate.
      *
-     * @param <T> the generic type
+	 * @param <T> the type parameter
      * @return the predicate
      */
     public static <T> Predicate<T> peekSOPL() {
@@ -321,9 +321,9 @@ public class JMPredicate {
 	}
 
     /**
-     * Gets the equals.
+	 * Gets equals.
      *
-     * @param <T>     the generic type
+	 * @param <T>     the type parameter
      * @param target2 the target 2
      * @return the equals
      */
@@ -332,9 +332,9 @@ public class JMPredicate {
 	}
 
     /**
-     * Negate.
+	 * Negate predicate.
      *
-     * @param <T>       the generic type
+	 * @param <T>       the type parameter
      * @param predicate the predicate
      * @return the predicate
      */
@@ -343,9 +343,9 @@ public class JMPredicate {
 	}
 
     /**
-     * Negate.
+	 * Negate predicate.
      *
-     * @param <T>  the generic type
+	 * @param <T>  the type parameter
      * @param bool the bool
      * @return the predicate
      */

@@ -6,12 +6,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The Class CollectionPrinter.
+ * The type Collection printer.
  */
 public class CollectionPrinter {
 
 	/**
-	 * List to JSON string.
+	 * List to json string string.
 	 *
 	 * @param list the list
 	 * @return the string
@@ -44,7 +44,7 @@ public class CollectionPrinter {
 	}
 
 	/**
-	 * Map to JSON string.
+	 * Map to json string string.
 	 *
 	 * @param map the map
 	 * @return the string

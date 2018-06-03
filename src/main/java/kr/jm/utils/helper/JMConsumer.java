@@ -4,14 +4,14 @@ package kr.jm.utils.helper;
 import java.util.function.Consumer;
 
 /**
- * The Class JMConsumer.
+ * The type Jm consumer.
  */
 public class JMConsumer {
 
     /**
-     * Gets the System.out.println Consumer.
+     * Gets sopl.
      *
-     * @param <T> the generic type
+     * @param <T> the type parameter
      * @return the sopl
      */
     public static <T> Consumer<T> getSOPL() {
@@ -19,9 +19,9 @@ public class JMConsumer {
 	}
 
     /**
-     * Gets the System.out.print Consumer.
+     * Gets sop.
      *
-     * @param <T> the generic type
+     * @param <T> the type parameter
      * @return the sop
      */
     public static <T> Consumer<T> getSOP() {
@@ -29,9 +29,9 @@ public class JMConsumer {
 	}
 
     /**
-     * Gets the consumer.
+     * Gets consumer.
      *
-     * @param <T>      the generic type
+     * @param <T>      the type parameter
      * @param runnable the runnable
      * @return the consumer
      */
@@ -40,9 +40,9 @@ public class JMConsumer {
 	}
 
     /**
-     * Gets the consumer.
+     * Gets consumer.
      *
-     * @param <T>            the generic type
+     * @param <T>            the type parameter
      * @param returnConsumer the return consumer
      * @return the consumer
      */

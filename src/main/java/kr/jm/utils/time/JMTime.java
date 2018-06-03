@@ -3,7 +3,7 @@ package kr.jm.utils.time;
 import java.text.SimpleDateFormat;
 
 /**
- * The Class JMTime.
+ * The type Jm time.
  */
 public class JMTime {
     private int year;
@@ -14,7 +14,7 @@ public class JMTime {
     private int second;
 
     /**
-     * Instantiates a new JM time.
+     * Instantiates a new Jm time.
      *
      * @param timestamp the timestamp
      */
@@ -26,7 +26,7 @@ public class JMTime {
     }
 
     /**
-     * Instantiates a new JM time.
+     * Instantiates a new Jm time.
      *
      * @param year   the year
      * @param month  the month
@@ -52,7 +52,7 @@ public class JMTime {
     }
 
     /**
-     * Gets the year.
+     * Gets year.
      *
      * @return the year
      */
@@ -61,7 +61,7 @@ public class JMTime {
     }
 
     /**
-     * Gets the month.
+     * Gets month.
      *
      * @return the month
      */
@@ -70,7 +70,7 @@ public class JMTime {
     }
 
     /**
-     * Gets the day.
+     * Gets day.
      *
      * @return the day
      */
@@ -79,7 +79,7 @@ public class JMTime {
     }
 
     /**
-     * Gets the hour.
+     * Gets hour.
      *
      * @return the hour
      */
@@ -88,7 +88,7 @@ public class JMTime {
     }
 
     /**
-     * Gets the minute.
+     * Gets minute.
      *
      * @return the minute
      */
@@ -97,7 +97,7 @@ public class JMTime {
     }
 
     /**
-     * Gets the second.
+     * Gets second.
      *
      * @return the second
      */

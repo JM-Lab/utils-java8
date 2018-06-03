@@ -3,22 +3,26 @@ package kr.jm.utils.enums;
 import java.util.Optional;
 
 /**
- * The Enum Period.
+ * The enum Period.
  */
 public enum Period {
     /**
      * Weekly period.
      */
-    WEEKLY, /**
+    WEEKLY,
+    /**
      * Daily period.
      */
-    DAILY, /**
+    DAILY,
+    /**
      * Hourly period.
      */
-    HOURLY, /**
+    HOURLY,
+    /**
      * Minutely period.
      */
-    MINUTELY, /**
+    MINUTELY,
+    /**
      * Secondly period.
      */
     SECONDLY;
@@ -41,7 +45,7 @@ public enum Period {
     }
 
     /**
-     * Gets the period milliseconds.
+     * Gets period milliseconds.
      *
      * @return the period milliseconds
      */
@@ -51,7 +55,7 @@ public enum Period {
     }
 
     /**
-     * Gets the period seconds.
+     * Gets period seconds.
      *
      * @return the period seconds
      */

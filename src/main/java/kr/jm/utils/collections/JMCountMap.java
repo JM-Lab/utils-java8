@@ -8,23 +8,23 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * The Class JMListMap.
+ * The type Jm count map.
  *
- * @param <V> the key type
+ * @param <V> the type parameter
  */
 public class JMCountMap<V> implements Map<V, Long> {
 
     private final Map<V, Long> countMap;
 
     /**
-     * Instantiates a new JM list map.
+     * Instantiates a new Jm count map.
      */
     public JMCountMap() {
         this.countMap = new ConcurrentHashMap<>();
     }
 
     /**
-     * Instantiates a new JM list map.
+     * Instantiates a new Jm count map.
      *
      * @param map the map
      */

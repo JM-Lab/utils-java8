@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * The Class JMInputStream.
+ * The type Jm input stream.
  */
 public class JMInputStream {
 
@@ -22,7 +22,7 @@ public class JMInputStream {
     private static final String UTF_8 = "UTF-8";
 
     /**
-     * To string.
+     * To string string.
      *
      * @param inputStream the input stream
      * @return the string
@@ -32,10 +32,10 @@ public class JMInputStream {
     }
 
     /**
-     * To string.
+     * To string string.
      *
      * @param inputStream the input stream
-     * @param charsetName the charsetName
+     * @param charsetName the charset name
      * @return the string
      */
     public static String toString(InputStream inputStream, String charsetName) {
@@ -61,10 +61,10 @@ public class JMInputStream {
     }
 
     /**
-     * Read lines.
+     * Read lines list.
      *
      * @param inputStream the input stream
-     * @param charsetName the charsetName
+     * @param charsetName the charset name
      * @return the list
      */
     public static List<String> readLines(InputStream inputStream,
@@ -80,7 +80,7 @@ public class JMInputStream {
     }
 
     /**
-     * Read lines.
+     * Read lines list.
      *
      * @param inputStream the input stream
      * @return the list
@@ -94,7 +94,7 @@ public class JMInputStream {
      * Consume input stream.
      *
      * @param inputStream the input stream
-     * @param charsetName the charsetName
+     * @param charsetName the charset name
      * @param consumer    the consumer
      */
     public static void consumeInputStream(InputStream inputStream,

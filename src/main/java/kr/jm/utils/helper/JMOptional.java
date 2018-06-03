@@ -9,12 +9,12 @@ import java.util.stream.Stream;
 import static kr.jm.utils.helper.JMPredicate.getIsEmpty;
 
 /**
- * The Class JMOptional.
+ * The type Jm optional.
  */
 public class JMOptional {
 
     /**
-     * Gets the optional.
+     * Gets optional.
      *
      * @param string the string
      * @return the optional
@@ -24,9 +24,9 @@ public class JMOptional {
     }
 
     /**
-     * Gets the optional if true.
+     * Gets optional if true.
      *
-     * @param <T>    the generic type
+     * @param <T>    the type parameter
      * @param bool   the bool
      * @param target the target
      * @return the optional if true
@@ -36,9 +36,9 @@ public class JMOptional {
     }
 
     /**
-     * Gets the nullable and filtered optional.
+     * Gets nullable and filtered optional.
      *
-     * @param <T>       the generic type
+     * @param <T>       the type parameter
      * @param target    the target
      * @param predicate the predicate
      * @return the nullable and filtered optional
@@ -49,10 +49,10 @@ public class JMOptional {
     }
 
     /**
-     * Gets the optional if exist.
+     * Gets optional if exist.
      *
-     * @param <T>                   the generic type
-     * @param <R>                   the generic type
+     * @param <T>                   the type parameter
+     * @param <R>                   the type parameter
      * @param optional              the optional
      * @param returnBuilderFunction the return builder function
      * @return the optional if exist
@@ -63,11 +63,11 @@ public class JMOptional {
     }
 
     /**
-     * Gets the optional if exist.
+     * Gets optional if exist.
      *
-     * @param <T1>                  the generic type
-     * @param <T2>                  the generic type
-     * @param <R>                   the generic type
+     * @param <T1>                  the type parameter
+     * @param <T2>                  the type parameter
+     * @param <R>                   the type parameter
      * @param firstOptional         the first optional
      * @param secondOptional        the second optional
      * @param returnBuilderFunction the return builder function
@@ -81,11 +81,11 @@ public class JMOptional {
     }
 
     /**
-     * Gets the optional if exist.
+     * Gets optional if exist.
      *
-     * @param <T>                   the generic type
-     * @param <C>                   the generic type
-     * @param <R>                   the generic type
+     * @param <T>                   the type parameter
+     * @param <C>                   the type parameter
+     * @param <R>                   the type parameter
      * @param collection            the collection
      * @param returnBuilderFunction the return builder function
      * @return the optional if exist
@@ -97,12 +97,12 @@ public class JMOptional {
     }
 
     /**
-     * Gets the optional if exist.
+     * Gets optional if exist.
      *
-     * @param <K>                   the key type
-     * @param <V>                   the value type
-     * @param <M>                   the generic type
-     * @param <R>                   the generic type
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <M>                   the type parameter
+     * @param <R>                   the type parameter
      * @param map                   the map
      * @param returnBuilderFunction the return builder function
      * @return the optional if exist
@@ -113,11 +113,11 @@ public class JMOptional {
     }
 
     /**
-     * Gets the value as opt if exist.
+     * Gets value as opt if exist.
      *
-     * @param <K>                   the key type
-     * @param <V>                   the value type
-     * @param <R>                   the generic type
+     * @param <K>                   the type parameter
+     * @param <V>                   the type parameter
+     * @param <R>                   the type parameter
      * @param map                   the map
      * @param key                   the key
      * @param returnBuilderFunction the return builder function
@@ -129,10 +129,10 @@ public class JMOptional {
     }
 
     /**
-     * Gets the optional.
+     * Gets optional.
      *
-     * @param <T>        the generic type
-     * @param <C>        the generic type
+     * @param <T>        the type parameter
+     * @param <C>        the type parameter
      * @param collection the collection
      * @return the optional
      */
@@ -142,9 +142,9 @@ public class JMOptional {
     }
 
     /**
-     * Gets the optional.
+     * Gets optional.
      *
-     * @param <T>   the generic type
+     * @param <T>   the type parameter
      * @param array the array
      * @return the optional
      */
@@ -153,11 +153,11 @@ public class JMOptional {
     }
 
     /**
-     * Gets the optional.
+     * Gets optional.
      *
-     * @param <K> the key type
-     * @param <V> the value type
-     * @param <M> the generic type
+     * @param <K> the type parameter
+     * @param <V> the type parameter
+     * @param <M> the type parameter
      * @param map the map
      * @return the optional
      */
@@ -166,11 +166,11 @@ public class JMOptional {
     }
 
     /**
-     * Gets the optional.
+     * Gets optional.
      *
-     * @param <K> the key type
-     * @param <V> the value type
-     * @param <M> the generic type
+     * @param <K> the type parameter
+     * @param <V> the type parameter
+     * @param <M> the type parameter
      * @param map the map
      * @param key the key
      * @return the optional
@@ -183,8 +183,8 @@ public class JMOptional {
     /**
      * If exist.
      *
-     * @param <E>        the element type
-     * @param <T>        the generic type
+     * @param <E>        the type parameter
+     * @param <T>        the type parameter
      * @param collection the collection
      * @param consumer   the consumer
      */
@@ -196,9 +196,9 @@ public class JMOptional {
     /**
      * If exist.
      *
-     * @param <K>      the key type
-     * @param <V>      the value type
-     * @param <M>      the generic type
+     * @param <K>      the type parameter
+     * @param <V>      the type parameter
+     * @param <M>      the type parameter
      * @param map      the map
      * @param consumer the consumer
      */
@@ -210,7 +210,7 @@ public class JMOptional {
     /**
      * If not null.
      *
-     * @param <T>      the generic type
+     * @param <T>      the type parameter
      * @param object   the object
      * @param consumer the consumer
      */
@@ -219,9 +219,9 @@ public class JMOptional {
     }
 
     /**
-     * Or else get if null.
+     * Or else get if null t.
      *
-     * @param <T>             the generic type
+     * @param <T>             the type parameter
      * @param target          the target
      * @param elseGetSupplier the else get supplier
      * @return the t
@@ -231,9 +231,9 @@ public class JMOptional {
     }
 
     /**
-     * Or else if null.
+     * Or else if null t.
      *
-     * @param <T>        the generic type
+     * @param <T>        the type parameter
      * @param target     the target
      * @param elseTarget the else target
      * @return the t
@@ -243,10 +243,10 @@ public class JMOptional {
     }
 
     /**
-     * If exist into stream.
+     * If exist into stream stream.
      *
-     * @param <T>        the generic type
-     * @param <C>        the generic type
+     * @param <T>        the type parameter
+     * @param <C>        the type parameter
      * @param collection the collection
      * @return the stream
      */
@@ -257,10 +257,10 @@ public class JMOptional {
     }
 
     /**
-     * Checks if is present all.
+     * Is present all boolean.
      *
      * @param optionals the optionals
-     * @return true, if is present all
+     * @return the boolean
      */
     public static boolean isPresentAll(Optional<?>... optionals) {
         for (Optional<?> optional : optionals)

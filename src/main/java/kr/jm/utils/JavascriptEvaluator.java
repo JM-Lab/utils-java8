@@ -6,6 +6,9 @@ import kr.jm.utils.helper.JMLambda;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
+/**
+ * The type Javascript evaluator.
+ */
 public class JavascriptEvaluator {
     private static final org.slf4j.Logger log =
             org.slf4j.LoggerFactory.getLogger(JavascriptEvaluator.class);
@@ -13,6 +16,12 @@ public class JavascriptEvaluator {
     private static ScriptEngine scriptEngine;
 
 
+    /**
+     * Eval object.
+     *
+     * @param script the script
+     * @return the object
+     */
     public static Object eval(String script) {
         try {
             return getScriptEngine().eval(script);

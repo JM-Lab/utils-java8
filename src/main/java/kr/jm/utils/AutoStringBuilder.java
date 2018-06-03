@@ -2,7 +2,7 @@
 package kr.jm.utils;
 
 /**
- * The Class AutoStringBuilder.
+ * The type Auto string builder.
  */
 public class AutoStringBuilder {
 
@@ -11,7 +11,7 @@ public class AutoStringBuilder {
 	private StringBuilder sb;
 
     /**
-     * Instantiates a new auto string builder.
+	 * Instantiates a new Auto string builder.
      *
      * @param autoAppendingString the auto appending string
      */
@@ -21,7 +21,7 @@ public class AutoStringBuilder {
 	}
 
     /**
-     * Append if exists.
+	 * Append if exists auto string builder.
      *
      * @param appendingObjects the appending objects
      * @return the auto string builder
@@ -34,7 +34,7 @@ public class AutoStringBuilder {
 	}
 
     /**
-     * Append.
+	 * Append auto string builder.
      *
      * @param string the string
      * @return the auto string builder
@@ -45,7 +45,7 @@ public class AutoStringBuilder {
 	}
 
     /**
-     * Append.
+	 * Append auto string builder.
      *
      * @param strings the strings
      * @return the auto string builder
@@ -57,7 +57,7 @@ public class AutoStringBuilder {
 	}
 
     /**
-     * Append.
+	 * Append auto string builder.
      *
      * @param object the object
      * @return the auto string builder
@@ -68,7 +68,7 @@ public class AutoStringBuilder {
 	}
 
     /**
-     * Append.
+	 * Append auto string builder.
      *
      * @param objects the objects
      * @return the auto string builder
@@ -80,7 +80,7 @@ public class AutoStringBuilder {
 	}
 
     /**
-     * Gets the string builder.
+	 * Gets string builder.
      *
      * @return the string builder
      */
@@ -89,7 +89,7 @@ public class AutoStringBuilder {
 	}
 
     /**
-     * Removes the last auto appending string.
+	 * Remove last auto appending string auto string builder.
      *
      * @return the auto string builder
      */
@@ -99,7 +99,7 @@ public class AutoStringBuilder {
 	}
 
     /**
-     * Auto to string.
+	 * Auto to string string.
      *
      * @return the string
      */

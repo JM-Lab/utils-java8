@@ -24,17 +24,19 @@ import static java.util.stream.Collectors.toList;
 import static kr.jm.utils.helper.JMPredicate.negate;
 
 /**
- * The Enum OS.
+ * The enum Os.
  */
 public enum OS {
 
     /**
      * Windows os.
      */
-    WINDOWS, /**
+    WINDOWS,
+    /**
      * Mac os.
      */
-    MAC, /**
+    MAC,
+    /**
      * Linux os.
      */
     LINUX;
@@ -49,58 +51,58 @@ public enum OS {
 			negate(InetAddress::isLoopbackAddress);
 
     /**
-     * Gets the file separator.
+     * Gets file separator.
      *
      * @return the file separator
      */
     public static String getFileSeparator() {
-		return fileSeparator;
-	}
+        return fileSeparator;
+    }
 
     /**
-     * Gets the line separator.
+     * Gets line separator.
      *
      * @return the line separator
      */
     public static String getLineSeparator() {
 		return System.getProperty("line.separator");
-	}
+    }
 
     /**
-     * Gets the os name.
+     * Gets os name.
      *
      * @return the os name
      */
     public static String getOsName() {
-		return System.getProperty("os.name");
-	}
+        return System.getProperty("os.name");
+    }
 
     /**
-     * Gets the os version.
+     * Gets os version.
      *
      * @return the os version
      */
     public static String getOsVersion() {
 		return System.getProperty("os.version");
-	}
+    }
 
     /**
-     * Gets the user working dir.
+     * Gets user working dir.
      *
      * @return the user working dir
      */
     public static String getUserWorkingDir() {
-		return System.getProperty("user.dir");
-	}
+        return System.getProperty("user.dir");
+    }
 
     /**
-     * Gets the user home dir.
+     * Gets user home dir.
      *
      * @return the user home dir
      */
     public static String getUserHomeDir() {
-		return System.getProperty("user.home");
-	}
+        return System.getProperty("user.home");
+    }
 
     /**
      * Gets java io tmp dir.
@@ -108,11 +110,11 @@ public enum OS {
      * @return the java io tmp dir
      */
     public static String getJavaIoTmpDir() {
-		return System.getProperty("java.io.tmpdir");
-	}
+        return System.getProperty("java.io.tmpdir");
+    }
 
     /**
-     * Builds the path.
+     * Build path string.
      *
      * @param strings the strings
      * @return the string
@@ -120,13 +122,13 @@ public enum OS {
     public static String buildPath(String... strings) {
 		AutoStringBuilder asb = new AutoStringBuilder(fileSeparator);
 		for (String string : strings) {
-			asb.append(string);
-		}
-		return asb.toString();
-	}
+            asb.append(string);
+        }
+        return asb.toString();
+    }
 
     /**
-     * Gets the os.
+     * Gets os.
      *
      * @return the os
      */
@@ -135,22 +137,22 @@ public enum OS {
 		if (os.contains("windows"))
 			return WINDOWS;
 		else if (os.contains("mac"))
-			return MAC;
-		else
-			return LINUX;
-	}
+            return MAC;
+        else
+            return LINUX;
+    }
 
     /**
-     * Adds the shutdown hook.
+     * Add shutdown hook.
      *
      * @param runAfterShutdown the run after shutdown
      */
     public static void addShutdownHook(Runnable runAfterShutdown) {
 		Runtime.getRuntime().addShutdownHook(new Thread(runAfterShutdown));
-	}
+    }
 
     /**
-     * Gets the hostname.
+     * Gets hostname.
      *
      * @return the hostname
      */
@@ -159,19 +161,19 @@ public enum OS {
 			return InetAddress.getLocalHost().getHostName();
 		} catch (UnknownHostException e) {
 			return JMExceptionManager.handleExceptionAndReturnNull(log, e,
-					"getHostname");
-		}
+                    "getHostname");
+        }
 
-	}
+    }
 
     /**
-     * Gets the ip.
+     * Gets ip.
      *
      * @return the ip
      */
     public static String getIp() {
-		return getIpInfo().getHostAddress();
-	}
+        return getIpInfo().getHostAddress();
+    }
 
     /**
      * Gets ip list.
@@ -180,8 +182,8 @@ public enum OS {
      */
     public static List<String> getIpList() {
 		return getIpInfoList().stream().map(InetAddress::getHostAddress)
-				.collect(toList());
-	}
+                .collect(toList());
+    }
 
     /**
      * Gets ip info.
@@ -190,8 +192,8 @@ public enum OS {
      */
     public static InetAddress getIpInfo() {
 		return getDefaultInetAddressAsOpt().filter(OS::isIpv4Address)
-				.orElseGet(getIpInfoList().stream().findFirst()::get);
-	}
+                .orElseGet(getIpInfoList().stream().findFirst()::get);
+    }
 
     /**
      * Gets ip info list.
@@ -214,9 +216,9 @@ public enum OS {
 		} catch (Exception e) {
 			return JMExceptionManager.handleExceptionAndThrowRuntimeEx(log,
 					new RuntimeException("There Is No IP Address !!!"),
-					"getDefaultInetAddressAsOpt");
-		}
-	}
+                    "getDefaultInetAddressAsOpt");
+        }
+    }
 
     /**
      * Gets all inet address info list.
@@ -224,8 +226,8 @@ public enum OS {
      * @return the all inet address info list
      */
     public static List<InetAddress> getAllInetAddressInfoList() {
-		return getAllInetAddressInfoStream().collect(toList());
-	}
+        return getAllInetAddressInfoStream().collect(toList());
+    }
 
     /**
      * Gets all inet address info stream.
@@ -251,37 +253,37 @@ public enum OS {
 	private static FileView getFileView() {
 		return Optional.ofNullable(fileView).orElseGet(() -> {
 			JFileChooser jFileChooser = new JFileChooser();
-			return fileView = jFileChooser.getUI().getFileView(jFileChooser);
-		});
-	}
+            return fileView = jFileChooser.getUI().getFileView(jFileChooser);
+        });
+    }
 
     /**
-     * Gets the file description.
+     * Gets file description.
      *
      * @param file the file
      * @return the file description
      */
     public static String getFileDescription(File file) {
-		return getFileView().getDescription(file);
-	}
+        return getFileView().getDescription(file);
+    }
 
     /**
-     * Gets the home directory file.
+     * Gets home directory file.
      *
      * @return the home directory file
      */
     public static File getHomeDirectoryFile() {
-		return getFileSystemView().getHomeDirectory();
-	}
+        return getFileSystemView().getHomeDirectory();
+    }
 
     /**
-     * Gets the default directory file.
+     * Gets default directory file.
      *
      * @return the default directory file
      */
     public static File getDefaultDirectoryFile() {
-		return getFileSystemView().getDefaultDirectory();
-	}
+        return getFileSystemView().getDefaultDirectory();
+    }
 
     /**
      * Gets available local port.
@@ -294,9 +296,9 @@ public enum OS {
 			return socket.getLocalPort();
 		} catch (IOException e) {
 			return JMExceptionManager.handleExceptionAndReturn(log, e,
-					"getAvailableLocalPort", () -> -1);
-		}
-	}
+                    "getAvailableLocalPort", () -> -1);
+        }
+    }
 
     /**
      * Gets available processors.
@@ -304,14 +306,14 @@ public enum OS {
      * @return the available processors
      */
     public static int getAvailableProcessors() {
-		return Runtime.getRuntime().availableProcessors();
-	}
+        return Runtime.getRuntime().availableProcessors();
+    }
 
     /**
-     * Open.
+     * Open boolean.
      *
      * @param file the file
-     * @return true, if successful
+     * @return the boolean
      */
     public boolean open(File file) {
 		try {
@@ -341,12 +343,12 @@ public enum OS {
 			return true;
 		} catch (Exception e) {
 			return JMExceptionManager.handleExceptionAndReturnFalse(log, e,
-					"open", runCmd, file.getAbsolutePath());
-		}
-	}
+                    "open", runCmd, file.getAbsolutePath());
+        }
+    }
 
     /**
-     * Gets the icon.
+     * Gets icon.
      *
      * @param file the file
      * @return the icon
@@ -355,13 +357,13 @@ public enum OS {
 		switch (this) {
 		case MAC:
 			return getFileView().getIcon(file);
-		default:
-			return getFileSystemView().getSystemIcon(file);
-		}
-	}
+            default:
+                return getFileSystemView().getSystemIcon(file);
+        }
+    }
 
     /**
-     * Gets the file name.
+     * Gets file name.
      *
      * @param file the file
      * @return the file name
@@ -370,13 +372,13 @@ public enum OS {
 		switch (this) {
 		case MAC:
 			return getFileView().getName(file);
-		default:
-			return getFileSystemView().getSystemDisplayName(file);
-		}
-	}
+            default:
+                return getFileSystemView().getSystemDisplayName(file);
+        }
+    }
 
     /**
-     * Gets the file type description.
+     * Gets file type description.
      *
      * @param file the file
      * @return the file type description
@@ -386,12 +388,12 @@ public enum OS {
 		case MAC:
 			return getFileView().getTypeDescription(file);
 		default:
-			return getFileSystemView().getSystemTypeDescription(file);
-		}
-	}
+            return getFileSystemView().getSystemTypeDescription(file);
+        }
+    }
 
     /**
-     * Gets the root file list.
+     * Gets root file list.
      *
      * @return the root file list
      */
