@@ -576,4 +576,57 @@ public class JMThread {
         }, executorService);
         return executorService;
     }
+
+    public static <E> BlockingQueue<E> getLimitedBlockingQueue(int maxQueue) {
+        return new LinkedBlockingQueue<E>(maxQueue) {
+            @Override
+            public boolean offer(E e) {
+                return putInsteadOfOffer(this, e);
+            }
+        };
+    }
+
+    public static <E> BlockingQueue<E> getWaitingLimitedBlockingQueue(
+            long waitingMillis, int maxQueue) {
+        return new LinkedBlockingQueue<E>(maxQueue) {
+            @Override
+            public boolean offer(E e) {
+                if (size() >= maxQueue) {
+                    sleep(waitingMillis);
+                    log.warn(
+                            "Wait {} ms And Blocking !!! - maxQueue = {}",
+                            waitingMillis, maxQueue);
+                }
+                return putInsteadOfOffer(this, e);
+            }
+        };
+    }
+
+    private static <E> boolean putInsteadOfOffer(BlockingQueue<E> queue, E e) {
+        try {
+            queue.put(e);
+            return true;
+        } catch (InterruptedException ie) {
+            return JMExceptionManager.handleExceptionAndReturnFalse(log,
+                    ie, "offer", e);
+        }
+    }
+
+    public static ExecutorService newMaxQueueThreadPool(int numWorkerThreads,
+            long waitingMillis, int maxQueue) {
+        return new ThreadPoolExecutor(numWorkerThreads, numWorkerThreads,
+                0L, TimeUnit.MILLISECONDS,
+                waitingMillis > 0 ? getWaitingLimitedBlockingQueue(
+                        waitingMillis, maxQueue) : getLimitedBlockingQueue(
+                        maxQueue));
+    }
+
+    public static ExecutorService newMaxQueueThreadPool(int numWorkerThreads,
+            int maxQueue) {
+        return newMaxQueueThreadPool(numWorkerThreads, 0, maxQueue);
+    }
+
+    public static ExecutorService newMaxQueueThreadPool(int maxQueue) {
+        return newMaxQueueThreadPool(OS.getAvailableProcessors(), maxQueue);
+    }
 }
