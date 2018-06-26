@@ -7,6 +7,7 @@ import kr.jm.utils.helper.JMStream;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
@@ -263,5 +264,16 @@ public class JMCollections {
     @SafeVarargs
     public static <K, V> Map<K, V> newMap(Map.Entry<K, V>... entries) {
         return newMap(Arrays.asList(entries));
+    }
+
+    public static <T> T addAndGet(Collection<T> collection, T item) {
+        collection.add(item);
+        return item;
+    }
+
+    public static <T, R> List<R> buildNewList(Collection<T> collection,
+            Function<T, R> transformFunction) {
+        return collection.stream().map(transformFunction)
+                .collect(Collectors.toList());
     }
 }
