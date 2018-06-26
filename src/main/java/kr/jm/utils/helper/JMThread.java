@@ -24,6 +24,9 @@ public class JMThread {
     private static final org.slf4j.Logger log =
             org.slf4j.LoggerFactory.getLogger(JMThread.class);
 
+    // No Waiting
+    public static final long DEFAULT_WAITING_MILLIS = 0;
+
     /**
      * Gets thread queue.
      *
@@ -593,8 +596,7 @@ public class JMThread {
             public boolean offer(E e) {
                 if (size() >= maxQueue) {
                     sleep(waitingMillis);
-                    log.warn(
-                            "Wait {} ms And Blocking !!! - maxQueue = {}",
+                    log.warn("Wait For {} ms And Blocking !!! - maxQueue = {}",
                             waitingMillis, maxQueue);
                 }
                 return putInsteadOfOffer(this, e);
@@ -623,7 +625,8 @@ public class JMThread {
 
     public static ExecutorService newMaxQueueThreadPool(int numWorkerThreads,
             int maxQueue) {
-        return newMaxQueueThreadPool(numWorkerThreads, 0, maxQueue);
+        return newMaxQueueThreadPool(numWorkerThreads, DEFAULT_WAITING_MILLIS,
+                maxQueue);
     }
 
     public static ExecutorService newMaxQueueThreadPool(int maxQueue) {
