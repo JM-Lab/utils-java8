@@ -4,6 +4,7 @@ import kr.jm.utils.datastructure.JMCollections;
 import kr.jm.utils.helper.JMString;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -134,8 +135,8 @@ public class JMStats {
     }
 
     private static int adjustTargetPercentile(int targetPercentile) {
-        return targetPercentile < 0 ? 0
-                : targetPercentile > 100 ? 100 : targetPercentile;
+        return targetPercentile < 0 ? 0 :
+                targetPercentile > 100 ? 100 : targetPercentile;
     }
 
     /**
@@ -146,16 +147,13 @@ public class JMStats {
      * @return the number
      */
     public static <N extends Number> Number min(List<N> numberList) {
-        return JMCollections.isNullOrEmpty(numberList) ? 0
-                : numberList.get(0) instanceof Integer
-                ? numberList.stream().mapToInt(Number::intValue).min()
-                .orElse(0)
-                : numberList.get(0) instanceof Long
-                ? numberList.stream()
-                .mapToLong(Number::longValue).min()
-                .orElse(0)
-                : numberList.stream()
-                .mapToDouble(Number::doubleValue).min()
+        return cal(numberList, DoubleStream::min);
+    }
+
+    public static <N extends Number> double cal(List<N> numberList,
+            Function<DoubleStream, OptionalDouble> calFunction) {
+        return JMCollections.isNullOrEmpty(numberList) ? 0 : calFunction
+                .apply(numberList.stream().mapToDouble(Number::doubleValue))
                 .orElse(0);
     }
 
@@ -167,17 +165,7 @@ public class JMStats {
      * @return the number
      */
     public static <N extends Number> Number max(List<N> numberList) {
-        return JMCollections.isNullOrEmpty(numberList) ? 0
-                : numberList.get(0) instanceof Integer
-                ? numberList.stream().mapToInt(Number::intValue).max()
-                .orElse(0)
-                : numberList.get(0) instanceof Long
-                ? numberList.stream()
-                .mapToLong(Number::longValue).max()
-                .orElse(0)
-                : numberList.stream()
-                .mapToDouble(Number::doubleValue).max()
-                .orElse(0);
+        return cal(numberList, DoubleStream::max);
     }
 
     /**
@@ -198,14 +186,8 @@ public class JMStats {
      * @return the number
      */
     public static <N extends Number> Number sum(List<N> numberList) {
-        return JMCollections.isNullOrEmpty(numberList) ? 0
-                : numberList.get(0) instanceof Integer
-                ? numberList.stream().mapToInt(Number::intValue).sum()
-                : numberList.get(0) instanceof Long
-                ? numberList.stream()
-                .mapToLong(Number::longValue).sum()
-                : numberList.stream()
-                .mapToDouble(Number::doubleValue).sum();
+        return cal(numberList,
+                doubleStream -> OptionalDouble.of(doubleStream.sum()));
     }
 
     /**
@@ -216,17 +198,7 @@ public class JMStats {
      * @return the number
      */
     public static <N extends Number> Number average(List<N> numberList) {
-        return JMCollections.isNullOrEmpty(numberList) ? 0
-                : numberList.get(0) instanceof Integer
-                ? numberList.stream().mapToInt(Number::intValue)
-                .average().orElse(0)
-                : numberList.get(0) instanceof Long
-                ? numberList.stream()
-                .mapToLong(Number::longValue).average()
-                .orElse(0)
-                : numberList.stream()
-                .mapToDouble(Number::doubleValue)
-                .average().orElse(0);
+        return cal(numberList, DoubleStream::average);
     }
 
     /**
@@ -371,9 +343,8 @@ public class JMStats {
                                 .getAverage()) / count;
     }
 
-    private static double
-    calSampleMinusMeanSumOfSquares(List<? extends Number> numberList,
-            double average) {
+    private static double calSampleMinusMeanSumOfSquares(
+            List<? extends Number> numberList, double average) {
         return calSumOfSquares(
                 buildDoubleStream(numberList).map(d -> d - average));
     }
