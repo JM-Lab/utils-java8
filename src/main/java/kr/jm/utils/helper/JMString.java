@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * The type Jm string.
@@ -104,6 +105,15 @@ public class JMString {
         return Optional.ofNullable(wordPattern)
                 .orElseGet(() -> wordPattern = Pattern.compile(WordPattern))
                 .matcher(wordString).matches();
+    }
+
+    public static String joining(Stream<String> stringStream) {
+        return stringStream.collect(Collectors.joining());
+    }
+
+    public static String joiningWith(Stream<String> stringStream,
+            CharSequence delimiter) {
+        return stringStream.collect(Collectors.joining(delimiter));
     }
 
     /**
@@ -263,7 +273,7 @@ public class JMString {
      * @return the string
      */
     public static String joining(String... strings) {
-        return Arrays.stream(strings).collect(Collectors.joining());
+        return joining(Arrays.stream(strings));
     }
 
     /**
@@ -275,7 +285,7 @@ public class JMString {
      */
     public static String joiningWithDelimiter(CharSequence delimiter,
             String... strings) {
-        return Arrays.stream(strings).collect(Collectors.joining(delimiter));
+        return joiningWith(Arrays.stream(strings), delimiter);
     }
 
     /**
@@ -287,7 +297,7 @@ public class JMString {
      */
     public static String joiningWithDelimiter(CharSequence delimiter,
             List<String> stringList) {
-        return stringList.stream().collect(Collectors.joining(delimiter));
+        return joiningWith(stringList.stream(), delimiter);
     }
 
     /**
