@@ -276,4 +276,8 @@ public class JMCollections {
         return collection.stream().map(transformFunction)
                 .collect(Collectors.toList());
     }
+
+    public static <K, V> Map<K, V> newMap(Map<K, V> initMap) {
+        return new HashMap<>(initMap);
+    }
 }
