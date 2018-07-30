@@ -274,7 +274,7 @@ public class JMThread {
                 delayMillis, TimeUnit.MILLISECONDS);
     }
 
-    private static ScheduledExecutorService newSingleScheduledThreadPool() {
+    public static ScheduledExecutorService newSingleScheduledThreadPool() {
         ScheduledExecutorService scheduledExecutorService =
                 Executors.newScheduledThreadPool(1);
         OS.addShutdownHook(scheduledExecutorService::shutdown);
@@ -338,10 +338,11 @@ public class JMThread {
     private static ScheduledFuture<?> runWithScheduleAtFixedRate(
             long initialDelayMillis, long periodMillis, String name,
             Runnable runnable) {
-        return newSingleScheduledThreadPool().scheduleAtFixedRate(
-                () -> runAsync(buildRunnableWithLogging(name, runnable,
-                        initialDelayMillis, periodMillis)),
-                initialDelayMillis, periodMillis, TimeUnit.MILLISECONDS);
+        return newSingleScheduledThreadPool()
+                .scheduleAtFixedRate(buildRunnableWithLogging(name, runnable,
+                        initialDelayMillis, periodMillis),
+                        initialDelayMillis, periodMillis,
+                        TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -377,9 +378,9 @@ public class JMThread {
             long initialDelayMillis, long delayMillis, String name,
             Runnable runnable) {
         return newSingleScheduledThreadPool().scheduleWithFixedDelay(
-                () -> runAsync(buildRunnableWithLogging(name, runnable,
-                        initialDelayMillis, delayMillis)).join(),
-                initialDelayMillis, delayMillis, TimeUnit.MILLISECONDS);
+                buildRunnableWithLogging(name, runnable, initialDelayMillis,
+                        delayMillis), initialDelayMillis, delayMillis,
+                TimeUnit.MILLISECONDS);
     }
 
     /**
