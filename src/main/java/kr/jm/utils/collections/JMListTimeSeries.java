@@ -12,33 +12,33 @@ import java.util.List;
  */
 public class JMListTimeSeries<T> extends JMTimeSeries<List<T>> {
 
-    /**
+	/**
 	 * Instantiates a new Jm list time series.
-     *
-     * @param intervalSeconds the interval seconds
-     */
-    public JMListTimeSeries(int intervalSeconds) {
+	 *
+	 * @param intervalSeconds the interval seconds
+	 */
+	public JMListTimeSeries(int intervalSeconds) {
 		super(intervalSeconds);
 	}
 
-    /**
+	/**
 	 * Add.
-     *
-     * @param timestamp the timestamp
-     * @param object    the object
-     */
-    public void add(long timestamp, T object) {
+	 *
+	 * @param timestamp the timestamp
+	 * @param object    the object
+	 */
+	public void add(long timestamp, T object) {
 		JMMap.getOrPutGetNew(this.timeSeriesMap, buildKeyTimestamp(timestamp),
 				ArrayList::new).add(object);
 	}
 
-    /**
+	/**
 	 * Add all.
-     *
-     * @param timestamp  the timestamp
-     * @param objectList the object list
-     */
-    public void addAll(long timestamp, List<T> objectList) {
+	 *
+	 * @param timestamp  the timestamp
+	 * @param objectList the object list
+	 */
+	public void addAll(long timestamp, List<T> objectList) {
 		for (T object : objectList)
 			add(timestamp, object);
 	}

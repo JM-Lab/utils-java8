@@ -179,7 +179,7 @@ public class JMPathOperation {
                 () -> createDirectories(destinationDirPath));
         return JMLambda.supplierIfTrue(JMPath.isDirectory(destinationDirPath),
                 () -> new JMProgressiveManager<>(bulkPathList,
-                        operationFunction::apply));
+                        operationFunction));
     }
 
     /**

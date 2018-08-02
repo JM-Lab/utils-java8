@@ -185,7 +185,7 @@ public class JMMap {
             Function<Entry<K, V>, NK> changingKeyFunction) {
         synchronized (map) {
             return buildEntryStream(map).collect(
-                    toMap(changingKeyFunction::apply, Entry::getValue));
+                    toMap(changingKeyFunction, Entry::getValue));
         }
     }
 
@@ -226,7 +226,7 @@ public class JMMap {
             Function<Entry<K, V>, NK> changingKeyFunction) {
         synchronized (map) {
             return getEntryStreamWithFilter(map, filter).collect(
-                    toMap(changingKeyFunction::apply, Entry::getValue));
+                    toMap(changingKeyFunction, Entry::getValue));
         }
     }
 
@@ -263,7 +263,7 @@ public class JMMap {
             Function<Entry<K, V>, NV> changingValueFunction) {
         synchronized (map) {
             return buildEntryStream(map).collect(
-                    toMap(Entry::getKey, changingValueFunction::apply));
+                    toMap(Entry::getKey, changingValueFunction));
         }
     }
 
@@ -371,7 +371,7 @@ public class JMMap {
             Function<Entry<K, V>, NV> changingValueFunction) {
         synchronized (map) {
             return buildEntryStream(map).collect(toMap(
-                    changingKeyFunction::apply, changingValueFunction::apply));
+                    changingKeyFunction, changingValueFunction));
         }
     }
 
@@ -395,7 +395,7 @@ public class JMMap {
             Function<Entry<K, V>, NV> changingValueFunction) {
         synchronized (map) {
             return getEntryStreamWithFilter(map, filter).collect(toMap(
-                    changingKeyFunction::apply, changingValueFunction::apply));
+                    changingKeyFunction, changingValueFunction));
         }
     }
 

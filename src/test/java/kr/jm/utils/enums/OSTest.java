@@ -38,7 +38,7 @@ public class OSTest {
 	}
 
 	/**
-	 * Test get all inet address info list.
+     * Test get all inet address log list.
 	 *
 	 * @throws Exception
 	 *             the exception
@@ -49,7 +49,7 @@ public class OSTest {
 	}
 
 	/**
-	 * Test get ip info.
+     * Test get ip log.
 	 *
 	 * @throws Exception
 	 *             the exception
@@ -71,7 +71,7 @@ public class OSTest {
 	}
 
 	/**
-	 * Test get ip info list.
+     * Test get ip log list.
 	 *
 	 * @throws Exception
 	 *             the exception

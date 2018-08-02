@@ -266,17 +266,42 @@ public class JMCollections {
         return newMap(Arrays.asList(entries));
     }
 
+    /**
+     * Add and get t.
+     *
+     * @param <T>        the type parameter
+     * @param collection the collection
+     * @param item       the item
+     * @return the t
+     */
     public static <T> T addAndGet(Collection<T> collection, T item) {
         collection.add(item);
         return item;
     }
 
+    /**
+     * Build new list list.
+     *
+     * @param <T>               the type parameter
+     * @param <R>               the type parameter
+     * @param collection        the collection
+     * @param transformFunction the transform function
+     * @return the list
+     */
     public static <T, R> List<R> buildNewList(Collection<T> collection,
             Function<T, R> transformFunction) {
         return collection.stream().map(transformFunction)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * New map map.
+     *
+     * @param <K>     the type parameter
+     * @param <V>     the type parameter
+     * @param initMap the init map
+     * @return the map
+     */
     public static <K, V> Map<K, V> newMap(Map<K, V> initMap) {
         return new HashMap<>(initMap);
     }

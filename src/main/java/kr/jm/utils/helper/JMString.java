@@ -107,10 +107,23 @@ public class JMString {
                 .matcher(wordString).matches();
     }
 
+    /**
+     * Joining string.
+     *
+     * @param stringStream the string stream
+     * @return the string
+     */
     public static String joining(Stream<String> stringStream) {
         return stringStream.collect(Collectors.joining());
     }
 
+    /**
+     * Joining with string.
+     *
+     * @param stringStream the string stream
+     * @param delimiter    the delimiter
+     * @return the string
+     */
     public static String joiningWith(Stream<String> stringStream,
             CharSequence delimiter) {
         return stringStream.collect(Collectors.joining(delimiter));

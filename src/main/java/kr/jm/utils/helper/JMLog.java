@@ -4,6 +4,7 @@ package kr.jm.utils.helper;
 import kr.jm.utils.AutoStringBuilder;
 import org.slf4j.Logger;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -115,7 +116,9 @@ public class JMLog {
         AutoStringBuilder loggerASB = new AutoStringBuilder(", ");
         loggerASB.getStringBuilder().append(methodName).append("(");
         for (Object param : params)
-            loggerASB.append(param == null ? "null" : param.toString());
+            loggerASB.append(param == null ? "null" : param.getClass()
+                    .isArray() ? Arrays.toString((Object[]) param) : param
+                    .toString());
         return loggerASB.removeLastAutoAppendingString()
                 .getStringBuilder().append(")").toString();
     }

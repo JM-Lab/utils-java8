@@ -283,7 +283,7 @@ public class JMPathTest {
 	}
 
 	/**
-	 * Test path info.
+     * Test path log.
 	 *
 	 * @throws Exception
 	 *             the exception

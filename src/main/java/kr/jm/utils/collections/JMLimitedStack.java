@@ -17,32 +17,32 @@ public class JMLimitedStack<E> implements Collection<E> {
 	private int capacity;
 	private LinkedBlockingDeque<E> linkedBlockingDeque;
 
-    /**
+	/**
 	 * Instantiates a new Jm limited stack.
-     *
-     * @param capacity the capacity
-     */
-    public JMLimitedStack(int capacity) {
+	 *
+	 * @param capacity the capacity
+	 */
+	public JMLimitedStack(int capacity) {
 		this.capacity = capacity;
 		this.linkedBlockingDeque = new LinkedBlockingDeque<>(capacity);
 	}
 
-    /**
+	/**
 	 * Pop optional.
-     *
-     * @return the optional
-     */
-    public Optional<E> pop() {
+	 *
+	 * @return the optional
+	 */
+	public Optional<E> pop() {
 		return getOptional(linkedBlockingDeque)
 				.map(LinkedBlockingDeque::removeLast);
 	}
 
-    /**
+	/**
 	 * Peek optional.
-     *
-     * @return the optional
-     */
-    public Optional<E> peek() {
+	 *
+	 * @return the optional
+	 */
+	public Optional<E> peek() {
 		return Optional.ofNullable(linkedBlockingDeque.peekLast());
 	}
 

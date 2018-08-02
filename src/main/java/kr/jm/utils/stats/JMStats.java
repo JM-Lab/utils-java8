@@ -150,6 +150,14 @@ public class JMStats {
         return cal(numberList, DoubleStream::min);
     }
 
+    /**
+     * Cal double.
+     *
+     * @param <N>         the type parameter
+     * @param numberList  the number list
+     * @param calFunction the cal function
+     * @return the double
+     */
     public static <N extends Number> double cal(List<N> numberList,
             Function<DoubleStream, OptionalDouble> calFunction) {
         return JMCollections.isNullOrEmpty(numberList) ? 0 : calFunction

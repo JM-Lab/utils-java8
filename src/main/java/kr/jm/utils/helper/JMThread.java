@@ -24,7 +24,10 @@ public class JMThread {
     private static final org.slf4j.Logger log =
             org.slf4j.LoggerFactory.getLogger(JMThread.class);
 
-    // No Waiting
+    /**
+     * The constant DEFAULT_WAITING_MILLIS.
+     */
+// No Waiting
     public static final long DEFAULT_WAITING_MILLIS = 0;
 
     /**
@@ -274,6 +277,11 @@ public class JMThread {
                 delayMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * New single scheduled thread pool scheduled executor service.
+     *
+     * @return the scheduled executor service
+     */
     public static ScheduledExecutorService newSingleScheduledThreadPool() {
         ScheduledExecutorService scheduledExecutorService =
                 Executors.newScheduledThreadPool(1);
@@ -581,6 +589,13 @@ public class JMThread {
         return executorService;
     }
 
+    /**
+     * Gets limited blocking queue.
+     *
+     * @param <E>      the type parameter
+     * @param maxQueue the max queue
+     * @return the limited blocking queue
+     */
     public static <E> BlockingQueue<E> getLimitedBlockingQueue(int maxQueue) {
         return new LinkedBlockingQueue<E>(maxQueue) {
             @Override
@@ -590,6 +605,14 @@ public class JMThread {
         };
     }
 
+    /**
+     * Gets waiting limited blocking queue.
+     *
+     * @param <E>           the type parameter
+     * @param waitingMillis the waiting millis
+     * @param maxQueue      the max queue
+     * @return the waiting limited blocking queue
+     */
     public static <E> BlockingQueue<E> getWaitingLimitedBlockingQueue(
             long waitingMillis, int maxQueue) {
         return new LinkedBlockingQueue<E>(maxQueue) {
@@ -615,6 +638,14 @@ public class JMThread {
         }
     }
 
+    /**
+     * New max queue thread pool executor service.
+     *
+     * @param numWorkerThreads the num worker threads
+     * @param waitingMillis    the waiting millis
+     * @param maxQueue         the max queue
+     * @return the executor service
+     */
     public static ExecutorService newMaxQueueThreadPool(int numWorkerThreads,
             long waitingMillis, int maxQueue) {
         return new ThreadPoolExecutor(numWorkerThreads, numWorkerThreads,
@@ -624,12 +655,25 @@ public class JMThread {
                         maxQueue));
     }
 
+    /**
+     * New max queue thread pool executor service.
+     *
+     * @param numWorkerThreads the num worker threads
+     * @param maxQueue         the max queue
+     * @return the executor service
+     */
     public static ExecutorService newMaxQueueThreadPool(int numWorkerThreads,
             int maxQueue) {
         return newMaxQueueThreadPool(numWorkerThreads, DEFAULT_WAITING_MILLIS,
                 maxQueue);
     }
 
+    /**
+     * New max queue thread pool executor service.
+     *
+     * @param maxQueue the max queue
+     * @return the executor service
+     */
     public static ExecutorService newMaxQueueThreadPool(int maxQueue) {
         return newMaxQueueThreadPool(OS.getAvailableProcessors(), maxQueue);
     }

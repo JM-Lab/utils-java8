@@ -18,7 +18,7 @@ public class IndexAliasMap<V> implements Map<String, V> {
 
     private static final Logger log =
             org.slf4j.LoggerFactory.getLogger(IndexAliasMap.class);
-    private List<V> dataList;
+    private final List<V> dataList;
     private Map<String, Integer> aliasIndexMap;
 
     /**
@@ -37,8 +37,8 @@ public class IndexAliasMap<V> implements Map<String, V> {
      * @param dataList  the data list
      */
     public IndexAliasMap(List<String> aliasList, List<V> dataList) {
-        dataList = new ArrayList<>(dataList);
-        aliasIndexMap = new HashMap<>(size());
+        this.dataList = new ArrayList<>(dataList);
+        this.aliasIndexMap = new HashMap<>(size());
         if (aliasList != null) addAllWithAlias(aliasList, dataList);
     }
 
@@ -64,13 +64,13 @@ public class IndexAliasMap<V> implements Map<String, V> {
     }
 
     /**
-     * Add with alias int.
+     * Add with alias integer.
      *
      * @param alias the alias
      * @param value the value
-     * @return the int
+     * @return the integer
      */
-    public int addWithAlias(String alias, V value) {
+    public Integer addWithAlias(String alias, V value) {
         synchronized (dataList) {
             dataList.add(value);
             return aliasIndexMap.put(alias, dataList.size() - 1);

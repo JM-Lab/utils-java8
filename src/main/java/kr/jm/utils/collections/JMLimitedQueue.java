@@ -17,31 +17,31 @@ public class JMLimitedQueue<E> implements Collection<E> {
 	private int capacity;
 	private LinkedBlockingQueue<E> linkedBlockingQueue;
 
-    /**
+	/**
 	 * Instantiates a new Jm limited queue.
-     *
-     * @param capacity the capacity
-     */
-    public JMLimitedQueue(int capacity) {
+	 *
+	 * @param capacity the capacity
+	 */
+	public JMLimitedQueue(int capacity) {
 		this.capacity = capacity;
 		this.linkedBlockingQueue = new LinkedBlockingQueue<>(capacity);
 	}
 
-    /**
+	/**
 	 * Poll optional.
-     *
-     * @return the optional
-     */
-    public Optional<E> poll() {
+	 *
+	 * @return the optional
+	 */
+	public Optional<E> poll() {
 		return getOptional(linkedBlockingQueue).map(LinkedBlockingQueue::poll);
 	}
 
-    /**
+	/**
 	 * Peek optional.
-     *
-     * @return the optional
-     */
-    public Optional<E> peek() {
+	 *
+	 * @return the optional
+	 */
+	public Optional<E> peek() {
 		return Optional.ofNullable(linkedBlockingQueue.peek());
 	}
 

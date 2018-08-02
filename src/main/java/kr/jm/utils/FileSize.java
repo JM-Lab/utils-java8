@@ -18,33 +18,33 @@ public class FileSize implements Comparable<FileSize> {
 
 	private String siSize;
 
-    /**
+	/**
 	 * Instantiates a new File size.
-     *
-     * @param size the size
-     */
-    public FileSize(long size) {
+	 *
+	 * @param size the size
+	 */
+	public FileSize(long size) {
 		this.size = size;
 		this.siSize = size <= 0 ? NoSize
 				: SimpleSIUnit.findSIUnitAndConvertToString(size, DecimalFormat,
 						SUFFIX);
 	}
 
-    /**
+	/**
 	 * Instantiates a new File size.
-     *
-     * @param path the path
-     */
-    public FileSize(Path path) {
+	 *
+	 * @param path the path
+	 */
+	public FileSize(Path path) {
 		this(JMPath.getSize(path));
 	}
 
-    /**
+	/**
 	 * Gets size.
-     *
-     * @return the size
-     */
-    public long getSize() {
+	 *
+	 * @return the size
+	 */
+	public long getSize() {
 		return size;
 	}
 

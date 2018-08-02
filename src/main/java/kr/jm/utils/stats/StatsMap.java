@@ -2,10 +2,7 @@ package kr.jm.utils.stats;
 
 import kr.jm.utils.datastructure.JMMap;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static kr.jm.utils.stats.StatsField.*;
@@ -15,9 +12,13 @@ import static kr.jm.utils.stats.StatsField.*;
  */
 public class StatsMap implements Map<StatsField, Number> {
 
-    private Map<StatsField, Number> statsFieldNumberMap;
+    private final Map<StatsField, Number> statsFieldNumberMap;
 
-    private StatsMap() {
+    /**
+     * Instantiates a new Stats map.
+     */
+    protected StatsMap() {
+        this(Collections.emptyList());
     }
 
     /**

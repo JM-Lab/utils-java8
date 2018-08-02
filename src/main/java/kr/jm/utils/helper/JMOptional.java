@@ -59,7 +59,7 @@ public class JMOptional {
      */
     public static <T, R> Optional<R> getOptionalIfExist(Optional<T> optional,
             Function<T, R> returnBuilderFunction) {
-        return optional.map(returnBuilderFunction::apply);
+        return optional.map(returnBuilderFunction);
     }
 
     /**
