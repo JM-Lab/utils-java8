@@ -339,7 +339,7 @@ public class JMPredicate {
 	 * @return the predicate
 	 */
 	public static <T> Predicate<T> negate(Predicate<T> predicate) {
-		return target -> predicate.negate().test(target);
+		return predicate.negate();
 	}
 
 	/**
