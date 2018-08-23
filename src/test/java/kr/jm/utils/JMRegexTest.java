@@ -11,15 +11,15 @@ public class JMRegexTest {
     public static String testString = " abCC bbA abCC\n abCC abCC bbA";
 
     @Test
-    public void isMatchedWithPart() {
-        assertTrue(new JMRegex(".+\n").isMatchedWithPart(testString));
-        assertTrue(new JMRegex(".+").isMatchedWithPart(testString));
+    public void testFind() {
+        assertTrue(new JMRegex(".+\n").find(testString));
+        assertTrue(new JMRegex(".+").find(testString));
     }
 
     @Test
-    public void testIsMatchedWithEntire() {
-        assertTrue(new JMRegex(".+\n.+").isMatchedWithEntire(testString));
-        assertFalse(new JMRegex(".+").isMatchedWithEntire(testString));
+    public void testMatches() {
+        assertTrue(new JMRegex(".+\n.+").matches(testString));
+        assertFalse(new JMRegex(".+").matches(testString));
     }
 
     @Test

@@ -73,9 +73,8 @@ public class JMRegex {
      * @param targetString the target string
      * @return the boolean
      */
-    public boolean isMatchedWithPart(String
-            targetString) {
-        return pattern.matcher(targetString).lookingAt();
+    public boolean find(String targetString) {
+        return pattern.matcher(targetString).find();
     }
 
 
@@ -85,8 +84,7 @@ public class JMRegex {
      * @param targetString the target string
      * @return the boolean
      */
-    public boolean isMatchedWithEntire(String
-            targetString) {
+    public boolean matches(String targetString) {
         return pattern.matcher(targetString).matches();
     }
 
