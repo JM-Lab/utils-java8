@@ -31,10 +31,8 @@ public class JMMap {
      */
     public static <K, V> List<V> removeAllIfByKey(Map<K, V> map,
             Predicate<? super K> filter) {
-        synchronized (map) {
-            return map.keySet().stream().filter(filter).collect(toList())
-                    .stream().map(map::remove).collect(toList());
-        }
+        return map.keySet().stream().filter(filter).collect(toList())
+                .stream().map(map::remove).collect(toList());
     }
 
     /**
@@ -48,11 +46,9 @@ public class JMMap {
      */
     public static <K, V> List<V> removeAllIfByEntry(Map<K, V> map,
             Predicate<? super Entry<K, V>> filter) {
-        synchronized (map) {
-            return getEntryStreamWithFilter(map, filter).map(Entry::getKey)
-                    .collect(toList()).stream().map(map::remove)
-                    .collect(toList());
-        }
+        return getEntryStreamWithFilter(map, filter).map(Entry::getKey)
+                .collect(toList()).stream().map(map::remove)
+                .collect(toList());
     }
 
     /**
@@ -162,12 +158,10 @@ public class JMMap {
      */
     public static <K, V, NK> Map<NK, V> newChangedKeyMap(Map<K, V> map,
             Function<K, NK> changingKeyFunction) {
-        synchronized (map) {
-            return buildEntryStream(map)
-                    .collect(toMap(
-                            entry -> changingKeyFunction.apply(entry.getKey()),
-                            Entry::getValue));
-        }
+        return buildEntryStream(map)
+                .collect(toMap(
+                        entry -> changingKeyFunction.apply(entry.getKey()),
+                        Entry::getValue));
     }
 
     /**
@@ -183,10 +177,8 @@ public class JMMap {
     public static <K, V, NK> Map<NK, V> newChangedKeyWithEntryMap(
             Map<K, V> map,
             Function<Entry<K, V>, NK> changingKeyFunction) {
-        synchronized (map) {
-            return buildEntryStream(map).collect(
-                    toMap(changingKeyFunction, Entry::getValue));
-        }
+        return buildEntryStream(map).collect(
+                toMap(changingKeyFunction, Entry::getValue));
     }
 
     /**
@@ -203,11 +195,9 @@ public class JMMap {
     public static <K, V, NK> Map<NK, V> newFilteredChangedKeyMap(Map<K, V> map,
             Predicate<? super Entry<K, V>> filter,
             Function<K, NK> changingKeyFunction) {
-        synchronized (map) {
-            return getEntryStreamWithFilter(map, filter).collect(
-                    toMap(entry -> changingKeyFunction.apply(entry.getKey()),
-                            Entry::getValue));
-        }
+        return getEntryStreamWithFilter(map, filter).collect(
+                toMap(entry -> changingKeyFunction.apply(entry.getKey()),
+                        Entry::getValue));
     }
 
     /**
@@ -224,10 +214,8 @@ public class JMMap {
     public static <K, V, NK> Map<NK, V> newFilteredChangedKeyWithEntryMap(
             Map<K, V> map, Predicate<? super Entry<K, V>> filter,
             Function<Entry<K, V>, NK> changingKeyFunction) {
-        synchronized (map) {
-            return getEntryStreamWithFilter(map, filter).collect(
-                    toMap(changingKeyFunction, Entry::getValue));
-        }
+        return getEntryStreamWithFilter(map, filter).collect(
+                toMap(changingKeyFunction, Entry::getValue));
     }
 
     /**
@@ -261,10 +249,8 @@ public class JMMap {
     public static <K, V, NV> Map<K, NV> newChangedValueWithEntryMap(
             Map<K, V> map,
             Function<Entry<K, V>, NV> changingValueFunction) {
-        synchronized (map) {
-            return buildEntryStream(map).collect(
-                    toMap(Entry::getKey, changingValueFunction));
-        }
+        return buildEntryStream(map).collect(
+                toMap(Entry::getKey, changingValueFunction));
     }
 
     /**
@@ -281,11 +267,9 @@ public class JMMap {
     public static <K, V, NV> Map<K, NV> newFilteredChangedValueMap(
             Map<K, V> map, Predicate<Entry<K, V>> filter,
             Function<V, NV> changingValueFunction) {
-        synchronized (map) {
-            return getEntryStreamWithFilter(map, filter).collect(
-                    toMap(Entry::getKey, entry -> changingValueFunction
-                            .apply(entry.getValue())));
-        }
+        return getEntryStreamWithFilter(map, filter).collect(
+                toMap(Entry::getKey, entry -> changingValueFunction
+                        .apply(entry.getValue())));
     }
 
     /**
@@ -302,10 +286,8 @@ public class JMMap {
     public static <K, V, NV> Map<K, NV> newFilteredChangedValueWithEntryMap(
             Map<K, V> map, Predicate<Entry<K, V>> filter,
             Function<Entry<K, V>, NV> changingValueFunction) {
-        synchronized (map) {
-            return getEntryStreamWithFilter(map, filter).collect(
-                    toMap(Entry::getKey, changingValueFunction::apply));
-        }
+        return getEntryStreamWithFilter(map, filter).collect(
+                toMap(Entry::getKey, changingValueFunction::apply));
     }
 
     /**
@@ -323,11 +305,9 @@ public class JMMap {
     public static <K, V, NK, NV> Map<NK, NV> newChangedKeyValueMap(
             Map<K, V> map, Function<K, NK> changingKeyFunction,
             Function<V, NV> changingValueFunction) {
-        synchronized (map) {
-            return buildEntryStream(map).collect(toMap(
-                    entry -> changingKeyFunction.apply(entry.getKey()),
-                    entry -> changingValueFunction.apply(entry.getValue())));
-        }
+        return buildEntryStream(map).collect(toMap(
+                entry -> changingKeyFunction.apply(entry.getKey()),
+                entry -> changingValueFunction.apply(entry.getValue())));
     }
 
     /**
@@ -347,11 +327,9 @@ public class JMMap {
             Map<K, V> map, Predicate<? super Entry<K, V>> filter,
             Function<K, NK> changingKeyFunction,
             Function<V, NV> changingValueFunction) {
-        synchronized (map) {
-            return getEntryStreamWithFilter(map, filter).collect(toMap(
-                    entry -> changingKeyFunction.apply(entry.getKey()),
-                    entry -> changingValueFunction.apply(entry.getValue())));
-        }
+        return getEntryStreamWithFilter(map, filter).collect(toMap(
+                entry -> changingKeyFunction.apply(entry.getKey()),
+                entry -> changingValueFunction.apply(entry.getValue())));
     }
 
     /**
@@ -369,10 +347,8 @@ public class JMMap {
     public static <K, V, NK, NV> Map<NK, NV> newChangedKeyValueWithEntryMap(
             Map<K, V> map, Function<Entry<K, V>, NK> changingKeyFunction,
             Function<Entry<K, V>, NV> changingValueFunction) {
-        synchronized (map) {
-            return buildEntryStream(map).collect(toMap(
-                    changingKeyFunction, changingValueFunction));
-        }
+        return buildEntryStream(map).collect(toMap(
+                changingKeyFunction, changingValueFunction));
     }
 
     /**
@@ -393,10 +369,8 @@ public class JMMap {
             Predicate<? super Entry<K, V>> filter,
             Function<Entry<K, V>, NK> changingKeyFunction,
             Function<Entry<K, V>, NV> changingValueFunction) {
-        synchronized (map) {
-            return getEntryStreamWithFilter(map, filter).collect(toMap(
-                    changingKeyFunction, changingValueFunction));
-        }
+        return getEntryStreamWithFilter(map, filter).collect(toMap(
+                changingKeyFunction, changingValueFunction));
     }
 
     /**
@@ -410,10 +384,8 @@ public class JMMap {
      */
     public static <K, V> Map<K, V> newFilteredMap(Map<K, V> map,
             Predicate<? super Entry<K, V>> filter) {
-        synchronized (map) {
-            return getEntryStreamWithFilter(map, filter)
-                    .collect(toMap(Entry::getKey, Entry::getValue));
-        }
+        return getEntryStreamWithFilter(map, filter)
+                .collect(toMap(Entry::getKey, Entry::getValue));
     }
 
     /**
@@ -427,11 +399,9 @@ public class JMMap {
      */
     public static <K, V> Map<K, V> sort(Map<K, V> map,
             Comparator<K> comparator) {
-        synchronized (map) {
-            TreeMap<K, V> sortedMap = new TreeMap<>(comparator);
-            sortedMap.putAll(map);
-            return sortedMap;
-        }
+        TreeMap<K, V> sortedMap = new TreeMap<>(comparator);
+        sortedMap.putAll(map);
+        return sortedMap;
     }
 
     /**
@@ -443,9 +413,7 @@ public class JMMap {
      * @return the map
      */
     public static <K extends Comparable<K>, V> Map<K, V> sort(Map<K, V> map) {
-        synchronized (map) {
-            return new TreeMap<>(map);
-        }
+        return new TreeMap<>(map);
     }
 
     /**
@@ -459,9 +427,7 @@ public class JMMap {
      */
     public static <K, V> Stream<Entry<K, V>> sortedStream(Map<K, V> map,
             Comparator<? super Entry<K, V>> comparator) {
-        synchronized (map) {
-            return buildEntryStream(map).sorted(comparator);
-        }
+        return buildEntryStream(map).sorted(comparator);
     }
 
     /**
@@ -502,9 +468,7 @@ public class JMMap {
      */
     public static <K, V extends Comparable<V>> Stream<Entry<K, V>>
     sortedStreamByValue(Map<K, V> map) {
-        synchronized (map) {
-            return buildEntryStream(map).sorted(comparing(Entry::getValue));
-        }
+        return buildEntryStream(map).sorted(comparing(Entry::getValue));
     }
 
     /**
