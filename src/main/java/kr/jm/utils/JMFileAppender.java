@@ -187,6 +187,7 @@ public class JMFileAppender implements AutoCloseable {
     @Override
     public void close() {
         try {
+            writer.flush();
             writer.close();
         } catch (IOException e) {
             JMExceptionManager.logException(log, e, "close");
