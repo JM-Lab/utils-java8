@@ -125,7 +125,7 @@ public class JMThread {
      * @return the executor service
      */
     public static ExecutorService newThreadPool(int numOfThreads) {
-        return numOfThreads < 1 ? Executors.newCachedThreadPool()
+        return numOfThreads < 1 ? getCommonPool()
                 : Executors.newFixedThreadPool(numOfThreads);
     }
 
