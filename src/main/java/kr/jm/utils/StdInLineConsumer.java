@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Consumer;
 
@@ -47,7 +46,7 @@ public class StdInLineConsumer implements AutoCloseable {
                 JMOptional.getOptional(bufferedReader.readLine())
                         .ifPresent(stdInLineConsumer);
         } catch (Exception e) {
-            JMExceptionManager.logException(log, e, "startStdIn");
+            JMExceptionManager.handleException(log, e, "startStdIn");
         } finally {
             close();
         }
@@ -56,7 +55,6 @@ public class StdInLineConsumer implements AutoCloseable {
 
     @Override
     public void close() {
-        if (Objects.nonNull(executorService))
-            JMThread.shutdownNowAndWaitToBeTerminated(executorService);
+        JMThread.awaitTermination(executorService);
     }
 }

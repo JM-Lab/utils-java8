@@ -82,7 +82,7 @@ public class JMFiles {
                     bufferedWriter.close();
                 } catch (IOException e) {
                     JMExceptionManager
-                            .logException(log, e,
+                            .handleException(log, e,
                                     "buildBufferedAppendWriter.close",
                                     bufferedWriter, path, charset);
                 }

@@ -33,7 +33,7 @@ public class JMExceptionManager {
      * @param methodName the method name
      * @param params     the params
      */
-    public static void logException(Logger log, Throwable throwable,
+    public static void handleException(Logger log, Throwable throwable,
             String methodName, Object... params) {
         if (params.length > 0)
             JMLog.errorForException(log, throwable, methodName, params);
@@ -121,7 +121,7 @@ public class JMExceptionManager {
      */
     public static <T> T handleExceptionAndReturnNull(Logger log,
             Throwable throwable, String method, Object... params) {
-        logException(log, throwable, method, params);
+        handleException(log, throwable, method, params);
         return null;
     }
 
@@ -136,7 +136,7 @@ public class JMExceptionManager {
      */
     public static boolean handleExceptionAndReturnFalse(Logger log,
             Throwable throwable, String method, Object... params) {
-        logException(log, throwable, method, params);
+        handleException(log, throwable, method, params);
         return false;
     }
 
@@ -154,7 +154,7 @@ public class JMExceptionManager {
     public static <T> T handleExceptionAndReturn(Logger log,
             Throwable throwable, String method, Supplier<T> returnSupplier,
             Object... params) {
-        logException(log, throwable, method, params);
+        handleException(log, throwable, method, params);
         return returnSupplier.get();
     }
 
@@ -170,7 +170,7 @@ public class JMExceptionManager {
      */
     public static <T> T handleExceptionAndThrowRuntimeEx(Logger log,
             Throwable throwable, String method, Object... params) {
-        logException(log, throwable, method, params);
+        handleException(log, throwable, method, params);
         throw new RuntimeException(throwable);
     }
 
@@ -185,7 +185,7 @@ public class JMExceptionManager {
      */
     public static RuntimeException handleExceptionAndReturnRuntimeEx(Logger log,
             Throwable throwable, String method, Object... params) {
-        logException(log, throwable, method, params);
+        handleException(log, throwable, method, params);
         return new RuntimeException(throwable);
     }
 
@@ -201,7 +201,7 @@ public class JMExceptionManager {
      */
     public static <T> Optional<T> handleExceptionAndReturnEmptyOptional(
             Logger log, Throwable throwable, String method, Object... params) {
-        logException(log, throwable, method, params);
+        handleException(log, throwable, method, params);
         return Optional.empty();
     }
 
@@ -227,7 +227,7 @@ public class JMExceptionManager {
      */
     public static void logRuntimeException(Logger log, String exceptionMessage,
             String method, Object... params) {
-        logException(log, newRunTimeException(exceptionMessage), method,
+        handleException(log, newRunTimeException(exceptionMessage), method,
                 params);
     }
 

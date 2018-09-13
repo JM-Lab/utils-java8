@@ -15,8 +15,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import static kr.jm.utils.exception.JMExceptionManager.handleException;
 import static kr.jm.utils.exception.JMExceptionManager.handleExceptionAndReturnEmptyOptional;
-import static kr.jm.utils.exception.JMExceptionManager.logException;
 import static kr.jm.utils.helper.JMLog.info;
 import static kr.jm.utils.helper.JMPredicate.negate;
 
@@ -143,7 +143,7 @@ public class JMProgressiveManager<T, R> {
 		try {
 			completableFuture.get();
 		} catch (InterruptedException | ExecutionException e) {
-			logException(log, e, "stopSync");
+			handleException(log, e, "stopSync");
 		}
 		return this;
 	}

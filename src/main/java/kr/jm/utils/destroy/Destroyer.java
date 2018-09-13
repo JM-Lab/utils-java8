@@ -52,7 +52,7 @@ public class Destroyer {
             log.info("Complete Clean Up - {}", destroy);
         } catch (Exception e) {
             log.error("Fail Clean Up - {}", destroy);
-            JMExceptionManager.logException(log, e, "cleanUp", destroy);
+            JMExceptionManager.handleException(log, e, "cleanUp", destroy);
         }
     }
 

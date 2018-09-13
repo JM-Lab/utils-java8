@@ -19,11 +19,9 @@ public class JMExceptionManagerTest {
 	/**
 	 * Sets the up.
 	 *
-	 * @throws Exception
-	 *             the exception
-	 */
+     */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 	}
 
 	/**
@@ -38,7 +36,7 @@ public class JMExceptionManagerTest {
 		long count =
 				JMStream.numberRangeClosed(1, 503, 1).parallel().peek(i -> {
 					try {
-						JMExceptionManager.logException(log,
+						JMExceptionManager.handleException(log,
 								new RuntimeException("Exception - " + i),
 								"testLogException");
 					} catch (Exception e) {

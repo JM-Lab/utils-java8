@@ -5,8 +5,6 @@ import kr.jm.utils.enums.OS;
 import kr.jm.utils.exception.JMExceptionManager;
 
 import java.time.ZonedDateTime;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -85,36 +83,26 @@ public class JMThread {
         return ((ThreadPoolExecutor) executorService).getPoolSize();
     }
 
-    /**
-     * Shutdown and wait to be terminated.
-     *
-     * @param executorService the executor service
-     */
-    public static void shutdownAndWaitToBeTerminated(ExecutorService
-            executorService) {
+    public static void awaitTermination(ExecutorService executorService,
+            long timeoutMillis) {
         if (executorService.isTerminated())
             return;
-        log.warn("Start Shutdown !!! - {}", executorService);
+        log.info("Start Terminating !!! - {}, timeoutMillis - {}",
+                executorService, timeoutMillis);
         long startTimeMillis = System.currentTimeMillis();
-        executorService.shutdown();
-        while (!executorService.isTerminated())
-            sleep(100);
-        log.warn("Terminating !!! - {} over {} ms", executorService,
+        try {
+            executorService
+                    .awaitTermination(timeoutMillis, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            log.warn("Timeout Occur !!! - {}, timeoutMillis - {}",
+                    executorService, timeoutMillis);
+        }
+        log.info("Terminated !!! - {} took {} ms", executorService,
                 startTimeMillis - System.currentTimeMillis());
     }
 
-    /**
-     * Shutdown now and wait to be terminated list.
-     *
-     * @param executorService the executor service
-     * @return the list
-     */
-    public static List<Runnable> shutdownNowAndWaitToBeTerminated(
-            ExecutorService executorService) {
-        if (!executorService.isTerminated())
-            return Collections.emptyList();
-        log.warn("Shutdown Now!!! - {}", executorService);
-        return executorService.shutdownNow();
+    public static void awaitTermination(ExecutorService executorService) {
+        awaitTermination(executorService, 5000);
     }
 
 
@@ -166,7 +154,7 @@ public class JMThread {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
-            JMExceptionManager.logException(log, e, "sleep", millis);
+            JMExceptionManager.handleException(log, e, "sleep", millis);
         }
     }
 
@@ -228,7 +216,7 @@ public class JMThread {
             try {
                 future.get(timeoutInSec, TimeUnit.SECONDS);
             } catch (Exception e) {
-                JMExceptionManager.logException(log, e, "afterTimeout",
+                JMExceptionManager.handleException(log, e, "afterTimeout",
                         timeoutInSec, threadPool, future);
             } finally {
                 if (!threadPool.isShutdown())
@@ -677,4 +665,5 @@ public class JMThread {
     public static ExecutorService newMaxQueueThreadPool(int maxQueue) {
         return newMaxQueueThreadPool(OS.getAvailableProcessors(), maxQueue);
     }
+
 }

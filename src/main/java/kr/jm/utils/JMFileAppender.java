@@ -190,7 +190,7 @@ public class JMFileAppender implements AutoCloseable {
             writer.flush();
             writer.close();
         } catch (IOException e) {
-            JMExceptionManager.logException(log, e, "close");
+            JMExceptionManager.handleException(log, e, "close");
         }
     }
 
