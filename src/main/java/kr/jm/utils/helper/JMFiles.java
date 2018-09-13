@@ -1,10 +1,8 @@
 
 package kr.jm.utils.helper;
 
-import kr.jm.utils.enums.OS;
 import kr.jm.utils.exception.JMExceptionManager;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
@@ -35,6 +33,7 @@ public class JMFiles {
     public static Writer append(Writer writer, String string) {
         try {
             writer.append(string);
+            writer.flush();
             return writer;
         } catch (IOException e) {
             return JMExceptionManager.handleExceptionAndReturn(log, e,
@@ -74,20 +73,8 @@ public class JMFiles {
         try {
             if (JMPath.notExists(path))
                 JMPathOperation.createFileWithParentDirectories(path);
-            BufferedWriter bufferedWriter =
-                    Files.newBufferedWriter(path, charset, StandardOpenOption
-                            .APPEND);
-            OS.addShutdownHook(() -> {
-                try {
-                    bufferedWriter.close();
-                } catch (IOException e) {
-                    JMExceptionManager
-                            .handleException(log, e,
-                                    "buildBufferedAppendWriter.close",
-                                    bufferedWriter, path, charset);
-                }
-            });
-            return bufferedWriter;
+            return Files.newBufferedWriter(path, charset, StandardOpenOption
+                    .APPEND);
         } catch (IOException e) {
             return JMExceptionManager.handleExceptionAndReturnNull(log, e,
                     "buildBufferedAppendWriter", path, charset);
