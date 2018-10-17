@@ -6,6 +6,7 @@ import kr.jm.utils.helper.JMOptional;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
@@ -24,7 +25,7 @@ public class JMNestedMap<K1, K2, V> implements Map<K1, Map<K2, V>> {
      * Instantiates a new Jm nested map.
      */
     public JMNestedMap() {
-        this.nestedMap = new ConcurrentHashMap<>();
+        this(false);
     }
 
     /**
@@ -33,7 +34,17 @@ public class JMNestedMap<K1, K2, V> implements Map<K1, Map<K2, V>> {
      * @param map the map
      */
     public JMNestedMap(Map<K1, Map<K2, V>> map) {
-        this.nestedMap = new ConcurrentHashMap<>(map);
+        this(false, map);
+    }
+
+    public JMNestedMap(boolean isWeak) {
+        this.nestedMap =
+                isWeak ? new WeakHashMap<>() : new ConcurrentHashMap<>();
+    }
+
+    public JMNestedMap(boolean isWeak, Map<K1, Map<K2, V>> map) {
+        this.nestedMap =
+                isWeak ? new WeakHashMap<>(map) : new ConcurrentHashMap<>(map);
     }
 
     /*
