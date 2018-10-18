@@ -541,4 +541,8 @@ public class JMMap {
             newMap.put(parentKey, value);
     }
 
+    public static <K, V> Map<K, V> newMap(Map<K, V> map) {
+        return Optional.ofNullable(map).map(HashMap::new)
+                .orElseGet(HashMap::new);
+    }
 }
