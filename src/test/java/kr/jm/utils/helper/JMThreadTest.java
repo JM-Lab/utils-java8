@@ -89,16 +89,16 @@ public class JMThreadTest {
                             System.out
                                     .println(JMTimeUtil.getCurrentTimestamp());
                             count.increment();
-                            JMThread.sleep(4000);
+                            JMThread.sleep(1500);
                         });
-        JMThread.sleep(4500);
+        JMThread.sleep(4600);
         // true면 돌고있는 것 인터럽드 걸고 중지, false 면 끝난뒤 중
         System.out.println(scheduledFuture.cancel(true));
         JMThread.sleep(1000);
         System.out.println(scheduledFuture.cancel(true));
         JMThread.sleep(1000);
 
-        assertEquals(1, count.intValue());
+        assertEquals(3, count.intValue());
 
         count.reset();
 
