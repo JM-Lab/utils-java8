@@ -535,8 +535,10 @@ public class JMMap {
     private static void newFlatKeyMap(Map<String, Object> newMap,
             String parentKey, Object value) {
         if (value instanceof Map)
-            newFlatKeyMap(newMap, JMMap.newChangedKeyMap((Map<?, ?>) value,
-                    key -> parentKey + DOT + key));
+            newFlatKeyMap(newMap,
+                    JMMap.newFilteredChangedKeyMap((Map<?, ?>) value,
+                            entry -> Objects.nonNull(entry.getValue()),
+                            key -> parentKey + DOT + key));
         else
             newMap.put(parentKey, value);
     }
