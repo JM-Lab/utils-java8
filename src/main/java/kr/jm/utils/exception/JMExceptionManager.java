@@ -43,6 +43,12 @@ public class JMExceptionManager {
         recordErrorMessageHistory(throwable);
     }
 
+    @Deprecated
+    public static void logException(Logger log, Throwable throwable,
+            String methodName, Object... params) {
+        handleException(log, throwable, methodName, params);
+    }
+
     private static void recordErrorMessageHistory(Throwable throwable) {
         synchronized (errorMessageHistoryList) {
             errorMessageHistoryList
