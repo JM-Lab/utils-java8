@@ -8,85 +8,24 @@ import java.util.Map;
 /**
  * The type Word number collector.
  */
-public class WordNumberCollector {
+public class WordNumberCollectorBundle {
     private String collectorId;
-    private long timestamp;
-    private Map<String, Object> metaMap;
     private WordItemCollector wordCollector;
     private NumberItemCollector numberCollector;
 
-    /**
-     * Instantiates a new Word number collector.
-     *
-     * @param collectorId the collector id
-     */
-    public WordNumberCollector(String collectorId) {
-        this(collectorId, System.currentTimeMillis());
-    }
-
-    /**
-     * Instantiates a new Word number collector.
-     *
-     * @param collectorId the collector id
-     * @param timestamp   the timestamp
-     */
-    public WordNumberCollector(String collectorId, long timestamp) {
-        this(collectorId, timestamp, null);
-    }
-
-    /**
-     * Instantiates a new Word number collector.
-     *
-     * @param collectorId the collector id
-     * @param timestamp   the timestamp
-     * @param metaMap     the meta map
-     */
-    public WordNumberCollector(String collectorId, long timestamp,
-            Map<String, Object> metaMap) {
+    public WordNumberCollectorBundle(String collectorId) {
         this.collectorId = collectorId;
-        this.timestamp = timestamp;
         this.wordCollector = new WordItemCollector();
         this.numberCollector = new NumberItemCollector();
-        this.metaMap = metaMap;
     }
 
-    private WordNumberCollector() {}
+    private WordNumberCollectorBundle() {}
 
-    /**
-     * Gets collector id.
-     *
-     * @return the collector id
-     */
     public String getCollectorId() {
         return collectorId;
     }
 
-    /**
-     * Gets timestamp.
-     *
-     * @return the timestamp
-     */
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * Gets meta map.
-     *
-     * @return the meta map
-     */
-    public Map<String, Object> getMetaMap() {
-        return metaMap;
-    }
-
-    /**
-     * Add word word number collector.
-     *
-     * @param key  the key
-     * @param word the word
-     * @return the word number collector
-     */
-    public WordNumberCollector addWord(String key, String word) {
+    public WordNumberCollectorBundle addWord(String key, String word) {
         wordCollector.add(key, word);
         return this;
     }
@@ -98,7 +37,8 @@ public class WordNumberCollector {
      * @param wordList the word list
      * @return the word number collector
      */
-    public WordNumberCollector addWordList(String key, List<String> wordList) {
+    public WordNumberCollectorBundle addWordList(String key,
+            List<String> wordList) {
         wordCollector.addAll(key, wordList);
         return this;
     }
@@ -119,7 +59,7 @@ public class WordNumberCollector {
      * @param number the number
      * @return the word number collector
      */
-    public WordNumberCollector addNumber(String key, Number number) {
+    public WordNumberCollectorBundle addNumber(String key, Number number) {
         numberCollector.add(key, number);
         return this;
     }
@@ -131,7 +71,7 @@ public class WordNumberCollector {
      * @param numberList the number list
      * @return the word number collector
      */
-    public WordNumberCollector addNumberList(String key,
+    public WordNumberCollectorBundle addNumberList(String key,
             List<Number> numberList) {
         numberCollector.addAll(key, numberList);
         return this;
@@ -153,7 +93,7 @@ public class WordNumberCollector {
      * @param data the data
      * @return the word number collector
      */
-    public WordNumberCollector addData(String key, String data) {
+    public WordNumberCollectorBundle addData(String key, String data) {
         if (JMString.isNumber(data))
             addNumber(key, Double.valueOf(data));
         else
@@ -167,7 +107,8 @@ public class WordNumberCollector {
      * @param wordNumberCollector the word number collector
      * @return the word number collector
      */
-    public WordNumberCollector merge(WordNumberCollector wordNumberCollector) {
+    public WordNumberCollectorBundle merge(
+            WordNumberCollectorBundle wordNumberCollector) {
         wordCollector.merge(wordNumberCollector.wordCollector);
         numberCollector.merge(wordNumberCollector.numberCollector);
         return this;
@@ -179,9 +120,9 @@ public class WordNumberCollector {
      * @param wordNumberCollectorList the word number collector list
      * @return the word number collector
      */
-    public WordNumberCollector mergeAll(
-            List<WordNumberCollector> wordNumberCollectorList) {
-        for (WordNumberCollector wordNumberCollector : wordNumberCollectorList)
+    public WordNumberCollectorBundle mergeAll(
+            List<WordNumberCollectorBundle> wordNumberCollectorList) {
+        for (WordNumberCollectorBundle wordNumberCollector : wordNumberCollectorList)
             merge(wordNumberCollector);
         return this;
     }
@@ -201,11 +142,10 @@ public class WordNumberCollector {
      */
     public NumberItemCollector getNumberCollector() {return this.numberCollector;}
 
+    @Override
     public String toString() {
-        return "WordNumberCollector(collectorId=" + this.getCollectorId() +
-                ", timestamp=" + this.getTimestamp() + ", metaMap=" +
-                this.getMetaMap() + ", wordCollector=" +
-                this.getWordCollector() + ", numberCollector=" +
-                this.getNumberCollector() + ")";
+        return "WordNumberCollectorBundle{" + "collectorId='" + collectorId +
+                '\'' + ", wordCollector=" + wordCollector +
+                ", numberCollector=" + numberCollector + '}';
     }
 }

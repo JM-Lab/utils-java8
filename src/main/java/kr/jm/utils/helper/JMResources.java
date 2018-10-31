@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.zip.ZipFile;
 
@@ -104,9 +105,18 @@ public class JMResources {
     }
 
     public static InputStream getResourceInputStreamForZip(
-            String zipFileClasspath, String entryName) {
-        return Optional.ofNullable(getResourceURI(zipFileClasspath))
-                .map(File::new).map(JMResources::newZipFile)
+            String zipFilePathOrClasspath, String entryName) {
+        return getResourceInputStreamForZip(
+                Optional.ofNullable(JMFiles.getPath(zipFilePathOrClasspath))
+                        .filter(JMPath::exists).map(Path::toFile).orElseGet(
+                        () -> Optional.ofNullable(
+                                getResourceURI(zipFilePathOrClasspath))
+                                .map(File::new).orElse(null)), entryName);
+    }
+
+    public static InputStream getResourceInputStreamForZip(File zip,
+            String entryName) {
+        return Optional.ofNullable(zip).map(JMResources::newZipFile)
                 .map(zipFile -> getResourceInputStreamForZip(zipFile,
                         entryName)).orElse(null);
     }
@@ -115,7 +125,7 @@ public class JMResources {
             String entryName) {
         try {
             return zipFile.getInputStream(zipFile.getEntry(entryName));
-        } catch (IOException e) {
+        } catch (Exception e) {
             return JMExceptionManager.handleExceptionAndReturnNull(log, e,
                     "newZipFile", zipFile, entryName);
         }
@@ -191,17 +201,18 @@ public class JMResources {
 
     }
 
-    public static String readStringForZip(String zipFileClasspath,
+    public static String readStringForZip(String zipFilePathOrClasspath,
             String entryName, String charsetName) {
         return JMInputStream.toString(
-                getResourceInputStreamForZip(zipFileClasspath, entryName),
+                getResourceInputStreamForZip(zipFilePathOrClasspath, entryName),
                 charsetName);
     }
 
-    public static String readStringForZip(String zipFileClasspath,
+    public static String readStringForZip(String zipFilePathOrClasspath,
             String entryName) {
         return JMInputStream.toString(
-                getResourceInputStreamForZip(zipFileClasspath, entryName));
+                getResourceInputStreamForZip(zipFilePathOrClasspath,
+                        entryName));
     }
 
 
@@ -255,16 +266,17 @@ public class JMResources {
                         charsetName);
     }
 
-    public static List<String> readLinesForZip(String zipFileClasspath,
+    public static List<String> readLinesForZip(String zipFilePathOrClasspath,
             String entryName) {
         return JMInputStream.readLines(
-                getResourceInputStreamForZip(zipFileClasspath, entryName));
+                getResourceInputStreamForZip(zipFilePathOrClasspath,
+                        entryName));
     }
 
-    public static List<String> readLinesForZip(String zipFileClasspath,
+    public static List<String> readLinesForZip(String zipFilePathOrClasspath,
             String entryName, String charsetName) {
         return JMInputStream.readLines(getResourceInputStreamForZip
-                (zipFileClasspath, entryName), charsetName);
+                (zipFilePathOrClasspath, entryName), charsetName);
     }
 
     /**
