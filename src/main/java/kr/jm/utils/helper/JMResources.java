@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.*;
+import java.util.zip.ZipFile;
 
 /**
  * The type Jm resources.
@@ -102,6 +103,33 @@ public class JMResources {
         return ClassLoader.getSystemResourceAsStream(classpath);
     }
 
+    public static InputStream getResourceInputStreamForZip(
+            String zipFileClasspath, String entryName) {
+        return Optional.ofNullable(getResourceURI(zipFileClasspath))
+                .map(File::new).map(JMResources::newZipFile)
+                .map(zipFile -> getResourceInputStreamForZip(zipFile,
+                        entryName)).orElse(null);
+    }
+
+    public static InputStream getResourceInputStreamForZip(ZipFile zipFile,
+            String entryName) {
+        try {
+            return zipFile.getInputStream(zipFile.getEntry(entryName));
+        } catch (IOException e) {
+            return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+                    "newZipFile", zipFile, entryName);
+        }
+    }
+
+    private static ZipFile newZipFile(File file) {
+        try {
+            return new ZipFile(file);
+        } catch (IOException e) {
+            return JMExceptionManager.handleExceptionAndReturnNull(log, e,
+                    "newZipFile", file);
+        }
+    }
+
     /**
      * Gets properties.
      *
@@ -163,6 +191,20 @@ public class JMResources {
 
     }
 
+    public static String readStringForZip(String zipFileClasspath,
+            String entryName, String charsetName) {
+        return JMInputStream.toString(
+                getResourceInputStreamForZip(zipFileClasspath, entryName),
+                charsetName);
+    }
+
+    public static String readStringForZip(String zipFileClasspath,
+            String entryName) {
+        return JMInputStream.toString(
+                getResourceInputStreamForZip(zipFileClasspath, entryName));
+    }
+
+
     /**
      * Read string string.
      *
@@ -187,6 +229,7 @@ public class JMResources {
                 charsetName);
     }
 
+
     /**
      * Read lines list.
      *
@@ -210,6 +253,18 @@ public class JMResources {
         return JMInputStream
                 .readLines(getResourceInputStream(resourceClasspath),
                         charsetName);
+    }
+
+    public static List<String> readLinesForZip(String zipFileClasspath,
+            String entryName) {
+        return JMInputStream.readLines(
+                getResourceInputStreamForZip(zipFileClasspath, entryName));
+    }
+
+    public static List<String> readLinesForZip(String zipFileClasspath,
+            String entryName, String charsetName) {
+        return JMInputStream.readLines(getResourceInputStreamForZip
+                (zipFileClasspath, entryName), charsetName);
     }
 
     /**
@@ -271,9 +326,11 @@ public class JMResources {
      */
     public static List<String> readLinesWithFilePathOrClasspath(
             String filePathOrClasspath) {
-        return JMOptional.getOptional(JMFiles.readLines(filePathOrClasspath))
+        return JMOptional
+                .getOptional(JMFiles.readLines(filePathOrClasspath))
                 .orElseGet(() -> getStringListAsOptWithClasspath(
-                        filePathOrClasspath).orElseGet(Collections::emptyList));
+                        filePathOrClasspath)
+                        .orElseGet(Collections::emptyList));
     }
 
     /**
@@ -287,7 +344,8 @@ public class JMResources {
             String filePathOrClasspath, String charsetName) {
         return getStringAsOptWithFilePath(filePathOrClasspath, charsetName)
                 .orElseGet(
-                        () -> getStringAsOptWithClasspath(filePathOrClasspath,
+                        () -> getStringAsOptWithClasspath(
+                                filePathOrClasspath,
                                 charsetName).orElse(null));
     }
 
@@ -322,7 +380,8 @@ public class JMResources {
      * @param filePath the file path
      * @return the string as opt with file path
      */
-    public static Optional<String> getStringAsOptWithFilePath(String filePath) {
+    public static Optional<String> getStringAsOptWithFilePath(String
+            filePath) {
         return getStringAsOptWithFilePath(filePath, UTF_8_CharsetString);
     }
 
