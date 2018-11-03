@@ -83,6 +83,12 @@ public class JMThread {
         return ((ThreadPoolExecutor) executorService).getPoolSize();
     }
 
+    /**
+     * Await termination.
+     *
+     * @param executorService the executor service
+     * @param timeoutMillis   the timeout millis
+     */
     public static void awaitTermination(ExecutorService executorService,
             long timeoutMillis) {
         if (executorService.isTerminated())
@@ -101,6 +107,11 @@ public class JMThread {
                 startTimeMillis - System.currentTimeMillis());
     }
 
+    /**
+     * Await termination.
+     *
+     * @param executorService the executor service
+     */
     public static void awaitTermination(ExecutorService executorService) {
         awaitTermination(executorService, 5000);
     }

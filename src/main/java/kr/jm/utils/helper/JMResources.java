@@ -104,6 +104,13 @@ public class JMResources {
         return ClassLoader.getSystemResourceAsStream(classpath);
     }
 
+    /**
+     * Gets resource input stream for zip.
+     *
+     * @param zipFilePathOrClasspath the zip file path or classpath
+     * @param entryName              the entry name
+     * @return the resource input stream for zip
+     */
     public static InputStream getResourceInputStreamForZip(
             String zipFilePathOrClasspath, String entryName) {
         return getResourceInputStreamForZip(
@@ -114,6 +121,13 @@ public class JMResources {
                                 .map(File::new).orElse(null)), entryName);
     }
 
+    /**
+     * Gets resource input stream for zip.
+     *
+     * @param zip       the zip
+     * @param entryName the entry name
+     * @return the resource input stream for zip
+     */
     public static InputStream getResourceInputStreamForZip(File zip,
             String entryName) {
         return Optional.ofNullable(zip).map(JMResources::newZipFile)
@@ -121,6 +135,13 @@ public class JMResources {
                         entryName)).orElse(null);
     }
 
+    /**
+     * Gets resource input stream for zip.
+     *
+     * @param zipFile   the zip file
+     * @param entryName the entry name
+     * @return the resource input stream for zip
+     */
     public static InputStream getResourceInputStreamForZip(ZipFile zipFile,
             String entryName) {
         try {
@@ -201,6 +222,14 @@ public class JMResources {
 
     }
 
+    /**
+     * Read string for zip string.
+     *
+     * @param zipFilePathOrClasspath the zip file path or classpath
+     * @param entryName              the entry name
+     * @param charsetName            the charset name
+     * @return the string
+     */
     public static String readStringForZip(String zipFilePathOrClasspath,
             String entryName, String charsetName) {
         return JMInputStream.toString(
@@ -208,6 +237,13 @@ public class JMResources {
                 charsetName);
     }
 
+    /**
+     * Read string for zip string.
+     *
+     * @param zipFilePathOrClasspath the zip file path or classpath
+     * @param entryName              the entry name
+     * @return the string
+     */
     public static String readStringForZip(String zipFilePathOrClasspath,
             String entryName) {
         return JMInputStream.toString(
@@ -266,6 +302,13 @@ public class JMResources {
                         charsetName);
     }
 
+    /**
+     * Read lines for zip list.
+     *
+     * @param zipFilePathOrClasspath the zip file path or classpath
+     * @param entryName              the entry name
+     * @return the list
+     */
     public static List<String> readLinesForZip(String zipFilePathOrClasspath,
             String entryName) {
         return JMInputStream.readLines(
@@ -273,6 +316,14 @@ public class JMResources {
                         entryName));
     }
 
+    /**
+     * Read lines for zip list.
+     *
+     * @param zipFilePathOrClasspath the zip file path or classpath
+     * @param entryName              the entry name
+     * @param charsetName            the charset name
+     * @return the list
+     */
     public static List<String> readLinesForZip(String zipFilePathOrClasspath,
             String entryName, String charsetName) {
         return JMInputStream.readLines(getResourceInputStreamForZip

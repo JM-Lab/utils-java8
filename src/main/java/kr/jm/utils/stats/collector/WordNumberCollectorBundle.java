@@ -6,13 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The type Word number collector.
+ * The type Word number collector bundle.
  */
 public class WordNumberCollectorBundle {
     private String collectorId;
     private WordItemCollector wordCollector;
     private NumberItemCollector numberCollector;
 
+    /**
+     * Instantiates a new Word number collector bundle.
+     *
+     * @param collectorId the collector id
+     */
     public WordNumberCollectorBundle(String collectorId) {
         this.collectorId = collectorId;
         this.wordCollector = new WordItemCollector();
@@ -21,21 +26,33 @@ public class WordNumberCollectorBundle {
 
     private WordNumberCollectorBundle() {}
 
+    /**
+     * Gets collector id.
+     *
+     * @return the collector id
+     */
     public String getCollectorId() {
         return collectorId;
     }
 
+    /**
+     * Add word word number collector bundle.
+     *
+     * @param key  the key
+     * @param word the word
+     * @return the word number collector bundle
+     */
     public WordNumberCollectorBundle addWord(String key, String word) {
         wordCollector.add(key, word);
         return this;
     }
 
     /**
-     * Add word list word number collector.
+     * Add word list word number collector bundle.
      *
      * @param key      the key
      * @param wordList the word list
-     * @return the word number collector
+     * @return the word number collector bundle
      */
     public WordNumberCollectorBundle addWordList(String key,
             List<String> wordList) {
@@ -53,11 +70,11 @@ public class WordNumberCollectorBundle {
     }
 
     /**
-     * Add number word number collector.
+     * Add number word number collector bundle.
      *
      * @param key    the key
      * @param number the number
-     * @return the word number collector
+     * @return the word number collector bundle
      */
     public WordNumberCollectorBundle addNumber(String key, Number number) {
         numberCollector.add(key, number);
@@ -65,11 +82,11 @@ public class WordNumberCollectorBundle {
     }
 
     /**
-     * Add number list word number collector.
+     * Add number list word number collector bundle.
      *
      * @param key        the key
      * @param numberList the number list
-     * @return the word number collector
+     * @return the word number collector bundle
      */
     public WordNumberCollectorBundle addNumberList(String key,
             List<Number> numberList) {
@@ -87,11 +104,11 @@ public class WordNumberCollectorBundle {
     }
 
     /**
-     * Add data word number collector.
+     * Add data word number collector bundle.
      *
      * @param key  the key
      * @param data the data
-     * @return the word number collector
+     * @return the word number collector bundle
      */
     public WordNumberCollectorBundle addData(String key, String data) {
         if (JMString.isNumber(data))
@@ -102,10 +119,10 @@ public class WordNumberCollectorBundle {
     }
 
     /**
-     * Merge word number collector.
+     * Merge word number collector bundle.
      *
      * @param wordNumberCollector the word number collector
-     * @return the word number collector
+     * @return the word number collector bundle
      */
     public WordNumberCollectorBundle merge(
             WordNumberCollectorBundle wordNumberCollector) {
@@ -115,10 +132,10 @@ public class WordNumberCollectorBundle {
     }
 
     /**
-     * Merge all word number collector.
+     * Merge all word number collector bundle.
      *
      * @param wordNumberCollectorList the word number collector list
-     * @return the word number collector
+     * @return the word number collector bundle
      */
     public WordNumberCollectorBundle mergeAll(
             List<WordNumberCollectorBundle> wordNumberCollectorList) {

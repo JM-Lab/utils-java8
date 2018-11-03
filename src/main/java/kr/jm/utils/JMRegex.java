@@ -68,7 +68,7 @@ public class JMRegex {
     }
 
     /**
-     * Is matched with part boolean.
+     * Find boolean.
      *
      * @param targetString the target string
      * @return the boolean
@@ -79,7 +79,7 @@ public class JMRegex {
 
 
     /**
-     * Is matched with entire boolean.
+     * Matches boolean.
      *
      * @param targetString the target string
      * @return the boolean

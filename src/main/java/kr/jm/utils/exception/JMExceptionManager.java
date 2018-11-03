@@ -26,7 +26,7 @@ public class JMExceptionManager {
     private static long errorCount = 0;
 
     /**
-     * Log exception.
+     * Handle exception.
      *
      * @param log        the log
      * @param throwable  the throwable
@@ -43,6 +43,14 @@ public class JMExceptionManager {
         recordErrorMessageHistory(throwable);
     }
 
+    /**
+     * Log exception.
+     *
+     * @param log        the log
+     * @param throwable  the throwable
+     * @param methodName the method name
+     * @param params     the params
+     */
     @Deprecated
     public static void logException(Logger log, Throwable throwable,
             String methodName, Object... params) {

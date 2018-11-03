@@ -37,11 +37,22 @@ public class JMNestedMap<K1, K2, V> implements Map<K1, Map<K2, V>> {
         this(false, map);
     }
 
+    /**
+     * Instantiates a new Jm nested map.
+     *
+     * @param isWeak the is weak
+     */
     public JMNestedMap(boolean isWeak) {
         this.nestedMap =
                 isWeak ? new WeakHashMap<>() : new ConcurrentHashMap<>();
     }
 
+    /**
+     * Instantiates a new Jm nested map.
+     *
+     * @param isWeak the is weak
+     * @param map    the map
+     */
     public JMNestedMap(boolean isWeak, Map<K1, Map<K2, V>> map) {
         this.nestedMap =
                 isWeak ? new WeakHashMap<>(map) : new ConcurrentHashMap<>(map);

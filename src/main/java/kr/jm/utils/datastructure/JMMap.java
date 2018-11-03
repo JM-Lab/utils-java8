@@ -543,6 +543,14 @@ public class JMMap {
             newMap.put(parentKey, value);
     }
 
+    /**
+     * New map map.
+     *
+     * @param <K> the type parameter
+     * @param <V> the type parameter
+     * @param map the map
+     * @return the map
+     */
     public static <K, V> Map<K, V> newMap(Map<K, V> map) {
         return Optional.ofNullable(map).map(HashMap::new)
                 .orElseGet(HashMap::new);
