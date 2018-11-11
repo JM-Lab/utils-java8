@@ -24,13 +24,15 @@ public class JMResourcesTest {
     @Test
     public void testReadStringForZip() {
         Assert.assertEquals("hello\n",
-                JMResources.readStringForZip("test.zip", "test/test.txt"));
+                JMResources.readStringForZip("src/test/resources/test.zip",
+                        "test/test.txt"));
     }
 
     @Test
     public void testReadLinesForZip() {
-        List<String> linesForZip = JMResources.readLinesForZip("test" + ".zip",
-                "test/test.txt");
+        List<String> linesForZip = JMResources.readLinesForZip
+                ("src/test/resources/test.zip",
+                        "test/test.txt");
         Assert.assertEquals("[hello]", linesForZip.toString());
     }
 }

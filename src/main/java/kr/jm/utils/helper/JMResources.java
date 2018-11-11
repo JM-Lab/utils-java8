@@ -107,18 +107,16 @@ public class JMResources {
     /**
      * Gets resource input stream for zip.
      *
-     * @param zipFilePathOrClasspath the zip file path or classpath
-     * @param entryName              the entry name
+     * @param zipFilePath the zip file path or classpath
+     * @param entryName   the entry name
      * @return the resource input stream for zip
      */
     public static InputStream getResourceInputStreamForZip(
-            String zipFilePathOrClasspath, String entryName) {
+            String zipFilePath, String entryName) {
         return getResourceInputStreamForZip(
-                Optional.ofNullable(JMFiles.getPath(zipFilePathOrClasspath))
-                        .filter(JMPath::exists).map(Path::toFile).orElseGet(
-                        () -> Optional.ofNullable(
-                                getResourceURI(zipFilePathOrClasspath))
-                                .map(File::new).orElse(null)), entryName);
+                Optional.ofNullable(JMFiles.getPath(zipFilePath))
+                        .filter(JMPath::exists).map(Path::toFile).orElse(null),
+                entryName);
     }
 
     /**
@@ -225,29 +223,29 @@ public class JMResources {
     /**
      * Read string for zip string.
      *
-     * @param zipFilePathOrClasspath the zip file path or classpath
-     * @param entryName              the entry name
-     * @param charsetName            the charset name
+     * @param zipFilePath the zip file path or classpath
+     * @param entryName   the entry name
+     * @param charsetName the charset name
      * @return the string
      */
-    public static String readStringForZip(String zipFilePathOrClasspath,
+    public static String readStringForZip(String zipFilePath,
             String entryName, String charsetName) {
         return JMInputStream.toString(
-                getResourceInputStreamForZip(zipFilePathOrClasspath, entryName),
+                getResourceInputStreamForZip(zipFilePath, entryName),
                 charsetName);
     }
 
     /**
      * Read string for zip string.
      *
-     * @param zipFilePathOrClasspath the zip file path or classpath
-     * @param entryName              the entry name
+     * @param zipFilePath the zip file path or classpath
+     * @param entryName   the entry name
      * @return the string
      */
-    public static String readStringForZip(String zipFilePathOrClasspath,
+    public static String readStringForZip(String zipFilePath,
             String entryName) {
         return JMInputStream.toString(
-                getResourceInputStreamForZip(zipFilePathOrClasspath,
+                getResourceInputStreamForZip(zipFilePath,
                         entryName));
     }
 
@@ -305,29 +303,29 @@ public class JMResources {
     /**
      * Read lines for zip list.
      *
-     * @param zipFilePathOrClasspath the zip file path or classpath
-     * @param entryName              the entry name
+     * @param zipFilePath the zip file path or classpath
+     * @param entryName   the entry name
      * @return the list
      */
-    public static List<String> readLinesForZip(String zipFilePathOrClasspath,
+    public static List<String> readLinesForZip(String zipFilePath,
             String entryName) {
         return JMInputStream.readLines(
-                getResourceInputStreamForZip(zipFilePathOrClasspath,
+                getResourceInputStreamForZip(zipFilePath,
                         entryName));
     }
 
     /**
      * Read lines for zip list.
      *
-     * @param zipFilePathOrClasspath the zip file path or classpath
-     * @param entryName              the entry name
-     * @param charsetName            the charset name
+     * @param zipFilePath the zip file path or classpath
+     * @param entryName   the entry name
+     * @param charsetName the charset name
      * @return the list
      */
-    public static List<String> readLinesForZip(String zipFilePathOrClasspath,
+    public static List<String> readLinesForZip(String zipFilePath,
             String entryName, String charsetName) {
         return JMInputStream.readLines(getResourceInputStreamForZip
-                (zipFilePathOrClasspath, entryName), charsetName);
+                (zipFilePath, entryName), charsetName);
     }
 
     /**
