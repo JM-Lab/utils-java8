@@ -12,7 +12,6 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import kr.jm.utils.JMProgressiveManager;
 import kr.jm.utils.datastructure.JMCollections;
 
 /**
@@ -87,18 +86,6 @@ public class JMPathOperationTest {
 		int size = subPathList.size();
 		List<Path> subPathList2 = JMPath.getSubPathList(d1Path);
 		int size2 = subPathList2.size();
-		System.out.println(JMPath.getSubPathList(startDirectoryPath));
-		Path copyd1 = startDirectoryPath.resolve("copyd1");
-		Optional<JMProgressiveManager<Path, Path>> copyDirProgress =
-				JMPathOperation.copyDirRecursivelyAsync(d1Path, copyd1);
-		copyDirProgress.get().start().getResultMapSync();
-		subPathList = JMPath.getSubPathList(startDirectoryPath);
-		System.out.println(subPathList);
-		assertEquals(subPathList.size(), size + size2 + 3);
-		copyDirProgress =
-				JMPathOperation.copyDirRecursivelyAsync(copyd1, d2Path);
-		assertEquals(3,
-				copyDirProgress.get().start().getResultMapSync().size());
 		System.out.println(JMPath.getSubPathList(startDirectoryPath));
 		JMPathOperation.deleteDir(startDirectoryPath);
 

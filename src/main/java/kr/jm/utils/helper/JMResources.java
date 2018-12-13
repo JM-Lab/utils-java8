@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.zip.ZipFile;
@@ -102,6 +103,21 @@ public class JMResources {
      */
     public static InputStream getResourceInputStream(String classpath) {
         return ClassLoader.getSystemResourceAsStream(classpath);
+    }
+
+    public static InputStream getFileResourceInputStream(String path) {
+        return JMOptional.getOptional(path).map(JMPath::getPath)
+                .map(JMResources::newFileInputStream).orElse(null);
+    }
+
+    private static InputStream newFileInputStream(Path path) {
+        try {
+            return Files.newInputStream(path);
+        } catch (IOException e) {
+            return JMExceptionManager
+                    .handleExceptionAndReturnNull(log, e, "newFileInputStream",
+                            path);
+        }
     }
 
     /**
