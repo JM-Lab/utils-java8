@@ -8,8 +8,7 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static java.util.Collections.unmodifiableList;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.*;
 
 /**
  * The type Number summary statistics.

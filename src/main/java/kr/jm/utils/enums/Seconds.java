@@ -1,4 +1,3 @@
-
 package kr.jm.utils.enums;
 
 /**
@@ -29,9 +28,9 @@ public enum Seconds {
      */
     WEEK(DAY.getValue() * 7);
 
-	private int seconds;
+    private int seconds;
 
-	Seconds(int seconds) {
+    Seconds(int seconds) {
         this.seconds = seconds;
     }
 
@@ -41,7 +40,7 @@ public enum Seconds {
      * @return the value
      */
     public int getValue() {
-		return seconds;
-	}
+        return seconds;
+    }
 
 }

@@ -1,4 +1,3 @@
-
 package kr.jm.utils.helper;
 
 import kr.jm.utils.enums.OS;
@@ -468,7 +467,7 @@ public class JMThread {
         return CompletableFuture.runAsync(runnable, executor)
                 .exceptionally(e -> {
                     ifNotNull(failureConsumer, c -> c.accept(e));
-                    return (Void) new Object();
+                    return null;
                 });
     }
 

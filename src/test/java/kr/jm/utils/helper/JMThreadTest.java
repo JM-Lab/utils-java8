@@ -13,21 +13,12 @@ import java.util.concurrent.atomic.LongAdder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * The Class JMThreadTest.
- */
 public class JMThreadTest {
 
-    /**
-     * Sets the up.
-     */
     @Before
     public void setUp() {
     }
 
-    /**
-     * Test run async runnable executor.
-     */
     @Test
     public void testRunAsyncRunnableExecutor() {
         JMThread.runAsync(() -> {
@@ -36,19 +27,11 @@ public class JMThreadTest {
 
     }
 
-    /**
-     * Test run async supply executor.
-     */
     @Test
     public void testRunAsyncSupplyExecutor() {
         JMThread.supplyAsync(() -> 1 / 0, e -> 0);
     }
 
-    /**
-     * Test get thread queue.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testGetThreadQueue() {
         ExecutorService es = Executors.newFixedThreadPool(1);
@@ -69,11 +52,6 @@ public class JMThreadTest {
         assertEquals(0, JMThread.getThreadQueue(es).size());
     }
 
-    /**
-     * Test run with schedule.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testRunWithSchedule() throws Exception {
         System.out.println(JMTimeUtil.getCurrentTimestamp());

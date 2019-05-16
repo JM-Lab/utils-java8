@@ -1,4 +1,3 @@
-
 package kr.jm.utils.enums;
 
 import kr.jm.utils.helper.JMString;
@@ -40,13 +39,13 @@ public enum SimpleSIUnit {
      * The constant BASE_SIZE.
      */
     public static final int BASE_SIZE = 1024;
-	private double min;
-	private double max;
+    private double min;
+    private double max;
 
-	SimpleSIUnit(int power) {
-		this.min = Math.pow(BASE_SIZE, power);
-		this.max = this.min * BASE_SIZE;
-	}
+    SimpleSIUnit(int power) {
+        this.min = Math.pow(BASE_SIZE, power);
+        this.max = this.min * BASE_SIZE;
+    }
 
     /**
      * Find si unit and convert to string string.
@@ -57,14 +56,14 @@ public enum SimpleSIUnit {
      * @return the string
      */
     public static String findSIUnitAndConvertToString(long size,
-			DecimalFormat decimalFormat, String suffix) {
-		return Stream.of(SimpleSIUnit.values())
-				.filter(si -> values()[0].min < size)
-				.filter(si -> size < si.max)
-				.map(si -> si.convertToString(size, decimalFormat, suffix))
-				.findFirst()
-				.orElseGet(() -> decimalFormat.format(size) + suffix);
-	}
+            DecimalFormat decimalFormat, String suffix) {
+        return Stream.of(SimpleSIUnit.values())
+                .filter(si -> values()[0].min < size)
+                .filter(si -> size < si.max)
+                .map(si -> si.convertToString(size, decimalFormat, suffix))
+                .findFirst()
+                .orElseGet(() -> decimalFormat.format(size) + suffix);
+    }
 
     /**
      * Convert double.
@@ -73,8 +72,8 @@ public enum SimpleSIUnit {
      * @return the double
      */
     public double convert(Number number) {
-		return number.doubleValue() / min;
-	}
+        return number.doubleValue() / min;
+    }
 
     /**
      * Append si unit string.
@@ -84,8 +83,8 @@ public enum SimpleSIUnit {
      * @return the string
      */
     public String appendSIUnit(String target, String suffix) {
-		return target + JMString.SPACE + name() + suffix;
-	}
+        return target + JMString.SPACE + name() + suffix;
+    }
 
     /**
      * Convert to string string.
@@ -95,8 +94,8 @@ public enum SimpleSIUnit {
      * @return the string
      */
     public String convertToString(Number size, String suffix) {
-		return appendSIUnit(Double.toString(convert(size)), suffix);
-	}
+        return appendSIUnit(Double.toString(convert(size)), suffix);
+    }
 
     /**
      * Convert to string string.
@@ -107,8 +106,8 @@ public enum SimpleSIUnit {
      * @return the string
      */
     public String convertToString(Number size, DecimalFormat decimalFormat,
-			String suffix) {
-		return appendSIUnit(decimalFormat.format(convert(size)), suffix);
-	}
+            String suffix) {
+        return appendSIUnit(decimalFormat.format(convert(size)), suffix);
+    }
 
 }

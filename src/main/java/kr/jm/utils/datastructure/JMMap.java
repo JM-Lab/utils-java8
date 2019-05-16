@@ -1,4 +1,3 @@
-
 package kr.jm.utils.datastructure;
 
 import kr.jm.utils.helper.JMOptional;
@@ -11,8 +10,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.*;
 import static kr.jm.utils.helper.JMString.DOT;
 
 /**

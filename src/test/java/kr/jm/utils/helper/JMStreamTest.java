@@ -1,4 +1,3 @@
-
 package kr.jm.utils.helper;
 
 import kr.jm.utils.datastructure.JMCollections;
@@ -7,29 +6,16 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * The Class JMStreamTest.
- */
 public class JMStreamTest {
 
-    /**
-     * Sets the up.
-     *
-     * @throws Exception the exception
-     */
     @Before
     public void setUp() throws Exception {
     }
 
-    /**
-     * Test build reversed stream.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testBuildReversedStream() {
         Integer[] ints = {1, 3, 2, 4, 5};
@@ -43,9 +29,6 @@ public class JMStreamTest {
 
     }
 
-    /**
-     * Test build stream.
-     */
     @Test
     public void testBuildStream() {
         String string = "a b c d ef g";
@@ -69,11 +52,6 @@ public class JMStreamTest {
                         .collect(toList()).toString()));
     }
 
-    /**
-     * Test number range with count float float int.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testNumberRangeWithCountFloatFloatInt() {
         System.out.println(JMStream.numberRangeWithCount(0, 10, 100).boxed()
@@ -93,11 +71,6 @@ public class JMStreamTest {
                 .getAverage() == doubleSummaryStatistics.getAverage());
     }
 
-    /**
-     * Test build random number stream.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testBuildRandomNumberStream() {
         List<Double> randomNumberList =

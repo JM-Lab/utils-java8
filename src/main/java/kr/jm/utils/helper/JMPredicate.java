@@ -1,4 +1,3 @@
-
 package kr.jm.utils.helper;
 
 import java.util.Collection;
@@ -22,8 +21,8 @@ public class JMPredicate {
      * @return the true
      */
     public static <T> Predicate<T> getTrue() {
-		return target -> TRUE;
-	}
+        return target -> TRUE;
+    }
 
     /**
      * Gets false.
@@ -32,8 +31,8 @@ public class JMPredicate {
      * @return the false
      */
     public static <T> Predicate<T> getFalse() {
-		return target -> FALSE;
-	}
+        return target -> FALSE;
+    }
 
     /**
      * Gets boolean.
@@ -43,8 +42,8 @@ public class JMPredicate {
      * @return the boolean
      */
     public static <T> Predicate<T> getBoolean(boolean bool) {
-		return target -> bool;
-	}
+        return target -> bool;
+    }
 
     /**
      * Gets greater.
@@ -53,8 +52,8 @@ public class JMPredicate {
      * @return the greater
      */
     public static Predicate<Number> getGreater(Number target) {
-		return number -> number.doubleValue() > target.doubleValue();
-	}
+        return number -> number.doubleValue() > target.doubleValue();
+    }
 
     /**
      * Gets greater or equal.
@@ -63,8 +62,8 @@ public class JMPredicate {
      * @return the greater or equal
      */
     public static Predicate<Number> getGreaterOrEqual(Number target) {
-		return number -> number.doubleValue() >= target.doubleValue();
-	}
+        return number -> number.doubleValue() >= target.doubleValue();
+    }
 
     /**
      * Gets less.
@@ -73,8 +72,8 @@ public class JMPredicate {
      * @return the less
      */
     public static Predicate<Number> getLess(Number target) {
-		return number -> number.doubleValue() < target.doubleValue();
-	}
+        return number -> number.doubleValue() < target.doubleValue();
+    }
 
     /**
      * Gets less or equal.
@@ -83,8 +82,8 @@ public class JMPredicate {
      * @return the less or equal
      */
     public static Predicate<Number> getLessOrEqual(Number target) {
-		return number -> number.doubleValue() <= target.doubleValue();
-	}
+        return number -> number.doubleValue() <= target.doubleValue();
+    }
 
     /**
      * Gets greater size.
@@ -93,8 +92,8 @@ public class JMPredicate {
      * @return the greater size
      */
     public static Predicate<Collection<?>> getGreaterSize(int target) {
-		return collection -> collection.size() > target;
-	}
+        return collection -> collection.size() > target;
+    }
 
     /**
      * Gets greater map size.
@@ -103,8 +102,8 @@ public class JMPredicate {
      * @return the greater map size
      */
     public static Predicate<Map<?, ?>> getGreaterMapSize(int target) {
-		return map -> map.size() > target;
-	}
+        return map -> map.size() > target;
+    }
 
     /**
      * Gets greater length.
@@ -113,8 +112,8 @@ public class JMPredicate {
      * @return the greater length
      */
     public static Predicate<Object[]> getGreaterLength(int target) {
-		return array -> array.length > target;
-	}
+        return array -> array.length > target;
+    }
 
     /**
      * Gets greater or equal size.
@@ -123,8 +122,8 @@ public class JMPredicate {
      * @return the greater or equal size
      */
     public static Predicate<Collection<?>> getGreaterOrEqualSize(int target) {
-		return collection -> collection.size() >= target;
-	}
+        return collection -> collection.size() >= target;
+    }
 
     /**
      * Gets greater map or equal size.
@@ -133,8 +132,8 @@ public class JMPredicate {
      * @return the greater map or equal size
      */
     public static Predicate<Map<?, ?>> getGreaterMapOrEqualSize(int target) {
-		return map -> map.size() > target;
-	}
+        return map -> map.size() > target;
+    }
 
     /**
      * Gets greater or equal length.
@@ -143,8 +142,8 @@ public class JMPredicate {
      * @return the greater or equal length
      */
     public static Predicate<Object[]> getGreaterOrEqualLength(int target) {
-		return array -> array.length >= target;
-	}
+        return array -> array.length >= target;
+    }
 
     /**
      * Gets less size.
@@ -153,8 +152,8 @@ public class JMPredicate {
      * @return the less size
      */
     public static Predicate<Collection<?>> getLessSize(int target) {
-		return collection -> collection.size() < target;
-	}
+        return collection -> collection.size() < target;
+    }
 
     /**
      * Gets less map size.
@@ -163,8 +162,8 @@ public class JMPredicate {
      * @return the less map size
      */
     public static Predicate<Map<?, ?>> getLessMapSize(int target) {
-		return map -> map.size() < target;
-	}
+        return map -> map.size() < target;
+    }
 
     /**
      * Gets less length.
@@ -173,8 +172,8 @@ public class JMPredicate {
      * @return the less length
      */
     public static Predicate<Object[]> getLessLength(int target) {
-		return array -> array.length < target;
-	}
+        return array -> array.length < target;
+    }
 
     /**
      * Gets less or equal size.
@@ -183,8 +182,8 @@ public class JMPredicate {
      * @return the less or equal size
      */
     public static Predicate<Collection<?>> getLessOrEqualSize(int target) {
-		return collection -> collection.size() <= target;
-	}
+        return collection -> collection.size() <= target;
+    }
 
     /**
      * Gets less map or equal size.
@@ -193,8 +192,8 @@ public class JMPredicate {
      * @return the less map or equal size
      */
     public static Predicate<Map<?, ?>> getLessMapOrEqualSize(int target) {
-		return map -> map.size() <= target;
-	}
+        return map -> map.size() <= target;
+    }
 
     /**
      * Gets less or equal length.
@@ -203,8 +202,8 @@ public class JMPredicate {
      * @return the less or equal length
      */
     public static Predicate<Object[]> getLessOrEqualLength(int target) {
-		return array -> array.length <= target;
-	}
+        return array -> array.length <= target;
+    }
 
     /**
      * Gets equal size.
@@ -213,8 +212,8 @@ public class JMPredicate {
      * @return the equal size
      */
     public static Predicate<Collection<?>> getEqualSize(int target) {
-		return collection -> collection.size() == target;
-	}
+        return collection -> collection.size() == target;
+    }
 
 
     /**
@@ -224,8 +223,8 @@ public class JMPredicate {
      * @return the contains
      */
     public static Predicate<String> getContains(CharSequence target) {
-		return string -> string.contains(target);
-	}
+        return string -> string.contains(target);
+    }
 
     /**
      * Gets is empty.
@@ -233,8 +232,8 @@ public class JMPredicate {
      * @return the is empty
      */
     public static Predicate<String> getIsEmpty() {
-		return String::isEmpty;
-	}
+        return String::isEmpty;
+    }
 
     /**
      * Gets ends with.
@@ -243,8 +242,8 @@ public class JMPredicate {
      * @return the ends with
      */
     public static Predicate<String> getEndsWith(String suffix) {
-		return string -> string.endsWith(suffix);
-	}
+        return string -> string.endsWith(suffix);
+    }
 
     /**
      * Gets starts with.
@@ -253,8 +252,8 @@ public class JMPredicate {
      * @return the starts with
      */
     public static Predicate<String> getStartsWith(String prefix) {
-		return string -> string.startsWith(prefix);
-	}
+        return string -> string.startsWith(prefix);
+    }
 
     /**
      * Gets matches.
@@ -263,8 +262,8 @@ public class JMPredicate {
      * @return the matches
      */
     public static Predicate<String> getMatches(String regex) {
-		return string -> string.matches(regex);
-	}
+        return string -> string.matches(regex);
+    }
 
     /**
      * Gets is null.
@@ -273,8 +272,8 @@ public class JMPredicate {
      * @return the is null
      */
     public static <T> Predicate<T> getIsNull() {
-		return Objects::isNull;
-	}
+        return Objects::isNull;
+    }
 
     /**
      * Gets is not null.
@@ -283,8 +282,8 @@ public class JMPredicate {
      * @return the is not null
      */
     public static <T> Predicate<T> getIsNotNull() {
-		return Objects::nonNull;
-	}
+        return Objects::nonNull;
+    }
 
     /**
      * Peek to run predicate.
@@ -294,8 +293,8 @@ public class JMPredicate {
      * @return the predicate
      */
     public static <T> Predicate<T> peekToRun(Runnable block) {
-		return target -> JMLambda.getTrueAfterRunning(block);
-	}
+        return target -> JMLambda.getTrueAfterRunning(block);
+    }
 
     /**
      * Peek predicate.
@@ -305,9 +304,9 @@ public class JMPredicate {
      * @return the predicate
      */
     public static <T> Predicate<T> peek(Consumer<T> consumer) {
-		return target -> JMLambda
-				.getTrueAfterRunning(() -> consumer.accept(target));
-	}
+        return target -> JMLambda
+                .getTrueAfterRunning(() -> consumer.accept(target));
+    }
 
     /**
      * Peek sopl predicate.
@@ -316,9 +315,9 @@ public class JMPredicate {
      * @return the predicate
      */
     public static <T> Predicate<T> peekSOPL() {
-		return target -> JMLambda
-				.getTrueAfterRunning(() -> System.out.println(target));
-	}
+        return target -> JMLambda
+                .getTrueAfterRunning(() -> System.out.println(target));
+    }
 
     /**
      * Gets equals.
@@ -328,8 +327,8 @@ public class JMPredicate {
      * @return the equals
      */
     public static <T> Predicate<T> getEquals(T target2) {
-		return target -> target.equals(target2);
-	}
+        return target -> target.equals(target2);
+    }
 
     /**
      * Negate predicate.
@@ -339,8 +338,8 @@ public class JMPredicate {
      * @return the predicate
      */
     public static <T> Predicate<T> negate(Predicate<T> predicate) {
-		return predicate.negate();
-	}
+        return predicate.negate();
+    }
 
     /**
      * Negate predicate.
@@ -350,7 +349,7 @@ public class JMPredicate {
      * @return the predicate
      */
     public static <T> Predicate<T> negate(boolean bool) {
-		return target -> !bool;
-	}
+        return target -> !bool;
+    }
 
-   }
+}

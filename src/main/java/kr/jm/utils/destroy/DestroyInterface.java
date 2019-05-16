@@ -1,4 +1,3 @@
-
 package kr.jm.utils.destroy;
 
 import kr.jm.utils.helper.JMThread;
@@ -24,9 +23,9 @@ public interface DestroyInterface {
      * @throws RuntimeException the runtime exception
      */
     default void cleanUp(ExecutorService executorService)
-			throws RuntimeException {
-		executorService.shutdown();
-		while (!executorService.isTerminated())
-			JMThread.sleep(100);
-	}
+            throws RuntimeException {
+        executorService.shutdown();
+        while (!executorService.isTerminated())
+            JMThread.sleep(100);
+    }
 }

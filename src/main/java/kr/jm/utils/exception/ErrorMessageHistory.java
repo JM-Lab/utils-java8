@@ -1,4 +1,3 @@
-
 package kr.jm.utils.exception;
 
 /**
@@ -6,8 +5,8 @@ package kr.jm.utils.exception;
  */
 public class ErrorMessageHistory {
 
-	private long timestamp;
-	private String errorMessage;
+    private long timestamp;
+    private String errorMessage;
 
     /**
      * Instantiates a new Error message history.
@@ -16,10 +15,10 @@ public class ErrorMessageHistory {
      * @param errorMessage the error message
      */
     public ErrorMessageHistory(long timestamp, String errorMessage) {
-		super();
-		this.timestamp = timestamp;
-		this.errorMessage = errorMessage;
-	}
+        super();
+        this.timestamp = timestamp;
+        this.errorMessage = errorMessage;
+    }
 
     /**
      * Gets timestamp.
@@ -27,8 +26,8 @@ public class ErrorMessageHistory {
      * @return the timestamp
      */
     public long getTimestamp() {
-		return timestamp;
-	}
+        return timestamp;
+    }
 
     /**
      * Gets error message.
@@ -36,7 +35,7 @@ public class ErrorMessageHistory {
      * @return the error message
      */
     public String getErrorMessage() {
-		return errorMessage;
-	}
+        return errorMessage;
+    }
 
 }

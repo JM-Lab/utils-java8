@@ -11,12 +11,12 @@ import java.text.DecimalFormat;
  */
 public class FileSize implements Comparable<FileSize> {
 
-	private static final String NoSize = "--";
-	private static final DecimalFormat DecimalFormat = new DecimalFormat("#.#");
-	private static final String SUFFIX = "B";
-	private long size;
+    private static final String NoSize = "--";
+    private static final DecimalFormat DecimalFormat = new DecimalFormat("#.#");
+    private static final String SUFFIX = "B";
+    private long size;
 
-	private String siSize;
+    private String siSize;
 
     /**
      * Instantiates a new File size.
@@ -24,11 +24,11 @@ public class FileSize implements Comparable<FileSize> {
      * @param size the size
      */
     public FileSize(long size) {
-		this.size = size;
-		this.siSize = size <= 0 ? NoSize
-				: SimpleSIUnit.findSIUnitAndConvertToString(size, DecimalFormat,
-						SUFFIX);
-	}
+        this.size = size;
+        this.siSize = size <= 0 ? NoSize
+                : SimpleSIUnit.findSIUnitAndConvertToString(size, DecimalFormat,
+                SUFFIX);
+    }
 
     /**
      * Instantiates a new File size.
@@ -36,8 +36,8 @@ public class FileSize implements Comparable<FileSize> {
      * @param path the path
      */
     public FileSize(Path path) {
-		this(JMPath.getSize(path));
-	}
+        this(JMPath.getSize(path));
+    }
 
     /**
      * Gets size.
@@ -45,27 +45,27 @@ public class FileSize implements Comparable<FileSize> {
      * @return the size
      */
     public long getSize() {
-		return size;
-	}
+        return size;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return siSize;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return siSize;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(FileSize targetFileSize) {
-		return Long.compare(size, targetFileSize.getSize());
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(FileSize targetFileSize) {
+        return Long.compare(size, targetFileSize.getSize());
+    }
 
 }

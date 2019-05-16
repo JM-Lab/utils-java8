@@ -19,7 +19,7 @@ public class JMExceptionManager {
 
     private static final String ERROR_HISTORY_SIZE = "error.history.size";
     private static final int maxQueueSize =
-            new Integer(Optional.ofNullable(JMResources.getSystemProperty
+            Integer.valueOf(Optional.ofNullable(JMResources.getSystemProperty
                     (ERROR_HISTORY_SIZE)).orElse("500"));
     private static final List<ErrorMessageHistory> errorMessageHistoryList =
             new LinkedList<>();

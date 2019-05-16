@@ -1,4 +1,3 @@
-
 package kr.jm.utils;
 
 /**
@@ -6,9 +5,9 @@ package kr.jm.utils;
  */
 public class AutoStringBuilder {
 
-	private String autoAppendingString;
+    private String autoAppendingString;
 
-	private StringBuilder sb;
+    private StringBuilder sb;
 
     /**
      * Instantiates a new Auto string builder.
@@ -16,9 +15,9 @@ public class AutoStringBuilder {
      * @param autoAppendingString the auto appending string
      */
     public AutoStringBuilder(String autoAppendingString) {
-		this.autoAppendingString = autoAppendingString;
-		sb = new StringBuilder();
-	}
+        this.autoAppendingString = autoAppendingString;
+        sb = new StringBuilder();
+    }
 
     /**
      * Append if exists auto string builder.
@@ -27,11 +26,11 @@ public class AutoStringBuilder {
      * @return the auto string builder
      */
     public AutoStringBuilder appendIfExists(Object... appendingObjects) {
-		for (Object object : appendingObjects)
-			if (object != null && !"".equals(object))
-				this.append(object.toString());
-		return this;
-	}
+        for (Object object : appendingObjects)
+            if (object != null && !"".equals(object))
+                this.append(object.toString());
+        return this;
+    }
 
     /**
      * Append auto string builder.
@@ -40,9 +39,9 @@ public class AutoStringBuilder {
      * @return the auto string builder
      */
     public AutoStringBuilder append(String string) {
-		sb.append(string).append(autoAppendingString);
-		return this;
-	}
+        sb.append(string).append(autoAppendingString);
+        return this;
+    }
 
     /**
      * Append auto string builder.
@@ -51,10 +50,10 @@ public class AutoStringBuilder {
      * @return the auto string builder
      */
     public AutoStringBuilder append(String... strings) {
-		for (String s : strings)
-			append(s);
-		return this;
-	}
+        for (String s : strings)
+            append(s);
+        return this;
+    }
 
     /**
      * Append auto string builder.
@@ -63,9 +62,9 @@ public class AutoStringBuilder {
      * @return the auto string builder
      */
     public AutoStringBuilder append(Object object) {
-		sb.append(object.toString()).append(autoAppendingString);
-		return this;
-	}
+        sb.append(object.toString()).append(autoAppendingString);
+        return this;
+    }
 
     /**
      * Append auto string builder.
@@ -74,10 +73,10 @@ public class AutoStringBuilder {
      * @return the auto string builder
      */
     public AutoStringBuilder append(Object... objects) {
-		for (Object o : objects)
-			append(o);
-		return this;
-	}
+        for (Object o : objects)
+            append(o);
+        return this;
+    }
 
     /**
      * Gets string builder.
@@ -85,8 +84,8 @@ public class AutoStringBuilder {
      * @return the string builder
      */
     public StringBuilder getStringBuilder() {
-		return sb;
-	}
+        return sb;
+    }
 
     /**
      * Remove last auto appending string auto string builder.
@@ -94,9 +93,9 @@ public class AutoStringBuilder {
      * @return the auto string builder
      */
     public AutoStringBuilder removeLastAutoAppendingString() {
-		sb = sb.delete(sb.length() - autoAppendingString.length(), sb.length());
-		return this;
-	}
+        sb.delete(sb.length() - autoAppendingString.length(), sb.length());
+        return this;
+    }
 
     /**
      * Auto to string string.
@@ -104,16 +103,16 @@ public class AutoStringBuilder {
      * @return the string
      */
     public String autoToString() {
-		return removeLastAutoAppendingString().toString();
-	}
+        return removeLastAutoAppendingString().toString();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString() {
-		return sb.toString();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+        return sb.toString();
+    }
 
 }

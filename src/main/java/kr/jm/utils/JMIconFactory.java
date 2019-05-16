@@ -1,4 +1,3 @@
-
 package kr.jm.utils;
 
 import kr.jm.utils.datastructure.JMMap;
@@ -41,7 +40,7 @@ public class JMIconFactory {
 	}
 
 	private Function<String, BufferedImage>
-			getCachedBufferedImageFunction(Path path) {
+	getCachedBufferedImageFunction(Path path) {
 		Supplier<BufferedImage> newValueSupplier =
 				() -> buildBufferedImageOfIconInOS(path);
 		return key -> JMMap.getOrPutGetNew(bufferedImageCache, key,

@@ -1,4 +1,3 @@
-
 package kr.jm.utils.enums;
 
 /**
@@ -29,10 +28,10 @@ public enum Milliseconds {
      */
     WEEK(DAY.getValue() * 7);
 
-	private long milliseconds;
+    private long milliseconds;
 
-	Milliseconds(long milliseconds) {
-		this.milliseconds = milliseconds;
+    Milliseconds(long milliseconds) {
+        this.milliseconds = milliseconds;
     }
 
     /**
@@ -41,7 +40,7 @@ public enum Milliseconds {
      * @return the value
      */
     public long getValue() {
-		return milliseconds;
-	}
+        return milliseconds;
+    }
 
 }

@@ -1,4 +1,3 @@
-
 package kr.jm.utils.helper;
 
 import java.util.*;
@@ -296,10 +295,11 @@ public class JMOptional {
     /**
      * Gets object or null list.
      *
+     * @param <T>       the type parameter
      * @param optionals the optionals
      * @return the object or null list
      */
-    public static List<?> getObjectOrNullList(Optional<?>... optionals) {
+    public static <T> List<T> getObjectOrNullList(Optional<T>... optionals) {
         return Arrays.stream(optionals).map(opt -> opt.orElse(null))
                 .collect(Collectors.toList());
     }

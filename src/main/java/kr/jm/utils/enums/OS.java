@@ -1,4 +1,3 @@
-
 package kr.jm.utils.enums;
 
 import kr.jm.utils.AutoStringBuilder;
@@ -195,6 +194,11 @@ public enum OS {
         return getRealInetAddressInfoStream().findFirst().orElse(null);
     }
 
+    /**
+     * Gets real inet address info stream.
+     *
+     * @return the real inet address info stream
+     */
     public static Stream<InetAddress> getRealInetAddressInfoStream() {
         return getAllInetAddressInfoStream()
                 .filter(InetAddress::isSiteLocalAddress)
@@ -350,12 +354,8 @@ public enum OS {
      * @return the icon
      */
     public Icon getIcon(File file) {
-        switch (this) {
-            case MAC:
-                return getFileView().getIcon(file);
-            default:
-                return getFileSystemView().getSystemIcon(file);
-        }
+        return this == OS.MAC ? getFileView()
+                .getIcon(file) : getFileSystemView().getSystemIcon(file);
     }
 
     /**
@@ -365,12 +365,8 @@ public enum OS {
      * @return the file name
      */
     public String getFileName(File file) {
-        switch (this) {
-            case MAC:
-                return getFileView().getName(file);
-            default:
-                return getFileSystemView().getSystemDisplayName(file);
-        }
+        return this == OS.MAC ? getFileView()
+                .getName(file) : getFileSystemView().getSystemDisplayName(file);
     }
 
     /**
@@ -380,12 +376,9 @@ public enum OS {
      * @return the file type description
      */
     public String getFileTypeDescription(File file) {
-        switch (this) {
-            case MAC:
-                return getFileView().getTypeDescription(file);
-            default:
-                return getFileSystemView().getSystemTypeDescription(file);
-        }
+        return this == OS.MAC ? getFileView()
+                .getTypeDescription(file) : getFileSystemView()
+                .getSystemTypeDescription(file);
     }
 
     /**

@@ -12,12 +12,12 @@ import java.util.concurrent.Future;
  */
 public class JMThreadServiceForLimitedQueueSize {
 
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
-			.getLogger(JMThreadServiceForLimitedQueueSize.class);
-	private int waitMillis;
-	private int queueSize;
-	private ExecutorService threadPool;
-	private BlockingQueue<Runnable> threadQueue;
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+            .getLogger(JMThreadServiceForLimitedQueueSize.class);
+    private int waitMillis;
+    private int queueSize;
+    private ExecutorService threadPool;
+    private BlockingQueue<Runnable> threadQueue;
 
     /**
      * Instantiates a new Jm thread service for limited queue size.
@@ -27,10 +27,10 @@ public class JMThreadServiceForLimitedQueueSize {
      * @param queueSize   the queue size
      */
     public JMThreadServiceForLimitedQueueSize(int numOfThread, int waitMillis,
-			int queueSize) {
-		this(numOfThread, waitMillis, queueSize,
-				JMThread.newThreadPool(numOfThread));
-	}
+            int queueSize) {
+        this(numOfThread, waitMillis, queueSize,
+                JMThread.newThreadPool(numOfThread));
+    }
 
     /**
      * Instantiates a new Jm thread service for limited queue size.
@@ -41,14 +41,14 @@ public class JMThreadServiceForLimitedQueueSize {
      * @param threadPool  the thread pool
      */
     public JMThreadServiceForLimitedQueueSize(int numOfThread, int waitMillis,
-			int queueSize, ExecutorService threadPool) {
-		this.waitMillis = waitMillis;
-		this.queueSize = queueSize;
-		this.threadQueue = JMThread.getThreadQueue(threadPool);
-		log.info(
-				"JMThreadService Start !!! - Number Of Worker = {}, Wait Millis = {}, Queue Size = {}",
-				numOfThread, waitMillis, queueSize);
-	}
+            int queueSize, ExecutorService threadPool) {
+        this.waitMillis = waitMillis;
+        this.queueSize = queueSize;
+        this.threadQueue = JMThread.getThreadQueue(threadPool);
+        log.info(
+                "JMThreadService Start !!! - Number Of Worker = {}, Wait Millis = {}, Queue Size = {}",
+                numOfThread, waitMillis, queueSize);
+    }
 
     /**
      * Gets current queue size.
@@ -56,8 +56,8 @@ public class JMThreadServiceForLimitedQueueSize {
      * @return the current queue size
      */
     public int getCurrentQueueSize() {
-		return threadQueue.size();
-	}
+        return threadQueue.size();
+    }
 
     /**
      * Gets queue size.
@@ -65,8 +65,8 @@ public class JMThreadServiceForLimitedQueueSize {
      * @return the queue size
      */
     public int getQueueSize() {
-		return queueSize;
-	}
+        return queueSize;
+    }
 
     /**
      * Submit future.
@@ -75,9 +75,9 @@ public class JMThreadServiceForLimitedQueueSize {
      * @return the future
      */
     public Future<?> submit(Runnable runnable) {
-		checkThreadQueue();
-		return threadPool.submit(runnable);
-	}
+        checkThreadQueue();
+        return threadPool.submit(runnable);
+    }
 
     /**
      * Submit future.
@@ -87,9 +87,9 @@ public class JMThreadServiceForLimitedQueueSize {
      * @return the future
      */
     public <T> Future<T> submit(Callable<T> callable) {
-		checkThreadQueue();
-		return threadPool.submit(callable);
-	}
+        checkThreadQueue();
+        return threadPool.submit(callable);
+    }
 
     /**
      * Execute.
@@ -97,16 +97,16 @@ public class JMThreadServiceForLimitedQueueSize {
      * @param runnable the runnable
      */
     public void execute(Runnable runnable) {
-		checkThreadQueue();
-		threadPool.execute(runnable);
-	}
+        checkThreadQueue();
+        threadPool.execute(runnable);
+    }
 
-	private void checkThreadQueue() {
-		while (threadQueue.size() > queueSize) {
-			log.warn(
-					"Hit The Maximum Queue Size Of Thread Pool !!! - Wait Millis = {}, Queue Size = {}",
-					waitMillis, queueSize);
-			JMThread.sleep(waitMillis);
-		}
-	}
+    private void checkThreadQueue() {
+        while (threadQueue.size() > queueSize) {
+            log.warn(
+                    "Hit The Maximum Queue Size Of Thread Pool !!! - Wait Millis = {}, Queue Size = {}",
+                    waitMillis, queueSize);
+            JMThread.sleep(waitMillis);
+        }
+    }
 }

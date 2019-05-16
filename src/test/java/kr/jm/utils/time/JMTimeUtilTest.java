@@ -1,4 +1,3 @@
-
 package kr.jm.utils.time;
 
 import org.junit.Before;
@@ -14,9 +13,6 @@ import java.util.Calendar;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * The Class JMTimeUtilTest.
- */
 public class JMTimeUtilTest {
 
     private static final String ASIA_SEOUL = "Asia/Seoul";
@@ -34,17 +30,10 @@ public class JMTimeUtilTest {
 
     private final long timestamp = 1395394283524l;
 
-    /**
-     * Sets the up.
-     *
-     */
     @Before
     public void setUp() {
     }
 
-    /**
-     * Test change formatted and time zone.
-     */
     @Test
     public void testChangeFormatAndTimeZone() {
         System.out.println(JMTimeUtil.changeFormatAndTimeZone(TIMESTAME1,
@@ -107,9 +96,6 @@ public class JMTimeUtilTest {
 
     }
 
-    /**
-     * Test change iso timestamp in UTC.
-     */
     @Test
     public void testChangeIsoTimestampInUTC() {
         String isoTimestampString = "2015-04-28T10:30:23.000+0900";
@@ -141,9 +127,6 @@ public class JMTimeUtilTest {
 
     }
 
-    /**
-     * Test get time millis.
-     */
     @Test
     public void testGetTimeMillis() {
         long timeMillis =
@@ -161,11 +144,6 @@ public class JMTimeUtilTest {
 
     }
 
-    /**
-     * Test change timestamp to long.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testChangeTimestampToLong() {
         String defaultLogDateFormat = "dd/MMM/yyyy:HH:mm:ss";
@@ -241,11 +219,6 @@ public class JMTimeUtilTest {
 
     }
 
-    /**
-     * Test change ISO timestamp with mills to without mills.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testChangeISOTimestampWithMillsToWithoutMills() {
         String isoTimestampString = "2015-04-28T10:30:23.032+0900";
@@ -269,9 +242,6 @@ public class JMTimeUtilTest {
 
     }
 
-    /**
-     * Test change timestamp to new formatted.
-     */
     @Test
     public void testChangeTimestampToNewFormat() {
         String simpleDateFormat = "yyyyMMddHHmmssSSS";
@@ -285,11 +255,6 @@ public class JMTimeUtilTest {
 
     }
 
-    /**
-     * Test change timestamp to iso instant.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testChangeTimestampToIsoInstant() {
         String simpleDateFormat = "yyyyMMddHHmmssSSS";
@@ -300,11 +265,6 @@ public class JMTimeUtilTest {
                         "20150925133631446"));
     }
 
-    /**
-     * Test change iso timestamp to long.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testChangeIsoTimestampToLong() {
         long timeMillis = JMTimeUtil
@@ -320,11 +280,6 @@ public class JMTimeUtilTest {
 
     }
 
-    /**
-     * Test get zoned metric time.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testGetZonedDataTime() {
         long currentTimeMillis = 1483064372217l;
@@ -350,11 +305,6 @@ public class JMTimeUtilTest {
                         .toLocalDateTime().toString());
     }
 
-    /**
-     * Test get offset metric time.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testGetOffsetDataTime() {
         long currentTimeMillis = 1483064372217l;
@@ -380,11 +330,6 @@ public class JMTimeUtilTest {
                         .toLocalDateTime().toString());
     }
 
-    /**
-     * Test change timestamp to new formatted string zone id date time formatter.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testChangeTimestampToNewFormatStringZoneIdDateTimeFormatter() {
         System.out.println(JMTimeUtil.changeTimestampToNewFormat(TIMESTAME3,

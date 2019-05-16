@@ -18,8 +18,8 @@ public class JMListTimeSeries<T> extends JMTimeSeries<List<T>> {
      * @param intervalSeconds the interval seconds
      */
     public JMListTimeSeries(int intervalSeconds) {
-		super(intervalSeconds);
-	}
+        super(intervalSeconds);
+    }
 
     /**
      * Add.
@@ -28,9 +28,9 @@ public class JMListTimeSeries<T> extends JMTimeSeries<List<T>> {
      * @param object    the object
      */
     public void add(long timestamp, T object) {
-		JMMap.getOrPutGetNew(this.timeSeriesMap, buildKeyTimestamp(timestamp),
-				ArrayList::new).add(object);
-	}
+        JMMap.getOrPutGetNew(this.timeSeriesMap, buildKeyTimestamp(timestamp),
+                ArrayList::new).add(object);
+    }
 
     /**
      * Add all.
@@ -39,19 +39,19 @@ public class JMListTimeSeries<T> extends JMTimeSeries<List<T>> {
      * @param objectList the object list
      */
     public void addAll(long timestamp, List<T> objectList) {
-		for (T object : objectList)
-			add(timestamp, object);
-	}
+        for (T object : objectList)
+            add(timestamp, object);
+    }
 
-	/*
-	 * (non-Javadoc)
+    /*
+     * (non-Javadoc)
      *
      * @see kr.jm.utils.collections.JMTimeSeries#toString()
      */
-	@Override
-	public String toString() {
-		return "JMListTimeSeries(intervalSeconds=" + getIntervalSeconds()
-				+ ", timeSeriesMap=" + timeSeriesMap.toString() + ")";
-	}
+    @Override
+    public String toString() {
+        return "JMListTimeSeries(intervalSeconds=" + getIntervalSeconds()
+                + ", timeSeriesMap=" + timeSeriesMap.toString() + ")";
+    }
 
 }

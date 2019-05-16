@@ -105,6 +105,12 @@ public class JMResources {
         return ClassLoader.getSystemResourceAsStream(classpath);
     }
 
+    /**
+     * Gets file resource input stream.
+     *
+     * @param path the path
+     * @return the file resource input stream
+     */
     public static InputStream getFileResourceInputStream(String path) {
         return JMOptional.getOptional(path).map(JMPath::getPath)
                 .map(JMResources::newFileInputStream).orElse(null);
@@ -123,14 +129,14 @@ public class JMResources {
     /**
      * Gets resource input stream for zip.
      *
-     * @param zipFilePath the zip file path or classpath
+     * @param zipFilePath the zip file path
      * @param entryName   the entry name
      * @return the resource input stream for zip
      */
     public static InputStream getResourceInputStreamForZip(
             String zipFilePath, String entryName) {
         return getResourceInputStreamForZip(
-                Optional.ofNullable(JMFiles.getPath(zipFilePath))
+                Optional.of(JMFiles.getPath(zipFilePath))
                         .filter(JMPath::exists).map(Path::toFile).orElse(null),
                 entryName);
     }
@@ -239,7 +245,7 @@ public class JMResources {
     /**
      * Read string for zip string.
      *
-     * @param zipFilePath the zip file path or classpath
+     * @param zipFilePath the zip file path
      * @param entryName   the entry name
      * @param charsetName the charset name
      * @return the string
@@ -254,7 +260,7 @@ public class JMResources {
     /**
      * Read string for zip string.
      *
-     * @param zipFilePath the zip file path or classpath
+     * @param zipFilePath the zip file path
      * @param entryName   the entry name
      * @return the string
      */
@@ -319,7 +325,7 @@ public class JMResources {
     /**
      * Read lines for zip list.
      *
-     * @param zipFilePath the zip file path or classpath
+     * @param zipFilePath the zip file path
      * @param entryName   the entry name
      * @return the list
      */
@@ -333,7 +339,7 @@ public class JMResources {
     /**
      * Read lines for zip list.
      *
-     * @param zipFilePath the zip file path or classpath
+     * @param zipFilePath the zip file path
      * @param entryName   the entry name
      * @param charsetName the charset name
      * @return the list

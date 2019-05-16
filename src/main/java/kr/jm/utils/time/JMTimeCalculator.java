@@ -1,4 +1,3 @@
-
 package kr.jm.utils.time;
 
 import kr.jm.utils.enums.Milliseconds;
@@ -8,11 +7,11 @@ import kr.jm.utils.enums.Milliseconds;
  */
 public class JMTimeCalculator {
 
-	private static final long aSecond = Milliseconds.SECOND.getValue();
-	private static final long aMinute = Milliseconds.MINUTE.getValue();
-	private static final long anHour = Milliseconds.HOUR.getValue();
-	private static final long aDay = Milliseconds.DAY.getValue();
-	private static final long aWeek = Milliseconds.WEEK.getValue();
+    private static final long aSecond = Milliseconds.SECOND.getValue();
+    private static final long aMinute = Milliseconds.MINUTE.getValue();
+    private static final long anHour = Milliseconds.HOUR.getValue();
+    private static final long aDay = Milliseconds.DAY.getValue();
+    private static final long aWeek = Milliseconds.WEEK.getValue();
 
     /**
      * Gets timestamp minus timestamp.
@@ -22,9 +21,9 @@ public class JMTimeCalculator {
      * @return the timestamp minus timestamp
      */
     public static long getTimestampMinusTimestamp(long targetTimestamp,
-			long timestamp) {
-		return targetTimestamp - timestamp;
-	}
+            long timestamp) {
+        return targetTimestamp - timestamp;
+    }
 
     /**
      * Gets current minus timestamp.
@@ -33,8 +32,8 @@ public class JMTimeCalculator {
      * @return the current minus timestamp
      */
     public static long getCurrentMinusTimestamp(long timeMillis) {
-		return System.currentTimeMillis() - timeMillis;
-	}
+        return System.currentTimeMillis() - timeMillis;
+    }
 
     /**
      * Gets current minus timestamp.
@@ -43,9 +42,9 @@ public class JMTimeCalculator {
      * @return the current minus timestamp
      */
     public static long getCurrentMinusTimestamp(String isoTimestampString) {
-		return getCurrentMinusTimestamp(
-				JMTimeUtil.changeIsoTimestampToLong(isoTimestampString));
-	}
+        return getCurrentMinusTimestamp(
+                JMTimeUtil.changeIsoTimestampToLong(isoTimestampString));
+    }
 
     /**
      * Gets timestamp minus parameters.
@@ -59,13 +58,13 @@ public class JMTimeCalculator {
      * @return the timestamp minus parameters
      */
     public static long getTimestampMinusParameters(long targetTimestamp,
-			int numOfWeeks, int numOfDays, int numOfHours, int numOfMinutes,
-			int numOfSeconds) {
-		long sumOfParameters =
-				numOfWeeks * aWeek + numOfDays * aDay + numOfHours * anHour
-						+ numOfMinutes * aMinute + numOfSeconds * aSecond;
-		return targetTimestamp - sumOfParameters;
-	}
+            int numOfWeeks, int numOfDays, int numOfHours, int numOfMinutes,
+            int numOfSeconds) {
+        long sumOfParameters =
+                numOfWeeks * aWeek + numOfDays * aDay + numOfHours * anHour
+                        + numOfMinutes * aMinute + numOfSeconds * aSecond;
+        return targetTimestamp - sumOfParameters;
+    }
 
     /**
      * Gets current timestamp minus parameters.
@@ -78,10 +77,10 @@ public class JMTimeCalculator {
      * @return the current timestamp minus parameters
      */
     public static long getCurrentTimestampMinusParameters(int numOfWeeks,
-			int numOfDays, int numOfHours, int numOfMinutes, int numOfSeconds) {
-		return getTimestampMinusParameters(System.currentTimeMillis(),
-				numOfWeeks, numOfDays, numOfHours, numOfMinutes, numOfSeconds);
-	}
+            int numOfDays, int numOfHours, int numOfMinutes, int numOfSeconds) {
+        return getTimestampMinusParameters(System.currentTimeMillis(),
+                numOfWeeks, numOfDays, numOfHours, numOfMinutes, numOfSeconds);
+    }
 
     /**
      * Gets timestamp minus seconds.
@@ -91,9 +90,9 @@ public class JMTimeCalculator {
      * @return the timestamp minus seconds
      */
     public static long getTimestampMinusSeconds(long targetTimestamp,
-			int numOfSeconds) {
-		return targetTimestamp - numOfSeconds * aSecond;
-	}
+            int numOfSeconds) {
+        return targetTimestamp - numOfSeconds * aSecond;
+    }
 
     /**
      * Gets timestamp minus minutes.
@@ -103,9 +102,9 @@ public class JMTimeCalculator {
      * @return the timestamp minus minutes
      */
     public static long getTimestampMinusMinutes(long targetTimestamp,
-			int numOfMinutes) {
-		return targetTimestamp - numOfMinutes * aMinute;
-	}
+            int numOfMinutes) {
+        return targetTimestamp - numOfMinutes * aMinute;
+    }
 
     /**
      * Gets timestamp minus hours.
@@ -115,9 +114,9 @@ public class JMTimeCalculator {
      * @return the timestamp minus hours
      */
     public static long getTimestampMinusHours(long targetTimestamp,
-			int numOfHours) {
-		return targetTimestamp - numOfHours * anHour;
-	}
+            int numOfHours) {
+        return targetTimestamp - numOfHours * anHour;
+    }
 
     /**
      * Gets timestamp minus days.
@@ -127,9 +126,9 @@ public class JMTimeCalculator {
      * @return the timestamp minus days
      */
     public static long getTimestampMinusDays(long targetTimestamp,
-			int numOfDays) {
-		return targetTimestamp - numOfDays * aDay;
-	}
+            int numOfDays) {
+        return targetTimestamp - numOfDays * aDay;
+    }
 
     /**
      * Gets timestamp minus weeks.
@@ -139,9 +138,9 @@ public class JMTimeCalculator {
      * @return the timestamp minus weeks
      */
     public static long getTimestampMinusWeeks(long targetTimestamp,
-			int numOfWeeks) {
-		return targetTimestamp - numOfWeeks * aWeek;
-	}
+            int numOfWeeks) {
+        return targetTimestamp - numOfWeeks * aWeek;
+    }
 
     /**
      * Gets timestamp plus minutes.
@@ -151,9 +150,9 @@ public class JMTimeCalculator {
      * @return the timestamp plus minutes
      */
     public static long getTimestampPlusMinutes(long targetTimestamp,
-			int numOfMinutes) {
-		return targetTimestamp + numOfMinutes * aMinute;
-	}
+            int numOfMinutes) {
+        return targetTimestamp + numOfMinutes * aMinute;
+    }
 
     /**
      * Gets timestamp plus hours.
@@ -163,9 +162,9 @@ public class JMTimeCalculator {
      * @return the timestamp plus hours
      */
     public static long getTimestampPlusHours(long targetTimestamp,
-			int numOfHours) {
-		return targetTimestamp + numOfHours * anHour;
-	}
+            int numOfHours) {
+        return targetTimestamp + numOfHours * anHour;
+    }
 
     /**
      * Gets timestamp plus days.
@@ -175,9 +174,9 @@ public class JMTimeCalculator {
      * @return the timestamp plus days
      */
     public static long getTimestampPlusDays(long targetTimestamp,
-			int numOfDays) {
-		return targetTimestamp + numOfDays * aDay;
-	}
+            int numOfDays) {
+        return targetTimestamp + numOfDays * aDay;
+    }
 
     /**
      * Gets timestamp plus weeks.
@@ -187,8 +186,8 @@ public class JMTimeCalculator {
      * @return the timestamp plus weeks
      */
     public static long getTimestampPlusWeeks(long targetTimestamp,
-			int numOfWeeks) {
-		return targetTimestamp + numOfWeeks * aWeek;
-	}
+            int numOfWeeks) {
+        return targetTimestamp + numOfWeeks * aWeek;
+    }
 
 }

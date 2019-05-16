@@ -1,4 +1,3 @@
-
 package kr.jm.utils.helper;
 
 import java.util.function.Consumer;
@@ -15,8 +14,8 @@ public class JMConsumer {
      * @return the sopl
      */
     public static <T> Consumer<T> getSOPL() {
-		return System.out::println;
-	}
+        return System.out::println;
+    }
 
     /**
      * Gets sop.
@@ -25,8 +24,8 @@ public class JMConsumer {
      * @return the sop
      */
     public static <T> Consumer<T> getSOP() {
-		return System.out::print;
-	}
+        return System.out::print;
+    }
 
     /**
      * Gets consumer.
@@ -36,8 +35,8 @@ public class JMConsumer {
      * @return the consumer
      */
     public static <T> Consumer<T> getConsumer(Runnable runnable) {
-		return t -> runnable.run();
-	}
+        return t -> runnable.run();
+    }
 
     /**
      * Gets consumer.
@@ -47,7 +46,7 @@ public class JMConsumer {
      * @return the consumer
      */
     public static <T> Consumer<T> getConsumer(Consumer<T> returnConsumer) {
-		return returnConsumer;
-	}
+        return returnConsumer;
+    }
 
 }

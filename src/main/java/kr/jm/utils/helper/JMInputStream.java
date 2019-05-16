@@ -74,7 +74,8 @@ public class JMInputStream {
             consumeInputStream(inputStream, charsetName, stringList::add);
         } catch (Exception e) {
             return JMExceptionManager.handleExceptionAndReturn(log, e,
-                    "readLines", Collections::emptyList, inputStream, charsetName);
+                    "readLines", Collections::emptyList, inputStream,
+                    charsetName);
         }
         return stringList;
     }

@@ -1,4 +1,3 @@
-
 package kr.jm.utils.datastructure;
 
 import kr.jm.utils.helper.JMOptional;
@@ -10,8 +9,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.*;
 import static kr.jm.utils.helper.JMStream.buildTokenStream;
 import static kr.jm.utils.helper.JMString.LINE_SEPARATOR;
 

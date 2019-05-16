@@ -6,20 +6,12 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * The Class JMStatsTest.
- */
 public class JMStatsTest {
 
-    /**
-     * Test cal percent.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testCalPercent() {
         assertEquals(0, JMStats.calPercent(1, 101));
@@ -32,11 +24,6 @@ public class JMStatsTest {
         assertEquals("18.797", JMStats.calPercent(100, 532, 3));
     }
 
-    /**
-     * Test round with decimal place.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testRoundWithDecimalPlace() {
         double x = 100.125093920394890283;
@@ -45,11 +32,6 @@ public class JMStatsTest {
         assertTrue(100.13 == JMStats.roundWithDecimalPlace(x, 2));
     }
 
-    /**
-     * Test round with decimal.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testRoundWithDecimal() {
         double x = 10022250.02394;
@@ -62,11 +44,6 @@ public class JMStatsTest {
         assertTrue(10022300 == JMStats.roundWithPlace(l, 2));
     }
 
-    /**
-     * Test pow.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testPow() {
         assertTrue(4 == JMStats.pow(2, 2));
@@ -77,11 +54,6 @@ public class JMStatsTest {
         assertTrue(19683.0 == JMStats.pow(3, 9));
     }
 
-    /**
-     * Test cal variance.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testCalVariance() {
         assertTrue(0 == JMStats.calVariance(JMCollections.buildList
@@ -98,11 +70,6 @@ public class JMStatsTest {
         assertTrue(25.87777777777778 == JMStats.calVariance(sample3));
     }
 
-    /**
-     * Test cal standard deviation.
-     *
-     * @throws Exception the exception
-     */
     @Test
     public void testCalStandardDeviation() {
         List<Integer> sample1 = JMCollections.buildList(9, 2, 5, 4, 12, 7, 8,
@@ -122,9 +89,6 @@ public class JMStatsTest {
 
     }
 
-    /**
-     * Test cal pairwise variance.
-     */
     @Test
     public void testCalPairwiseVariance() {
         List<Number> sample1 = JMStream.numberRange(1, 1000000, 1)

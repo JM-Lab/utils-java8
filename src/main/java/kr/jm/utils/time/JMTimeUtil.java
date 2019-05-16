@@ -1,4 +1,3 @@
-
 package kr.jm.utils.time;
 
 import kr.jm.utils.datastructure.JMMap;
@@ -694,7 +693,7 @@ public class JMTimeUtil {
             int hour, int minute, int second, int mills, String zoneId) {
         return ZonedDateTime
                 .of(year, month, dayOfMonth, hour, minute, second,
-                        new Long(TimeUnit.MILLISECONDS.toNanos(mills))
+                        Long.valueOf(TimeUnit.MILLISECONDS.toNanos(mills))
                                 .intValue(),
                         getZoneId(zoneId))
                 .toInstant().toEpochMilli();
